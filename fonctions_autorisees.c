@@ -30,21 +30,107 @@ readline
 
 //wait4
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //signal
+		Permet au processus apellant la fonction signal de recevoir un signal d'un autre processus.
 
+		sighandler_t	signal(int signum, sighandler_t handler);
+	
+		signum  : le signal ressus.
+		handler : SIG_IGN -> le signal est ignoré.
+				  SIG_DFL -> l'action par défaut associé au signal est entreprise.
+				  handler -> configuration à SIG_DFL puis la fonction handler est apellé
+				  			 avec signum en argument.
+				  Les signaux SIGKILL et SIGSTOP ne peuvent être ni ignorés, ni interceptés.
+		EXEMPLE:
+					void	get_bin(int sig)
+					{
+					}
+	
+					int	main(void)
+					{
+						signal(SIGINT, get_bin);  ->  Une fois le signal SIGINT intercepté par
+					}								  la fonction singal, signal va apeller la
+													  fonction get_bin en lui passant en argument
+													  SIGINT.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //sigaction
+		L'appel système sigaction() sert à modifier laction effectuée par un processus
+		à la réception d'un signal spécifique.
+	
+		int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+	
+		signum	: signal concerné, à l'exception de SIGKILL et SIGSTOP.
+		act		: si non nul, défini la nouvelle action pour le signal signum.
+		oldact	: si non nul, sauvegarde l'ancienne action dans oldact.
+	
+		struct sigaction 
+		{
+	    	void     (*sa_handler) (int);
+	    	void     (*sa_sigaction) (int, siginfo_t *, void *);
+	    	sigset_t   sa_mask;
+	    	int        sa_flags;
+	    	void     (*sa_restorer) (void);
+		};
 
+		RETOUR ERREUR : 0 -> reussite.
+					   -1 -> erreur.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //sigemptyset
+		sigemptyset() vide l'ensemble de signaux fourni par set,
+		tous les signaux étant exclus de cet ensemble.
+	
+		int sigemptyset(sigset_t *set);
 
+		RETOUR ERREUR : 0 -> si signum n'est pas un membre de set.
+						1 -> si signum est un membre de set.
+					   -1 -> erreur.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //sigaddset
+		La fonction sigaddset () ajoute le signal individuel spécifié par 
+    	signo à l'ensemble de signaux pointé par set.
 
+		int sigaddset(sigset_t * set , int signo );
+
+		RETOUR ERREUR : 0 -> reussite.
+					   -1 -> erreur.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //kill
+		L'appel système kill() permet un envoie de signal
+		à un processus ou un groupe de processus.
 
+		int kill(pid_t pid, int sig);
+
+		pid	: pid du processus destinataire,  si > 0  -> envoie du signal au processus
+											  si = 1  -> envoie du signal à tous les processus
+											  			 appartenant au même groupe que le processus
+														 appelant.
+											  si = -1 -> le signal sig est envoyé à tous les
+											  			 processus pour lesquels le processus
+														 appelant à la permission d'envoyer des
+														 signaux, sauf celui de PID 1 (init).
+											 si < -1  -> le signal sig est envoyé à tous les
+											 			 processus du groupe dont l'identifiant
+														 est -pid.
+
+		sig	: signal à envoyer, si = 0 -> aucun signal n'est envoyé mais
+										  les conditions d'erreur sont 
+										  vérifiées.
+
+		EXEMPLE:
+					kill(33568, SIGUSR1);  	Envoie le signal SIGUSR1 au processus
+											possédant le pid 33568.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //exit
 
@@ -78,6 +164,7 @@ readline
 
 //pipe
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //opendir
 	DIR *opendir(const char *name);
@@ -87,7 +174,9 @@ readline
 
 	Valeur_de_retour_ou_cas_d_erreur:
 		pointeur sur le flux de repertoire en cas de REUSSITE
-		NULL en cas d'ECHER
+		NULL en cas d'ECHEC
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //readdir
 	struct dirent *readdir(DIR *dir);
@@ -98,6 +187,8 @@ readline
 	pointeur sur une structure dirent REUSSITE
 	NULL ECHEC
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //closedir
 
 
@@ -106,11 +197,14 @@ readline
 
 //perror
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //isatty
 	int isatty(int desc);
 
 	renvoie 1 si desc est un descripteur de fichier ouvert connecté à un terminal, ou 0 autrement.  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //tyname
 
@@ -120,6 +214,7 @@ readline
 
 //ioctl
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //getenv
 	char	*getenv(const char *name);
@@ -133,11 +228,15 @@ readline
 	output:
 		USER=kbrousse
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //tcsetattr
 
 
 //tcgetattr
 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#4-tget-et-tputs
 //tgetent
@@ -158,6 +257,8 @@ https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#4-tget-et-tputs
 		0, la base de données est accessible mais elle ne contient pas d’info pour ce type de terminal ou trop peu pour fonctionner convenablement
 		1, la base de données est accessible et toutes les infos pour ce terminal ont été chargées en mémoire.
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //tgetflag
 	int tgetflag(char *id);
 		id: ce que l'on souhaite recuperer
@@ -170,6 +271,8 @@ https://zestedesavoir.com/tutoriels/1733/termcap-et-terminfo/#4-tget-et-tputs
 			code
 		}
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //tgetnum
 	int tgetnum(char *id);
 		id: ce que l'on souhaite recuperer
@@ -181,6 +284,7 @@ Comme par exemple le nombre de lignes et de colonnes.
 		int column_count = tgetnum("co");
 		int line_count = tgetnum("li");
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //tgetstr
 	char *tgetstr(char *id, char **area);
@@ -192,9 +296,11 @@ Comme par exemple le nombre de lignes et de colonnes.
 	Exemple:
 		char *cl_cap = tgetstr("cl", NULL);
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //tgoto
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //tputs
 	int tputs(const char *str, int affcnt, int (*putc)(int));
@@ -208,6 +314,7 @@ Comme par exemple le nombre de lignes et de colonnes.
 		char *cl_cap = tgetstr("cl", NULL);
 		tputs (cl_cap, 1, putchar);
 	
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
