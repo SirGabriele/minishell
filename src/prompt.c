@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 11:08:38 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/03 10:32:13 by jsauvain         ###   ########.fr       */
+/*   Created: 2022/10/03 10:32:20 by jsauvain          #+#    #+#             */
+/*   Updated: 2022/10/03 10:33:07 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(void)
+void	ft_signal(int sig)
 {
-	signal(SIGINT, ft_signal);
-	signal(SIGQUIT, SIG_IGN);
-	cmd_prompt();
+	(void)sig;
+	ft_printf("\nminishell> ");
+	rl_redisplay();
 }
 
-/*main:
+void	cmd_prompt(void)
+{
+	char	*line_read;
 
--Fonction signal
--Fonction cmd_prompt
--parsing / gestion d'erreurs
--interpretation commande (pipex)
--Variables d'environnement
--$? status derniere commande
-
-*/
+	while (1)
+	{
+		line_read = readline("minishell> ");
+		parsing(line_read);
+	}
+}

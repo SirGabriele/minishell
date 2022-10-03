@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 11:08:38 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/03 10:32:13 by jsauvain         ###   ########.fr       */
+/*   Created: 2022/10/03 09:43:32 by jsauvain          #+#    #+#             */
+/*   Updated: 2022/10/03 09:47:00 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(void)
+int	echo(char **str, char *options)
 {
-	signal(SIGINT, ft_signal);
-	signal(SIGQUIT, SIG_IGN);
-	cmd_prompt();
+	int	i;
+
+	i = 0;
+	while (str[i + 1])
+		ft_printf("%s", str[i++]);
+	if (ft_strncmp(options, "-n", ft_strlen(options)))
+		ft_printf("\n");
+	return (0);
 }
-
-/*main:
-
--Fonction signal
--Fonction cmd_prompt
--parsing / gestion d'erreurs
--interpretation commande (pipex)
--Variables d'environnement
--$? status derniere commande
-
-*/
