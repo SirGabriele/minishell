@@ -6,7 +6,7 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:11:31 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/03 10:33:00 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:26:08 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	cmd_prompt(void);
 int		echo(char **str, char *options);
 
 //parsing.c
+char	*get_cmd_parsed(char *line_read);
+char	*parsing(char *line_read);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:32:20 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/10/03 10:33:07 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:13:25 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	cmd_prompt(void)
 	while (1)
 	{
 		line_read = readline("minishell> ");
-		parsing(line_read);
+		if (line_read)
+			add_history(line_read);
+		line_read = get_cmd_parsed(line_read);
+		ft_printf("%s\n", line_read);
 	}
 }

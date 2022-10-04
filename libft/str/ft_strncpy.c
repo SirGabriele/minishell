@@ -6,7 +6,7 @@
 /*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:09:55 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/03/01 12:36:14 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:54:31 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 		dest[index] = src[index];
 		index++;
 	}
-	while (index < n)
+	while (index < n - 1)
 	{
 		dest[index] = '\0';
 		index++;
 	}
+	dest[index] = '\0';
 	return (dest);
 }

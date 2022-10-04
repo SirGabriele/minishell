@@ -6,13 +6,13 @@
 #    By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/20 10:12:21 by kbrousse          #+#    #+#              #
-#    Updated: 2022/10/03 09:48:19 by jsauvain         ###   ########.fr        #
+#    Updated: 2022/10/04 10:23:50 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell 
 
-SRC = main.c builtins.c
+SRC = main.c builtins.c parsing.c prompt.c
 
 SRCS = $(addprefix src/, $(SRC))
 

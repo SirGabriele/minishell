@@ -6,67 +6,51 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:33:12 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/10/03 11:12:52 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:05:30 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_quotes(char *line_read)
-{
-	int		i;
-	int		s;
-	int		d;
-
-	i = 0;
-	s = 0;
-	d = 0;
-	while (line_read[i] == ''' && line_read[i] == '"')
-	{
-		if (line_read[i] == ''')
-			s++;
-		else if (line_read[i] == '"')
-			d++;
-		i++;
-	}
-	return ();
-}
-
-int	parsing_quotes(char *line_read)
-{
-	int		i;
-	int		d;
-
-	i = count_quotes(line_read);
-	q = i;
-	while (line_read[i] != ''' && line_read[i] != '"')
-		i++;
-	while (line_read[i] == ''' && line_read[i] == '"')
-	{
-		if (line_read[i] == ''')
-			s++;
-		else if (line_read[i] == '"')
-			d++;
-		i++;
-	}
-	if (s % 2 || d % 2)
-	{
-		ft_printf("Missing quotes.\n");
-		exit(1);
-	}
-	return (
-}
-
 char	*get_cmd_parsed(char *line_read)
 {
 	char	*duplicate;
-	return (line_read + i);
-}
-
-char	**parsing(char *line_read)
-{
-	int	i;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
-	line_read = get_cmd_parsed(line_read);
+	tmp = NULL;
+	duplicate = NULL;
+	while (line_read[i])
+	{
+		if (line_read[i] == 39 || line_read[i] == 34)
+		{
+			j = i++;
+			while (line_read[i] != line_read[j] && line_read[i])
+				i++;
+			if (!line_read[i])
+			{
+				ft_printf("Missing quotes.\n");
+				return (NULL);
+			}
+			if (i - j != 1)
+			{
+				tmp = malloc((i - j) * sizeof(char));
+				if (!tmp)
+					return (NULL);
+				tmp = ft_strncpy(tmp, line_read + j + 1, i - j - 1);
+				duplicate = ft_strjoin(duplicate, tmp);
+				if (!duplicate)
+					return (NULL);
+			}
+		}
+		else
+		{
+			tmp = ft_strncpy(tmp, line_read + i, 1);
+			duplicate = ft_strjoin(duplicate, tmp);
+		}
+		i++;
+	}
+	return (duplicate);
 }

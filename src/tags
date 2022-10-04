@@ -1,6 +1,9 @@
-E	../libft/char/ft_tolower.o	2
-E	../libft/char/ft_toupper.o	2
+MINISHELL_H	minishell.h	14
+Mmain	main.c	/^int main(void)$/
 check_string	../libft/gnl_tdl/get_next_line_utils_bonus.c	/^int	check_string(char *str)$/
+cmd_prompt	prompt.c	/^void	cmd_prompt(void)$/
+count_quotes	parsing.c	/^int	count_quotes(char *line_read)$/
+echo	builtins.c	/^int	echo(char **str, char *options)$/
 fill_malloc	../libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, i/
 fill_string	../libft/str/ft_split.c	/^static char	*fill_string(char *tab, const char *s,/
 ft_atoi	../libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/
@@ -62,6 +65,7 @@ ft_putstrprintf_error	../libft/ft_printf_error/ft_printer_functions_error.c	/^vo
 ft_read_file_and_fill_buf	../libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_read_file_and_fill_buf(t_listgnl *temp)$/
 ft_scan_after_percent_error	../libft/ft_printf_error/ft_printf_error.c	/^static int	ft_scan_after_percent_error(const char /
 ft_scan_after_percentage	../libft/ft_printf/ft_printf.c	/^static int	ft_scan_after_percentage(const char *fm/
+ft_signal	prompt.c	/^void	ft_signal(int sig)$/
 ft_specifier_asked_error	../libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_specifier_asked_error(const char **fmt, in/
 ft_specifier_requested	../libft/ft_printf/ft_specifier_requested.c	/^void	ft_specifier_requested(const char **fmt, int /
 ft_split	../libft/str/ft_split.c	/^char	**ft_split(char const *s, char c)$/
@@ -86,6 +90,7 @@ ft_strupcase	../libft/char/ft_strupcase.c	/^char	*ft_strupcase(char *str)$/
 ft_substr	../libft/str/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int start,/
 ft_tolower	../libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/
 ft_toupper	../libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
+get_cmd_parsed	parsing.c	/^char	*get_cmd_parsed(char *line_read)$/
 get_next_line	../libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
 howmanysep	../libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
 isinset	../libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/
@@ -96,3 +101,5 @@ makeshift_strcat	../libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *
 makeshift_strlen	../libft/str/ft_strdup.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	../libft/str/ft_strjoin.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	../libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
+parsing	parsing.c	/^char	**parsing(char *line_read)$/
+parsing_quotes	parsing.c	/^int	parsing_quotes(char *line_read)$/
