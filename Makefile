@@ -6,13 +6,13 @@
 #    By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/20 10:12:21 by kbrousse          #+#    #+#              #
-#    Updated: 2022/09/30 11:49:18 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/10/04 10:23:50 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell 
 
-SRC = main.c
+SRC = main.c builtins.c parsing.c prompt.c
 
 SRCS = $(addprefix src/, $(SRC))
 
@@ -27,6 +27,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 clean:
+	@make clean -sC libft
 	@rm -f $(OBJS)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
@@ -35,6 +36,7 @@ clean:
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 fclean: clean
+	@make fclean -sC libft
 	@rm -f $(NAME)
 
 re: fclean all
@@ -43,7 +45,8 @@ re: fclean all
 	@$(CC) $(FLAGS) -c -o $@ $<
  
 $(NAME): $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) $(READLINE) -o $(NAME)
+	@make -sC libft
+	@$(CC) $(FLAGS) -L. $(OBJS) -Llibft -lft $(READLINE) -o $(NAME)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
 	@echo "~  Compilation terminated!  ~"
