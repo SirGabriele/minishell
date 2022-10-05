@@ -21,4 +21,14 @@
 //	readline
 /////////////////////////
 
+# define FALSE -1
+
+typedef struct s_context_mini
+{
+	int	single_quote;
+	int	double_quote;
+}	t_context_mini;
+
+void	echo_requested(char **argv, char **env);
+
 #endif

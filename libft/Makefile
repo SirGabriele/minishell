@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/09/08 13:11:51 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/10/04 09:06:46 by kbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,6 +123,5 @@ $(NAME): $(OBJS)
 	@echo "~  Compilation terminated!  ~"
 	@echo "*           libft           *"
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
-
 
 .PHONY: all clean fclean re

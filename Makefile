@@ -6,13 +6,16 @@
 #    By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/20 10:12:21 by kbrousse          #+#    #+#              #
-#    Updated: 2022/09/30 11:49:18 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/10/04 09:25:39 by kbrousse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell 
 
-SRC = main.c
+LIBFT = libft/libft.a
+
+SRC = main.c	\
+	echo.c
 
 SRCS = $(addprefix src/, $(SRC))
 
@@ -35,6 +38,7 @@ clean:
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 fclean: clean
+	@make fclean -C libft --no-print-directory
 	@rm -f $(NAME)
 
 re: fclean all
@@ -42,12 +46,15 @@ re: fclean all
 .c.o:
 	@$(CC) $(FLAGS) -c -o $@ $<
  
-$(NAME): $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) $(READLINE) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(FLAGS) $(OBJS) $(READLINE) -Llibft -lft -Ilibft -o $(NAME)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
 	@echo "~  Compilation terminated!  ~"
 	@echo "*         minishell         *"
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
+
+$(LIBFT):
+	@make -C libft --no-print-directory
 
 .PHONY: all clean fclean re
