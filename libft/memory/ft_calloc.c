@@ -13,21 +13,21 @@
 
 void	*ft_calloc(size_t size, size_t nmemb)
 {
-	unsigned char	*tab;
+	unsigned char	*arr;
 	size_t			i;
 
 	i = 0;
 	if (size > 2147483647 || nmemb > 2147483647)
 		return (NULL);
-	tab = malloc(size * nmemb);
-	if (tab == NULL)
+	arr = malloc(size * nmemb);
+	if (arr == NULL)
 		return (NULL);
 	else if (nmemb * size > 2147483647)
 		return (NULL);
 	while (i < nmemb * size)
 	{
-		tab[i] = '\0';
+		arr[i] = '\0';
 		i++;
 	}
-	return ((void *)tab);
+	return ((void *)arr);
 }

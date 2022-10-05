@@ -3,19 +3,26 @@
 static char	*delete_quote(char *user_input, int i)
 {
 	int		j;
+	int		k;
 	char	*dup;
 
 	j = 0;
+	k = 0;
 	dup = ft_calloc(sizeof(char), ft_strlen(user_input));
-	while (*user_input != '\0')
+	while (user_input[k] != '\0')
 	{
-		if (j == i)
-			user_input++;
-		dup[j] = *user_input;
-		j++;
-		user_input++;
+		if (k == i)
+			k++;
+		else
+		{
+			dup[j] = user_input[k];
+			j++;
+			k++;
+		}
 	}
 	dup[j] = '\0';
+//	free(user_input);
+//	user_input = NULL;
 	return (dup);
 }
 
@@ -36,7 +43,7 @@ static int	is_quote_closed(char *user_input, int i)
   /*	Detects any isolated quote and deletes it from the line		*/
  /*															  	   */
 /******************************************************************/
-static void	delete_isolated_quotes(char *user_input)
+static char	*delete_isolated_quotes(char *user_input)
 {
 	int		i;
 	char	save;
@@ -58,21 +65,22 @@ static void	delete_isolated_quotes(char *user_input)
 		}
 		i++;
 	}
+	return (user_input);
 }
 
 char	*filter_cmd_line(char *user_input, char **env)
 {
-	int	i;
-
-	delete_isolated_quotes(user_input);
-	i = 0;
-	while (user_input[i] != '\0')
+//	int	i;
+	(void)env;
+	user_input = delete_isolated_quotes(user_input);
+//	i = 0;
+/*	while (user_input[i] != '\0')
 	{
 		if (user_input[i] == '\"')
 			user_input = manage_dollar_sign(user_input, env);
 		i++;
-	}
+	}*/
 	/*si single quotes, ne pas changer $*/
-	/*si double quotes, changer variable env*/
+	/*si double quotes, changer variable env*/	
 	return (user_input);
 }

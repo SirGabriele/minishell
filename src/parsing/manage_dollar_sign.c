@@ -1,11 +1,11 @@
 #include "../../includes/minishell.h"
 
-static char	*replace_env_variable(char *user_input, int i, char *env, int size)
+static char	*replace_env_var(char *user_input, int i, char *env, int size)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	tmp = malloc(sizeof(char) * i);
+	tmp = ft_calloc(sizeof(char), i + 1);
 	if (tmp == NULL)
 		return (NULL); // CLEAR MEM
 	tmp = ft_strncpy(tmp, user_input, i);
@@ -18,22 +18,22 @@ static char	*replace_env_variable(char *user_input, int i, char *env, int size)
 	tmp = ft_strjoin(tmp2, user_input + i + size);
 	free(tmp2);
 	tmp2 = NULL;
-	free(user_input);
-	user_input = NULL;
 	return (tmp);
 }
 
 static char	*extract_env_variable(char *user_input, int i, char **env)
 {
 	char	*var;
+	char	*tmp;
 	int		j;
 	int		k;
 
 	j = 0;
 	while (user_input[i + j] != ' ' && user_input[i + j] != '\"'
-		&& user_input[i + j] != '$' && user_input[i + j] != '\0')
+		&& user_input[i + j] != '$' && user_input[i + j] != '\0'
+		&& user_input[i + j] != '\'')
 		j++;
-	var = malloc(sizeof(char) * j + 1);
+	var = ft_calloc(sizeof(char),  j + 1);
 	if (var == NULL)
 		return (NULL); //CLEAR MEM
 	var = ft_strncpy(var, user_input + i, j);
@@ -42,7 +42,7 @@ static char	*extract_env_variable(char *user_input, int i, char **env)
 	{
 		if (ft_strncmp(env[k], var, j) == 0)
 		{
-			user_input = replace_env_variable(user_input, i - 1, env[k], ft_strlen(var) + 1);
+			tmp = replace_env_var(user_input, i - 1, env[k], ft_strlen(var) + 1);
 			break ;
 		}
 		k++;
@@ -52,15 +52,15 @@ static char	*extract_env_variable(char *user_input, int i, char **env)
 		ft_printf_error("Variable was not found\n");
 		//CLER MEM;
 	}
-	return (user_input);
+	return (tmp);
 }
 
 char	*manage_dollar_sign(char *user_input, char **env)
 {
-	int	i;
+	int		i;
 
 	i = 1;
-	while (user_input[i] != '\"' && user_input[i])
+	while (user_input[i] != '\"' && user_input[i] != '\0')
 	{
 		if (user_input[i] == '$')
 			user_input = extract_env_variable(user_input, i + 1, env);

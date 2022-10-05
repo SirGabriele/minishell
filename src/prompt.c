@@ -15,13 +15,16 @@
 void	ft_signal(int sig)
 {
 	(void)sig;
-	ft_printf("\nminishell> ");
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
 void	cmd_prompt(char **env)
 {
 	char	*user_input;
+	char	*refined_line;
 
 	while (1)
 	{
@@ -30,7 +33,9 @@ void	cmd_prompt(char **env)
 			exit(0);
 		if (user_input)
 			add_history(user_input);
-		user_input = filter_cmd_line(user_input, env);
-		ft_printf("%s\n", user_input);
+		refined_line = filter_cmd_line(user_input, env);
+		ft_printf("%s\n", refined_line);
+		free(user_input);
+		user_input = NULL;
 	}
 }
