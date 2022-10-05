@@ -6,7 +6,11 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/10/04 09:06:46 by kbrousse         ###   ########.fr        #
+=======
+#    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
+>>>>>>> d85fc3372b4bc30914889298d15029288add55b5
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,11 +96,15 @@ SRCS   =	$(addprefix char/, $(CHAR))							\
 			$(addprefix ft_printf_error/, $(FT_PRINTF_ERROR))
 	
 
-FLAGS =	-Wall -Wextra -Werror
+FLAGS =	-Wall -Wextra -Werror -g
 
 OBJS =	$(SRCS:.c=.o)
 
 CC =	gcc
+
+ifndef	COMPIL
+		
+endif
 
 all: $(NAME)
 	
@@ -117,11 +125,11 @@ re: fclean all
 	@$(CC) $(FLAGS) -I. -c $< -o $@ 
  
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
-	@echo "*                           *"
-	@echo "~  Compilation terminated!  ~"
-	@echo "*           libft           *"
-	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
+		@ar rcs $(NAME) $(OBJS)
+		@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
+		@echo "*                           *"
+		@echo "~  Compilation terminated!  ~"
+		@echo "*           libft           *"
+		@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 .PHONY: all clean fclean re
