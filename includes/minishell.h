@@ -19,25 +19,21 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-//prompt.c
-void	ft_signal(int sig);
-void	cmd_prompt(void);
-
-//builtins.c
-int		echo(char **str, char *options);
-
-//parsing.c
-char	*get_cmd_parsed(char *line_read);
-char	*parsing(char *line_read);
-
-# define FALSE -1
-
 typedef struct s_context_mini
 {
 	int	single_quote;
 	int	double_quote;
 }	t_context_mini;
 
-void	echo_requested(char **argv, char **env);
+//prompt.c
+void	ft_signal(int sig);
+void	cmd_prompt(char **env);
+
+//builtins.c
+int		echo(char **str, char *options);
+
+//parsing.c
+char	*filter_cmd_line(char *user_input, char **env);
+char	*manage_dollar_sign(char *user_input, char **env);
 
 #endif

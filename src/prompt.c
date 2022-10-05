@@ -6,11 +6,11 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:32:20 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/10/04 11:13:25 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/05 11:06:41 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	ft_signal(int sig)
 {
@@ -19,16 +19,18 @@ void	ft_signal(int sig)
 	rl_redisplay();
 }
 
-void	cmd_prompt(void)
+void	cmd_prompt(char **env)
 {
-	char	*line_read;
+	char	*user_input;
 
 	while (1)
 	{
-		line_read = readline("minishell> ");
-		if (line_read)
-			add_history(line_read);
-		line_read = get_cmd_parsed(line_read);
-		ft_printf("%s\n", line_read);
+		user_input = readline("minishell> ");
+		if (ft_strncmp(user_input, "exit", 4) == 0)
+			exit(0);
+		if (user_input)
+			add_history(user_input);
+		user_input = filter_cmd_line(user_input, env);
+		ft_printf("%s\n", user_input);
 	}
 }
