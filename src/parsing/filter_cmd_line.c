@@ -70,16 +70,16 @@ static char	*delete_isolated_quotes(char *user_input)
 
 char	*filter_cmd_line(char *user_input, char **env)
 {
-//	int	i;
+	int	i;
 	(void)env;
 	user_input = delete_isolated_quotes(user_input);
-//	i = 0;
-/*	while (user_input[i] != '\0')
+	i = 0;
+	while (user_input[i] != '\0')
 	{
 		if (user_input[i] == '\"')
 			user_input = manage_dollar_sign(user_input, env);
 		i++;
-	}*/
+	}
 	/*si single quotes, ne pas changer $*/
 	/*si double quotes, changer variable env*/	
 	return (user_input);
