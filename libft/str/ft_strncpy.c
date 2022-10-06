@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+char	*ft_strncpy(char *dest, char *src, int n)
 {
-	unsigned int	index;
+	int	index;
 
 	index = 0;
 	while (index < n && src[index] != '\0')

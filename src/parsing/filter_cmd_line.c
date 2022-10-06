@@ -1,5 +1,14 @@
 #include "../../includes/minishell.h"
 
+/********************************************/
+/*											*/
+/*	Parameters:								*/
+/*		user_input - line from the terminal	*/
+/*		i - index of the quote to delete	*/
+/*	Return:									*/
+/*		MALLOC'ED line without the quote	*/
+/*											*/
+/********************************************/
 static char	*delete_quote(char *user_input, int i)
 {
 	int		j;
@@ -21,8 +30,6 @@ static char	*delete_quote(char *user_input, int i)
 		}
 	}
 	dup[j] = '\0';
-//	free(user_input);
-//	user_input = NULL;
 	return (dup);
 }
 
@@ -38,11 +45,16 @@ static int	is_quote_closed(char *user_input, int i)
 	return (0);
 }
 
-    /******************************************************************/
-   /*															 	 */
-  /*	Detects any isolated quote and deletes it from the line		*/
- /*															  	   */
-/******************************************************************/
+/************************************************************/
+/*															*/
+/*	Detects all isolated quote and deletes it from the line	*/
+/*															*/
+/*	Parameters:												*/
+/*		user_input - line from the terminal         		*/
+/*	Return:													*/
+/*		MALLOC'ED line without all isolated quotes			*/
+/*															*/
+/************************************************************/
 static char	*delete_isolated_quotes(char *user_input)
 {
 	int		i;
@@ -68,19 +80,50 @@ static char	*delete_isolated_quotes(char *user_input)
 	return (user_input);
 }
 
-char	*filter_cmd_line(char *user_input, char **env)
+/************************************************************/
+/*                                                          */
+/*  Delete all the extremity quotes from the line 			*/
+/*                                                          */
+/*  Parameters:												*/
+/*		user_input - line from the terminal					*/
+/*	Example:												*/
+/*		"he'll'o w'orl'd" -> he'll'o w'orl'd				*/
+/*  Return:													*/
+/*		line without extremity quotes						*/
+/*                                                          */
+/************************************************************/
+/*static char	*delete_closed_quotes(char *user_input)
 {
-	int	i;
-	(void)env;
-	user_input = delete_isolated_quotes(user_input);
+	char	*tmp;
+	int		i;
+	int		j;
+
 	i = 0;
-	while (user_input[i] != '\0')
+	j = 0;
+	while (user_input[i])
 	{
-		if (user_input[i] == '\"')
-			user_input = manage_dollar_sign(user_input, env);
+		if (user_input[i] == '\'' || user_input[i] == '\"')
+			j++;
 		i++;
 	}
-	/*si single quotes, ne pas changer $*/
-	/*si double quotes, changer variable env*/	
+	tmp = malloc((ft_strlen(user_input) - j + 1) * sizeof(char));
+	tmp = get_tmp_without_quotes(tmp, user_input);
+	free(user_input);// CHECK SI UTILE
+	return (tmp);
+}*/
+
+char	*filter_cmd_line(char *user_input, char **env)
+{
+	user_input = delete_isolated_quotes(user_input);
+	user_input = convert_var_with_dollar(user_input, env);
+/*	while (user_input[i] != '\0')
+	{
+//		if (user_input[i] == '\"')
+	//		user_input = convert_var_with_dollar(user_input, env);
+		if (user_input[i] == '$')
+			user_input = conver_var_with_dollar(user_input, env);
+		i++;
+	}*/
+	//user_input = delete_closed_quotes(user_input);	
 	return (user_input);
 }

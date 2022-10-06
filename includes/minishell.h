@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 11:11:31 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/04 10:26:08 by jsauvain         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -34,6 +22,7 @@ int		echo(char **str, char *options);
 
 //parsing.c
 char	*filter_cmd_line(char *user_input, char **env);
-char	*manage_dollar_sign(char *user_input, char **env);
+char	*convert_var_with_dollar(char *user_input, char **env);
+char	*get_tmp_without_quotes(char *tmp, char *user_input);
 
 #endif

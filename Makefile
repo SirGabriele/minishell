@@ -6,8 +6,9 @@ SRC = main.c	\
 	builtins.c	\
 	prompt.c
 
-PARSING = filter_cmd_line.c	\
-	manage_dollar_sign.c
+PARSING = filter_cmd_line.c		\
+	convert_var_with_dollar.c	\
+	utils_filter.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))
