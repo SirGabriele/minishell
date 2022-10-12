@@ -3,7 +3,7 @@
 
 # include <stdio.h>
 # include <signal.h>
-# include "../libft/libft.h"
+# include "../src/libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 

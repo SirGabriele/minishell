@@ -1,17 +1,19 @@
 NAME = minishell 
 
-LIBFT = libft/libft.a
+LIBFT = src/libft/libft.a
 
 SRC = main.c	\
-	builtins.c	\
 	prompt.c
 
 PARSING = filter_cmd_line.c		\
 	convert_var_with_dollar.c	\
 	utils_filter.c
 
+BUILTINS = builtins.c
+
 SRCS = $(addprefix src/, $(SRC))			\
-	$(addprefix src/parsing/, $(PARSING))
+	$(addprefix src/parsing/, $(PARSING))	\
+	$(addprefix src/builtins/, $(BUILTINS))
 
 CC = gcc
 
@@ -32,7 +34,7 @@ clean:
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 fclean: clean
-	@make fclean -C libft --no-print-directory
+	@make fclean -C src/libft --no-print-directory
 	@rm -f $(NAME)
 
 re: fclean all
@@ -41,7 +43,7 @@ re: fclean all
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -Llibft -lft -Ilibft $(READLINE) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) -Lsrc/libft -lft -Isrc/libft $(READLINE) -o $(NAME)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
 	@echo "~  Compilation terminated!  ~"
@@ -49,6 +51,6 @@ $(NAME): $(LIBFT) $(OBJS)
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 $(LIBFT):
-	@make -C libft --no-print-directory
+	@make -C src/libft --no-print-directory
 
 .PHONY: all clean fclean re

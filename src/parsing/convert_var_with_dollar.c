@@ -12,9 +12,7 @@
 /************************************************************************/
 static char	*delete_dollar_from_line(char *user_input, int i)
 {
-
-NE FONCTIONNE PAS AVEC $U'SER COMME INPUT
-/*	char	*tmp;
+	char	*tmp;
 	char	*tmp2;
 	int		j;
 
@@ -34,7 +32,7 @@ NE FONCTIONNE PAS AVEC $U'SER COMME INPUT
 	tmp2 = ft_strjoin(tmp, user_input + i + j);
 	free(tmp);
 	free(user_input);
-	return (tmp2);*/
+	return (tmp2);
 }
 /************************************************************************/
 /*                                                     					*/

@@ -6,11 +6,11 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 09:43:32 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/10/03 09:47:00 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/12 10:39:37 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	echo(char **str, char *options)
 {

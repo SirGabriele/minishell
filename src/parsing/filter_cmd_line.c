@@ -92,7 +92,7 @@ static char	*delete_isolated_quotes(char *user_input)
 /*		line without extremity quotes						*/
 /*                                                          */
 /************************************************************/
-/*static char	*delete_closed_quotes(char *user_input)
+static char	*delete_useless_closed_quotes(char *user_input)
 {
 	char	*tmp;
 	int		i;
@@ -110,20 +110,12 @@ static char	*delete_isolated_quotes(char *user_input)
 	tmp = get_tmp_without_quotes(tmp, user_input);
 	free(user_input);// CHECK SI UTILE
 	return (tmp);
-}*/
+}
 
 char	*filter_cmd_line(char *user_input, char **env)
 {
 	user_input = delete_isolated_quotes(user_input);
 	user_input = convert_var_with_dollar(user_input, env);
-/*	while (user_input[i] != '\0')
-	{
-//		if (user_input[i] == '\"')
-	//		user_input = convert_var_with_dollar(user_input, env);
-		if (user_input[i] == '$')
-			user_input = conver_var_with_dollar(user_input, env);
-		i++;
-	}*/
-	//user_input = delete_closed_quotes(user_input);	
+	user_input = delete_useless_closed_quotes(user_input);	
 	return (user_input);
 }
