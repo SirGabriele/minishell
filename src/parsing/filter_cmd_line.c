@@ -36,7 +36,7 @@ static char	*delete_quote(char *user_input, int i)
 static int	is_quote_closed(char *user_input, int i)
 {
 	int	j;
-	
+
 	j = i + 1;
 	while (user_input[j] != user_input[i] && user_input[j] != '\0')
 		j++;
