@@ -60,7 +60,7 @@ static char	*replace_dollar_by_env_var(char *user_input, char *env_var, int i)
 		ft_printf_error("Error happened in replace_dollar"\
 			"_with_env_var's malloc\n");
 		free(user_input);
-		exit(-1);
+		exit(-1); /d///sad virer l'exit
 	}
 	tmp = ft_strncpy(tmp, user_input, i);
 	while (env_var[j - 1] != '=' && env_var[j] != '\0')

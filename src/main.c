@@ -18,7 +18,9 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, SIG_IGN);
-	cmd_prompt(env);
+	if (cmd_prompt(env) == -1)
+		return (-1);
+	return (0);
 }
 
 /*main:

@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+static void	free_user_input(char *user_input)
+{
+	free(user_input);
+	user_input = NULL;
+}
+
 void	ft_signal(int sig)
 {
 	(void)sig;
@@ -21,10 +27,10 @@ void	ft_signal(int sig)
 	rl_redisplay();
 }
 
-void	cmd_prompt(char **env)
+int	cmd_prompt(char **env)
 {
 	char	*user_input;
-
+	(void)env;
 	while (1)
 	{
 		user_input = readline("minishell> ");
@@ -32,18 +38,26 @@ void	cmd_prompt(char **env)
 		{
 			rl_clear_history();
 			write(1, "exit\n", 4);
-			exit(0);
+			return (0);
 		}
 		if (ft_strncmp(user_input, "exit", 4) == 0)
 		{
 			rl_clear_history();
-			exit(0);
+			free_user_input(user_input);
+			return (0);
 		}
 		if (ft_strlen(user_input) > 0)
 			add_history(user_input);
-		user_input = filter_cmd_line(user_input, env);
-		ft_printf("%s\n", user_input);
-		free(user_input);
-		user_input = NULL;
+		if (launch_program(user_input) == -1)
+		{
+			free_user_input(user_input);
+			return (-1);
+		}
+		else
+		{
+			ft_printf("%s\n", user_input);
+			free_user_input(user_input);
+		}
 	}
+	return (0);
 }

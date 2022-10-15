@@ -2,16 +2,20 @@ NAME = minishell
 
 LIBFT = libft/libft.a
 
-SRC = main.c	\
-	builtins.c	\
-	prompt.c
+SRC = main.c			\
+	builtins.c			\
+	prompt.c			\
+	launch_program.c
 
-PARSING = filter_cmd_line.c		\
+INIT = init_struct_array.c
+
+PARSING = ft_check_quotes.c		\
 	convert_var_with_dollar.c	\
 	utils_filter.c
 
 SRCS = $(addprefix src/, $(SRC))			\
-	$(addprefix src/parsing/, $(PARSING))
+	$(addprefix src/parsing/, $(PARSING))	\
+	$(addprefix src/init/, $(INIT))
 
 CC = gcc
 
