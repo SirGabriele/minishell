@@ -10,8 +10,11 @@ SRC = main.c					\
 
 INIT = init_struct_array.c
 
-CHECK = ft_check_quotes.c				\
-	ft_check_and_or_operators_usage.c	\
+CHECK = ft_check_quotes.c		\
+	ft_check_ampersands.c		\
+	ft_check_triple_and_or.c	\
+	ft_check_and_or_operators.c	\
+	ft_check_pipes.c			\
 	get_missing_user_input.c
 
 PARSING =	convert_var_with_dollar.c	\

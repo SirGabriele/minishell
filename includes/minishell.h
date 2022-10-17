@@ -39,15 +39,26 @@ void	highlight_syntax_error(const char *str, int start, int end);
 /************/
 /*	CHECK	*/
 /************/
-//ft_check_and_or_operators_usage.c
-int	ft_are_all_and_or_operators_closed(const char *user_input);
+
+//ft_check_quotes.c
+int	ft_check_isolated_quotes(const char *user_input);
+
+//ft_check_ampersands.c
+int	ft_check_isolated_ampersands(const char *user_input);
+
+//ft_check_triple_and_or.c
+int	ft_check_triple_and_or(const char *user_input);
+
+//ft_check_and_or_operators.c
+int	are_all_and_or_operators_closed(const char *user_input);
 int	ft_check_syntax_before_operators(const char *user_input);
+
+//ft_check_pipes.c
+int	are_all_pipes_closed(const char *user_input);
+int	ft_check_syntax_before_pipes(const char *user_input);
 
 //get_missing_user_input.c
 char	*get_missing_user_input(char **user_input);
-
-//ft_check_quotes.c
-int	ft_check_quotes(const char *user_input);
 
 /************/
 /*	PARSING	*/

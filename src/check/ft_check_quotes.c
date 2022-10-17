@@ -19,10 +19,11 @@ static int	is_quote_closed(const char *user_input, int i)
 /*	Parameters:												*/
 /*		user_input - line from the terminal         		*/
 /*	Return:													*/
-/*		MALLOC'ED line without all isolated quotes			*/
+/*		0 - no isolated quote is detected					*/
+/*		1 - an isolated quote is detected					*/
 /*															*/
 /************************************************************/
-int	ft_check_quotes(const char *user_input)
+int	ft_check_isolated_quotes(const char *user_input)
 {
 	int		i;
 	char	save;

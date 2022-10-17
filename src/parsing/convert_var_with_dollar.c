@@ -125,7 +125,7 @@ static char	*extract_env_variable_line(char *user_input, int i, char **env)
 /*		0 - env_variable is between double quotes or alone			*/
 /*		1 - env_variable is between single quotes					*/
 /********************************************************************/
-static int	what_is_dollar_in(char *user_input, int i)
+static int	what_is_dollar_in(const char *user_input, int i)
 {
 	int		j;
 	char	c;
