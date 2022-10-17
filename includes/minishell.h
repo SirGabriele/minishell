@@ -23,19 +23,45 @@ typedef struct s_pipelines_ms
 	struct s_cmd_list_ms	*first_cmd;
 }	t_pipelines_ms;
 
+/********/
+/*	SRC	*/
+/********/
 //launch_program.c
-int	launch_program(char *user_input);
-int	ft_check_quotes(char *user_input);
+int	launch_program(char **user_input);
 
 //prompt.c
 void	ft_signal(int sig);
 int	cmd_prompt(char **env);
 
-//parsing.c
+//highlight_syntax_error.c
+void	highlight_syntax_error(const char *str, int start, int end);
+
+/************/
+/*	CHECK	*/
+/************/
+//ft_check_and_or_operators_usage.c
+int	ft_are_all_and_or_operators_closed(const char *user_input);
+int	ft_check_syntax_before_operators(const char *user_input);
+
+//get_missing_user_input.c
+char	*get_missing_user_input(char **user_input);
+
+//ft_check_quotes.c
+int	ft_check_quotes(const char *user_input);
+
+/************/
+/*	PARSING	*/
+/************/
+//convert_var_with_dollar.c
 char	*convert_var_with_dollar(char *user_input, char **env);
+
+//utils_filter.c
 char	*get_tmp_without_quotes(char *tmp, char *user_input);
 
-//init
+/************/
+/*	INIT	*/
+/************/
+//init_struct_array
 int    init_struct_array(const char *user_input);
 
 #endif

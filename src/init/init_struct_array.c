@@ -15,7 +15,6 @@ static int	how_many_and_or_operator(const char *user_input)
 		i++;
 	}
 	nb_and_or_operators++;
-	ft_printf("%d\n", nb_and_or_operators);
 	return (nb_and_or_operators);
 }
 

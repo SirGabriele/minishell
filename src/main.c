@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **env)
 	signal(SIGINT, ft_signal);
 	signal(SIGQUIT, SIG_IGN);
 	if (cmd_prompt(env) == -1)
-		return (-1);
+		return (1);
 	return (0);
 }
 
