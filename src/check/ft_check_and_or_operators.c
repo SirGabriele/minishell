@@ -37,7 +37,39 @@ static int	what_is_operator_in(const char *user_input, int i)
 	return (0);
 }
 
+/********************************************************************/
+/*                                                     				*/
+/*  Determines if the syntax before the operator is valid or not	*/
+/*                                                     	 			*/
+/*  Parameters:														*/
+/*		user_input - line from the terminal							*/
+/*		i - index of the operator found								*/
+/*  Return:															*/
+/*		0 - syntax is valid											*/
+/*	   -1 - syntax is not valid										*/
+/********************************************************************/
 static int	is_previous_syntax_valid(const char *user_input, int i)
+{
+	int	j;
+	int	booly;
+
+	j = 0;
+	while (j <= i)
+	{
+		if (ft_isalnum(user_input[j]) == 1)
+			booly = 0;
+		if ((user_input[j] == '&' && user_input[j + 1] == '&')
+			|| (user_input[j] == '|' && user_input[j + 1] == '|'))
+		{
+			booly = -1;
+			j++;
+		}
+		j++;
+	}
+	return (booly);	
+}
+
+/*static int	is_previous_syntax_valid(const char *user_input, int i)
 {
 	int		j;
 	char	c;
@@ -60,11 +92,11 @@ static int	is_previous_syntax_valid(const char *user_input, int i)
 			return (0);
 	}
 	if (j == 0 && ((user_input[j] == '&' && user_input[j - 1] == '&')
-		|| (user_input[j] == '|' && user_input[j - 1] == '|')\
+		|| (user_input[j] == '|' && user_input[j - 1] == '|')
 		|| (user_input[j] == '|' && user_input[j - 1] != '|')))
 		return (-1);
 	return (0);
-}
+}*/
 
 /************************************************************/
 /*															*/
@@ -76,29 +108,16 @@ static int	is_previous_syntax_valid(const char *user_input, int i)
 /*	Return:													*/
 /*		0 - it is valid										*/
 /*		1 - it isn't valid									*/
-/*															*/
 /************************************************************/
-int	ft_check_syntax_before_operators(const char *user_input)
+int	ft_check_syntax_before_operators(const char *user_input, int i)
 {
-	int		i;
-
-	i = 0;
-	while (user_input[i] != '\0')
+	if ((what_is_operator_in(user_input, i) == 0)
+		&& (is_previous_syntax_valid(user_input, i) == -1))
 	{
-		if (((user_input[i] == '&' && user_input[i + 1] == '&')
-			|| (user_input[i] == '|' && user_input[i + 1] == '|'))
-			&& (what_is_operator_in(user_input, i) == 0))
-		{
-			if (is_previous_syntax_valid(user_input, i) == -1)
-			{
-				ft_printf_error("minishell: syntax error near unexpected"\
-					" token `%c%c'\n", user_input[i], user_input[i + 1]);
-				highlight_syntax_error(user_input, i, i + 1);
-				return (-1) ;
-			}
-			i++;
-		}
-		i++;
+		ft_printf_error("minishell: syntax error near unexpected"\
+			" token `%c%c'\n", user_input[i], user_input[i + 1]);
+		highlight_syntax_error(user_input, i, i + 1);
+		return (-1) ;
 	}
 	return (0);
 }
