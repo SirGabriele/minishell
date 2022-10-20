@@ -1,19 +1,35 @@
 NAME = minishell 
 
-LIBFT = src/libft/libft.a
+LIBFT = libft/libft.a
 
-SRC = main.c	\
-	prompt.c
+SRC = highlight_syntax_error.c
 
-PARSING = filter_cmd_line.c		\
-	convert_var_with_dollar.c	\
-	utils_filter.c
+MAIN = main.c					\
+	prompt.c					\
+	launch_program.c			\
 
 BUILTINS = builtins.c
 
+FREE = free.c
+
+INIT = init_struct_array.c
+
+CHECK = ft_check_quotes.c		\
+	ft_check_ampersands.c		\
+	ft_check_and_or_operators.c	\
+	ft_check_pipes.c			\
+	get_missing_user_input.c
+
+PARSING = convert_var_with_dollar.c	\
+	utils_filter.c
+
 SRCS = $(addprefix src/, $(SRC))			\
-	$(addprefix src/parsing/, $(PARSING))	\
-	$(addprefix src/builtins/, $(BUILTINS))
+	$(addprefix src/main/, $(MAIN))			\
+	$(addprefix src/builtins/, $(BUILTINS))	\
+	$(addprefix src/free/, $(FREE))			\
+	$(addprefix src/init/, $(INIT))			\
+	$(addprefix src/check/, $(CHECK))		\
+	$(addprefix src/parsing/, $(PARSING))
 
 CC = gcc
 
@@ -34,7 +50,7 @@ clean:
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 fclean: clean
-	@make fclean -C src/libft --no-print-directory
+	@make fclean -C libft --no-print-directory
 	@rm -f $(NAME)
 
 re: fclean all
@@ -43,7 +59,7 @@ re: fclean all
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -Lsrc/libft -lft -Isrc/libft $(READLINE) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) -Llibft -lft -Ilibft $(READLINE) -o $(NAME)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
 	@echo "~  Compilation terminated!  ~"
@@ -51,6 +67,6 @@ $(NAME): $(LIBFT) $(OBJS)
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
 $(LIBFT):
-	@make -C src/libft --no-print-directory
+	@make -C libft --no-print-directory
 
 .PHONY: all clean fclean re

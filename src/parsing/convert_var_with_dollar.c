@@ -2,7 +2,7 @@
 
 /************************************************************************/
 /*                                                     					*/
-/*  Deletes the $STRING in user_input									*/
+/*  Deletes the $STRING in user_input because $STRING doesn't exist		*/
 /*                                                     	 				*/
 /*  Parameters:															*/
 /*		user_input - line from the terminal								*/
@@ -24,16 +24,18 @@ static char	*delete_dollar_from_line(char *user_input, int i)
 		free(user_input);
 		exit(-1);
 	}
+	tmp = ft_strncpy(tmp, user_input, i);
+	i++;
 	while (user_input[i + j] != ' ' && user_input[i + j] != '\"'
 		&& user_input[i + j] != '$' && user_input[i + j] != '\0'
 		&& user_input[i + j] != '\'')
 		j++;
-	tmp = ft_strncpy(tmp, user_input, i);
 	tmp2 = ft_strjoin(tmp, user_input + i + j);
 	free(tmp);
 	free(user_input);
 	return (tmp2);
 }
+
 /************************************************************************/
 /*                                                     					*/
 /*  Replaces the $STRING with env_variable in user_input				*/
@@ -45,7 +47,7 @@ static char	*delete_dollar_from_line(char *user_input, int i)
 /*  Return:																*/
 /*		MALLOC'ED user_input with $STRING replace with its env_variable	*/
 /************************************************************************/
-static char	*replace_dollar_with_env_var(char *user_input, char *env_var, int i)
+static char	*replace_dollar_by_env_var(char *user_input, char *env_var, int i)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -55,9 +57,10 @@ static char	*replace_dollar_with_env_var(char *user_input, char *env_var, int i)
 	tmp = ft_calloc(sizeof(char), i + 1);
 	if (tmp == NULL)
 	{
-		ft_printf_error("Error happened in replace_dollar_with_env_var's malloc\n");
+		ft_printf_error("Error happened in replace_dollar"\
+			"_with_env_var's malloc\n");
 		free(user_input);
-		exit(-1);
+		exit(-1); ///sad virer l'exit
 	}
 	tmp = ft_strncpy(tmp, user_input, i);
 	while (env_var[j - 1] != '=' && env_var[j] != '\0')
@@ -92,7 +95,7 @@ static char	*extract_env_variable_line(char *user_input, int i, char **env)
 		&& user_input[i + j] != '$' && user_input[i + j] != '\0'
 		&& user_input[i + j] != '\'')
 		j++;
-	var = ft_calloc(sizeof(char),  j + 1);
+	var = ft_calloc(sizeof(char), j + 1);
 	if (var == NULL)
 		return (NULL);
 	var = ft_strncpy(var, user_input + i, j);
@@ -108,48 +111,6 @@ static char	*extract_env_variable_line(char *user_input, int i, char **env)
 	free(var);
 	var = NULL;
 	return (env[i]);
-}
-
-/********************************************************************/
-/*                                                     				*/
-/*  Determines if the environment variable found is between			*/
-/*	single/double quotes or not in any sort of quotes				*/
-/*                                                     	 			*/
-/*  Parameters:														*/
-/*		user_input - line from the terminal							*/
-/*		i - index of the '$' symbol found							*/
-/*  Return:															*/
-/*		0 - env_variable is between double quotes or alone			*/
-/*		1 - env_variable is between single quotes					*/
-/********************************************************************/
-static int	what_is_dollar_in(char *user_input, int i)
-{
-	int		j;
-
-	j = 0;
-	while (user_input[j] != '\0')
-	{
-		if (user_input[j] == '\"')
-		{
-			j++;
-			while (user_input[j] != '\"' && user_input[j] != '\0')
-				j++;
-			if (j > i)
-				return (0);
-		}
-		else if (user_input[j] == '\'')
-		{
-			j++;
-			while (user_input[j] != '\'' && user_input[j] != '\0')
-				j++;
-			if (j > i)
-				return (-1);
-		}
-		else if (user_input[j] == '$')
-			return (0);
-		j++;
-	}
-	return (-1);
 }
 
 /************************************************************/
@@ -175,16 +136,13 @@ char	*convert_var_with_dollar(char *user_input, char **env)
 	i = 0;
 	while (user_input[i] != '\0')
 	{
-		if (user_input[i] == '$')
+		if (user_input[i] == '$' && what_is_character_in(user_input, i))
 		{
-			if (what_is_dollar_in(user_input, i) == 0)
-			{
-				env_var = extract_env_variable_line(user_input, i + 1, env);
-				if (env_var == NULL)
-					user_input = delete_dollar_from_line(user_input, i);
-				else
-					user_input = replace_dollar_with_env_var(user_input, env_var, i);
-			}
+			env_var = extract_env_variable_line(user_input, i + 1, env);
+			if (env_var == NULL)
+				user_input = delete_dollar_from_line(user_input, i);
+			else
+				user_input = replace_dollar_by_env_var(user_input, env_var, i);
 		}
 		i++;
 	}

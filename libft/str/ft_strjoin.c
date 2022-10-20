@@ -6,7 +6,7 @@
 /*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:20 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/04 10:58:41 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:38:18 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -24,9 +24,9 @@ static int	makeshift_strlen(const char *str)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*tab;
-	size_t	i;
-	size_t	j;
-	size_t	lens1s2;
+	int		i;
+	int		j;
+	int		lens1s2;
 
 	i = 0;
 	j = 0;
