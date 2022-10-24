@@ -29,28 +29,31 @@ int	check_space(char *user_input, int index)
 	return (j);
 }
 
-int	what_is_character_in(const char *user_input, int i)
+int	character_emplacement(const char *user_input, int i)
 {
 	int		j;
-	char	cpy;
+	char	k;
 
 	j = 0;
 	while (user_input[j] != '\0')
 	{
-		if (user_input[j] == '\"' || user_input[j] == '\'')
+		if (user_input[j - 1] == '\"' || user_input[j - 1] == '\'')
 		{
-			cpy = user_input[j];
-			j++;
-			while (user_input[j] != cpy && user_input[j] != '\0')
+			k = j - 1;
+			while (user_input[j] != user_input[k] && user_input[j] != '\0')
 				j++;
-			if (j > i && cpy == '\'')
-				return (0);
-			else if (j > i && cpy == '\"')
+			if (j == k + 1 && user_input[j] == user_input[k])
 				return (1);
+			else if (j == k + 1 && user_input[j] == user_input[k])
+				return (2);
+			else if (j > i && user_input[j] == '\'')
+				return (3);
+			else if (j > i && user_input[j] == '\"')
+				return (4);
 		}
 		j++;
 	}
-	return (2);
+	return (0);
 }
 /*
 char	*get_tmp_without_quotes(char *tmp, char *user_input)

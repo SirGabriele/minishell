@@ -136,7 +136,9 @@ char	*convert_var_with_dollar(char *user_input, char **env)
 	i = 0;
 	while (user_input[i] != '\0')
 	{
-		if (user_input[i] == '$' && what_is_character_in(user_input, i))
+		if (user_input[i] == '$' &&
+			(!what_is_character_in(user_input, i) ||
+			what_is_character_in(user_input, i) == 2))
 		{
 			env_var = extract_env_variable_line(user_input, i + 1, env);
 			if (env_var == NULL)
