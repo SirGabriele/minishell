@@ -47,6 +47,7 @@ int	launch_program(char *user_input)
 	commands = init_struct_array(user_input);
 	if (commands == NULL)
 		return (-1);
+	commands = parsing(commands, count_pipes(user_input));
 	free_commands(commands, count_pipes(user_input) + 1);
 	return (0);
 }

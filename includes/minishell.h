@@ -60,6 +60,8 @@ char		*get_missing_user_input(char **user_input);
 /************/
 /*	PARSING	*/
 /************/
+//parsing.c
+char	*remove_useless_spaces(char	*pipeline);
 
 //convert_var_with_dollar.c
 char		*convert_var_with_dollar(char *user_input, char **env);
@@ -82,4 +84,5 @@ t_cmd_ms	*init_struct_array(const char *user_input);
 
 //free.c
 void		free_commands(t_cmd_ms *commands, int i);
+
 #endif
