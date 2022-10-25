@@ -42,5 +42,7 @@ t_cmd_ms	*parse_command_line(char *pipeline)
 		arg = malloc(get_end_of_argument_index(pipeline) * sizeof(char));
 		arg = ft_strncpy(tmp, pipeline, get_end_of_argument_index(pipeline));
 		arg = parse_argument(arg);
+		free(arg);
 	}
+	return ();
 }
