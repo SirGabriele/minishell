@@ -12,7 +12,12 @@ static void	print_after_end(const char *str, int end, int line)
 		if (line == 0)
 			ft_printf("%c", str[i]);
 		else if (line == 1)
-			ft_printf(" ");
+		{
+			if (ft_isprint(str[i]) == 1)
+				ft_printf(" ", str[i]);
+			else
+				ft_printf("%c", str[i]);
+		}
 		i++;
 	}
 }
@@ -27,7 +32,7 @@ static void	print_syntax_error(const char *str, int start, int end, int line)
 	while (i <= end)
 	{
 		if (line == 0)
-			ft_printf("\e[1;91m%c\e[0m", str[i]);
+			ft_printf("\e[1;91m%c\e[0m", str[i]); // changer en printf_fd
 		else if (line == 1)
 			ft_printf("\e[1;91m^\e[0m");
 		i++;
@@ -44,7 +49,12 @@ static void	print_before_start(const char *str, int start, int line)
 		if (line == 0)
 			ft_printf("%c", str[i]);
 		else if (line == 1)
-			ft_printf(" ");
+		{
+			if (ft_isprint(str[i]) == 1)
+				ft_printf(" ");
+			else
+				ft_printf("%c", str[i]);
+		}
 		i++;
 	}
 }

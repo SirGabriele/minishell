@@ -31,6 +31,7 @@ char	*get_missing_user_input(char **user_input)
 			new_user_input = join_strings_and_add_space(user_input, missing_input);
 			free(*user_input);
 			user_input = NULL;
+			add_history(new_user_input);
 			return (new_user_input);
 		}
 	}

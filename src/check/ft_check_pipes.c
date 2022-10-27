@@ -2,17 +2,17 @@
 
 /********************************************************************/
 /*                                                     				*/
-/*  Determines if the pipe is between single/double quotes			*/
+/*  Determines if the index is between single/double quotes			*/
 /*	or not in any sort of quotes									*/
 /*                                                     	 			*/
 /*  Parameters:														*/
 /*		user_input - line from the terminal							*/
-/*		i - index of the operator found								*/
+/*		i - index of the character to check							*/
 /*  Return:															*/
-/*		0 - pipe is alone											*/
-/*	   -1 - pipe is between single or double quotes					*/
+/*		0 - character is alone										*/
+/*	   -1 - character is between single or double quotes			*/
 /********************************************************************/
-static int	what_is_pipe_in(const char *user_input, int i)
+int	what_is_index_in(const char *user_input, int i)//A ajouter dans utils
 {
 	int		j;
 	char	c;
@@ -29,7 +29,7 @@ static int	what_is_pipe_in(const char *user_input, int i)
 			if (j > i)
 				return (-1);
 		}
-		else if (user_input[j] == '|' && user_input[j + 1] != '|')
+		else if (j == i)
 			return (0);
 		j++;
 	}
@@ -47,46 +47,27 @@ static int	what_is_pipe_in(const char *user_input, int i)
 /*		0 - syntax is valid											*/
 /*	   -1 - syntax is not valid										*/
 /********************************************************************/
-static int	is_previous_syntax_valid(const char *user_input, int i)
+int	is_previous_syntax_valid(const char *user_input, int i)//A ajouter dans utils
 {
-	int	j;
 	int	booly;
 
-	j = 0;
-	while (j <= i)
-	{
-		if (ft_isalnum(user_input[j]) == 1)
-			booly = 0;
-		if (user_input[j] == '|' && user_input[j + 1] != '|')
-		{
-			booly = -1;
-			j++;
-		}
-		j++;
-	}
-	return (booly);	
-}
-
-/*static int	is_previous_syntax_valid(const char *user_input, int i)
-{
-	int	j;
-	
-	j = i - 1;
-	while (j != 0 && !((user_input[j] == '|' && user_input[j - 1] != '|')
-		|| (user_input[j] == '&' && user_input[j - 1] == '&')
-		|| (user_input[j] == '|' && user_input[j - 1] == '|')))
-	{
-		if (ft_isalnum(user_input[j]) == 0)
-			j--;
-		else
-			return (0);
-	}
-	if (j == 0 || (user_input[j] == '|' && user_input[j - 1] != '|')
-		|| (user_input[j] == '&' && user_input[j - 1] == '&')
-		|| (user_input[j] == '|' && user_input[j - 1] == '|'))
+	if (i == 0)
 		return (-1);
-	return (0);
-}*/
+	booly = 0;
+	i--;
+	while (i >= 0 && user_input[i] != '|' && user_input[i] != '<' && user_input[i] != '>')
+	{
+		if ((user_input[i] >= 9 && user_input[i] <= 13) || user_input[i] == ' ')
+			booly = -1;
+		else
+		{
+			booly = 0;
+			break ;
+		}
+		i--;
+	}
+	return (booly);
+}
 
 /************************************************************/
 /*															*/
@@ -95,17 +76,17 @@ static int	is_previous_syntax_valid(const char *user_input, int i)
 /*															*/
 /*	Parameters:												*/
 /*		user_input - line from the terminal         		*/
+/*		i - index of the pipe found							*/
 /*	Return:													*/
 /*		0 - it is valid										*/
 /*		1 - it isn't valid									*/
 /************************************************************/
-int	ft_check_syntax_before_pipes(const char *user_input, int i)
+int	ft_check_syntax_before_character(const char *user_input, int i, const char *character)// A ajouter dans utils
 {
-	if ((what_is_pipe_in(user_input, i) == 0)
-		&& (is_previous_syntax_valid(user_input, i) == -1))
+	if (is_previous_syntax_valid(user_input, i) == -1)
 	{
 		ft_printf_error("minishell: syntax error near unexpected"\
-			" token `|'\n");
+			" token `%s'\n", character);
 		highlight_syntax_error(user_input, i, i);
 		return (-1) ;
 	}
