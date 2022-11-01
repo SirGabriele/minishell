@@ -53,7 +53,7 @@ int	is_previous_syntax_valid(const char *user_input, int i)//A ajouter dans util
 
 	if (i == 0)
 		return (-1);
-	booly = 0;
+	booly = -1;
 	i--;
 	while (i >= 0 && user_input[i] != '|' && user_input[i] != '<' && user_input[i] != '>')
 	{

@@ -36,7 +36,7 @@ int	ft_check_isolated_quotes(const char *user_input)
 			save = user_input[i];
 			if (is_quote_closed(user_input, i) == -1)
 			{
-				ft_printf_error("Error - Unclosed quote detected\n");
+				ft_printf_error("minishell syntax error\n");
 				highlight_syntax_error(user_input, i, i);
 				return (-1) ;
 			}

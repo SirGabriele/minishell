@@ -46,16 +46,15 @@ int	ft_check_isolated_quotes(const char *user_input);
 //ft_check_ampersands.c
 int	ft_check_isolated_ampersands(const char *user_input);
 
-//ft_check_triple_and_or.c
-int	ft_check_triple_and_or(const char *user_input);
-
-//ft_check_and_or_operators.c
-int	are_all_and_or_operators_closed(const char *user_input);
-int	ft_check_syntax_before_operators(const char *user_input);
+//ft_check_shifts.c
+int	ft_check_shift_association(const char *user_input);
+int	ft_check_syntax_shifts(const char *user_input);
 
 //ft_check_pipes.c
 int	are_all_pipes_closed(const char *user_input);
-int	ft_check_syntax_before_pipes(const char *user_input);
+int	ft_check_syntax_before_character(const char *user_input, int i, const char *character);
+int	what_is_index_in(const char *user_input, int i);
+int	is_previous_syntax_valid(const char *user_input, int i);
 
 //get_missing_user_input.c
 char	*get_missing_user_input(char **user_input);
