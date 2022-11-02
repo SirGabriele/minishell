@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_substrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 16:59:35 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/05 21:15:43 by kbrousse         ###   ########.fr       */
+/*   Created: 2022/11/01 20:49:03 by kbrousse          #+#    #+#             */
+/*   Updated: 2022/11/01 20:49:15 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_substrlen(char const *s, char c)
 {
-	while (*s != (char)c && *s != '\0')
+	int	i;
+
+	i = 0;
+	while (*s == c && *s != '\0')
 		s++;
-	if (*s == '\0' && *s != (char)c)
-		return (NULL);
-	return ((char *)s);
+	while (s[i] != c && s[i] != '\0')
+		i++;
+	return (i);
 }

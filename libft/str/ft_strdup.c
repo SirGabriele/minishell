@@ -9,7 +9,8 @@
 /*   Updated: 2022/04/06 14:21:45 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 static int	makeshift_strlen(const char *str)
 {

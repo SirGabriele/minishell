@@ -1,11 +1,16 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include <signal.h>
+///////////////
+//	signal();
+///////////////
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+//////////////
+//	readline
+//////////////
 
 typedef struct s_cmd_list_ms
 {
@@ -16,12 +21,6 @@ typedef struct s_cmd_list_ms
 	char			*outfile;
 	struct s_cmd_list_ms	*next;
 }	t_cmd_list_ms;
-
-typedef struct s_pipelines_ms
-{
-	char			*list;
-	struct s_cmd_list_ms	*first_cmd;
-}	t_pipelines_ms;
 
 /********/
 /*	SRC	*/
@@ -67,11 +66,5 @@ char	*convert_var_with_dollar(char *user_input, char **env);
 
 //utils_filter.c
 char	*get_tmp_without_quotes(char *tmp, char *user_input);
-
-/************/
-/*	INIT	*/
-/************/
-//init_struct_array
-int    init_struct_array(const char *user_input);
 
 #endif

@@ -9,7 +9,8 @@
 /*   Updated: 2022/04/08 13:34:09 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 static int	len_int(int n)
 {

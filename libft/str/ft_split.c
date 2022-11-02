@@ -9,7 +9,8 @@
 /*   Updated: 2022/04/07 17:18:29 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 static int	howmanysep(char const *s, char c)
 {
@@ -32,19 +33,7 @@ static int	howmanysep(char const *s, char c)
 	return (count);
 }
 
-static int	len_substring(char const *s, char c)
-{
-	int	i;
-
-	i = 0;
-	while (*s == c && *s != '\0')
-		s++;
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	return (i);
-}
-
-static char	*fill_string(char *tab, const char *s, int n, char c)
+static char	*fill_string(char *arr, const char *s, int n, char c)
 {
 	int	i;
 
@@ -53,37 +42,67 @@ static char	*fill_string(char *tab, const char *s, int n, char c)
 		s++;
 	while (i < n)
 	{
-		tab[i] = s[i];
+		arr[i] = s[i];
 		i++;
 	}
-	tab[i] = '\0';
-	return (tab);
+	arr[i] = '\0';
+	return (arr);
+}
+
+static void	free_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
+}
+
+static char	**fill_arr(char const *s, char c, int nb_cells, char **arr)
+{
+	int		i;
+	int		j;
+	int		substrlen;
+
+	i = 0;
+	j = 0;
+	while (j < nb_cells)
+	{
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		substrlen = ft_substrlen(s + i, c);
+		arr[j] = malloc(sizeof(char) * substrlen + 1);
+		if (arr[j] == NULL)
+		{
+			free_arr(arr);
+			return (NULL);
+		}
+		fill_string(arr[j], s + i, substrlen, c);
+		while (s[i] != c && s[i] != '\0')
+			i++;
+		j++;
+	}
+	arr[j] = NULL;
+	return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**tab;
-	int		i;
-	int		j;
+	char	**arr;
+	int		nb_cells;
 
-	i = 0;
-	j = -1;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (howmanysep(s, c) + 1));
-	if (tab == NULL)
+	nb_cells = howmanysep(s, c);
+	arr = malloc(sizeof(char *) * (nb_cells + 1));
+	if (arr == NULL)
 		return (NULL);
-	while (++j < howmanysep(s, c))
-	{
-		while (s[i] == c && s[i] != '\0')
-			i++;
-		tab[j] = malloc(sizeof(char) * len_substring(s + i, c) + 1);
-		if (tab[j] == NULL)
-			return (NULL);
-		fill_string(tab[j], s + i, len_substring(s + i, c), c);
-		while (s[i] != c && s[i] != '\0')
-			i++;
-	}
-	tab[j] = NULL;
-	return (tab);
+	fill_arr(s, c, nb_cells, arr);
+	return (arr);
 }

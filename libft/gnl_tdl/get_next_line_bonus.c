@@ -29,7 +29,10 @@ char	*get_next_line(int fd)
 	if (temp->hmb_read < BUFFER_SIZE)
 	{
 		if (temp->line == NULL || temp->line[0] == '\0')
-			return (ft_erase_linkgnl(&first_elem, temp));
+		{
+			ft_erase_linkgnl(&first_elem, temp);
+			return (NULL);
+		}
 	}
 	return (temp->line);
 }
@@ -101,7 +104,7 @@ char	*ft_increase_string_size(t_listgnl *temp)
 	return (dup);
 }
 
-char	*ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp)
+void	ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp)
 {
 	t_listgnl	*copy;
 	t_listgnl	*current;
@@ -122,10 +125,9 @@ char	*ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp)
 		copy = *first_elem;
 		*first_elem = copy->next;
 		free(copy);
-		return (NULL);
+		return ;
 	}
 	if (copy != NULL)
 		current->next = copy->next;
 	free(temp);
-	return (NULL);
 }

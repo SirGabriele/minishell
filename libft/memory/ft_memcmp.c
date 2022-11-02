@@ -9,7 +9,8 @@
 /*   Updated: 2022/04/04 15:55:49 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -22,11 +23,12 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	s4 = (unsigned char *)s2;
 	if (n == 0)
 		return (0);
-	while (n-- > 0)
+	while (n > 0)
 	{
 		if (s3[i] != s4[i])
 			return (s3[i] - s4[i]);
 		i++;
+		n--;
 	}
 	return (0);
 }

@@ -56,6 +56,7 @@ char		*ft_strcapitalize(char *str);
 
 //STR
 size_t		ft_strlen(const char *str);
+int			ft_substrlen(const char *str, char c);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		*ft_strcpy(char *dest, char *src);
@@ -65,13 +66,15 @@ char		*ft_strrchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin_free_first(char *s1, char const *s2);
+char		*ft_strjoin_free_second(char const *s1, char *s2);
+char		*ft_strjoin_freeboth(char *s1, char *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strtrim(char const *s1, char const *set);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		**ft_split(char const *s, char c);
 char		*ft_strdup(const char *s);
-int			ft_extension(const char *s1, const char *s2);
 
 //MEMORY
 void		*ft_memset(void *ptr, int c, size_t n);
@@ -106,10 +109,24 @@ void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+//FT_PRINTF_FD
+int			ft_printf_fd(int fd, const char *format, ...);
+void		ft_specifier_requested_fd(const char **fmt, int *i, \
+				va_list param, int fd);
+void		ft_putcharprintf_fd(unsigned const char c, int *i, \
+				int fd);
+void		ft_putstrprintf_fd(char *str, int *i, int fd);
+void		ft_putnbrbaseprintf_fd(unsigned int nbr, \
+				char *base, int *i, int fd);
+void		ft_putnbrprintf_fd(long long int nbr, int *i, int fd);
+void		ft_print_memory_fd(unsigned long long int arg, int *i, int fd);
+void		ft_putmemory_fd(unsigned long long int nbr, \
+				char *base, int *i, int fd);
+int			ft_is_a_specifier_fd(const char c);
+
 //FT_PRINTF
 int			ft_printf(const char *format, ...);
 void		ft_specifier_requested(const char **fmt, int *i, va_list param);
-void		ft_flag_requested(const char **fmt, int *i, va_list param);
 void		ft_putcharprintf(unsigned const char c, int *i);
 void		ft_putstrprintf(char *str, int *i);
 void		ft_putnbrbaseprintf(unsigned int nbr, char *base, int *i);
@@ -137,7 +154,7 @@ char		*get_next_line(int fd);
 void		ft_read_file_and_fill_buf(t_listgnl *temp);
 void		ft_fill_line(t_listgnl *temp);
 char		*ft_increase_string_size(t_listgnl *temp);
-char		*ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp);
+void		ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp);
 t_listgnl	*ft_lstnewgnl(int entry_fd);
 t_listgnl	*ft_go_to_linkgnl(t_listgnl **first_elem, int fd);
 void		ft_lst_addbackgnl(t_listgnl **first_elem, t_listgnl *new);

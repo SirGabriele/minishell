@@ -9,24 +9,25 @@
 /*   Updated: 2022/04/08 17:32:02 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*tab;
+	char	*arr;
 	int		i;
 
 	i = 0;
 	if (!s || !f)
 		return (NULL);
-	tab = malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (tab == NULL)
+	arr = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (arr == NULL)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		tab[i] = (*f)(i, s[i]);
+		arr[i] = (*f)(i, s[i]);
 		i++;
 	}
-	tab[i] = '\0';
-	return (tab);
+	arr[i] = '\0';
+	return (arr);
 }

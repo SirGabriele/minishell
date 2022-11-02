@@ -8,8 +8,6 @@ SRC = main.c					\
 	launch_program.c			\
 	highlight_syntax_error.c
 
-INIT = init_struct_array.c
-
 CHECK = ft_check_quotes.c		\
 	ft_check_ampersands.c		\
 	ft_check_shifts.c			\
@@ -21,7 +19,6 @@ PARSING =	convert_var_with_dollar.c	\
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\
-	$(addprefix src/init/, $(INIT))			\
 	$(addprefix src/check/, $(CHECK))
 
 CC = gcc

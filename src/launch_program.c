@@ -36,7 +36,7 @@ static int	ft_check_syntax_pipes(const char *user_input)
 	}
 	return (0);
 }
-//check les < > << et >>
+
 static int	ft_check_syntax_error(char **user_input)
 {
 	if (ft_check_isolated_quotes(*user_input) == -1)
@@ -58,7 +58,7 @@ int	launch_program(char **user_input)
 {
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
-	*user_input = add_spaces_around_pipes_and_shifts(user_input);
+//	*user_input = add_spaces_around_pipes_and_shifts(user_input);
 //	if (init_struct_array(user_input) == -1)
 //		return (-1);
 	return (0);

@@ -85,10 +85,10 @@ int	ft_check_syntax_before_character(const char *user_input, int i, const char *
 {
 	if (is_previous_syntax_valid(user_input, i) == -1)
 	{
-		ft_printf_error("minishell: syntax error near unexpected"\
+		ft_printf_fd(2, "minishell: syntax error near unexpected"\
 			" token `%s'\n", character);
 		highlight_syntax_error(user_input, i, i);
-		return (-1) ;
+		return (-1);
 	}
 	return (0);
 }

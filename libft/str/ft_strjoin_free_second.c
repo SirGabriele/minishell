@@ -22,7 +22,7 @@ static int	makeshift_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_free_second(char const *s1, char *s2)
 {
 	char	*tab;
 	size_t	i;
@@ -46,5 +46,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	tab[i + j] = '\0';
+	free(s2);
 	return (tab);
 }

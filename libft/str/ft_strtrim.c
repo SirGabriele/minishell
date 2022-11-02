@@ -9,7 +9,8 @@
 /*   Updated: 2022/04/08 15:32:57 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../libft.h"
 
 static int	isinset(char c, const char *set)
 {

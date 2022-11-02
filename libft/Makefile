@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/10/05 08:22:19 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/11/02 00:10:42 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -24,23 +24,26 @@ CHAR  =		ft_isalpha.c       \
 			ft_strlowcase.c    \
 			ft_strcapitalize.c
 
-STR   =		ft_strlen.c    \
-			ft_strlcat.c   \
-			ft_strlcpy.c   \
-			ft_strcpy.c    \
-			ft_strncpy.c   \
-			ft_strchr.c    \
-			ft_strrchr.c   \
-			ft_strncmp.c   \
-			ft_strnstr.c   \
-			ft_strjoin.c   \
-			ft_substr.c    \
-			ft_strmapi.c   \
-			ft_strtrim.c   \
-			ft_striteri.c  \
-			ft_split.c     \
-			ft_strdup.c    \
-			ft_extension.c 
+STR   =		ft_strlen.c					\
+			ft_substrlen.c				\
+			ft_strlcat.c				\
+			ft_strlcpy.c				\
+			ft_strcpy.c					\
+			ft_strncpy.c				\
+			ft_strchr.c					\
+			ft_strrchr.c				\
+			ft_strncmp.c				\
+			ft_strnstr.c				\
+			ft_strjoin.c				\
+			ft_strjoin_free_first.c		\
+			ft_strjoin_free_second.c	\
+			ft_strjoin_free_both.c		\
+			ft_substr.c					\
+			ft_strmapi.c				\
+			ft_strtrim.c				\
+			ft_striteri.c				\
+			ft_split.c					\
+			ft_strdup.c	
 
 MEMORY =	ft_memset.c  \
 			ft_bzero.c   \
@@ -74,9 +77,13 @@ LL     =	ft_lstnew.c       \
 GNL_TDL    =	get_next_line_bonus.c       \
 				get_next_line_utils_bonus.c
 
-FT_PRINTF =	ft_printf.c              \
-			ft_printer_functions.c   \
-			ft_specifier_requested.c 
+FT_PRINTF =	ft_printf.c					\
+			ft_printer_functions.c		\
+			ft_specifier_requested.c
+
+FT_PRINTF_FD =	ft_printf_fd.c			\
+			ft_printer_functions_fd.c	\
+			ft_specifier_requested_fd.c
 
 FT_PRINTF_ERROR = ft_printf_error.c				\
 				ft_printer_functions_error.c	\
@@ -89,6 +96,7 @@ SRCS   =	$(addprefix char/, $(CHAR))							\
 			$(addprefix atoi-itoa/, $(OTHER))					\
 			$(addprefix ll/, $(LL))								\
 			$(addprefix gnl_tdl/, $(GNL_TDL))					\
+			$(addprefix ft_printf_fd/, $(FT_PRINTF_FD))			\
 			$(addprefix ft_printf/, $(FT_PRINTF))				\
 			$(addprefix ft_printf_error/, $(FT_PRINTF_ERROR))
 	
@@ -98,10 +106,6 @@ FLAGS =	-Wall -Wextra -Werror -g
 OBJS =	$(SRCS:.c=.o)
 
 CC =	gcc
-
-ifndef	COMPIL
-		
-endif
 
 all: $(NAME)
 	
