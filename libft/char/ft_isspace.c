@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 11:08:38 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/05 11:08:08 by kbrousse         ###   ########.fr       */
+/*   Created: 2022/11/03 23:12:00 by kbrousse          #+#    #+#             */
+/*   Updated: 2022/11/03 23:13:26 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_isspace(int c)
 {
-	(void)argc;
-	(void)argv;
-	signal(SIGINT, ft_signal);
-	signal(SIGQUIT, SIG_IGN);
-	if (cmd_prompt(env) == -1)
+	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
-
-/*main:
-
--Fonction signal
--Fonction cmd_prompt
--parsing / gestion d'erreurs
--interpretation commande (pipex)
--Variables d'environnement
--$? status derniere commande
-
-*/

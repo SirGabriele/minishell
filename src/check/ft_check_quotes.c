@@ -14,20 +14,22 @@ static int	is_quote_closed(const char *user_input, int i)
 
 /************************************************************/
 /*															*/
-/*	Detects all isolated quote and deletes it from the line	*/
+/*	Detects if an isolated quote is in the line				*/
 /*															*/
 /*	Parameters:												*/
 /*		user_input - line from the terminal         		*/
 /*	Return:													*/
 /*		0 - no isolated quote is detected					*/
-/*		1 - an isolated quote is detected					*/
+/*		1 - an isolated quote is detected and highlighted	*/
 /*															*/
 /************************************************************/
 int	ft_check_isolated_quotes(const char *user_input)
 {
+	char	*err_msg;
 	int		i;
 	char	save;
 
+	err_msg = "minishell: syntax error\n";
 	i = 0;
 	while (user_input[i] != '\0')
 	{
@@ -36,9 +38,9 @@ int	ft_check_isolated_quotes(const char *user_input)
 			save = user_input[i];
 			if (is_quote_closed(user_input, i) == -1)
 			{
-				ft_printf_error("minishell syntax error\n");
+				write(2, err_msg, ft_strlen(err_msg));
 				highlight_syntax_error(user_input, i, i);
-				return (-1) ;
+				return (-1);
 			}
 			i++;
 			while (user_input[i] != save)

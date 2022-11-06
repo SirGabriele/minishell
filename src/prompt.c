@@ -37,8 +37,8 @@ void	ft_signal(int sig)
 int	cmd_prompt(char **env)
 {
 	char	*user_input;
-	(void)env;
 
+	(void)env;
 	while (1)
 	{
 		user_input = readline("minishell> ");
@@ -48,7 +48,7 @@ int	cmd_prompt(char **env)
 			free_user_input_and_set_to_null(user_input);
 		else
 		{
-			ft_printf("%s\n", user_input);	//A VIRER
+			ft_printf("%s\n", user_input);//A VIRER
 			free_user_input_and_set_to_null(user_input);
 		}
 	}

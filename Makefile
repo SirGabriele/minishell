@@ -3,23 +3,25 @@ NAME = minishell
 LIBFT = libft/libft.a
 
 SRC = main.c					\
-	builtins.c					\
 	prompt.c					\
 	launch_program.c			\
 	highlight_syntax_error.c
 
-CHECK = ft_check_quotes.c		\
-	ft_check_ampersands.c		\
-	ft_check_shifts.c			\
-	ft_check_pipes.c			\
-	get_missing_user_input.c
+CHECK =	get_missing_user_input.c	\
+	check_paired_characters.c		\
+	ft_check_quotes.c				\
+	ft_check_forbidden_characters.c	\
+	ft_check_isolated_ampersands.c
 
-PARSING =	convert_var_with_dollar.c	\
-	utils_filter.c
+PARSING =	lexer.c
+
+UTILS =	what_is_index_in.c	\
+	get_nb_tokens.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\
-	$(addprefix src/check/, $(CHECK))
+	$(addprefix src/check/, $(CHECK))		\
+	$(addprefix src/utils/, $(UTILS))
 
 CC = gcc
 

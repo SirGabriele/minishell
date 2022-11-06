@@ -6,22 +6,23 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/11/02 00:10:42 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/11/03 23:15:45 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CHAR  =		ft_isalpha.c       \
-			ft_isdigit.c       \
-			ft_isalnum.c       \
-			ft_isascii.c       \
-			ft_isprint.c       \
-			ft_toupper.c       \
-			ft_tolower.c       \
-			ft_strupcase.c     \
-			ft_strlowcase.c    \
+CHAR  =		ft_isalpha.c		\
+			ft_isdigit.c		\
+			ft_isalnum.c		\
+			ft_isascii.c		\
+			ft_isprint.c		\
+			ft_isspace.c		\
+			ft_toupper.c		\
+			ft_tolower.c		\
+			ft_strupcase.c		\
+			ft_strlowcase.c		\
 			ft_strcapitalize.c
 
 STR   =		ft_strlen.c					\
@@ -43,38 +44,38 @@ STR   =		ft_strlen.c					\
 			ft_strtrim.c				\
 			ft_striteri.c				\
 			ft_split.c					\
-			ft_strdup.c	
+			ft_strdup.c
 
-MEMORY =	ft_memset.c  \
-			ft_bzero.c   \
-			ft_memcpy.c  \
-			ft_memmove.c \
-			ft_calloc.c  \
-			ft_memchr.c  \
+MEMORY =	ft_memset.c		\
+			ft_bzero.c		\
+			ft_memcpy.c		\
+			ft_memmove.c	\
+			ft_calloc.c		\
+			ft_memchr.c		\
 			ft_memcmp.c 
 
-OUTPUT =	ft_putchar.c    \
-			ft_putchar_fd.c \
-			ft_putstr_fd.c  \
-			ft_putstr.c     \
-			ft_putendl_fd.c \
-			ft_putnbr_fd.c  \
+OUTPUT =	ft_putchar.c	\
+			ft_putchar_fd.c	\
+			ft_putstr_fd.c	\
+			ft_putstr.c		\
+			ft_putendl_fd.c	\
+			ft_putnbr_fd.c	\
 			ft_putnbr.c
 
-OTHER  =	ft_itoa.c \
+OTHER  =	ft_itoa.c	\
 			ft_atoi.c
 
-LL     =	ft_lstnew.c       \
-			ft_lstadd_front.c \
-			ft_lstadd_back.c  \
-			ft_lstsize.c      \
-			ft_lstlast.c      \
-			ft_lstiter.c      \
-			ft_lstdelone.c    \
-			ft_lstclear.c     \
+LL     =	ft_lstnew.c			\
+			ft_lstadd_front.c	\
+			ft_lstadd_back.c	\
+			ft_lstsize.c		\
+			ft_lstlast.c		\
+			ft_lstiter.c		\
+			ft_lstdelone.c		\
+			ft_lstclear.c		\
 			ft_lstmap.c
 
-GNL_TDL    =	get_next_line_bonus.c       \
+GNL_TDL    =	get_next_line_bonus.c		\
 				get_next_line_utils_bonus.c
 
 FT_PRINTF =	ft_printf.c					\

@@ -43,7 +43,7 @@ static int	ft_check_syntax_after_shift(const char *user_input, int i)
 	return (0);
 }
 
-int	ft_check_syntax_shifts(const char *user_input)
+zint	ft_check_syntax_shifts(const char *user_input)
 {
 	int		i;
 

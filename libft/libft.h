@@ -6,7 +6,7 @@
 /*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:16:54 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/07/20 20:14:59 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/03 23:13:51 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int			ft_isalnum(int c);
 int			ft_isprint(int c);
 int			ft_toupper(int c);
 int			ft_tolower(int c);
+int			ft_isspace(int c);
 
 char		*ft_strupcase(char *str);
 char		*ft_strlowcase(char *str);
@@ -68,7 +69,7 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strjoin_free_first(char *s1, char const *s2);
 char		*ft_strjoin_free_second(char const *s1, char *s2);
-char		*ft_strjoin_freeboth(char *s1, char *s2);
+char		*ft_strjoin_free_both(char *s1, char *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strtrim(char const *s1, char const *set);
