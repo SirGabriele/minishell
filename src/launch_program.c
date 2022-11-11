@@ -16,7 +16,7 @@
 /*															*/
 /************************************************************/
 
-static int	ft_check_closed_characters(char **user_input)
+/*static int	ft_check_closed_characters(char **user_input)
 {
 	while (are_all_pipes_closed(*user_input) == -1
 		|| are_all_parenthesis_paired(*user_input) == -1)
@@ -28,7 +28,7 @@ static int	ft_check_closed_characters(char **user_input)
 			continue ;
 	}
 	return (0);
-}
+}*/
 
 /*static int	ft_check_syntax_pipes(const char *user_input)
 {
@@ -54,7 +54,7 @@ static int	ft_check_closed_characters(char **user_input)
 	return (0);
 }*/
 
-static int	ft_check_syntax_error(char **user_input)
+/*static int	ft_check_syntax_error(char **user_input)
 {
 	if (ft_check_closed_characters(user_input) == -1)
 		return (-1);
@@ -62,24 +62,26 @@ static int	ft_check_syntax_error(char **user_input)
 		return (-1);
 	if (ft_check_forbidden_characters(*user_input) == -1)
 		return (-1);
-/*	if (ft_check_shift_association(*user_input) == -1)
-		return (-1);*/// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
-/*	if (ft_check_syntax_pipes(*user_input) == -1)
-		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
+//	if (ft_check_shift_association(*user_input) == -1)
+//		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
+//	if (ft_check_syntax_pipes(*user_input) == -1)
+//		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
 	if (ft_check_syntax_shifts(*user_input) == -1)
-		return (-1);*/// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
+		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
 	return (0);
-}
+}*/
 
 int	launch_program(char **user_input)
 {
-	t_token_ms	**arr_tokens;
+/*	t_token_ms	**arr_tokens;
 
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
 	arr_tokens = NULL;
 	if (lexer(arr_tokens, *user_input) == -1)
-		return (-1);
+		return (-1);*/
+	(void)user_input;
+	test_pipex();
 //	*user_input = add_spaces_around_pipes_and_shifts(user_input);
 //	if (init_struct_array(user_input) == -1)
 //		return (-1);

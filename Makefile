@@ -5,7 +5,8 @@ LIBFT = libft/libft.a
 SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
-	highlight_syntax_error.c
+	highlight_syntax_error.c	\
+	test_pipex.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
@@ -15,13 +16,18 @@ CHECK =	get_missing_user_input.c	\
 
 PARSING =	lexer.c
 
+LL = ft_lstnew_cmd.c		\
+	init_pipeline_struct.c
+
 UTILS =	what_is_index_in.c	\
 	get_nb_tokens.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\
 	$(addprefix src/check/, $(CHECK))		\
-	$(addprefix src/utils/, $(UTILS))
+	$(addprefix src/utils/, $(UTILS))		\
+	$(addprefix src/ll/, $(LL))
+
 
 CC = gcc
 

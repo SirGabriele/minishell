@@ -48,7 +48,7 @@ int	cmd_prompt(char **env)
 			free_user_input_and_set_to_null(user_input);
 		else
 		{
-			ft_printf("%s\n", user_input);//A VIRER
+//			ft_printf("%s\n", user_input);//A VIRER
 			free_user_input_and_set_to_null(user_input);
 		}
 	}
