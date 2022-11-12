@@ -43,7 +43,7 @@ int	cmd_prompt(char **env)
 	{
 		user_input = readline("minishell> ");
 		if (handle_prompt(user_input) == -1)
-			return (0);
+			return (-1);
 		if (launch_program(&user_input) == -1)
 			free_user_input_and_set_to_null(user_input);
 		else

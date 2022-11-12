@@ -12,10 +12,10 @@
 
 #include "../libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_token_ms	*ft_lstmap(t_token_ms *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*ret;
-	t_list	*retcheck;
+	t_token_ms	*ret;
+	t_token_ms	*retcheck;
 
 	if (!lst || !f || !del)
 		return (NULL);

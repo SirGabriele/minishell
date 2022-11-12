@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_token_ms	*ft_lstlast(t_token_ms *lst)
 {
 	if (!lst)
 		return (NULL);

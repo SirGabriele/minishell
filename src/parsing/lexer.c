@@ -1,39 +1,30 @@
 #include "../../includes/minishell.h"
 
-/*static t_token_ms	identify_token(char **user_input, char **delimiters)
+static void	fill_delimiters(char **delim)
 {
-}*/
-
-static void	fill_delimiters(char **delimiters)
-{
-	delimiters[0] = "(";
-	delimiters[1] = ")";
-	delimiters[2] = "<<";
-	delimiters[3] = ">>";
-	delimiters[4] = "<";
-	delimiters[5] = ">";
-	delimiters[6] = "||";
-	delimiters[7] = "&&";
-	delimiters[8] = "|";
-	delimiters[9] = NULL;
+	delim[0] = "(";
+	delim[1] = ")";
+	delim[2] = "<";
+	delim[3] = ">";
+	delim[4] = "&&";
+	delim[5] = "|";
+	delim[6] = NULL;
 }
 
-int	lexer(t_token_ms **arr_tokens, const char *user_input)
+int	lexer(t_token_ms *tokens, char *user_input)
 {
-	char	*delimiters[10];
-	int	nb_tokens;
-//	int		i;
+	int		i;
+	char	*delim[7];
 
-	fill_delimiters(delimiters);
-	nb_tokens = get_nb_tokens(user_input, delimiters);
-	printf("%d\n", nb_tokens);
-//	i = 0;
-/*	while (*user_input != '\0')
+	i = 0;
+	fill_delimiters(delim);
+	tokens = get_tokens(tokens, user_input, delim);
+	while (tokens->next->next)
 	{
-		while (ft_isspace(*user_input) == 1)
-			user_input++;
-//		arr_tokens[i] = identify_token(&user_input, delimiters);	
-	}*/
-	(void)arr_tokens;
+		ft_printf("token %d : content = %s    |    type = %d\n",
+			i, tokens->next->content, tokens->next->type);
+		i++;
+		tokens = tokens->next;
+	}
 	return (0);
 }

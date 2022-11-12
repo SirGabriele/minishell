@@ -13,7 +13,9 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	lexer.c
+PARSING =	lexer.c		\
+			get_tokens.c \
+			identify_token.c
 
 UTILS =	what_is_index_in.c	\
 	get_nb_tokens.c

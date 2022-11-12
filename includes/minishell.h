@@ -43,7 +43,7 @@ typedef struct s_cmd_list_ms
 
 typedef struct s_token_ms
 {
-	char				*type;
+	t_tokens			type;
 	char				*content;
 	struct s_token_ms	*next;
 }	t_token_ms;
@@ -92,7 +92,16 @@ char	*get_missing_user_input(char **user_input);
 /************/
 
 //lexer.c
-int		lexer(t_token_ms **arr_tokens, const char *user_input);
+int		lexer(t_token_ms *arr_tokens, char *user_input);
+
+//get_tokens.c
+int			is_a_delimiter(const char *user_input, char *delim[7]);
+int			assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7]);
+int			assign_token_no_delim(t_token_ms *tokens, char *user_input, char *delim[7]);
+t_token_ms	*get_tokens(t_token_ms *tokens, char *user_input, char *delim[7]);
+
+//identify_token.c
+t_tokens	identify_token(int index_delimiter, int length_delimiter);
 
 /************/
 /*	UTILS	*/
