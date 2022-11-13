@@ -6,15 +6,15 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:47:41 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/12 14:54:21 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:30:06 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstadd_back(t_token_ms **lst, t_token_ms *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_token_ms	*lst_temp;
+	t_list	*lst_temp;
 
 	lst_temp = *lst;
 	if (new == NULL)

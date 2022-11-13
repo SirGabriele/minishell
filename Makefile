@@ -13,9 +13,11 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	lexer.c		\
-			get_tokens.c \
-			identify_token.c
+PARSING =	get_tokens.c 		\
+			lexer.c				\
+			tokens_lst.c		\
+			free_lst_content.c	\
+			utils_token.c
 
 UTILS =	what_is_index_in.c	\
 	get_nb_tokens.c
@@ -25,7 +27,7 @@ SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/check/, $(CHECK))		\
 	$(addprefix src/utils/, $(UTILS))
 
-CC = gcc
+CC = clang
 
 FLAGS = -Wall -Wextra -Werror -g
 

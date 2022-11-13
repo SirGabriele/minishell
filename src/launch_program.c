@@ -75,7 +75,9 @@ int	launch_program(char **user_input)
 {
 	t_token_ms	*tokens;
 
-	tokens = NULL;
+	tokens = malloc(sizeof(t_token_ms));
+	if (!tokens)
+		return (-1);
 	if (lexer(tokens, *user_input) == -1)
 		return (-1);/*
 	else if (parsing(*user_input, tokens))

@@ -6,13 +6,13 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 16:24:55 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/10 16:38:15 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:30:12 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_lstsize(t_token_ms *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int	i;
 

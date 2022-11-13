@@ -6,15 +6,15 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 19:13:20 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/12 14:54:35 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:30:27 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstclear(t_token_ms **lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_token_ms	*lstcpy;
+	t_list	*lstcpy;
 
 	if (!lst)
 		return ;

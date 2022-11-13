@@ -6,16 +6,16 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 13:15:26 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/06/23 15:13:11 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:30:37 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_token_ms	*ft_lstmap(t_token_ms *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_token_ms	*ret;
-	t_token_ms	*retcheck;
+	t_list	*ret;
+	t_list	*retcheck;
 
 	if (!lst || !f || !del)
 		return (NULL);

@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/11/03 23:15:45 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/11/13 10:47:39 by jsauvain         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -106,7 +106,7 @@ FLAGS =	-Wall -Wextra -Werror -g
 
 OBJS =	$(SRCS:.c=.o)
 
-CC =	gcc
+CC = clang
 
 all: $(NAME)
 	

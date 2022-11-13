@@ -6,13 +6,13 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:57:59 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/12 14:54:06 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/13 13:30:22 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstdelone(t_token_ms *lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
 	if (!lst || !del)
 		return ;

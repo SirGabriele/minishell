@@ -19,10 +19,10 @@ int	lexer(t_token_ms *tokens, char *user_input)
 	i = 0;
 	fill_delimiters(delim);
 	tokens = get_tokens(tokens, user_input, delim);
-	while (tokens->next->next)
+	while (tokens->next)
 	{
 		ft_printf("token %d : content = %s    |    type = %d\n",
-			i, tokens->next->content, tokens->next->type);
+			i, tokens->content, tokens->type);
 		i++;
 		tokens = tokens->next;
 	}

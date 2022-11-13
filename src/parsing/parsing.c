@@ -1,10 +1,5 @@
 #include "../../includes/minishell.h"
 
-t_tokens_ms	*get_token(char *user_input, int i)
-{
-	
-}
-
 char	*parsing(char *user_input, t_token_ms *arr_tokens)
 {
 	int		i;
