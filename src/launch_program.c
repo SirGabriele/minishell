@@ -81,7 +81,8 @@ int	launch_program(char **user_input)
 	if (lexer(arr_tokens, *user_input) == -1)
 		return (-1);*/
 	(void)user_input;
-	test_pipex();
+	if (test_pipex() == -1)
+		return (-1);
 //	*user_input = add_spaces_around_pipes_and_shifts(user_input);
 //	if (init_struct_array(user_input) == -1)
 //		return (-1);

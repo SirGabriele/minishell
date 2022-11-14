@@ -6,7 +6,6 @@ SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
 	highlight_syntax_error.c	\
-	test_pipex.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
@@ -16,7 +15,12 @@ CHECK =	get_missing_user_input.c	\
 
 PARSING =	lexer.c
 
+EXEC =	test_pipex.c	\
+	launch_pipex.c		\
+	exec_pipex.c
+
 LL = ft_lstnew_cmd.c		\
+	ft_lstnew_redir.c		\
 	init_pipeline_struct.c
 
 UTILS =	what_is_index_in.c	\
@@ -26,10 +30,12 @@ SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\
 	$(addprefix src/check/, $(CHECK))		\
 	$(addprefix src/utils/, $(UTILS))		\
-	$(addprefix src/ll/, $(LL))
+	$(addprefix src/ll/, $(LL))				\
+	$(addprefix src/exec/, $(EXEC))
 
 
-CC = gcc
+
+CC = clang
 
 FLAGS = -Wall -Wextra -Werror -g
 

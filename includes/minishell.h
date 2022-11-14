@@ -1,16 +1,27 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
+
 # include <signal.h>
 ///////////////
 //	signal();
 ///////////////
 
-# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 ///////////////
 //	readline;
+///////////////
+
+# include <fcntl.h>
+////////////////
+//	open
+////////////////
+
+# include <sys/wait.h>
+///////////////
+//	waipid
 ///////////////
 
 typedef enum e_tokens
@@ -26,29 +37,37 @@ typedef enum e_tokens
 	TOK_PIPE,
 	TOK_AND_OPER,
 	TOK_OR_OPER,
+	TOK_INFILE,
 }	t_tokens;
+
+typedef struct s_redir_ms
+{
+	struct s_redir_ms		*next;
+	char					*file_name;
+	t_tokens				mode;
+}	t_redir_ms;
 
 typedef struct s_cmd_list_ms
 {
-	char					**command_and_args;
 	struct s_cmd_list_ms	*next;
+	char					**cmd_and_args;
+	char					*correct_path;
 }	t_cmd_list_ms;
 
 typedef struct s_pipeline_ms
 {
-	char					**to_create_trunc;// size du tableau == number_if_>_token
-	char					**to_create_append;//size du tableau == number_of_>>_token
+	struct s_cmd_list_ms	*first_cmd;
+	struct s_redir_ms		*first_redir;
 	char					*infile;
 	char					*outfile;
-	int						outfile_mode;
-	struct s_cmd_list_ms	*first_cmd;
+	t_tokens				outfile_mode;
 }	t_pipeline_ms;
 
 typedef struct s_token_ms
 {
-	int					type;
-	char				*content;
 	struct s_token_ms	*next;
+	char				*content;
+	t_tokens			type;
 }	t_token_ms;
 
 /********/
@@ -56,7 +75,6 @@ typedef struct s_token_ms
 /********/
 //launch_program.c
 int		launch_program(char **user_input);
-void	test_pipex(void);
 
 //prompt.c
 void	ft_signal(int sig);
@@ -92,6 +110,19 @@ int				is_previous_syntax_valid(const char *user_input, int i);
 char			*get_missing_user_input(char **user_input);
 
 /************/
+/*	EXEC	*/
+/************/
+
+//test_pipex.c
+int				test_pipex(void);
+
+//launch_pipex.c
+int				launch_pipex(t_pipeline_ms *pipeline);
+
+//exec_pipex.c
+int				exec_pipex(t_pipeline_ms *pipeline);
+
+/************/
 /*	PARSING	*/
 /************/
 
@@ -104,6 +135,9 @@ int				lexer(t_token_ms **arr_tokens, const char *user_input);
 
 //ft_lstnew_cmd
 t_cmd_list_ms	*ft_lstnew_cmd(char *command_and_args);
+
+//ft_lstnew_redir.c
+t_redir_ms		*ft_lstnew_redir(char *file_name, t_tokens mode);
 
 //init_pipeline_struct.c
 void			init_pipeline_struct(t_pipeline_ms *pipeline);
