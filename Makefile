@@ -16,7 +16,8 @@ CHECK =	get_missing_user_input.c	\
 PARSING =	get_tokens.c 		\
 			lexer.c				\
 			tokens_lst.c		\
-			free_lst_content.c	\
+			free.c				\
+			parsing.c			\
 			utils_token.c
 
 UTILS =	what_is_index_in.c	\

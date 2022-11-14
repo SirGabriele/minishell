@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7])
+static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7])
 {
 	tokens = lst_fill(tokens, user_input, delim);
 	tokens->next = lstnew();
@@ -23,7 +23,7 @@ t_token_ms	*get_tokens(t_token_ms *tokens, char *user_input, char *delim[7])
 	i = 0;
 	while (user_input[i])
 	{
-		while (user_input[i] == ' ' && !what_is_index_in(user_input, i))
+		while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
 			i++;
 		tokens = assign_token_delim(tokens, user_input + i, delim);
 		i += token_length(user_input + i, delim);

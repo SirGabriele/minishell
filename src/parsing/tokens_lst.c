@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-char	*get_content(char *user_input, char *delim[7])
+static char	*get_content(char *user_input, char *delim[7])
 {
 	char	*tmp;
 	int		i;

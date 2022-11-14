@@ -37,7 +37,7 @@ int	token_length(char *user_input, char *delim[7])
 	{
 		if (is_a_delimiter(user_input - 1, delim) >= 0)
 			return (i);
-		else if (user_input[i] == ' ' && !what_is_index_in(user_input, i))
+		else if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
 			return (i);
 		i++;
 	}

@@ -1,11 +1,5 @@
 #include "../includes/minishell.h"
 
-static void	free_user_input_and_set_to_null(char *user_input)
-{
-	free(user_input);
-	user_input = NULL;
-}
-
 static int	handle_prompt(char *user_input)
 {
 	if (!user_input)

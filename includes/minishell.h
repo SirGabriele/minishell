@@ -54,11 +54,9 @@ char		*get_missing_user_input(char **user_input);
 int			lexer(t_token_ms *arr_tokens, char *user_input);
 
 //get_tokens.c
-t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7]);
 t_token_ms	*get_tokens(t_token_ms *tokens, char *user_input, char *delim[7]);
 
 //tokens_lst.c
-char		*get_content(char *user_input, char *delim[7]);
 t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7]);
 t_token_ms	*lstnew(void);
 
@@ -67,7 +65,11 @@ int			token_length(char *user_input, char *delim[7]);
 int			is_a_delimiter(const char *user_input, char *delim[7]);
 t_tokens	identify_delim_token(char *user_input, char *delim[7]);
 
-//free_lst_content.c
+//parsing.c
+int			parsing(t_token_ms *tokens);
+
+//free.c
+void		free_user_input_and_set_to_null(char *user_input);
 void		free_lst_content(t_token_ms *tokens);
 
 /************/

@@ -22,7 +22,7 @@ int	what_is_index_in(const char *user_input, int i)
 	j = 0;
 	while (user_input[j] != '\0')
 	{
-		if (user_input[j] == '\"' || user_input[j] == '\'')
+		if ((user_input[j] == '\"' || user_input[j] == '\''))
 		{
 			c = user_input[j];
 			j++;
