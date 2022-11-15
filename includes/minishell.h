@@ -71,6 +71,7 @@ int			parsing(t_token_ms *tokens);
 //free.c
 void		free_user_input_and_set_to_null(char *user_input);
 void		free_lst_content(t_token_ms *tokens);
+void		free_tokens(t_token_ms *tokens);
 
 /************/
 /*	UTILS	*/

@@ -3,35 +3,48 @@
 
 typedef enum e_tokens
 {
-	TOK_NULL, /*value = 0*/
-	TOK_STRING, /*value = 1*/
-	TOK_OP_PAR, /*value = 2*/
-	TOK_CL_PAR, /*value = 3*/
-	TOK_INF_REDIR, /*value = 4*/
-	TOK_OUTF_TRUNC, /*value = 5*/
-	TOK_HEREDOC, /*value = 6*/
-	TOK_OUTF_APPEND, /*value = 7*/
-	TOK_PIPE, /*value = 8*/
-	TOK_AND_OPER, /*value = 9*/
-	TOK_OR_OPER, /*value = 10*/
+	TOK_NULL,
+	TOK_STRING,
+	TOK_OP_PAR,
+	TOK_CL_PAR,
+	TOK_INFILE,
+	TOK_OUTF_TRUNC,
+	TOK_HEREDOC,
+	TOK_OUTF_APPEND,
+	TOK_PIPE,
+	TOK_AND_OPER,
+	TOK_OR_OPER,
 }	t_tokens;
+
+typedef struct s_redir_list_ms
+{
+	struct s_redir_list_ms	*next;
+	char					*file_name;
+	t_tokens				mode;
+}	t_redir_list_ms;
 
 typedef struct s_cmd_list_ms
 {
-	char					*correct_path;
-	char					*cmd_and_args;
 	struct s_cmd_list_ms	*next;
+	char					*cmd_and_args;
+	char					*correct_path;
 }	t_cmd_list_ms;
 
-typedef struct s_pipeline_ms
+typedef struct s_all_redir_ms
 {
-	char					**to_create_trunc;
-	char					**to_create_append;
+	struct s_redir_list_ms	*first_redir;
 	char					*infile;
 	char					*outfile;
 	t_tokens				outfile_mode;
-	struct s_cmd_list_ms	*first_cmd;
-}	t_pipeline_ms;
+}	t_all_redir_ms;
+
+typedef struct s_context_ms
+{
+	struct s_context_ms		*next;
+	struct s_all_redir_ms	*all_redirs;
+	t_tokens				what_is_pipeline_after;
+	char					*pipeline;
+}	t_context_ms;
 
 typedef struct s_token_ms
 {

@@ -5,13 +5,13 @@ static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char
 	tokens = lst_fill(tokens, user_input, delim);
 	if (!tokens)
 	{
-		ft_printf_error("Error : malloc could not be done\n");
+		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
 	tokens->next = lstnew();
 	if (!tokens->next)
 	{
-		ft_printf_error("Error : malloc could not be done\n");
+		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
 	tokens = tokens->next;

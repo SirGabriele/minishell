@@ -11,6 +11,7 @@ fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int 
 fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s,/
 free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/
 free_lst_content	src/parsing/free.c	/^void	free_lst_content(t_token_ms *tokens)$/
+free_tokens	src/parsing/free.c	/^void	free_tokens(t_token_ms *tokens)$/
 free_user_input_and_set_to_null	src/parsing/free.c	/^void	free_user_input_and_set_to_null(char *user_in/
 ft_atoi	libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/
 ft_bzero	libft/memory/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/
@@ -115,13 +116,13 @@ ft_substrlen	libft/str/ft_substrlen.c	/^int	ft_substrlen(char const *s, char c)$
 ft_substr	libft/str/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int start,/
 ft_tolower	libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/
 ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
-get_content	src/parsing/tokens_lst.c	/^char	*get_content(char *user_input, char *delim[7]/
+get_content	src/parsing/tokens_lst.c	/^static char	*get_content(char *user_input, char *d/
 get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_string(char *content)/
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/
 get_nb_tokens	src/utils/get_nb_tokens.c	/^int	get_nb_tokens(const char *user_input, char **d/
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
 get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content)$/
-get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(t_token_ms *tokens, char *u/
+get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *del/
 handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
 highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int s/
 howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
@@ -132,7 +133,7 @@ is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const c
 join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_in/
 launch_program	src/launch_program.c	/^int	launch_program(char **user_input)$/
 len_int	libft/atoi-itoa/ft_itoa.c	/^static int	len_int(int n)$/
-lexer	src/parsing/lexer.c	/^int	lexer(t_token_ms *tokens, char *user_input)$/
+lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/
 lst_fill	src/parsing/tokens_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *use/
 lstnew	src/parsing/tokens_lst.c	/^t_token_ms	*lstnew(void)$/
 makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const cha/
@@ -145,7 +146,6 @@ makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strle
 makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
 Mmain	src/main.c	/^int	main(int argc, char **argv, char **env)$/
 parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *con/
-parsing	src/parsing/parsing.c	/^char	*parsing(char *user_input, t_token_ms *arr_to/
 parsing	src/parsing/parsing.c	/^int	parsing(t_token_ms *tokens)$/
 print_after_end	src/highlight_syntax_error.c	/^static void	print_after_end(const char *str, int e/
 print_before_start	src/highlight_syntax_error.c	/^static void	print_before_start(const char *str, in/

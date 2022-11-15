@@ -84,6 +84,6 @@ int	launch_program(char **user_input)
 		return (-1);
 	if (parsing(tokens) == -1)
 		return (-1);
-//	free(tokens);
+	free_tokens(tokens);
 	return (0);
 }

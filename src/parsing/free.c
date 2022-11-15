@@ -15,3 +15,16 @@ void	free_lst_content(t_token_ms *tokens)
 		tokens = tokens->next;
 	}
 }
+
+void	free_tokens(t_token_ms *tokens)
+{
+	t_token_ms	*tokens_cpy;
+
+	while (tokens)
+	{
+		free(tokens->content);
+		tokens_cpy = tokens->next;
+		free(tokens);
+		tokens = tokens_cpy;
+	}
+}

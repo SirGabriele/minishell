@@ -21,6 +21,9 @@ t_token_ms	*lexer(char *user_input)
 	fill_delimiters(delim);
 	tokens = get_tokens(user_input, delim);
 	if (!tokens)
+	{
+		free_tokens(tokens);
 		return (NULL);
+	}
 	return (tokens);
 }

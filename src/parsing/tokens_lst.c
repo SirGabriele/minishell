@@ -38,7 +38,7 @@ t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
 		tmp_token->content = get_content(user_input, delim);
 		if (!tmp_token->content)
 		{
-			ft_printf_error("Error : malloc could not be done\n");
+			ft_putstr_fd("Error : malloc could not be done\n", 2);
 			return (NULL);
 		}
 	}
@@ -49,10 +49,10 @@ t_token_ms	*lstnew(void)
 {
 	t_token_ms	*elem;
 
-	elem = malloc(sizeof(t_list));
+	elem = malloc(sizeof(t_token_ms));
 	if (!elem)
 	{
-		ft_printf_error("Error : malloc could not be done\n");
+		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
 	elem->type = 0;
