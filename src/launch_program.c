@@ -73,22 +73,17 @@ static int	ft_check_syntax_error(char **user_input)
 
 int	launch_program(char **user_input)
 {
-	int			i;
 	t_token_ms	*tokens;
+	int			i;
 
 	i = 0;
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
-	tokens = malloc(sizeof(t_token_ms));
+	tokens = lexer(*user_input);
 	if (!tokens)
-		return (-1);
-	if (lexer(tokens, *user_input) == -1)
 		return (-1);
 	if (parsing(tokens) == -1)
 		return (-1);
-	/*
-	else if (parsing(*user_input, tokens))
-		return (-1);*/
 //	free(tokens);
 	return (0);
 }

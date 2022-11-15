@@ -69,19 +69,21 @@ static char	*get_string_parsed(char *content)
 
 int	parsing(t_token_ms *tokens)
 {
+	t_token_ms	*tmp_tokens;
 	int	i = 1; //a supprimer
 
-	while (tokens->next)
+	tmp_tokens = tokens;
+	while (tmp_tokens->next)
 	{
-		if (tokens->type == TOK_STRING)
+		if (tmp_tokens->type == TOK_STRING)
 		{
-			tokens->content = get_string_parsed(tokens->content);
-			if (!tokens->content)
+			tmp_tokens->content = get_string_parsed(tmp_tokens->content);
+			if (!tmp_tokens->content)
 				return (-1);
 		}
-		ft_printf("token %d : content = %s\n", i, tokens->content);
-		i++;
-		tokens = tokens->next;
+		ft_printf("token %d : content = %s\n", i, tmp_tokens->content); //a supprimer
+		i++; //a supprimer
+		tmp_tokens = tmp_tokens->next;
 	}
 	return (0);
 }

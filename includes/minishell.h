@@ -51,10 +51,10 @@ char		*get_missing_user_input(char **user_input);
 /************/
 
 //lexer.c
-int			lexer(t_token_ms *arr_tokens, char *user_input);
+t_token_ms	*lexer(char *user_input);
 
 //get_tokens.c
-t_token_ms	*get_tokens(t_token_ms *tokens, char *user_input, char *delim[7]);
+t_token_ms	*get_tokens(char *user_input, char *delim[7]);
 
 //tokens_lst.c
 t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7]);

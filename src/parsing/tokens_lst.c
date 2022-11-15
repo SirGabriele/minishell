@@ -39,8 +39,7 @@ t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
 		if (!tmp_token->content)
 		{
 			ft_printf_error("Error : malloc could not be done\n");
-			free_lst_content(tokens);
-			exit(1);
+			return (NULL);
 		}
 	}
 	return (tmp_token);
@@ -54,7 +53,7 @@ t_token_ms	*lstnew(void)
 	if (!elem)
 	{
 		ft_printf_error("Error : malloc could not be done\n");
-		exit(1);
+		return (NULL);
 	}
 	elem->type = 0;
 	elem->content = NULL;
