@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	get_nb_cmd(t_cmd_list_ms *cmd)
+/*static int	get_nb_cmd(t_cmd_list_ms *cmd)
 {
 	int	i;
 
@@ -11,7 +11,7 @@ static int	get_nb_cmd(t_cmd_list_ms *cmd)
 		cmd = cmd->next;
 	}
 	return (i);
-}
+}*/
 
 int	exec_pipex(t_pipeline_ms *pipeline)
 {
@@ -19,14 +19,14 @@ int	exec_pipex(t_pipeline_ms *pipeline)
 	int				pipe_before[2];
 	int				pipe_after[2];
 	pid_t			child;
-	int				nb_cmd;
+//	int				nb_cmd;
 
 	if (pipe(pipe_before) == -1 || pipe(pipe_after) == -1)
 		return (-1);
 	child = fork();
 	if (child == -1)
 		return (-1);
-	nb_cmd = get_nb_cmd(pipeline->first_cmd);
+//	nb_cmd = get_nb_cmd(pipeline->first_cmd);
 	current_cmd = pipeline->first_cmd;
 	while (current_cmd != NULL)
 	{

@@ -1,0 +1,49 @@
+((echo lala && (ls -la || echo non)) | echo non | ls) || echo oui
+
+1.(
+	2.(
+		echo lala
+		&&
+			3.(
+				ls -la
+				||
+				echo non
+			)
+	) | echo non | ls
+)
+|| echo oui
+
+
+1.
+struct s_cmd_list_ms	*first_cmd;
+struct s_redir_ms		*first_redir;
+char                    *infile = NULL;
+char                    *outfile = NULL;
+t_tokens                outfile_mode = NULL;
+t_token					what_is_cmd_after = TOK_NULL;
+char					*raw_line = "((echo lala && (ls -la || echo non)) | echo non | ls)";
+	struct s_cmd_list_ms    *first_cmd;
+	{
+		char					**cmd_and_args = "(echo lala && (ls -la || echo non"
+		char					*correct_path;
+	}
+	
+	
+	
+	
+	
+	
+	
+2.
+struct s_cmd_list_ms	*first_cmd;
+struct s_redir_ms		*first_redir;
+char                    *infile = NULL;
+char                    *outfile = NULL;
+t_tokens                outfile_mode = NULL;
+t_token					what_is_cmd_after = TOK_OR_OPER;
+char					*raw_line = "echo oui";
+	struct s_cmd_list_ms    *first_cmd;
+	{
+		char					**cmd_and_args = "echo oui"
+		char					*correct_path;
+	}

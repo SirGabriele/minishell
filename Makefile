@@ -16,12 +16,11 @@ CHECK =	get_missing_user_input.c	\
 PARSING =	lexer.c
 
 EXEC =	test_pipex.c	\
-	launch_pipex.c		\
-	exec_pipex.c
+	launch_pipex.c
 
 LL = ft_lstnew_cmd.c		\
 	ft_lstnew_redir.c		\
-	init_pipeline_struct.c
+	init_structs.c
 
 UTILS =	what_is_index_in.c	\
 	get_nb_tokens.c

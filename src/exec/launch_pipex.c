@@ -1,9 +1,12 @@
 #include "../../includes/minishell.h"
 
-static int	check_infile(t_redir_ms *cursor)
+static int	verify_infiles(t_redir_ms *cursor)
 {
 	int	fd;
 
+	if (cursor->mode == TOK_HEREDOC)
+//		if (launch_heredoc() == -1) // TO CODE
+			return (-1);
 	fd = open(cursor->file_name, O_WRONLY);
 	if (fd == -1)
 	{
@@ -18,7 +21,7 @@ static int	check_infile(t_redir_ms *cursor)
 	return (0);
 }
 
-static int	check_outfile(t_redir_ms *cursor)
+static int	verify_outfiles(t_redir_ms *cursor)
 {
 	int	fd;
 
@@ -39,21 +42,21 @@ static int	check_outfile(t_redir_ms *cursor)
 	return (0);
 }
 
-static int	manage_infiles_outfiles(t_redir_ms *first_redir)
+static int	verify_all_redirs(t_redir_ms *first_redir)
 {
 	t_redir_ms	*cursor;
 
 	cursor = first_redir;
 	while (cursor != NULL)
 	{
-		if (cursor->mode == TOK_INFILE)
+		if (cursor->mode == TOK_INFILE || cursor->mode == TOK_HEREDOC)
 		{
-			if (check_infile(cursor) == -1)
+			if (verify_infiles(cursor) == -1)
 				return (-1);
 		}
 		else
 		{
-			if (check_outfile(cursor) == -1)
+			if (verify_outfiles(cursor) == -1)
 				return (-1);
 		}
 		cursor = cursor->next;
@@ -61,11 +64,16 @@ static int	manage_infiles_outfiles(t_redir_ms *first_redir)
 	return (0);
 }
 
-int	launch_pipex(t_pipeline_ms *pipeline)
+int	launch_pipex(t_context_ms *context)
 {
-	if (manage_infiles_outfiles(pipeline->first_redir) == -1)
-		return (-1);
-	//check infiles/outfiles
-	exec_pipex(pipeline);
+	t_context_ms	*cursor;
+
+	cursor = context;
+	while (cursor != NULL)
+	{
+		if (verify_all_redirs(cursor->all_redirs->first_redir) == -1)
+			return (-1);
+		cursor = cursor->next;
+	}
 	return (0);
 }

@@ -30,22 +30,14 @@ typedef enum e_tokens
 	TOK_STRING,
 	TOK_OP_PAR,
 	TOK_CL_PAR,
-	TOK_INF_REDIR,
+	TOK_INFILE,
 	TOK_OUTF_TRUNC,
 	TOK_HEREDOC,
 	TOK_OUTF_APPEND,
 	TOK_PIPE,
 	TOK_AND_OPER,
 	TOK_OR_OPER,
-	TOK_INFILE,
 }	t_tokens;
-
-typedef struct s_redir_ms
-{
-	struct s_redir_ms		*next;
-	char					*file_name;
-	t_tokens				mode;
-}	t_redir_ms;
 
 typedef struct s_cmd_list_ms
 {
@@ -54,14 +46,29 @@ typedef struct s_cmd_list_ms
 	char					*correct_path;
 }	t_cmd_list_ms;
 
-typedef struct s_pipeline_ms
+typedef struct s_redir_ms
 {
-	struct s_cmd_list_ms	*first_cmd;
+	struct s_redir_ms	*next;
+	char					*file_name;
+	t_tokens				mode;	
+}	t_redir_ms;
+
+typedef struct s_all_redirs_ms
+{
 	struct s_redir_ms		*first_redir;
 	char					*infile;
 	char					*outfile;
+	t_tokens				infile_mode;
 	t_tokens				outfile_mode;
-}	t_pipeline_ms;
+}	t_all_redirs_ms;
+
+typedef struct s_context_ms
+{
+	struct s_context_ms		*next;
+	struct s_all_redirs_ms	*all_redirs;
+	t_tokens				what_is_pipeline_after;
+	char					*pipeline;
+}	t_context_ms;
 
 typedef struct s_token_ms
 {
@@ -117,10 +124,10 @@ char			*get_missing_user_input(char **user_input);
 int				test_pipex(void);
 
 //launch_pipex.c
-int				launch_pipex(t_pipeline_ms *pipeline);
+int				launch_pipex(t_context_ms *context);
 
 //exec_pipex.c
-int				exec_pipex(t_pipeline_ms *pipeline);
+int				exec_pipex(t_context_ms *context);
 
 /************/
 /*	PARSING	*/
@@ -139,8 +146,9 @@ t_cmd_list_ms	*ft_lstnew_cmd(char *command_and_args);
 //ft_lstnew_redir.c
 t_redir_ms		*ft_lstnew_redir(char *file_name, t_tokens mode);
 
-//init_pipeline_struct.c
-void			init_pipeline_struct(t_pipeline_ms *pipeline);
+//init_structs.c
+void			init_context_struct(t_context_ms *context);
+void			init_context_all_redirs(t_all_redirs_ms *all_redirs);
 
 /************/
 /*	UTILS	*/
