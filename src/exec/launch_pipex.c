@@ -10,7 +10,8 @@ static int	verify_infiles(t_redir_ms *cursor)
 	fd = open(cursor->file_name, O_WRONLY);
 	if (fd == -1)
 	{
-		ft_printf_fd(2, "minishell: %s: No such file or directory\n", cursor->file_name);
+		ft_printf_fd(2, "minishell: %s: No such file or directory\n",
+			cursor->file_name);
 		return (-1);
 	}
 	if (close(fd) == -1)
@@ -42,38 +43,51 @@ static int	verify_outfiles(t_redir_ms *cursor)
 	return (0);
 }
 
-static int	verify_all_redirs(t_redir_ms *first_redir)
+/************************************************************/
+/*															*/
+/*	Verifies if all the infiles and outfile written in the	*/
+/*	command line are all valid								*/
+/*															*/
+/*	Parameters:												*/
+/*		context - all the pipelines							*/
+/*															*/
+/*	Return:													*/
+/*		-1 - if an error occured							*/
+/*		 0 - if everything is fine							*/
+/*															*/
+/************************************************************/
+static int	verify_all_redirs(t_context_ms *context)
 {
-	t_redir_ms	*cursor;
+	t_context_ms	*cursor_cont;
+	t_redir_ms		*cursor_redir;
 
-	cursor = first_redir;
-	while (cursor != NULL)
+	cursor_cont = context;
+	while (cursor_cont != NULL)
 	{
-		if (cursor->mode == TOK_INFILE || cursor->mode == TOK_HEREDOC)
+		cursor_redir = cursor_cont->all_redirs->first_redir;
+		while (cursor_redir != NULL)
 		{
-			if (verify_infiles(cursor) == -1)
-				return (-1);
+			if (cursor_redir->mode == TOK_INFILE
+				|| cursor_redir->mode == TOK_HEREDOC)
+			{
+				if (verify_infiles(cursor_redir) == -1)
+					return (-1);
+			}
+			else
+			{
+				if (verify_outfiles(cursor_redir) == -1)
+					return (-1);
+			}
+			cursor_redir = cursor_redir->next;
 		}
-		else
-		{
-			if (verify_outfiles(cursor) == -1)
-				return (-1);
-		}
-		cursor = cursor->next;
+		cursor_cont = cursor_cont->next;
 	}
 	return (0);
 }
 
 int	launch_pipex(t_context_ms *context)
 {
-	t_context_ms	*cursor;
-
-	cursor = context;
-	while (cursor != NULL)
-	{
-		if (verify_all_redirs(cursor->all_redirs->first_redir) == -1)
-			return (-1);
-		cursor = cursor->next;
-	}
+	if (verify_all_redirs(context) == -1)
+		return (-1);
 	return (0);
 }
