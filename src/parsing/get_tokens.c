@@ -29,15 +29,16 @@ t_token_ms	*get_tokens(char *user_input, char *delim[7])
 		return (NULL);
 	tmp_tokens = tokens;
 	i = 0;
+	while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
+		i++;
 	while (user_input[i])
 	{
-		while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
-			i++;
 		tokens = assign_token_delim(tokens, user_input + i, delim);
 		if (!tokens)
 			return (NULL);
 		i += token_length(user_input + i, delim);
+		while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
+			i++;
 	}
 	return (tmp_tokens);
 }
-

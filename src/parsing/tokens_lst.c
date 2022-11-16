@@ -10,13 +10,13 @@ static char	*get_content(char *user_input, char *delim[7])
 	tmp = malloc((tok_length + 1) * sizeof(char));
 	if (!tmp)
 		return (NULL);
-	tmp[tok_length] = '\0';
 	i = 0;
 	while (i < tok_length)
 	{
 		tmp[i] = user_input[i];
 		i++;
 	}
+	tmp[i] = '\0';
 	return (tmp);
 }
 
@@ -26,7 +26,7 @@ t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
 	int			index_delimiter;
 
 	tmp_token = tokens;
-	index_delimiter = is_a_delimiter(user_input, delim);
+	index_delimiter = is_a_delimiter(user_input, delim, 0);
 	if (index_delimiter >= 0)
 	{
 		tmp_token->content = NULL;

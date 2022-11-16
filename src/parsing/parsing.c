@@ -49,6 +49,7 @@ static char *parse_content(char *parsed, char *content)
 		else
 			parsed[j++] = content[i++];
 	}
+	parsed[j] = '\0';
 	return (parsed);
 }
 
@@ -100,9 +101,9 @@ void	print_tokens(t_token_ms *tokens)
 	i = 1;
 	while (tokens->next)
 	{
-		printf("\ntoken %d :\n", i);
+		ft_printf("\ntoken %d :\n", i);
 		print_type(tokens->type);
-		printf("	content = %s\n", tokens->content);
+		ft_printf("	content = %s\n", tokens->content);
 		tokens = tokens->next;
 		i++;
 	}
@@ -127,6 +128,6 @@ int	parsing(t_token_ms *tokens)
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
-	//print_tokens(tokens); //a supprimer
+	print_tokens(tokens); //a supprimer
 	return (0);
 }

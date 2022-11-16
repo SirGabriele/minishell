@@ -6,7 +6,7 @@ t_tokens	identify_delim_token(char *user_input, char *delim[7])
 	int			index_delimiter;
 
 	token_type = 0;
-	index_delimiter = is_a_delimiter(user_input, delim);
+	index_delimiter = is_a_delimiter(user_input, delim, 0);
 	if (index_delimiter == 2 && user_input[0] == user_input[1])
 		token_type = TOK_HEREDOC;
 	else if (index_delimiter == 3 && user_input[0] == user_input[1])
@@ -35,9 +35,9 @@ int	token_length(char *user_input, char *delim[7])
 	i = 0;
 	while (user_input[i])
 	{
-		if (is_a_delimiter(user_input + i, delim) >= 0 && i)
+		if (is_a_delimiter(user_input, delim, i) >= 0 && i)
 			return (i);
-		else if (is_a_delimiter(user_input, delim) >= 0 && !i)
+		else if (is_a_delimiter(user_input, delim, i) >= 0 && !i)
 		{
 			if (user_input[0] == user_input[1])
 				return (2);
@@ -51,7 +51,7 @@ int	token_length(char *user_input, char *delim[7])
 	return (i);
 }
 
-int	is_a_delimiter(const char *user_input, char *delim[7])
+int	is_a_delimiter(const char *user_input, char *delim[7], int index)
 {
 	int	i;
 	int	length_delim;
@@ -60,8 +60,8 @@ int	is_a_delimiter(const char *user_input, char *delim[7])
 	while (delim[i] != NULL)
 	{
 		length_delim = ft_strlen(delim[i]);
-		if (ft_strncmp(user_input, delim[i], length_delim) == 0
-			&& !what_is_index_in(user_input, 0))
+		if (ft_strncmp(user_input + index, delim[i], length_delim) == 0
+			&& !what_is_index_in(user_input, index))
 			return (i);
 		i++;
 	}

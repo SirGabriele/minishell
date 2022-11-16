@@ -20,8 +20,7 @@ PARSING =	get_tokens.c 		\
 			parsing.c			\
 			utils_token.c
 
-UTILS =	what_is_index_in.c	\
-	get_nb_tokens.c
+UTILS =	what_is_index_in.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\

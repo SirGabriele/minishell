@@ -62,7 +62,7 @@ t_token_ms	*lstnew(void);
 
 //utils_tokens.c
 int			token_length(char *user_input, char *delim[7]);
-int			is_a_delimiter(const char *user_input, char *delim[7]);
+int			is_a_delimiter(const char *user_input, char *delim[7], int index);
 t_tokens	identify_delim_token(char *user_input, char *delim[7]);
 
 //parsing.c
@@ -79,8 +79,5 @@ void		free_tokens(t_token_ms *tokens);
 
 //what_is_index_in.c
 int			what_is_index_in(const char *user_input, int i);
-
-//get_nb_tokens.c
-int			get_nb_tokens(const char *user_input, char **delimiters);
 
 #endif
