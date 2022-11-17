@@ -8,9 +8,9 @@ typedef enum e_tokens
 	TOK_OP_PAR,
 	TOK_CL_PAR,
 	TOK_INFILE,
-	TOK_OUTF_TRUNC,
+	TOK_TRUNC,
 	TOK_HEREDOC,
-	TOK_OUTF_APPEND,
+	TOK_APPEND,
 	TOK_PIPE,
 	TOK_AND_OPER,
 	TOK_OR_OPER,
@@ -32,10 +32,12 @@ typedef struct s_cmd_list_ms
 
 typedef struct s_all_redir_ms
 {
-	struct s_redir_list_ms	*first_redir;
-	char					*infile;
+	struct s_redir_list_ms	*output_redir;
 	char					*outfile;
 	t_tokens				outfile_mode;
+	struct s_redir_list_ms	*input_redir;
+	char					*infile;
+	t_tokens				infile_mode;
 }	t_all_redir_ms;
 
 typedef struct s_context_ms

@@ -73,16 +73,16 @@ static int	ft_check_syntax_error(char **user_input)
 
 int	launch_program(char **user_input)
 {
-	t_token_ms	*tokens;
-	int			i;
+	t_token_ms		*tokens;
+	t_context_ms	*cmd_line;
 
-	i = 0;
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
 	tokens = lexer(*user_input);
 	if (!tokens)
 		return (-1);
-	if (parsing(tokens) == -1)
+	cmd_line = parsing(tokens);
+	if (!cmd_line)
 		return (-1);
 	free_tokens(tokens);
 	return (0);

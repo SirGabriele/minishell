@@ -10,7 +10,7 @@ t_tokens	identify_delim_token(char *user_input, char *delim[7])
 	if (index_delimiter == 2 && user_input[0] == user_input[1])
 		token_type = TOK_HEREDOC;
 	else if (index_delimiter == 3 && user_input[0] == user_input[1])
-		token_type = TOK_OUTF_APPEND;
+		token_type = TOK_APPEND;
 	else if (index_delimiter == 4 && user_input[0] == user_input[1])
 		token_type = TOK_AND_OPER;
 	else if (index_delimiter == 5 && user_input[0] == user_input[1])
@@ -22,7 +22,7 @@ t_tokens	identify_delim_token(char *user_input, char *delim[7])
 	else if (index_delimiter == 2)
 		token_type = TOK_INFILE;
 	else if (index_delimiter == 3)
-		token_type = TOK_OUTF_TRUNC;
+		token_type = TOK_TRUNC;
 	else if (index_delimiter == 5)
 		token_type = TOK_PIPE;
 	return (token_type);

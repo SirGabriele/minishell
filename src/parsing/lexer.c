@@ -14,10 +14,8 @@ static void	fill_delimiters(char **delim)
 t_token_ms	*lexer(char *user_input)
 {
 	t_token_ms	*tokens;
-	int			i;
 	char		*delim[7];
 
-	i = 0;
 	fill_delimiters(delim);
 	tokens = get_tokens(user_input, delim);
 	if (!tokens)

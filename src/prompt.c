@@ -8,13 +8,13 @@ static int	handle_prompt(char *user_input)
 		write(1, "exit\n", 5);
 		return (-1);
 	}
-	if (ft_strncmp(user_input, "exit", 4) == 0)
+	else if (ft_strncmp(user_input, "exit", 4) == 0)
 	{
 		rl_clear_history();
 		free_user_input_and_set_to_null(user_input);
 		return (-1);
 	}
-	if (ft_strlen(user_input) > 0)
+	else if (ft_strlen(user_input) > 0)
 		add_history(user_input);
 	return (0);
 }

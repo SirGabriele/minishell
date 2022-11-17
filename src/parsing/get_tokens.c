@@ -8,7 +8,7 @@ static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char
 		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
-	tokens->next = lstnew();
+	tokens->next = lstnew_token();
 	if (!tokens->next)
 	{
 		ft_putstr_fd("Error : malloc could not be done\n", 2);
@@ -27,6 +27,7 @@ t_token_ms	*get_tokens(char *user_input, char *delim[7])
 	tokens = malloc(sizeof(t_token_ms));
 	if (!tokens)
 		return (NULL);
+	tokens->content = NULL;
 	tmp_tokens = tokens;
 	i = 0;
 	while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))

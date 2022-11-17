@@ -13,11 +13,13 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	get_tokens.c 		\
-			lexer.c				\
-			tokens_lst.c		\
-			free.c				\
-			parsing.c			\
+PARSING =	ft_lst.c 				\
+			lexer.c					\
+			get_tokens.c			\
+			free_1.c				\
+			free_2.c				\
+			parsing.c				\
+			structure_cmd_line.c	\
 			utils_token.c
 
 UTILS =	what_is_index_in.c

@@ -8,7 +8,7 @@ void	free_user_input_and_set_to_null(char *user_input)
 
 void	free_lst_content(t_token_ms *tokens)
 {
-	while (!tokens->next)
+	while (tokens->next)
 	{
 		free(tokens->content);
 		tokens->content = NULL;
@@ -20,7 +20,7 @@ void	free_tokens(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
-	while (tokens)
+	while (tokens->next)
 	{
 		free(tokens->content);
 		tokens_cpy = tokens->next;
