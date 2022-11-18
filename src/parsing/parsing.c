@@ -70,8 +70,8 @@ static char	*get_string_parsed(char *content)
 
 t_context_ms	*parsing(t_token_ms *tokens)
 {
-	t_token_ms	*tmp_tokens;
-	t_context_ms	*cmd_line;
+	t_token_ms		*tmp_tokens;
+	t_context_ms	*cmd_lst;
 
 	tmp_tokens = tokens;
 	while (tmp_tokens->next)
@@ -84,11 +84,11 @@ t_context_ms	*parsing(t_token_ms *tokens)
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
-	cmd_line = structure_cmd_line(tokens);
-	if (!cmd_line)
+	cmd_lst = structure_cmd_lst(tokens);
+	if (!cmd_lst)
 	{
 		free_tokens(tokens);
 		return (NULL);
 	}
-	return (cmd_line);
+	return (cmd_lst);
 }

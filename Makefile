@@ -19,7 +19,9 @@ PARSING =	ft_lst.c 				\
 			free_1.c				\
 			free_2.c				\
 			parsing.c				\
-			structure_cmd_line.c	\
+			structure_cmd_lst.c		\
+			get_pipelines.c			\
+			get_pipelines_utils.c	\
 			utils_token.c
 
 UTILS =	what_is_index_in.c

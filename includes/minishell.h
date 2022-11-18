@@ -59,7 +59,7 @@ t_token_ms		*get_tokens(char *user_input, char *delim[7]);
 //ft_lst.c
 t_token_ms		*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7]);
 t_token_ms		*lstnew_token(void);
-t_context_ms	*lstnew_cmd_line(void);
+t_context_ms	*lstnew_cmd_lst(void);
 
 //utils_tokens.c
 int				token_length(char *user_input, char *delim[7]);
@@ -70,8 +70,16 @@ t_tokens		identify_delim_token(char *user_input, char *delim[7]);
 t_context_ms	*parsing(t_token_ms *tokens);
 
 //structure_cmd_line.c
-int				get_pipelines(t_token_ms *tokens, t_context_ms *cmd_line);
-t_context_ms	*structure_cmd_line(t_token_ms *tokens);
+t_context_ms	*structure_cmd_lst(t_token_ms *tokens);
+
+//get_pipelines.c
+int				get_all_pipelines(t_token_ms *tokens, t_context_ms *cmd_lst);
+
+//get_pipelines_utils.c
+t_token_ms		*increm_tokens_copy(t_token_ms *tokens_cpy);
+int				length_without_spaces(char *pipeline);
+char			*add_space_if_needed(char *pipeline, t_token_ms *tokens);
+char			*parse_spaces(char *pipeline, t_token_ms *tokens);
 
 //free_1.c
 void			free_user_input_and_set_to_null(char *user_input);
@@ -81,7 +89,7 @@ void			free_tokens(t_token_ms *tokens);
 //free_2.c
 void			free_redirections(t_redir_list_ms *redir_list);
 void			free_all_redirections(t_all_redir_ms *all_redirs);
-void			free_context(t_context_ms *cmd_line);
+void			free_context(t_context_ms *cmd_lst);
 
 /************/
 /*	UTILS	*/

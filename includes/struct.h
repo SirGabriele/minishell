@@ -32,10 +32,9 @@ typedef struct s_cmd_list_ms
 
 typedef struct s_all_redir_ms
 {
-	struct s_redir_list_ms	*output_redir;
+	struct s_redir_list_ms	*first_redir;
 	char					*outfile;
 	t_tokens				outfile_mode;
-	struct s_redir_list_ms	*input_redir;
 	char					*infile;
 	t_tokens				infile_mode;
 }	t_all_redir_ms;

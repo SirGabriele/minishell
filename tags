@@ -1,4 +1,5 @@
 Mmain	src/main.c	/^int	main(int argc, char **argv, char **env)$/
+add_space_if_needed	src/parsing/get_pipelines_utils.c	/^char	*add_space_if_needed(char *pipeline, t_token_/
 are_all_parenthesis_paired	src/check/check_paired_characters.c	/^int	are_all_parenthesis_paired(const char *user_in/
 are_all_pipes_closed	src/check/check_paired_characters.c	/^int	are_all_pipes_closed(const char *user_input)$/
 assign_token_delim	src/parsing/get_tokens.c	/^static t_token_ms	*assign_token_delim(t_token_ms */
@@ -10,13 +11,13 @@ fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, in
 fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delim)$/
 fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, i/
 fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s,/
-free_all_redirections	src/parsing/free_2.c	/^void	free_all_redirections(t_all_redir_ms *all_redirs)$/;"	f
+free_all_redirections	src/parsing/free_2.c	/^void	free_all_redirections(t_all_redir_ms *all_red/
 free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/
-free_context	src/parsing/free_2.c	/^void	free_context(t_context_ms *cmd_line)$/;"	f
-free_lst_content	src/parsing/free_1.c	/^void	free_lst_content(t_token_ms *tokens)$/;"	f
-free_redirections	src/parsing/free_2.c	/^void	free_redirections(t_redir_list_ms *redir_list)$/;"	f
-free_tokens	src/parsing/free_1.c	/^void	free_tokens(t_token_ms *tokens)$/;"	f
-free_user_input_and_set_to_null	src/parsing/free_1.c	/^void	free_user_input_and_set_to_null(char *user_input)$/;"	f
+free_context	src/parsing/free_2.c	/^void	free_context(t_context_ms *cmd_line)$/
+free_lst_content	src/parsing/free_1.c	/^void	free_lst_content(t_token_ms *tokens)$/
+free_redirections	src/parsing/free_2.c	/^void	free_redirections(t_redir_list_ms *redir_list/
+free_tokens	src/parsing/free_1.c	/^void	free_tokens(t_token_ms *tokens)$/
+free_user_input_and_set_to_null	src/parsing/free_1.c	/^void	free_user_input_and_set_to_null(char *user_in/
 ft_atoi	libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/
 ft_bzero	libft/memory/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/
 ft_calloc	libft/memory/ft_calloc.c	/^void	*ft_calloc(size_t size, size_t nmemb)$/
@@ -120,31 +121,30 @@ ft_substr	libft/str/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int st
 ft_substrlen	libft/str/ft_substrlen.c	/^int	ft_substrlen(char const *s, char c)$/
 ft_tolower	libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/
 ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
-get_content	src/parsing/ft_lst.c	/^static char	*get_content(char *user_input, char *delim[7])$/;"	f	file:
-get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_string(char *content)$/;"	f	file:
+get_all_pipelines	src/parsing/get_pipelines.c	/^int	get_all_pipelines(t_token_ms *tokens, t_contex/
+get_content	src/parsing/ft_lst.c	/^static char	*get_content(char *user_input, char *d/
 get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_string(char *content)/
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/
-get_nb_tokens	src/utils/get_nb_tokens.c	/^int	get_nb_tokens(const char *user_input, char **d/
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
-get_pipelines	src/parsing/structure_cmd_line.c	/^int	get_pipelines(t_token_ms *tokens, t_context_ms *cmd_line)$/;"	f
+get_pipeline	src/parsing/get_pipelines.c	/^static t_context_ms	*get_pipeline(t_context_ms *cm/
 get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content)$/
-get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content)$/;"	f	file:
 get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *del/
 handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
 highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int s/
 howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
 identify_delim_token	src/parsing/utils_token.c	/^t_tokens	identify_delim_token(char *user_input, ch/
+increm_tokens_copy	src/parsing/get_pipelines_utils.c	/^t_token_ms	*increm_tokens_copy(t_token_ms *tokens_/
 is_a_delimiter	src/parsing/utils_token.c	/^int	is_a_delimiter(const char *user_input, char *d/
 is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input,/
 isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/
 join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_in/
 launch_program	src/launch_program.c	/^int	launch_program(char **user_input)$/
 len_int	libft/atoi-itoa/ft_itoa.c	/^static int	len_int(int n)$/
+length_without_spaces	src/parsing/get_pipelines_utils.c	/^int	length_without_spaces(char *pipeline)$/
 lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/
-lst_fill	src/parsing/ft_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])$/;"	f
-lstnew_cmd_line	src/parsing/ft_lst.c	/^t_context_ms	*lstnew_cmd_line(void)$/;"	f
-lstnew_token	src/parsing/ft_lst.c	/^t_token_ms	*lstnew_token(void)$/;"	f
-main	src/main.c	/^int	main(int argc, char **argv, char **env)$/;"	f
+lst_fill	src/parsing/ft_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *use/
+lstnew_cmd_lst	src/parsing/ft_lst.c	/^t_context_ms	*lstnew_cmd_lst(void)$/
+lstnew_token	src/parsing/ft_lst.c	/^t_token_ms	*lstnew_token(void)$/
 makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const cha/
 makeshift_strcat	libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *dst, const cha/
 makeshift_strlen	libft/str/ft_strdup.c	/^static int	makeshift_strlen(const char *str)$/
@@ -153,16 +153,14 @@ makeshift_strlen	libft/str/ft_strjoin_free_both.c	/^static int	makeshift_strlen(
 makeshift_strlen	libft/str/ft_strjoin_free_first.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
-parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *content)$/;"	f	file:
-parsing	src/parsing/parsing.c	/^t_context_ms	*parsing(t_token_ms *tokens)$/;"	f
+parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *con/
+parse_spaces	src/parsing/get_pipelines_utils.c	/^char	*parse_spaces(char *pipeline, t_token_ms *tok/
+parsing	src/parsing/parsing.c	/^t_context_ms	*parsing(t_token_ms *tokens)$/
 print_after_end	src/highlight_syntax_error.c	/^static void	print_after_end(const char *str, int e/
 print_before_start	src/highlight_syntax_error.c	/^static void	print_before_start(const char *str, in/
-print_pipelines	src/parsing/structure_cmd_line.c	/^void	print_pipelines(t_context_ms *cmd_line)$/;"	f
+print_pipelines	src/parsing/structure_cmd_lst.c	/^void	print_pipelines(t_context_ms *cmd_line)$/
 print_syntax_error	src/highlight_syntax_error.c	/^static void	print_syntax_error(const char *str, in/
-print_tokens	src/parsing/parsing.c	/^void	print_tokens(t_token_ms *tokens)$/;"	f
-print_type	src/parsing/parsing.c	/^void	print_type(t_tokens type)$/;"	f
 scan_after_percentage_fd	libft/ft_printf_fd/ft_printf_fd.c	/^static int	scan_after_percentage_fd(const char *fm/
-structure_cmd_line	src/parsing/structure_cmd_line.c	/^t_context_ms	*structure_cmd_line(t_token_ms *tokens)$/;"	f
-structure_cmd_line	src/parsing/structure_cmd_line.c	/^t_context_ms	structure_cmd_line(t_token_ms *tokens)$/;"	f
+structure_cmd_lst	src/parsing/structure_cmd_lst.c	/^t_context_ms	*structure_cmd_lst(t_token_ms *tokens/
 token_length	src/parsing/utils_token.c	/^int	token_length(char *user_input, char *delim[7])/
 what_is_index_in	src/utils/what_is_index_in.c	/^int	what_is_index_in(const char *user_input, int i/

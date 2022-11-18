@@ -74,16 +74,17 @@ static int	ft_check_syntax_error(char **user_input)
 int	launch_program(char **user_input)
 {
 	t_token_ms		*tokens;
-	t_context_ms	*cmd_line;
+	t_context_ms	*cmd_lst;
 
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
 	tokens = lexer(*user_input);
 	if (!tokens)
 		return (-1);
-	cmd_line = parsing(tokens);
-	if (!cmd_line)
+	cmd_lst = parsing(tokens);
+	if (!cmd_lst)
 		return (-1);
 	free_tokens(tokens);
+	free_context(cmd_lst);
 	return (0);
 }

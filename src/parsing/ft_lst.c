@@ -1,6 +1,30 @@
 #include "../../includes/minishell.h"
 
-static char	*get_content(char *user_input, char *delim[7])
+static char	*get_content_delim(char *user_input, char *delim)
+{
+	char	*content;
+
+	if (user_input[0] == user_input[1])
+	{
+		content = malloc(3 * sizeof(char));
+		if (!content)
+			return (NULL);
+		content[0] = delim[0];
+		content[1] = delim[0];
+		content[2] = '\0';
+	}
+	else
+	{
+		content = malloc(2 * sizeof(char));
+		if (!content)
+			return (NULL);
+		content[0] = delim[0];
+		content[1] = '\0';
+	}
+	return (content);
+}
+
+static char	*get_content_string(char *user_input, char *delim[7])
 {
 	char	*tmp;
 	int		i;
@@ -29,13 +53,18 @@ t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
 	index_delim = is_a_delimiter(user_input, delim, 0);
 	if (index_delim >= 0)
 	{
-		tmp_token->content = ft_strjoin(tmp_token->content, delim[index_delim]);
 		tmp_token->type = identify_delim_token(user_input, delim);
+		tmp_token->content = get_content_delim(user_input, delim[index_delim]);
+		if (!tmp_token->content)
+		{
+			ft_putstr_fd("Error : malloc could not be done\n", 2);
+			return (NULL);
+		}
 	}
 	else
 	{
 		tmp_token->type = TOK_STRING;
-		tmp_token->content = get_content(user_input, delim);
+		tmp_token->content = get_content_string(user_input, delim);
 		if (!tmp_token->content)
 		{
 			ft_putstr_fd("Error : malloc could not be done\n", 2);
@@ -61,7 +90,7 @@ t_token_ms	*lstnew_token(void)
 	return (elem);
 }
 
-t_context_ms	*lstnew_cmd_line(void)
+t_context_ms	*lstnew_cmd_lst(void)
 {
 	t_context_ms	*elem;
 
