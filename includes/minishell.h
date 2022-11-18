@@ -26,17 +26,17 @@
 
 typedef enum e_tokens
 {
-	TOK_NULL,
-	TOK_STRING,
-	TOK_OP_PAR,
-	TOK_CL_PAR,
-	TOK_INFILE,
-	TOK_OUTF_TRUNC,
-	TOK_HEREDOC,
-	TOK_OUTF_APPEND,
-	TOK_PIPE,
-	TOK_AND_OPER,
-	TOK_OR_OPER,
+	TOK_NULL, /*0*/
+	TOK_STRING, /*1*/
+	TOK_OP_PAR, /*2*/
+	TOK_CL_PAR, /*3*/
+	TOK_INFILE, /*4*/
+	TOK_TRUNC, /*5*/
+	TOK_HEREDOC, /*6*/
+	TOK_APPEND, /*7*/
+	TOK_PIPE, /*8*/
+	TOK_AND_OPER, /*9*/
+	TOK_OR_OPER, /*10*/
 }	t_tokens;
 
 typedef struct s_cmd_list_ms
@@ -48,7 +48,7 @@ typedef struct s_cmd_list_ms
 
 typedef struct s_redir_ms
 {
-	struct s_redir_ms	*next;
+	struct s_redir_ms		*next;
 	char					*file_name;
 	t_tokens				mode;	
 }	t_redir_ms;
@@ -58,6 +58,7 @@ typedef struct s_all_redirs_ms
 	struct s_redir_ms		*first_redir;
 	char					*infile;
 	char					*outfile;
+	int						pipe_infile[2];
 	t_tokens				infile_mode;
 	t_tokens				outfile_mode;
 }	t_all_redirs_ms;
@@ -81,14 +82,14 @@ typedef struct s_token_ms
 /*	SRC	*/
 /********/
 //launch_program.c
-int		launch_program(char **user_input);
+int				launch_program(char **user_input);
 
 //prompt.c
-void	ft_signal(int sig);
-int		cmd_prompt(char **env);
+void			ft_signal(int sig);
+int				cmd_prompt(char **env);
 
 //highlight_syntax_error.c
-void	highlight_syntax_error(const char *str, int start, int end);
+void			highlight_syntax_error(const char *str, int start, int end);
 
 /************/
 /*	CHECK	*/
@@ -129,12 +130,17 @@ int				launch_pipex(t_context_ms *context);
 //exec_pipex.c
 int				exec_pipex(t_context_ms *context);
 
-/************/
-/*	PARSING	*/
-/************/
+//verify_infile_redirs.c
+int				handle_append_infile(t_context_ms *context, t_redir_ms *cursor,
+	const char *infile);
+int				verify_basic_infile(t_redir_ms *cursor);
 
-//lexer.c
-int				lexer(t_token_ms **arr_tokens, const char *user_input);
+//heredoc_requested.c
+int				real_heredoc_requested(t_context_ms *context, int std_in_copy);
+int				fake_heredoc_requested(const char *delimiter, int std_in_copy);
+
+//free_program.c
+void			free_program(t_context_ms *context);
 
 /****************/
 /*	LINKED LIST	*/
@@ -156,8 +162,5 @@ void			init_context_all_redirs(t_all_redirs_ms *all_redirs);
 
 //what_is_index_in.c
 int				what_is_index_in(const char *user_input, int i);
-
-//get_nb_tokens.c
-int				get_nb_tokens(const char *user_input, char **delimiters);
 
 #endif

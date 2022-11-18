@@ -7,7 +7,6 @@
 //	t_cmd_list_ms	*cmd;
 
 	context = context_struct;
-	
 	while (context != NULL)
 	{
 		ft_putstr_fd("╔═══════════════════════════════════════════════════════════════════════╗\n", 1);
@@ -24,31 +23,41 @@
 			all_redir = all_redir->next;
 			ft_putstr_fd("║\t║\tall_redirs = all_redirs->next\n", 1);
 		}
-		context = context->next;
 		ft_putstr_fd("║\t╚═══════════════════════════════════════════════════════╝\n", 1);
 		ft_putstr_fd("║\t\tcontext = context->next\n", 1);
 		ft_putstr_fd("╚═══════════════════════════════════════════════════════════════════════╝\n", 1);
-		ft_putstr_fd("\t\t\t\t║\t\t\t\t\n", 1);
-		ft_putstr_fd("\t\t\t\t║\t\t\t\t\n", 1);
+		if (context->next != NULL)
+		{
+			ft_putstr_fd("\t\t\t\t║\t\t\t\t\n", 1);
+			ft_putstr_fd("\t\t\t\t║\t\t\t\t\n", 1);
+		}
+		context = context->next;
 	}
 }*/
 
 static void	set_right_values_in_context_all_redirs_2(t_all_redirs_ms *all_redirs)
 {
-	all_redirs->first_redir = ft_lstnew_redir("outfile1.txt", TOK_OUTF_APPEND);
-	all_redirs->first_redir->next = ft_lstnew_redir("outfile2.txt", TOK_OUTF_APPEND);
-	all_redirs->first_redir->next->next = ft_lstnew_redir("outfile3.txt", TOK_OUTF_APPEND);
-	all_redirs->first_redir->next->next->next = ft_lstnew_redir("outfile4.txt", TOK_OUTF_TRUNC);
+	char	*redir = NULL;
+//	redir = readline("Pipeline 2\nfirst_redir = ");
+	all_redirs->first_redir = ft_lstnew_redir(readline("Pipeline 2\nfirst_out_redir = "), ft_atoi(readline("| mode = ")));
+	redir = readline("second_out_redir = ");
+	all_redirs->first_redir->next = ft_lstnew_redir(redir, TOK_APPEND);
+	redir = readline("third_out_redir = ");
+	all_redirs->first_redir->next->next = ft_lstnew_redir(redir, TOK_APPEND);
+	redir = readline("fourth_out_redir = ");
+	all_redirs->first_redir->next->next->next = ft_lstnew_redir(redir, TOK_TRUNC);
 	all_redirs->infile = NULL;
 	all_redirs->infile_mode = TOK_NULL;
-	all_redirs->outfile = "outfile4.txt";
-	all_redirs->outfile_mode = TOK_OUTF_APPEND;
+	all_redirs->outfile = redir;
+	all_redirs->outfile_mode = TOK_APPEND;
 }
 
 static void	set_right_values_in_context_all_redirs(t_all_redirs_ms *all_redirs)
 {
-	all_redirs->first_redir = ft_lstnew_redir("infile1.txt", TOK_INFILE);
-	all_redirs->infile = "infile1.txt";
+	all_redirs->first_redir = ft_lstnew_redir(readline("Pipeline 1\nfirst_heredoc_delimiter = "), TOK_HEREDOC);
+	all_redirs->first_redir->next = ft_lstnew_redir(readline("second_heredoc_delimiter = "), TOK_HEREDOC);
+	all_redirs->first_redir->next->next = ft_lstnew_redir(readline("third_true_infile = "), TOK_INFILE);
+	all_redirs->infile = readline("True infile = ");
 	all_redirs->infile_mode = TOK_INFILE;
 	all_redirs->outfile = NULL;
 	all_redirs->outfile_mode = TOK_NULL;
@@ -86,6 +95,10 @@ int	test_pipex(void)
 	set_right_values_in_context_2(context->next);
 //	printf_info_structs(context);
 	if (launch_pipex(context) == -1)
+	{
+		free_program(context);
 		return (-1);
+	}
+	free_program(context);
 	return (0);
 }

@@ -73,7 +73,6 @@ static int	ft_check_syntax_error(char **user_input)
 
 int	launch_program(char **user_input)
 {
-
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
 	(void)user_input;

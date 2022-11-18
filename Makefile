@@ -13,20 +13,19 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	lexer.c
-
-EXEC =	test_pipex.c	\
-	launch_pipex.c
+EXEC =	test_pipex.c		\
+	launch_pipex.c			\
+	heredoc_requested.c		\
+	verify_redirs.c			\
+	free_program.c
 
 LL = ft_lstnew_cmd.c		\
 	ft_lstnew_redir.c		\
 	init_structs.c
 
-UTILS =	what_is_index_in.c	\
-	get_nb_tokens.c
+UTILS =	what_is_index_in.c
 
 SRCS = $(addprefix src/, $(SRC))			\
-	$(addprefix src/parsing/, $(PARSING))	\
 	$(addprefix src/check/, $(CHECK))		\
 	$(addprefix src/utils/, $(UTILS))		\
 	$(addprefix src/ll/, $(LL))				\
