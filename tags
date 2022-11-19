@@ -127,6 +127,7 @@ get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_st
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
 get_pipeline	src/parsing/get_pipelines.c	/^static t_context_ms	*get_pipeline(t_context_ms *cm/
+get_redirections	src/parsing/get_redirections.c	/^int	get_redirections(t_token_ms *tokens, t_context/
 get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content)$/
 get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *del/
 handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
@@ -153,6 +154,7 @@ makeshift_strlen	libft/str/ft_strjoin_free_both.c	/^static int	makeshift_strlen(
 makeshift_strlen	libft/str/ft_strjoin_free_first.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
+malloc_token	src/parsing/get_tokens.c	/^static t_token_ms	*malloc_token()$/
 parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *con/
 parse_spaces	src/parsing/parse_spaces.c	/^char	*parse_spaces(char *pipeline, t_token_ms *tok/
 parsing	src/parsing/parsing.c	/^t_context_ms	*parsing(t_token_ms *tokens)$/
