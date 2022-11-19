@@ -29,11 +29,9 @@ t_context_ms	*structure_cmd_lst(t_token_ms *tokens)
 	cmd_lst = lstnew_cmd_lst();
 	if (!cmd_lst)
 		return (NULL);
-	else if (get_all_pipelines(tokens, cmd_lst) == -1)
-	{
-		free_context(cmd_lst);
+	cmd_lst = get_all_pipelines(tokens, cmd_lst);
+	if (!cmd_lst)
 		return (NULL);
-	}
 	print_pipelines(cmd_lst); //a supprimer
 	/*else if (get_redirections(tokens, cmd_line) == -1)
 	{

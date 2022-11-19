@@ -73,10 +73,12 @@ t_context_ms	*parsing(t_token_ms *tokens);
 t_context_ms	*structure_cmd_lst(t_token_ms *tokens);
 
 //get_pipelines.c
-int				get_all_pipelines(t_token_ms *tokens, t_context_ms *cmd_lst);
+t_context_ms	*get_all_pipelines(t_token_ms *tokens, t_context_ms *cmd_lst);
 
 //get_pipelines_utils.c
 t_token_ms		*increm_tokens_copy(t_token_ms *tokens_cpy);
+
+//parse_spaces.c
 int				length_without_spaces(char *pipeline);
 char			*add_space_if_needed(char *pipeline, t_token_ms *tokens);
 char			*parse_spaces(char *pipeline, t_token_ms *tokens);

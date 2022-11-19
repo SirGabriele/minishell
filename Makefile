@@ -22,6 +22,7 @@ PARSING =	ft_lst.c 				\
 			structure_cmd_lst.c		\
 			get_pipelines.c			\
 			get_pipelines_utils.c	\
+			parse_spaces.c			\
 			utils_token.c
 
 UTILS =	what_is_index_in.c
