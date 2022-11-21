@@ -6,7 +6,7 @@
 /*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 09:16:54 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/11/03 23:13:51 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/11/21 07:46:52 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char		*ft_strtrim(char const *s1, char const *set);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		**ft_split(char const *s, char c);
 char		*ft_strdup(const char *s);
+char		**ft_strdup_double(const char **src);
 
 //MEMORY
 void		*ft_memset(void *ptr, int c, size_t n);
@@ -85,6 +86,7 @@ void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
+void		free_double_arr(char **arr);
 
 //OUTPUT
 void		ft_putchar(char c);

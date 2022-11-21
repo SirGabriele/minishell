@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/11/13 10:47:46 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/11/21 07:46:24 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -44,15 +44,17 @@ STR   =		ft_strlen.c					\
 			ft_strtrim.c				\
 			ft_striteri.c				\
 			ft_split.c					\
-			ft_strdup.c
+			ft_strdup.c					\
+			ft_strdup_double.c
 
-MEMORY =	ft_memset.c		\
-			ft_bzero.c		\
-			ft_memcpy.c		\
-			ft_memmove.c	\
-			ft_calloc.c		\
-			ft_memchr.c		\
-			ft_memcmp.c 
+MEMORY =	ft_memset.c			\
+			ft_bzero.c			\
+			ft_memcpy.c			\
+			ft_memmove.c		\
+			ft_calloc.c			\
+			ft_memchr.c			\
+			ft_memcmp.c			\
+			free_double_arr.c
 
 OUTPUT =	ft_putchar.c	\
 			ft_putchar_fd.c	\
