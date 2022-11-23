@@ -23,29 +23,19 @@ typedef struct s_redir_list_ms
 	t_tokens				mode;
 }	t_redir_list_ms;
 
-typedef struct s_cmd_list_ms
+typedef struct s_node_ms
 {
-	struct s_cmd_list_ms	*next;
-	char					*cmd_and_args;
-	char					*correct_path;
-}	t_cmd_list_ms;
-
-typedef struct s_all_redir_ms
-{
-	struct s_redir_list_ms	*first_redir;
-	char					*outfile;
-	t_tokens				outfile_mode;
-	char					*infile;
-	t_tokens				infile_mode;
-}	t_all_redir_ms;
-
-typedef struct s_context_ms
-{
-	struct s_context_ms		*next;
-	struct s_all_redir_ms	*all_redirs;
-	t_tokens				what_is_pipeline_after;
-	char					*pipeline;
-}	t_context_ms;
+	
+	struct s_node_ms	*left;
+	struct s_node_ms	*right;
+	struct s_redir_ms	*first_redir;
+	char				*content;
+	char				*infile;
+	char				*outfile;
+	t_tokens			infile_mode;
+	t_tokens			outfile_mode;
+	t_tokens			operator;
+}	t_node_ms;
 
 typedef struct s_token_ms
 {

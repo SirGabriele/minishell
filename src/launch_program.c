@@ -73,18 +73,20 @@ static int	ft_check_syntax_error(char **user_input)
 
 int	launch_program(char **user_input)
 {
+	t_node_ms		*binary_tree;
 	t_token_ms		*tokens;
-	t_context_ms	*cmd_lst;
+	//t_context_ms	*cmd_lst;
 
-	if (ft_check_syntax_error(user_input) == -1)
-		return (-1);
+	/*if (ft_check_syntax_error(user_input) == -1)
+		return (-1);*/
 	tokens = lexer(*user_input);
 	if (!tokens)
 		return (-1);
-	cmd_lst = parsing(tokens);
+	binary_tree = initialize_binary_tree(tokens);
+	/*cmd_lst = parsing(tokens);
 	if (!cmd_lst)
 		return (-1);
 	free_tokens(tokens);
-	free_context(cmd_lst);
+	free_context(cmd_lst);*/
 	return (0);
 }
