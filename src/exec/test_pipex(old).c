@@ -23,6 +23,13 @@
 			all_redir = all_redir->next;
 			ft_putstr_fd("║\t║\tall_redirs = all_redirs->next\n", 1);
 		}
+		ft_putstr_fd("║\t║\tfirst_cmd:\n", 1);
+		cmd = context->first_cmd;
+		while (cmd != NULL)
+		{
+			ft_printf("║\t║\tcmd_and_args = \"%s %s %s\" | correct_path = %s\n", cmd->cmd_and_args[0], cmd->cmd_and_args[1], cmd->cmd_and_args[2], cmd->correct_path);
+			cmd = cmd->next; 
+		}
 		ft_putstr_fd("║\t╚═══════════════════════════════════════════════════════╝\n", 1);
 		ft_putstr_fd("║\t\tcontext = context->next\n", 1);
 		ft_putstr_fd("╚═══════════════════════════════════════════════════════════════════════╝\n", 1);
@@ -83,22 +90,14 @@ static void	set_right_values_in_context(t_context_ms *context)
 	context->what_is_pipeline_after = TOK_NULL;
 }
 
-int	test_pipex(void)
+int	test_pipex(t_context_ms *context)
 {
-	t_context_ms	*context;
-
-	context = malloc(sizeof(t_context_ms));//check return NULL
-	init_context_struct(context);//met tout à NULL
 	set_right_values_in_context(context);
 	context->next = malloc(sizeof(t_context_ms));//check return NULL
 	init_context_struct(context->next);//met tout à NULL
 	set_right_values_in_context_2(context->next);
 //	printf_info_structs(context);
-	if (launch_pipex(context) == -1)
-	{
-		free_program(context);
+	if (launch_exec(context) == -1)
 		return (-1);
-	}
-	free_program(context);
 	return (0);
 }

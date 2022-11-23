@@ -1,4 +1,33 @@
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
+
+/*static void	free_first_cmd(t_cmd_list_ms *first_cmd)
+{
+	t_cmd_list_ms	*current;
+	t_cmd_list_ms	*next;
+	int				i;
+
+	current = first_cmd;
+	while (current != NULL)
+	{
+		next = current->next;
+		if (current->cmd_and_args != NULL)
+		{
+			i = 0;
+			while (current->cmd_and_args[i] != NULL)
+			{
+				free(current->cmd_and_args[i]);
+				current->cmd_and_args[i] = NULL;
+				i++;
+			}
+		}
+		free(current->cmd_and_args);
+		current->cmd_and_args = NULL;
+		if (current->correct_path != NULL)
+			free(current->correct_path);
+		free(current);
+		current = next;
+	}
+}*/
 
 static void	free_first_redir(t_redir_ms *first_redir)
 {
@@ -10,7 +39,10 @@ static void	free_first_redir(t_redir_ms *first_redir)
 	{
 		next = current->next;
 		if (current->file_name != NULL)
+		{
 			free(current->file_name);
+			current->file_name = NULL;
+		}
 		free(current);
 		current = next;
 	}
@@ -47,6 +79,8 @@ void	free_program(t_context_ms *context)
 		if (current->all_redirs != NULL)
 			free_all_redirs(current->all_redirs);
 		free(current->all_redirs);
+//		if (current->first_cmd != NULL)
+//			free_first_cmd(current->first_cmd);
 //		if (current->pipeline != NULL)
 //			free(current->pipeline);
 		free(current);

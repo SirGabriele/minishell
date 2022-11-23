@@ -21,13 +21,15 @@ static int	read_loop(int std_in_copy, const char *delimiter, int *pipehd)
 				return (-1);
 			break ;
 		}
-		ft_pustr_fd(user_input, pipehd[1]);
+		ft_putstr_fd(user_input, pipehd[1]);
 		free(user_input);
 		user_input = NULL;
 	}
 	return (0);
 }
 
+//faire un signal adapté pour heredoc, juste au dessus de get next line
+//remplacer get next line par readline
 int	fake_heredoc_requested(const char *delimiter, int std_in_copy)
 {
 	char	*user_input;
@@ -37,7 +39,7 @@ int	fake_heredoc_requested(const char *delimiter, int std_in_copy)
 	while (1)
 	{
 		write(1, ">", 1);
-		user_input = get_next_line();
+		user_input = get_next_line(std_in_copy);
 		if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
 			&& user_input[length_delimiter + 1] == '\0')
 		{
@@ -72,7 +74,7 @@ int	real_heredoc_requested(t_context_ms *context, int std_in_copy)
 
 	if (pipe(pipehd) == -1)
 		return (-1);
-	if (read_loop(std_in_copy, context->all_redirs->infile, pipehd,) == -1)
+	if (read_loop(std_in_copy, context->all_redirs->infile, pipehd) == -1)
 		return (-1);
 	if (close(pipehd[0]) == -1)
 		return (-1);

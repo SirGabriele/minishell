@@ -1,5 +1,19 @@
 #include "../../includes/minishell.h"
 
+static void	free_arr_env_paths(char **arr_env_paths)
+{
+	int	i;
+
+	i = 0;
+	while (arr_env_paths[i] != NULL)
+	{
+		free(arr_env_paths[i]);
+		i++;
+	}
+	free(arr_env_paths);
+	arr_env_paths = NULL;
+}
+
 static char	*get_correct_path(char **arr_env_paths, char *cmd)
 {
 	int		i;
@@ -18,7 +32,7 @@ static char	*get_correct_path(char **arr_env_paths, char *cmd)
 	return (NULL);
 }
 
-t_cmd_list_ms	*ft_lstnew_cmd(char *cmd_and_args)
+t_cmd_list_ms	*ft_lstnew_cmd(char *cmd_and_args) //faire la copy de env et recoder mon propre getenv
 {
 	t_cmd_list_ms	*elem;
 	char			**arr_env_paths;//A VIRER?
@@ -29,6 +43,7 @@ t_cmd_list_ms	*ft_lstnew_cmd(char *cmd_and_args)
 	elem->cmd_and_args = ft_split(cmd_and_args, ' ');
 	arr_env_paths = ft_split(getenv("PATH"), ':');//A VIRER?
 	elem->correct_path = get_correct_path(arr_env_paths, elem->cmd_and_args[0]);
+	free_arr_env_paths(arr_env_paths);
 	if (elem->correct_path == NULL)
 		return (NULL);
 	elem->next = NULL;

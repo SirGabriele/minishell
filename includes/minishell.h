@@ -26,25 +26,32 @@
 
 typedef enum e_tokens
 {
-	TOK_NULL, /*0*/
-	TOK_STRING, /*1*/
-	TOK_OP_PAR, /*2*/
-	TOK_CL_PAR, /*3*/
-	TOK_INFILE, /*4*/
-	TOK_TRUNC, /*5*/
-	TOK_HEREDOC, /*6*/
-	TOK_APPEND, /*7*/
-	TOK_PIPE, /*8*/
-	TOK_AND_OPER, /*9*/
-	TOK_OR_OPER, /*10*/
+	TOK_NULL,/*0*/
+	TOK_STRING,/*1*/
+	TOK_OP_PAR,/*2*/
+	TOK_CL_PAR,/*3*/
+	TOK_INFILE,/*4*/
+	TOK_TRUNC,/*5*/
+	TOK_HEREDOC,/*6*/
+	TOK_APPEND,/*7*/
+	TOK_PIPE,/*8*/
+	TOK_AND_OPER,/*9*/
+	TOK_OR_OPER,/*10*/
 }	t_tokens;
 
-typedef struct s_cmd_list_ms
+/*typedef struct s_cmd_list_ms
 {
 	struct s_cmd_list_ms	*next;
 	char					**cmd_and_args;
 	char					*correct_path;
-}	t_cmd_list_ms;
+}	t_cmd_list_ms;*/
+
+typedef struct s_env_ms
+{
+	struct s_env_ms			*next;
+	char					*key;
+	char					*value;
+}	t_env_ms;
 
 typedef struct s_redir_ms
 {
@@ -53,23 +60,37 @@ typedef struct s_redir_ms
 	t_tokens				mode;	
 }	t_redir_ms;
 
-typedef struct s_all_redirs_ms
+/*typedef struct s_all_redirs_ms
 {
 	struct s_redir_ms		*first_redir;
 	char					*infile;
 	char					*outfile;
-	int						pipe_infile[2];
+	int						pipefd[2];
 	t_tokens				infile_mode;
 	t_tokens				outfile_mode;
-}	t_all_redirs_ms;
+}	t_all_redirs_ms;*/
 
-typedef struct s_context_ms
+typedef struct	s_node_ms
+{
+	struct s_node_ms		*left;
+	struct s_node_ms		*right;
+	struct s_redir_ms		*first_redir;
+	char					**content;
+	char					*infile;
+	char					*outfile;
+	int						pipefd[2];
+	t_tokens				infile_mode;
+	t_tokens				outfile_mode;
+	t_tokens				operator;
+}
+
+/*typedef struct s_context_ms
 {
 	struct s_context_ms		*next;
 	struct s_all_redirs_ms	*all_redirs;
 	t_tokens				what_is_pipeline_after;
 	char					*pipeline;
-}	t_context_ms;
+}	t_context_ms;*/
 
 typedef struct s_token_ms
 {
@@ -78,18 +99,27 @@ typedef struct s_token_ms
 	t_tokens			type;
 }	t_token_ms;
 
+/************/
+/*	SIGNALS	*/
+/************/
+void	ft_signal_user_input(int sig);
+
 /********/
 /*	SRC	*/
 /********/
-//launch_program.c
-int				launch_program(char **user_input);
 
 //prompt.c
 void			ft_signal(int sig);
-int				cmd_prompt(char **env);
+int				cmd_prompt(t_context_ms *context, char **env);
+
+//launch_program.c
+int				launch_program(t_context_ms *context, char **user_input);
 
 //highlight_syntax_error.c
 void			highlight_syntax_error(const char *str, int start, int end);
+
+//free_program.c
+void			free_program(t_context_ms *context);
 
 /************/
 /*	CHECK	*/
@@ -118,14 +148,21 @@ int				is_previous_syntax_valid(const char *user_input, int i);
 char			*get_missing_user_input(char **user_input);
 
 /************/
+/*	INIT	*/
+/************/
+
+//init_tree_struct.c
+void  		  init_tree_struct(t_node_ms *root);
+
+/************/
 /*	EXEC	*/
 /************/
 
 //test_pipex.c
-int				test_pipex(void);
+int				test_pipex(t_context_ms *context);
 
-//launch_pipex.c
-int				launch_pipex(t_context_ms *context);
+//launch_exec.c
+int				launch_exec(t_context_ms *context);
 
 //exec_pipex.c
 int				exec_pipex(t_context_ms *context);
@@ -139,14 +176,11 @@ int				verify_basic_infile(t_redir_ms *cursor);
 int				real_heredoc_requested(t_context_ms *context, int std_in_copy);
 int				fake_heredoc_requested(const char *delimiter, int std_in_copy);
 
-//free_program.c
-void			free_program(t_context_ms *context);
-
 /****************/
 /*	LINKED LIST	*/
 /****************/
 
-//ft_lstnew_cmd
+/*//ft_lstnew_cmd
 t_cmd_list_ms	*ft_lstnew_cmd(char *command_and_args);
 
 //ft_lstnew_redir.c
@@ -154,7 +188,9 @@ t_redir_ms		*ft_lstnew_redir(char *file_name, t_tokens mode);
 
 //init_structs.c
 void			init_context_struct(t_context_ms *context);
-void			init_context_all_redirs(t_all_redirs_ms *all_redirs);
+void			init_context_all_redirs(t_all_redirs_ms *all_redirs);*/
+//ft_lstnew_env_entry.c
+t_env_ms		*ft_lstnew_entry_env(char *env);
 
 /************/
 /*	UTILS	*/

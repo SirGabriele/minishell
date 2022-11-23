@@ -25,16 +25,7 @@ static int	handle_prompt(char *user_input)
 	return (0);
 }
 
-void	ft_signal(int sig)
-{
-	(void)sig;
-	ft_printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-int	cmd_prompt(char **env)
+int	cmd_prompt(t_context_ms *context, char **env)
 {
 	char	*user_input;
 
@@ -44,7 +35,7 @@ int	cmd_prompt(char **env)
 		user_input = readline("minishell> ");
 		if (handle_prompt(user_input) == -1)
 			return (0);
-		if (launch_program(&user_input) == -1)
+		if (launch_program(context, &user_input) == -1)
 			free_user_input_and_set_to_null(user_input);
 		else
 		{

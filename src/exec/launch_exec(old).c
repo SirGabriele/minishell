@@ -92,9 +92,20 @@ static int	verify_all_redirs(t_context_ms *context)
 	return (0);
 }
 
-int	launch_pipex(t_context_ms *context)
+int	launch_exec(t_context_ms *context)
 {
+	t_context_ms	*current_cont;
+
 	if (verify_all_redirs(context) == -1)
 		return (-1);
+//	if (exec_pipex(context) == -1)
+//		return (-1);
+	current_cont = context;
+/*	while (current_cont != NULL)
+	{
+		if (how_to_handle_this_pipeline(current_cont, context) == -1)
+			return (-1);
+		current_cont = current_cont->next;
+	}*/
 	return (0);
 }

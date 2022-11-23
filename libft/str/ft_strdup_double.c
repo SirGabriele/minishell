@@ -41,5 +41,6 @@ char	**ft_strdup_double(const char **src)
 		}
 		i++;
 	}
+	arr[i] = NULL;
 	return (arr);
 }

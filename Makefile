@@ -6,6 +6,9 @@ SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
 	highlight_syntax_error.c	\
+	free_program.c
+
+SIGNALS = signals_one.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
@@ -14,10 +17,10 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_isolated_ampersands.c
 
 EXEC =	test_pipex.c		\
-	launch_pipex.c			\
+	launch_exec.c			\
+	verify_infile_redirs.c	\
 	heredoc_requested.c		\
-	verify_redirs.c			\
-	free_program.c
+	exec_pipex.c
 
 LL = ft_lstnew_cmd.c		\
 	ft_lstnew_redir.c		\
@@ -26,6 +29,7 @@ LL = ft_lstnew_cmd.c		\
 UTILS =	what_is_index_in.c
 
 SRCS = $(addprefix src/, $(SRC))			\
+	$(addprefix src/signals/, $(SIGNALS))	\
 	$(addprefix src/check/, $(CHECK))		\
 	$(addprefix src/utils/, $(UTILS))		\
 	$(addprefix src/ll/, $(LL))				\

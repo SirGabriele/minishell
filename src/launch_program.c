@@ -71,12 +71,12 @@ static int	ft_check_syntax_error(char **user_input)
 	return (0);
 }
 
-int	launch_program(char **user_input)
+int	launch_program(t_context_ms *context, char **user_input)
 {
+	(void)context;
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
-	(void)user_input;
-	if (test_pipex() == -1)
+	if (test_pipex(context) == -1)
 		return (-1);
 	return (0);
 }

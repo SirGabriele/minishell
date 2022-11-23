@@ -42,17 +42,24 @@ int	handle_append_infile(t_context_ms *context, t_redir_ms *cursor,
 	int	len_infile;
 	int	std_in_copy;
 
-	std_in_copy = dup(0);
-	len_infile = ft_strlen(context->all_redirs->infile);
-	if (ft_strncmp(cursor->file_name, infile, len_infile) == 0)
+	pid_t	child;
+	
+	child = fork();
+	if (child == 0)
 	{
-		if (real_heredoc_requested(context, std_in_copy) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (fake_heredoc_requested(cursor->file_name, std_in_copy) == -1)
-			return (-1);
+		std_in_copy = dup(0);
+		len_infile = ft_strlen(context->all_redirs->infile);
+		if (ft_strncmp(cursor->file_name, infile, len_infile) == 0)
+		{
+			if (real_heredoc_requested(context, std_in_copy) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (fake_heredoc_requested(cursor->file_name, std_in_copy) == -1)
+				return (-1);
+		}
+		exit(0);
 	}
 	return (0);
 }
