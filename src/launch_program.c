@@ -74,15 +74,18 @@ static int	ft_check_syntax_error(char **user_input)
 int	launch_program(char **user_input)
 {
 	t_node_ms		*binary_tree;
-	t_token_ms		*tokens;
+	//t_token_ms		*tokens;
 	//t_context_ms	*cmd_lst;
 
 	/*if (ft_check_syntax_error(user_input) == -1)
-		return (-1);*/
+		return (-1);
 	tokens = lexer(*user_input);
 	if (!tokens)
+		return (-1);*/
+	binary_tree = build_binary_tree(tokens);
+	if (!binary_tree)
 		return (-1);
-	binary_tree = initialize_binary_tree(tokens);
+	print_binary_tree(binary_tree, 1);
 	/*cmd_lst = parsing(tokens);
 	if (!cmd_lst)
 		return (-1);

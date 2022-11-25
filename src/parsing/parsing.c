@@ -53,7 +53,7 @@ static char *parse_content(char *parsed, char *content)
 	return (parsed);
 }
 
-static char	*get_string_parsed(char *content)
+static char	*get_string_parsed(char *content, t_token_ms *tokens)
 {
 	char	*parsed;
 
@@ -64,19 +64,20 @@ static char	*get_string_parsed(char *content)
 		return (NULL);
 	}
 	parsed = parse_content(parsed, content);
+	parsed = parse_spaces(parsed, tokens);
 	free(content);
 	return (parsed);
 }
 
-t_context_ms	*parsing(t_token_ms *tokens)
+t_token_ms	*parsing(t_token_ms *tokens)
 {
 	t_token_ms		*tmp_tokens;
-	t_context_ms	*cmd_lst;
 
 	tmp_tokens = tokens;
 	while (tmp_tokens->next)
 	{
-		tmp_tokens->content = get_string_parsed(tmp_tokens->content);
+		//tmp_tokens->content = manage_dollar_sign();
+		tmp_tokens->content = get_string_parsed(tmp_tokens->content, tokens);
 		if (!tmp_tokens->content)
 		{
 			free_tokens(tokens);
@@ -84,11 +85,5 @@ t_context_ms	*parsing(t_token_ms *tokens)
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
-	cmd_lst = structure_cmd_lst(tokens);
-	if (!cmd_lst)
-	{
-		free_tokens(tokens);
-		return (NULL);
-	}
-	return (cmd_lst);
+	return (tokens);
 }

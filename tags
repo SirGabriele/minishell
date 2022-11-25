@@ -1,168 +1,181 @@
-Mmain	src/main.c	/^int	main(int argc, char **argv, char **env)$/
-add_space_if_needed	src/parsing/parse_spaces.c	/^char	*add_space_if_needed(char *pipeline, t_token_/
-are_all_parenthesis_paired	src/check/check_paired_characters.c	/^int	are_all_parenthesis_paired(const char *user_in/
-are_all_pipes_closed	src/check/check_paired_characters.c	/^int	are_all_pipes_closed(const char *user_input)$/
-assign_token_delim	src/parsing/get_tokens.c	/^static t_token_ms	*assign_token_delim(t_token_ms */
-check_string	libft/gnl_tdl/get_next_line_utils_bonus.c	/^int	check_string(char *str)$/
-cmd_prompt	src/prompt.c	/^int	cmd_prompt(char **env)$/
-count_charac	src/check/check_paired_characters.c	/^static int	count_charac(const char *user_input, co/
-display_error	src/check/check_paired_characters.c	/^static void	display_error(const char *user_input, /
-fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, int /
-fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delim)$/
-fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, i/
-fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s,/
-free_all_redirections	src/parsing/free_2.c	/^void	free_all_redirections(t_all_redir_ms *all_red/
-free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/
-free_context	src/parsing/free_2.c	/^void	free_context(t_context_ms *cmd_lst)$/
-free_redirections	src/parsing/free_2.c	/^void	free_redirections(t_redir_list_ms *redir_list/
-free_tokens	src/parsing/free_1.c	/^void	free_tokens(t_token_ms *tokens)$/
-free_user_input_and_set_to_null	src/parsing/free_1.c	/^void	free_user_input_and_set_to_null(char *user_in/
-ft_atoi	libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/
-ft_bzero	libft/memory/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/
-ft_calloc	libft/memory/ft_calloc.c	/^void	*ft_calloc(size_t size, size_t nmemb)$/
-ft_callocgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^void	*ft_callocgnl(int size)$/
-ft_check_closed_characters	src/launch_program.c	/^static int	ft_check_closed_characters(char **user_/
-ft_check_forbidden_characters	src/check/ft_check_forbidden_characters.c	/^int	ft_check_forbidden_characters(const char *user/
-ft_check_isolated_ampersands	src/check/ft_check_isolated_ampersands.c	/^int	ft_check_isolated_ampersands(const char *user_/
-ft_check_isolated_quotes	src/check/ft_check_quotes.c	/^int	ft_check_isolated_quotes(const char *user_inpu/
-ft_check_special_characters	src/check/ft_check_forbidden_characters.c	/^static int	ft_check_special_characters(const char /
-ft_check_syntax_error	src/launch_program.c	/^static int	ft_check_syntax_error(char **user_input/
-ft_erase_linkgnl	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_erase_linkgnl(t_listgnl **first_elem, t_li/
-ft_fill_line	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_fill_line(t_listgnl *temp)$/
-ft_go_to_linkgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^t_listgnl	*ft_go_to_linkgnl(t_listgnl **first_elem/
-ft_increase_string_size	libft/gnl_tdl/get_next_line_bonus.c	/^char	*ft_increase_string_size(t_listgnl *temp)$/
-ft_is_a_specifier	libft/ft_printf/ft_printf.c	/^int	ft_is_a_specifier(const char c)$/
-ft_is_a_specifier_error	libft/ft_printf_error/ft_printf_error.c	/^int	ft_is_a_specifier_error(const char c)$/
-ft_is_a_specifier_fd	libft/ft_printf_fd/ft_printf_fd.c	/^int	ft_is_a_specifier_fd(const char c)$/
-ft_isalnum	libft/char/ft_isalnum.c	/^int	ft_isalnum(int c)$/
-ft_isalpha	libft/char/ft_isalpha.c	/^int	ft_isalpha(int c)$/
-ft_isascii	libft/char/ft_isascii.c	/^int	ft_isascii(int c)$/
-ft_isdigit	libft/char/ft_isdigit.c	/^int	ft_isdigit(int c)$/
-ft_isprint	libft/char/ft_isprint.c	/^int	ft_isprint(int c)$/
-ft_isspace	libft/char/ft_isspace.c	/^int	ft_isspace(int c)$/
-ft_itoa	libft/atoi-itoa/ft_itoa.c	/^char	*ft_itoa(int n)$/
-ft_lst_addbackgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^void	ft_lst_addbackgnl(t_listgnl **first_elem, t_l/
-ft_lstadd_back	libft/ll/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/
-ft_lstadd_front	libft/ll/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/
-ft_lstclear	libft/ll/ft_lstclear.c	/^void	ft_lstclear(t_list **lst, void (*del)(void *)/
-ft_lstdelone	libft/ll/ft_lstdelone.c	/^void	ft_lstdelone(t_list *lst, void (*del)(void *)/
-ft_lstiter	libft/ll/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(void *))$/
-ft_lstlast	libft/ll/ft_lstlast.c	/^t_list	*ft_lstlast(t_list *lst)$/
-ft_lstmap	libft/ll/ft_lstmap.c	/^t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),/
-ft_lstnew	libft/ll/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/
-ft_lstnewgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^t_listgnl	*ft_lstnewgnl(int entry_fd)$/
-ft_lstsize	libft/ll/ft_lstsize.c	/^int	ft_lstsize(t_list *lst)$/
-ft_memchr	libft/memory/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/
-ft_memcmp	libft/memory/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size/
-ft_memcpy	libft/memory/ft_memcpy.c	/^void	*ft_memcpy(void *dest, const void *src, size_/
-ft_memmove	libft/memory/ft_memmove.c	/^void	*ft_memmove(void *dest, const void *src, size/
-ft_memset	libft/memory/ft_memset.c	/^void	*ft_memset(void *s, int c, size_t n)$/
-ft_print_memory	libft/ft_printf/ft_printer_functions.c	/^void	ft_print_memory(unsigned long long int arg, i/
-ft_print_memory_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_print_memory_error(unsigned long long int /
-ft_print_memory_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_print_memory_fd(unsigned long long int arg/
-ft_printf	libft/ft_printf/ft_printf.c	/^int	ft_printf(const char *fmt, ...)$/
-ft_printf_error	libft/ft_printf_error/ft_printf_error.c	/^int	ft_printf_error(const char *fmt, ...)$/
-ft_printf_fd	libft/ft_printf_fd/ft_printf_fd.c	/^int	ft_printf_fd(int fd, const char *fmt, ...)$/
-ft_putchar	libft/put/ft_putchar.c	/^void	ft_putchar(char c)$/
-ft_putchar	libft/put/ft_putnbr.c	/^void	ft_putchar(char c)$/
-ft_putchar	libft/put/ft_putstr.c	/^void	ft_putchar(char c)$/
-ft_putchar_fd	libft/put/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/
-ft_putcharprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putcharprintf(unsigned const char c, int */
-ft_putcharprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putcharprintf_error(unsigned const char c,/
-ft_putcharprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putcharprintf_fd(unsigned const char c, in/
-ft_putendl_fd	libft/put/ft_putendl_fd.c	/^void	ft_putendl_fd(char *s, int fd)$/
-ft_putmemory	libft/ft_printf/ft_specifier_requested.c	/^void	ft_putmemory(unsigned long long int nbr, char/
-ft_putmemory_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_putmemory_error(unsigned long long int nbr/
-ft_putmemory_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_putmemory_fd(unsigned long long int nbr, c/
-ft_putnbr	libft/put/ft_putnbr.c	/^void	ft_putnbr(int nb)$/
-ft_putnbr_fd	libft/put/ft_putnbr_fd.c	/^void	ft_putnbr_fd(int n, int fd)$/
-ft_putnbrbaseprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putnbrbaseprintf(unsigned int nbr, char *b/
-ft_putnbrbaseprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putnbrbaseprintf_error(unsigned int nbr, c/
-ft_putnbrbaseprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putnbrbaseprintf_fd(unsigned int nbr, char/
-ft_putnbrprintf	libft/ft_printf/ft_specifier_requested.c	/^void	ft_putnbrprintf(long long int nbr, int *i)$/
-ft_putnbrprintf_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_putnbrprintf_error(long long int nbr, int /
-ft_putnbrprintf_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_putnbrprintf_fd(long long int nbr, int *i,/
-ft_putstr	libft/put/ft_putstr.c	/^void	ft_putstr(char *str)$/
-ft_putstr_fd	libft/put/ft_putstr_fd.c	/^void	ft_putstr_fd(char *s, int fd)$/
-ft_putstrprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putstrprintf(char *str, int *i)$/
-ft_putstrprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putstrprintf_error(char *str, int *i)$/
-ft_putstrprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putstrprintf_fd(char *str, int *i, int fd)/
-ft_read_file_and_fill_buf	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_read_file_and_fill_buf(t_listgnl *temp)$/
-ft_scan_after_percent_error	libft/ft_printf_error/ft_printf_error.c	/^static int	ft_scan_after_percent_error(const char /
-ft_scan_after_percentage	libft/ft_printf/ft_printf.c	/^static int	ft_scan_after_percentage(const char *fm/
-ft_signal	src/prompt.c	/^void	ft_signal(int sig)$/
-ft_specifier_asked_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_specifier_asked_error(const char **fmt, in/
-ft_specifier_requested	libft/ft_printf/ft_specifier_requested.c	/^void	ft_specifier_requested(const char **fmt, int /
-ft_specifier_requested_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_specifier_requested_fd(const char **fmt, i/
-ft_split	libft/str/ft_split.c	/^char	**ft_split(char const *s, char c)$/
-ft_strcapitalize	libft/char/ft_strcapitalize.c	/^char	*ft_strcapitalize(char *str)$/
-ft_strchr	libft/str/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/
-ft_strcpy	libft/str/ft_strcpy.c	/^char	*ft_strcpy(char *dest, char *src)$/
-ft_strdup	libft/str/ft_strdup.c	/^char	*ft_strdup(const char *s)$/
-ft_striteri	libft/str/ft_striteri.c	/^void	ft_striteri(char *s, void (*f)(unsigned int, /
-ft_strjoin	libft/str/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/
-ft_strjoin_free_both	libft/str/ft_strjoin_free_both.c	/^char	*ft_strjoin_free_both(char *s1, char *s2)$/
-ft_strjoin_free_first	libft/str/ft_strjoin_free_first.c	/^char	*ft_strjoin_free_first(char *s1, char const */
-ft_strjoin_free_second	libft/str/ft_strjoin_free_second.c	/^char	*ft_strjoin_free_second(char const *s1, char /
-ft_strlcat	libft/str/ft_strlcat.c	/^size_t	ft_strlcat(char *dst, const char *src, size/
-ft_strlcpy	libft/str/ft_strlcpy.c	/^size_t	ft_strlcpy(char *dst, const char *src, size/
-ft_strlen	libft/str/ft_strlen.c	/^size_t	ft_strlen(const char *str)$/
-ft_strlowcase	libft/char/ft_strcapitalize.c	/^char	*ft_strlowcase(char *str)$/
-ft_strlowcase	libft/char/ft_strlowcase.c	/^char	*ft_strlowcase(char *str)$/
-ft_strmapi	libft/str/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned/
-ft_strncmp	libft/str/ft_strncmp.c	/^int	ft_strncmp(const char *s1, const char *s2, siz/
-ft_strncpy	libft/str/ft_strncpy.c	/^char	*ft_strncpy(char *dest, char *src, int n)$/
-ft_strnstr	libft/str/ft_strnstr.c	/^char	*ft_strnstr(const char *big, const char *litt/
-ft_strrchr	libft/str/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/
-ft_strtrim	libft/str/ft_strtrim.c	/^char	*ft_strtrim(char const *s1, char const *set)$/
-ft_strupcase	libft/char/ft_strupcase.c	/^char	*ft_strupcase(char *str)$/
-ft_substr	libft/str/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int start,/
-ft_substrlen	libft/str/ft_substrlen.c	/^int	ft_substrlen(char const *s, char c)$/
-ft_tolower	libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/
-ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
-get_all_pipelines	src/parsing/get_pipelines.c	/^t_context_ms	*get_all_pipelines(t_token_ms *tokens/
-get_content_delim	src/parsing/ft_lst.c	/^static char	*get_content_delim(char *user_input, c/
-get_content_string	src/parsing/ft_lst.c	/^static char	*get_content_string(char *user_input, /
-get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_string(char *content)/
-get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/
-get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
-get_pipeline	src/parsing/get_pipelines.c	/^static t_context_ms	*get_pipeline(t_context_ms *cm/
-get_redirections	src/parsing/get_redirections.c	/^int	get_redirections(t_token_ms *tokens, t_context/
-get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content)$/
-get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *del/
-handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
-highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int s/
-howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
-identify_delim_token	src/parsing/utils_token.c	/^t_tokens	identify_delim_token(char *user_input, ch/
-increm_tokens_copy	src/parsing/get_pipelines_utils.c	/^t_token_ms	*increm_tokens_copy(t_token_ms *tokens_/
-is_a_delimiter	src/parsing/utils_token.c	/^int	is_a_delimiter(const char *user_input, char *d/
-is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input,/
-isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/
-join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_in/
-launch_program	src/launch_program.c	/^int	launch_program(char **user_input)$/
-len_int	libft/atoi-itoa/ft_itoa.c	/^static int	len_int(int n)$/
-length_without_spaces	src/parsing/parse_spaces.c	/^int	length_without_spaces(char *pipeline)$/
-lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/
-lst_fill	src/parsing/ft_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *use/
-lstnew_cmd_lst	src/parsing/ft_lst.c	/^t_context_ms	*lstnew_cmd_lst(void)$/
-lstnew_token	src/parsing/ft_lst.c	/^t_token_ms	*lstnew_token(void)$/
-makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const cha/
-makeshift_strcat	libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *dst, const cha/
-makeshift_strlen	libft/str/ft_strdup.c	/^static int	makeshift_strlen(const char *str)$/
-makeshift_strlen	libft/str/ft_strjoin.c	/^static int	makeshift_strlen(const char *str)$/
-makeshift_strlen	libft/str/ft_strjoin_free_both.c	/^static int	makeshift_strlen(const char *str)$/
-makeshift_strlen	libft/str/ft_strjoin_free_first.c	/^static int	makeshift_strlen(const char *str)$/
-makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strlen(const char *str)$/
-makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
-malloc_token	src/parsing/get_tokens.c	/^static t_token_ms	*malloc_token()$/
-parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *con/
-parse_spaces	src/parsing/parse_spaces.c	/^char	*parse_spaces(char *pipeline, t_token_ms *tok/
-parsing	src/parsing/parsing.c	/^t_context_ms	*parsing(t_token_ms *tokens)$/
-print_after_end	src/highlight_syntax_error.c	/^static void	print_after_end(const char *str, int e/
-print_before_start	src/highlight_syntax_error.c	/^static void	print_before_start(const char *str, in/
-print_pipelines	src/parsing/structure_cmd_lst.c	/^void	print_pipelines(t_context_ms *cmd_line)$/
-print_syntax_error	src/highlight_syntax_error.c	/^static void	print_syntax_error(const char *str, in/
-scan_after_percentage_fd	libft/ft_printf_fd/ft_printf_fd.c	/^static int	scan_after_percentage_fd(const char *fm/
-structure_cmd_lst	src/parsing/structure_cmd_lst.c	/^t_context_ms	*structure_cmd_lst(t_token_ms *tokens/
-token_length	src/parsing/utils_token.c	/^int	token_length(char *user_input, char *delim[7])/
-what_is_index_in	src/utils/what_is_index_in.c	/^int	what_is_index_in(const char *user_input, int i/
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+add_space_if_needed	src/parsing/parse_spaces.c	/^char	*add_space_if_needed(char *pipeline, t_token_ms *tokens)$/;"	f
+are_all_parenthesis_paired	src/check/check_paired_characters.c	/^int	are_all_parenthesis_paired(const char *user_input)$/;"	f
+are_all_pipes_closed	src/check/check_paired_characters.c	/^int	are_all_pipes_closed(const char *user_input)$/;"	f
+assign_token_delim	src/parsing/get_tokens.c	/^static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7])$/;"	f	file:
+build_binary_tree	src/parsing/binary_tree.c	/^t_node_ms	*build_binary_tree(t_token_ms *tokens)$/;"	f
+check_string	libft/gnl_tdl/get_next_line_utils_bonus.c	/^int	check_string(char *str)$/;"	f
+check_token_pos	src/parsing/binary_tree_utils.c	/^static t_tokens	check_token_pos(t_token_ms *tokens)$/;"	f	file:
+cmd_prompt	src/prompt.c	/^int	cmd_prompt(char **env)$/;"	f
+count_charac	src/check/check_paired_characters.c	/^static int	count_charac(const char *user_input, const char charac)$/;"	f	file:
+detect_operators	src/parsing/binary_tree_utils.c	/^t_tokens	detect_operators(t_token_ms *tokens)$/;"	f
+display_error	src/check/check_paired_characters.c	/^static void	display_error(const char *user_input, int i)$/;"	f	file:
+fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, int nb_cells, char **arr)$/;"	f	file:
+fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delim)$/;"	f	file:
+fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, int n)$/;"	f	file:
+fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s, int n, char c)$/;"	f	file:
+free_all_redirections	src/parsing/free_2.c	/^void	free_all_redirections(t_all_redir_ms *all_redirs)$/;"	f
+free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/;"	f	file:
+free_context	src/parsing/free_2.c	/^void	free_context(t_context_ms *cmd_lst)$/;"	f
+free_redirections	src/parsing/free_2.c	/^void	free_redirections(t_redir_list_ms *redir_list)$/;"	f
+free_tokens	src/parsing/free_1.c	/^void	free_tokens(t_token_ms *tokens)$/;"	f
+free_user_input_and_set_to_null	src/parsing/free_1.c	/^void	free_user_input_and_set_to_null(char *user_input)$/;"	f
+ft_atoi	libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/;"	f
+ft_bzero	libft/memory/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/;"	f
+ft_calloc	libft/memory/ft_calloc.c	/^void	*ft_calloc(size_t size, size_t nmemb)$/;"	f
+ft_callocgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^void	*ft_callocgnl(int size)$/;"	f
+ft_check_closed_characters	src/launch_program.c	/^static int	ft_check_closed_characters(char **user_input)$/;"	f	file:
+ft_check_forbidden_characters	src/check/ft_check_forbidden_characters.c	/^int	ft_check_forbidden_characters(const char *user_input)$/;"	f
+ft_check_isolated_ampersands	src/check/ft_check_isolated_ampersands.c	/^int	ft_check_isolated_ampersands(const char *user_input)$/;"	f
+ft_check_isolated_quotes	src/check/ft_check_quotes.c	/^int	ft_check_isolated_quotes(const char *user_input)$/;"	f
+ft_check_special_characters	src/check/ft_check_forbidden_characters.c	/^static int	ft_check_special_characters(const char *user_input)$/;"	f	file:
+ft_check_syntax_error	src/launch_program.c	/^static int	ft_check_syntax_error(char **user_input)$/;"	f	file:
+ft_erase_linkgnl	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp)$/;"	f
+ft_fill_line	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_fill_line(t_listgnl *temp)$/;"	f
+ft_go_to_linkgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^t_listgnl	*ft_go_to_linkgnl(t_listgnl **first_elem, int fd)$/;"	f
+ft_increase_string_size	libft/gnl_tdl/get_next_line_bonus.c	/^char	*ft_increase_string_size(t_listgnl *temp)$/;"	f
+ft_is_a_specifier	libft/ft_printf/ft_printf.c	/^int	ft_is_a_specifier(const char c)$/;"	f
+ft_is_a_specifier_error	libft/ft_printf_error/ft_printf_error.c	/^int	ft_is_a_specifier_error(const char c)$/;"	f
+ft_is_a_specifier_fd	libft/ft_printf_fd/ft_printf_fd.c	/^int	ft_is_a_specifier_fd(const char c)$/;"	f
+ft_isalnum	libft/char/ft_isalnum.c	/^int	ft_isalnum(int c)$/;"	f
+ft_isalpha	libft/char/ft_isalpha.c	/^int	ft_isalpha(int c)$/;"	f
+ft_isascii	libft/char/ft_isascii.c	/^int	ft_isascii(int c)$/;"	f
+ft_isdigit	libft/char/ft_isdigit.c	/^int	ft_isdigit(int c)$/;"	f
+ft_isprint	libft/char/ft_isprint.c	/^int	ft_isprint(int c)$/;"	f
+ft_isspace	libft/char/ft_isspace.c	/^int	ft_isspace(int c)$/;"	f
+ft_itoa	libft/atoi-itoa/ft_itoa.c	/^char	*ft_itoa(int n)$/;"	f
+ft_lst_addbackgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^void	ft_lst_addbackgnl(t_listgnl **first_elem, t_listgnl *new)$/;"	f
+ft_lstadd_back	libft/ll/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/;"	f
+ft_lstadd_front	libft/ll/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/;"	f
+ft_lstclear	libft/ll/ft_lstclear.c	/^void	ft_lstclear(t_list **lst, void (*del)(void *))$/;"	f
+ft_lstdelone	libft/ll/ft_lstdelone.c	/^void	ft_lstdelone(t_list *lst, void (*del)(void *))$/;"	f
+ft_lstiter	libft/ll/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(void *))$/;"	f
+ft_lstlast	libft/ll/ft_lstlast.c	/^t_list	*ft_lstlast(t_list *lst)$/;"	f
+ft_lstmap	libft/ll/ft_lstmap.c	/^t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))$/;"	f
+ft_lstnew	libft/ll/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/;"	f
+ft_lstnewgnl	libft/gnl_tdl/get_next_line_utils_bonus.c	/^t_listgnl	*ft_lstnewgnl(int entry_fd)$/;"	f
+ft_lstsize	libft/ll/ft_lstsize.c	/^int	ft_lstsize(t_list *lst)$/;"	f
+ft_memchr	libft/memory/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/;"	f
+ft_memcmp	libft/memory/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size_t n)$/;"	f
+ft_memcpy	libft/memory/ft_memcpy.c	/^void	*ft_memcpy(void *dest, const void *src, size_t n)$/;"	f
+ft_memmove	libft/memory/ft_memmove.c	/^void	*ft_memmove(void *dest, const void *src, size_t n)$/;"	f
+ft_memset	libft/memory/ft_memset.c	/^void	*ft_memset(void *s, int c, size_t n)$/;"	f
+ft_print_memory	libft/ft_printf/ft_printer_functions.c	/^void	ft_print_memory(unsigned long long int arg, int *i)$/;"	f
+ft_print_memory_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_print_memory_error(unsigned long long int arg, int *i)$/;"	f
+ft_print_memory_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_print_memory_fd(unsigned long long int arg, int *i, int fd)$/;"	f
+ft_printf	libft/ft_printf/ft_printf.c	/^int	ft_printf(const char *fmt, ...)$/;"	f
+ft_printf_error	libft/ft_printf_error/ft_printf_error.c	/^int	ft_printf_error(const char *fmt, ...)$/;"	f
+ft_printf_fd	libft/ft_printf_fd/ft_printf_fd.c	/^int	ft_printf_fd(int fd, const char *fmt, ...)$/;"	f
+ft_putchar	libft/put/ft_putchar.c	/^void	ft_putchar(char c)$/;"	f
+ft_putchar	libft/put/ft_putnbr.c	/^void	ft_putchar(char c)$/;"	f
+ft_putchar	libft/put/ft_putstr.c	/^void	ft_putchar(char c)$/;"	f
+ft_putchar_fd	libft/put/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/;"	f
+ft_putcharprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putcharprintf(unsigned const char c, int *i)$/;"	f
+ft_putcharprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putcharprintf_error(unsigned const char c, int *i)$/;"	f
+ft_putcharprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putcharprintf_fd(unsigned const char c, int *i, int fd)$/;"	f
+ft_putendl_fd	libft/put/ft_putendl_fd.c	/^void	ft_putendl_fd(char *s, int fd)$/;"	f
+ft_putmemory	libft/ft_printf/ft_specifier_requested.c	/^void	ft_putmemory(unsigned long long int nbr, char *base, int *i)$/;"	f
+ft_putmemory_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_putmemory_error(unsigned long long int nbr, char *base, int *i)$/;"	f
+ft_putmemory_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_putmemory_fd(unsigned long long int nbr, char *base, int *i, int fd)$/;"	f
+ft_putnbr	libft/put/ft_putnbr.c	/^void	ft_putnbr(int nb)$/;"	f
+ft_putnbr_fd	libft/put/ft_putnbr_fd.c	/^void	ft_putnbr_fd(int n, int fd)$/;"	f
+ft_putnbrbaseprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putnbrbaseprintf(unsigned int nbr, char *base, int *i)$/;"	f
+ft_putnbrbaseprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putnbrbaseprintf_error(unsigned int nbr, char *base, int *i)$/;"	f
+ft_putnbrbaseprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putnbrbaseprintf_fd(unsigned int nbr, char *base, int *i, int fd)$/;"	f
+ft_putnbrprintf	libft/ft_printf/ft_specifier_requested.c	/^void	ft_putnbrprintf(long long int nbr, int *i)$/;"	f
+ft_putnbrprintf_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_putnbrprintf_error(long long int nbr, int *i)$/;"	f
+ft_putnbrprintf_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_putnbrprintf_fd(long long int nbr, int *i, int fd)$/;"	f
+ft_putstr	libft/put/ft_putstr.c	/^void	ft_putstr(char *str)$/;"	f
+ft_putstr_fd	libft/put/ft_putstr_fd.c	/^void	ft_putstr_fd(char *s, int fd)$/;"	f
+ft_putstrprintf	libft/ft_printf/ft_printer_functions.c	/^void	ft_putstrprintf(char *str, int *i)$/;"	f
+ft_putstrprintf_error	libft/ft_printf_error/ft_printer_functions_error.c	/^void	ft_putstrprintf_error(char *str, int *i)$/;"	f
+ft_putstrprintf_fd	libft/ft_printf_fd/ft_printer_functions_fd.c	/^void	ft_putstrprintf_fd(char *str, int *i, int fd)$/;"	f
+ft_read_file_and_fill_buf	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_read_file_and_fill_buf(t_listgnl *temp)$/;"	f
+ft_scan_after_percent_error	libft/ft_printf_error/ft_printf_error.c	/^static int	ft_scan_after_percent_error(const char *fmt, int *i, va_list param)$/;"	f	file:
+ft_scan_after_percentage	libft/ft_printf/ft_printf.c	/^static int	ft_scan_after_percentage(const char *fmt, int *i, va_list param)$/;"	f	file:
+ft_signal	src/prompt.c	/^void	ft_signal(int sig)$/;"	f
+ft_specifier_asked_error	libft/ft_printf_error/ft_specifier_asked_error.c	/^void	ft_specifier_asked_error(const char **fmt, int *i, va_list param)$/;"	f
+ft_specifier_requested	libft/ft_printf/ft_specifier_requested.c	/^void	ft_specifier_requested(const char **fmt, int *i, va_list param)$/;"	f
+ft_specifier_requested_fd	libft/ft_printf_fd/ft_specifier_requested_fd.c	/^void	ft_specifier_requested_fd(const char **fmt, int *i, \\$/;"	f
+ft_split	libft/str/ft_split.c	/^char	**ft_split(char const *s, char c)$/;"	f
+ft_strcapitalize	libft/char/ft_strcapitalize.c	/^char	*ft_strcapitalize(char *str)$/;"	f
+ft_strchr	libft/str/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/;"	f
+ft_strcpy	libft/str/ft_strcpy.c	/^char	*ft_strcpy(char *dest, char *src)$/;"	f
+ft_strdup	libft/str/ft_strdup.c	/^char	*ft_strdup(const char *s)$/;"	f
+ft_striteri	libft/str/ft_striteri.c	/^void	ft_striteri(char *s, void (*f)(unsigned int, char*))$/;"	f
+ft_strjoin	libft/str/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/;"	f
+ft_strjoin_free_both	libft/str/ft_strjoin_free_both.c	/^char	*ft_strjoin_free_both(char *s1, char *s2)$/;"	f
+ft_strjoin_free_first	libft/str/ft_strjoin_free_first.c	/^char	*ft_strjoin_free_first(char *s1, char const *s2)$/;"	f
+ft_strjoin_free_second	libft/str/ft_strjoin_free_second.c	/^char	*ft_strjoin_free_second(char const *s1, char *s2)$/;"	f
+ft_strlcat	libft/str/ft_strlcat.c	/^size_t	ft_strlcat(char *dst, const char *src, size_t size)$/;"	f
+ft_strlcpy	libft/str/ft_strlcpy.c	/^size_t	ft_strlcpy(char *dst, const char *src, size_t size)$/;"	f
+ft_strlen	libft/str/ft_strlen.c	/^size_t	ft_strlen(const char *str)$/;"	f
+ft_strlowcase	libft/char/ft_strcapitalize.c	/^char	*ft_strlowcase(char *str)$/;"	f
+ft_strlowcase	libft/char/ft_strlowcase.c	/^char	*ft_strlowcase(char *str)$/;"	f
+ft_strmapi	libft/str/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))$/;"	f
+ft_strncmp	libft/str/ft_strncmp.c	/^int	ft_strncmp(const char *s1, const char *s2, size_t n)$/;"	f
+ft_strncpy	libft/str/ft_strncpy.c	/^char	*ft_strncpy(char *dest, char *src, int n)$/;"	f
+ft_strnstr	libft/str/ft_strnstr.c	/^char	*ft_strnstr(const char *big, const char *little, size_t len)$/;"	f
+ft_strrchr	libft/str/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/;"	f
+ft_strtrim	libft/str/ft_strtrim.c	/^char	*ft_strtrim(char const *s1, char const *set)$/;"	f
+ft_strupcase	libft/char/ft_strupcase.c	/^char	*ft_strupcase(char *str)$/;"	f
+ft_substr	libft/str/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
+ft_substrlen	libft/str/ft_substrlen.c	/^int	ft_substrlen(char const *s, char c)$/;"	f
+ft_tolower	libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
+ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
+get_content_delim	src/parsing/ft_lst.c	/^static char	*get_content_delim(char *user_input, char *delim)$/;"	f	file:
+get_content_string	src/parsing/ft_lst.c	/^static char	*get_content_string(char *user_input, char *delim[7])$/;"	f	file:
+get_length_parsed_string	src/parsing/parsing.c	/^static int	get_length_parsed_string(char *content)$/;"	f	file:
+get_list_infos	src/parsing/get_list_infos.c	/^t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens operator_pos)$/;"	f
+get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/;"	f
+get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/;"	f
+get_node	src/parsing/get_list_infos.c	/^static t_node_ms	*get_node(t_token_ms *tokens, t_tokens operator_pos)$/;"	f	file:
+get_pipeline	src/parsing/get_pipeline_infos.c	/^static char	*get_pipeline(t_token_ms *tokens)$/;"	f	file:
+get_pipeline_infos	src/parsing/get_pipeline_infos.c	/^t_node_ms	*get_pipeline_infos()$/;"	f
+get_redirections	src/parsing/get_redirections.c	/^t_context_ms	*get_redirections(t_token_ms *tokens, t_context_ms *cmd_line)$/;"	f
+get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(char *content, t_token_ms *tokens)$/;"	f	file:
+get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *delim[7])$/;"	f
+handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/;"	f	file:
+highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int start, int end)$/;"	f
+howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/;"	f	file:
+identify_delim_token	src/parsing/utils_token.c	/^t_tokens	identify_delim_token(char *user_input, char *delim[7])$/;"	f
+identify_operator	src/parsing/binary_tree_utils.c	/^t_tokens	identify_operator(t_token_ms *tokens, t_tokens operator_pos)$/;"	f
+increm_tokens_copy	src/parsing/get_pipelines_utils.c	/^t_token_ms	*increm_tokens_copy(t_token_ms *tokens_cpy)$/;"	f
+is_a_delimiter	src/parsing/utils_token.c	/^int	is_a_delimiter(const char *user_input, char *delim[7], int index)$/;"	f
+is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input, int i)$/;"	f	file:
+isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/;"	f	file:
+join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_input, char *missing_input)$/;"	f	file:
+launch_program	src/launch_program.c	/^int	launch_program(char **user_input)$/;"	f
+len_int	libft/atoi-itoa/ft_itoa.c	/^static int	len_int(int n)$/;"	f	file:
+length_without_spaces	src/parsing/parse_spaces.c	/^int	length_without_spaces(char *pipeline)$/;"	f
+lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/;"	f
+lst_fill	src/parsing/ft_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])$/;"	f
+lstnew_cmd_lst	src/parsing/ft_lst.c	/^t_context_ms	*lstnew_cmd_lst(void)$/;"	f
+lstnew_token	src/parsing/ft_lst.c	/^t_token_ms	*lstnew_token(void)$/;"	f
+main	src/main.c	/^int	main(int argc, char **argv, char **env)$/;"	f
+makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const char *s1, size_t n)$/;"	f	file:
+makeshift_strcat	libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *dst, const char *src)$/;"	f	file:
+makeshift_strlen	libft/str/ft_strdup.c	/^static int	makeshift_strlen(const char *str)$/;"	f	file:
+makeshift_strlen	libft/str/ft_strjoin.c	/^static int	makeshift_strlen(const char *str)$/;"	f	file:
+makeshift_strlen	libft/str/ft_strjoin_free_both.c	/^static int	makeshift_strlen(const char *str)$/;"	f	file:
+makeshift_strlen	libft/str/ft_strjoin_free_first.c	/^static int	makeshift_strlen(const char *str)$/;"	f	file:
+makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strlen(const char *str)$/;"	f	file:
+makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/;"	f	file:
+malloc_token	src/parsing/get_tokens.c	/^static t_token_ms	*malloc_token()$/;"	f	file:
+parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *content)$/;"	f	file:
+parse_spaces	src/parsing/parse_spaces.c	/^char	*parse_spaces(char *pipeline, t_token_ms *tokens)$/;"	f
+parsing	src/parsing/parsing.c	/^t_context_ms	*parsing(t_token_ms *tokens)$/;"	f
+print_after_end	src/highlight_syntax_error.c	/^static void	print_after_end(const char *str, int end, int line)$/;"	f	file:
+print_before_start	src/highlight_syntax_error.c	/^static void	print_before_start(const char *str, int start, int line)$/;"	f	file:
+print_pipelines	src/parsing/structure_cmd_lst.c	/^void	print_pipelines(t_context_ms *cmd_line)$/;"	f
+print_syntax_error	src/highlight_syntax_error.c	/^static void	print_syntax_error(const char *str, int start, int end, int line)$/;"	f	file:
+scan_after_percentage_fd	libft/ft_printf_fd/ft_printf_fd.c	/^static int	scan_after_percentage_fd(const char *fmt, int *i, \\$/;"	f	file:
+split_list	src/parsing/get_list_infos.c	/^static t_token_ms	**split_list(t_token_ms *tokens, t_tokens operator_pos)$/;"	f	file:
+structure_cmd_lst	src/parsing/structure_cmd_lst.c	/^t_context_ms	*structure_cmd_lst(t_token_ms *tokens)$/;"	f
+token_length	src/parsing/utils_token.c	/^int	token_length(char *user_input, char *delim[7])$/;"	f
+what_is_index_in	src/utils/what_is_index_in.c	/^int	what_is_index_in(const char *user_input, int i)$/;"	f

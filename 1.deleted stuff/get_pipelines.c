@@ -1,6 +1,6 @@
-#include "../../includes/minishell.h"
+/*#include "../../includes/minishell.h"
 
-static t_context_ms	*get_pipeline(t_context_ms *cmd_lst, t_token_ms *tokens)
+t_context_ms	*get_pipeline(t_context_ms *cmd_lst, t_token_ms *tokens)
 {
 	while (tokens->type != TOK_PIPE && tokens->type != TOK_OR_OPER
 		&& tokens->type != TOK_AND_OPER && tokens->next)
@@ -42,4 +42,4 @@ t_context_ms	*get_all_pipelines(t_token_ms *tokens, t_context_ms *cmd_lst)
 		cmd_lst_cpy = cmd_lst_cpy->next;
 	}
 	return (cmd_lst);
-}
+}*/

@@ -59,7 +59,6 @@ t_token_ms		*get_tokens(char *user_input, char *delim[7]);
 //ft_lst.c
 t_token_ms		*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7]);
 t_token_ms		*lstnew_token(void);
-t_context_ms	*lstnew_cmd_lst(void);
 
 //utils_tokens.c
 int				token_length(char *user_input, char *delim[7]);
