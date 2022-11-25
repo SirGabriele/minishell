@@ -78,11 +78,12 @@ typedef struct	s_node_ms
 	char					**content;
 	char					*infile;
 	char					*outfile;
-	int						pipefd[2];
+	int						pipe_before[2];
+	int						pipe_after[2];
 	t_tokens				infile_mode;
 	t_tokens				outfile_mode;
 	t_tokens				operator;
-}
+}	t_node_ms;
 
 /*typedef struct s_context_ms
 {
@@ -110,16 +111,16 @@ void	ft_signal_user_input(int sig);
 
 //prompt.c
 void			ft_signal(int sig);
-int				cmd_prompt(t_context_ms *context, char **env);
+int				cmd_prompt(t_node_ms *root, t_env_ms *env);
 
 //launch_program.c
-int				launch_program(t_context_ms *context, char **user_input);
+int				launch_program(t_node_ms *root, char **user_input, t_env_ms *env);
 
 //highlight_syntax_error.c
 void			highlight_syntax_error(const char *str, int start, int end);
 
 //free_program.c
-void			free_program(t_context_ms *context);
+void	free_program(t_node_ms *root, t_env_ms *env);
 
 /************/
 /*	CHECK	*/
@@ -151,30 +152,22 @@ char			*get_missing_user_input(char **user_input);
 /*	INIT	*/
 /************/
 
-//init_tree_struct.c
-void  		  init_tree_struct(t_node_ms *root);
+//init_root_struct.c
+void  		  init_root_struct(t_node_ms *root);
 
 /************/
 /*	EXEC	*/
 /************/
 
-//test_pipex.c
-int				test_pipex(t_context_ms *context);
+//simulate_struct.c
+int			simulate_structs(t_node_ms *root, t_env_ms *env);
+
+//print_structs.c
+void		print_tree(t_node_ms *root);
+void		print_env_ll(t_env_ms *env, char **env_real);
 
 //launch_exec.c
-int				launch_exec(t_context_ms *context);
-
-//exec_pipex.c
-int				exec_pipex(t_context_ms *context);
-
-//verify_infile_redirs.c
-int				handle_append_infile(t_context_ms *context, t_redir_ms *cursor,
-	const char *infile);
-int				verify_basic_infile(t_redir_ms *cursor);
-
-//heredoc_requested.c
-int				real_heredoc_requested(t_context_ms *context, int std_in_copy);
-int				fake_heredoc_requested(const char *delimiter, int std_in_copy);
+int	launch_exec(t_node_ms *root, t_env_ms *env);
 
 /****************/
 /*	LINKED LIST	*/
@@ -190,13 +183,16 @@ t_redir_ms		*ft_lstnew_redir(char *file_name, t_tokens mode);
 void			init_context_struct(t_context_ms *context);
 void			init_context_all_redirs(t_all_redirs_ms *all_redirs);*/
 //ft_lstnew_env_entry.c
-t_env_ms		*ft_lstnew_entry_env(char *env);
-
+t_env_ms		*ft_lstnew_env_entry(const char *env);
+t_node_ms		*ft_create_node(void);
 /************/
 /*	UTILS	*/
 /************/
 
 //what_is_index_in.c
 int				what_is_index_in(const char *user_input, int i);
+
+//convert_env_into_ll.c
+t_env_ms		*convert_env_into_ll(const char **env);
 
 #endif

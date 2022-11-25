@@ -16,26 +16,25 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-EXEC =	test_pipex.c		\
-	launch_exec.c			\
-	verify_infile_redirs.c	\
-	heredoc_requested.c		\
-	exec_pipex.c
+EXEC =	simulate_structs.c	\
+	print_structs.c			\
+	launch_exec.c
 
-LL = ft_lstnew_cmd.c		\
-	ft_lstnew_redir.c		\
-	init_structs.c
+LL = ft_lstnew_env_entry.c	\
+	ft_create_node.c
 
-UTILS =	what_is_index_in.c
+INIT = init_root_struct.c
+
+UTILS =	what_is_index_in.c	\
+	convert_env_into_ll.c		
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/signals/, $(SIGNALS))	\
 	$(addprefix src/check/, $(CHECK))		\
 	$(addprefix src/utils/, $(UTILS))		\
 	$(addprefix src/ll/, $(LL))				\
+	$(addprefix src/init/, $(INIT))			\
 	$(addprefix src/exec/, $(EXEC))
-
-
 
 CC = clang
 

@@ -71,12 +71,12 @@ static int	ft_check_syntax_error(char **user_input)
 	return (0);
 }
 
-int	launch_program(t_context_ms *context, char **user_input)
+int	launch_program(t_node_ms *root, char **user_input, t_env_ms *env)
 {
-	(void)context;
+	(void)root;
 	if (ft_check_syntax_error(user_input) == -1)
 		return (-1);
-	if (test_pipex(context) == -1)
+	if (simulate_structs(root, env) == -1)
 		return (-1);
 	return (0);
 }

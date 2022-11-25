@@ -25,17 +25,16 @@ static int	handle_prompt(char *user_input)
 	return (0);
 }
 
-int	cmd_prompt(t_context_ms *context, char **env)
+int	cmd_prompt(t_node_ms *root, t_env_ms *env)
 {
 	char	*user_input;
 
-	(void)env;
 	while (1)
 	{
 		user_input = readline("minishell> ");
 		if (handle_prompt(user_input) == -1)
 			return (0);
-		if (launch_program(context, &user_input) == -1)
+		if (launch_program(root, &user_input, env) == -1)
 			free_user_input_and_set_to_null(user_input);
 		else
 		{

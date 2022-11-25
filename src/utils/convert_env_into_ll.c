@@ -10,12 +10,13 @@ t_env_ms	*convert_env_into_ll(const char **env)
 	first_link = ft_lstnew_env_entry(env[i]);
 	if (first_link == NULL)
 		return (NULL);
-	cursor = first_link;
+	cursor = first_link;;
+	i++;
 	while (env[i] != NULL)
 	{
 		cursor->next = ft_lstnew_env_entry(env[i]);
-		i++;
 		cursor = cursor->next;
+		i++;
 	}
 	return (first_link);
 }
