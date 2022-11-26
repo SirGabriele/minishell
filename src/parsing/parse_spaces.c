@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	length_without_spaces(char *pipeline)
+static int	length_without_spaces(char *pipeline)
 {
 	int	i;
 	int	len;
@@ -18,7 +18,7 @@ int	length_without_spaces(char *pipeline)
 	return (len);
 }
 
-char	*add_space_if_needed(char *pipeline, t_token_ms *tokens)
+static char	*add_space_if_needed(char *pipeline, t_token_ms *tokens)
 {
 	if (tokens->next->type != TOK_PIPE && tokens->next->type != TOK_OR_OPER
 		&& tokens->next->type != TOK_AND_OPER && tokens->next->type)

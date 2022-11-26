@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static t_token_ms	*malloc_token()
+static t_token_ms	*malloc_token(void)
 {
 	t_token_ms	*tokens;
 
@@ -21,13 +21,18 @@ static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char
 		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
-	tokens->next = lstnew_token();
-	if (!tokens->next)
+	if (ft_strlen(tokens->content) != ft_strlen(user_input))
 	{
-		ft_putstr_fd("Error : malloc could not be done\n", 2);
-		return (NULL);
+		tokens->next = lstnew_token();
+		if (!tokens->next)
+		{
+			ft_putstr_fd("Error : malloc could not be done\n", 2);
+			return (NULL);
+		}
+		tokens = tokens->next;
 	}
-	tokens = tokens->next;
+	else
+		tokens->next = NULL;
 	return (tokens);
 }
 

@@ -22,25 +22,24 @@ static t_node_ms	*get_node(t_token_ms *tokens, t_tokens operator_pos)
 static t_token_ms	**split_list(t_token_ms *tokens, t_tokens operator_pos)
 {
 	t_token_ms	**splited_tokens;
+	int			index_token;
 
 	splited_tokens = malloc(3 * sizeof(t_token_ms *));
 	if (!splited_tokens)
 		return (NULL);
 	splited_tokens[2] = NULL;
 	splited_tokens[0] = tokens;
-	while (tokens->next)
+	index_token = 1;
+	while (tokens)
 	{
-		if (tokens->next->type == TOK_AND_OPER
-			|| tokens->next->type == TOK_OR_OPER
-			|| tokens->next->type == TOK_PIPE)
+		if ((tokens->next->type == TOK_AND_OPER
+				|| tokens->next->type == TOK_OR_OPER
+				|| tokens->next->type == TOK_PIPE)
+			&& check_token_pos(tokens, index_token) == operator_pos)
 		{
-			if (check_token_pos(tokens) == operator_pos)
-			{
-				splited_tokens[1] = tokens->next->next;
-				tokens->next = NULL;
-				tokens->content = NULL;
-				return (splited_tokens);
-			}
+			splited_tokens[1] = tokens->next->next;
+			tokens->next = NULL;
+			return (splited_tokens);
 		}
 		tokens = tokens->next;
 	}
@@ -64,8 +63,8 @@ t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens operator_pos)
 	binary_tree->right = build_binary_tree(splited_tokens[1]);
 	if (!binary_tree->right)
 		return (NULL);
-	free_tokens(splited_tokens[0]);
-	free_tokens(splited_tokens[1]);
-	free(splited_tokens);
+	//free_tokens(splited_tokens[0]);
+	//free_tokens(splited_tokens[1]);
+	//free(splited_tokens);
 	return (binary_tree);
 }

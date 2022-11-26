@@ -10,16 +10,11 @@ void	free_tokens(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
-	while (tokens->next)
+	while (tokens)
 	{
 		free(tokens->content);
 		tokens_cpy = tokens->next;
 		free(tokens);
 		tokens = tokens_cpy;
-	}
-	if (tokens)
-	{
-		free(tokens->content);
-		free(tokens);
 	}
 }

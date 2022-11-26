@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	get_length_parsed_string(char *content)
+static int	length_parsed_string(char *content)
 {
 	int	i;
 	int	i_cpy;
@@ -53,19 +53,20 @@ static char *parse_content(char *parsed, char *content)
 	return (parsed);
 }
 
-static char	*get_string_parsed(char *content, t_token_ms *tokens)
+static char	*get_string_parsed(t_token_ms *tokens)
 {
 	char	*parsed;
 
-	parsed = malloc((get_length_parsed_string(content) + 1) * sizeof(char));
+	parsed = malloc((length_parsed_string(tokens->content) + 1) * sizeof(char));
 	if (!parsed)
 	{
 		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
-	parsed = parse_content(parsed, content);
-	parsed = parse_spaces(parsed, tokens);
-	free(content);
+	parsed = parse_content(parsed, tokens->content);
+	if (tokens->next)
+		parsed = parse_spaces(parsed, tokens);
+	free(tokens->content);
 	return (parsed);
 }
 
@@ -74,10 +75,10 @@ t_token_ms	*parsing(t_token_ms *tokens)
 	t_token_ms		*tmp_tokens;
 
 	tmp_tokens = tokens;
-	while (tmp_tokens->next)
+	while (tmp_tokens)
 	{
 		//tmp_tokens->content = manage_dollar_sign();
-		tmp_tokens->content = get_string_parsed(tmp_tokens->content, tokens);
+		tmp_tokens->content = get_string_parsed(tmp_tokens);
 		if (!tmp_tokens->content)
 		{
 			free_tokens(tokens);

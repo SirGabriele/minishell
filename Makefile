@@ -5,8 +5,7 @@ LIBFT = libft/libft.a
 SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
-	highlight_syntax_error.c	\
-	print_binary_tree.c #a supprimer
+	highlight_syntax_error.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
@@ -14,17 +13,16 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	ft_lst.c 				\
-			lexer.c					\
+PARSING =	binary_tree.c			\
+			binary_tree_utils.c		\
+			free.c					\
+			ft_lst.c				\
+			get_list_infos.c		\
+			get_pipeline_infos.c	\
 			get_tokens.c			\
-			free_1.c				\
-			free_2.c				\
-			parsing.c				\
-			structure_cmd_lst.c		\
-			get_pipelines.c			\
-			get_pipelines_utils.c	\
+			lexer.c					\
 			parse_spaces.c			\
-			binary_tree.c			\
+			parsing.c				\
 			utils_token.c
 
 UTILS =	what_is_index_in.c
