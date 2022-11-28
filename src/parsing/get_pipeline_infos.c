@@ -18,7 +18,7 @@ static char	*get_pipeline(t_token_ms *tokens)
 	return (pipeline);
 }
 
-t_node_ms	*get_pipeline_infos(t_token_ms *tokens)
+t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
 
@@ -31,5 +31,6 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens)
 	binary_tree->content = get_pipeline(tokens);
 	if (!binary_tree->content)
 		return (NULL);
+	binary_tree->shell = shell;
 	return (binary_tree);
 }

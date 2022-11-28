@@ -13,7 +13,7 @@ static t_token_ms	*malloc_token(void)
 	return (tokens);
 }
 
-static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[7])
+static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[10])
 {
 	tokens = lst_fill(tokens, user_input, delim);
 	if (!tokens)
@@ -36,7 +36,7 @@ static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char
 	return (tokens);
 }
 
-t_token_ms	*get_tokens(char *user_input, char *delim[7])
+t_token_ms	*get_tokens(char *user_input, char *delim[10])
 {
 	t_token_ms	*tokens;
 	t_token_ms	*tmp_tokens;

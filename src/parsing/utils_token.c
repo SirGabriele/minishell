@@ -1,49 +1,56 @@
 #include "../../includes/minishell.h"
 
-t_tokens	identify_delim_token(char *user_input, char *delim[7])
+t_tokens	identify_delim_token(char *user_input, char *delim[10])
 {
 	t_tokens	token_type;
 	int			index_delimiter;
 
 	token_type = 0;
 	index_delimiter = is_a_delimiter(user_input, delim, 0);
-	if (index_delimiter == 2 && user_input[0] == user_input[1])
-		token_type = TOK_HEREDOC;
-	else if (index_delimiter == 3 && user_input[0] == user_input[1])
-		token_type = TOK_APPEND;
-	else if (index_delimiter == 4 && user_input[0] == user_input[1])
-		token_type = TOK_AND_OPER;
-	else if (index_delimiter == 5 && user_input[0] == user_input[1])
-		token_type = TOK_OR_OPER;
-	else if (index_delimiter == 0)
+	if (index_delimiter == 0)
 		token_type = TOK_OP_PAR;
 	else if (index_delimiter == 1)
 		token_type = TOK_CL_PAR;
 	else if (index_delimiter == 2)
-		token_type = TOK_INFILE;
+		token_type = TOK_HEREDOC;
 	else if (index_delimiter == 3)
-		token_type = TOK_TRUNC;
+		token_type = TOK_APPEND;
+	else if (index_delimiter == 4)
+		token_type = TOK_INFILE;
 	else if (index_delimiter == 5)
+		token_type = TOK_TRUNC;
+	else if (index_delimiter == 6)
+		token_type = TOK_OR_OPER;
+	else if (index_delimiter == 7)
 		token_type = TOK_PIPE;
+	else if (index_delimiter == 8)
+		token_type = TOK_AND_OPER;
+	else if (index_delimiter == 9)
+		token_type = TOK_NULL;
 	return (token_type);
 }
 
-int	token_length(char *user_input, char *delim[7])
+int	token_length(char *user_input, char *delim[10])
 {
 	int	i;
+	int	index_delim;
 
 	i = 0;
 	while (user_input[i])
 	{
-		if (is_a_delimiter(user_input, delim, i) >= 0 && i)
+		index_delim = is_a_delimiter(user_input, delim, i);
+		if (index_delim >= 0 && i)
 			return (i);
-		else if (is_a_delimiter(user_input, delim, i) >= 0 && !i)
+		else if (index_delim >= 0 && !i)
+			return (ft_strlen(delim[index_delim]));
+		/*else if (is_a_delimiter(user_input, delim, i) >= 0 && !i)
 		{
-			if (user_input[0] == user_input[1])
+			if (user_input[0] == user_input[1]
+				&& *user_input != '(' && *user_input != ')')
 				return (2);
 			else
 				return (1);
-		}
+		}*/
 		else if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
 			return (i);
 		i++;
@@ -51,7 +58,7 @@ int	token_length(char *user_input, char *delim[7])
 	return (i);
 }
 
-int	is_a_delimiter(const char *user_input, char *delim[7], int index)
+int	is_a_delimiter(const char *user_input, char *delim[10], int index)
 {
 	int	i;
 	int	length_delim;

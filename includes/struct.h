@@ -14,8 +14,7 @@ typedef enum e_tokens
 	TOK_PIPE,
 	TOK_AND_OPER,
 	TOK_OR_OPER,
-	TOK_IN_PAR,
-	TOK_NOT_IN_PAR,
+	TOK_SHELL,
 }	t_tokens;
 
 typedef struct s_redir_list_ms
@@ -36,7 +35,7 @@ typedef struct s_node_ms
 	char				*outfile;
 	t_tokens			infile_mode;
 	t_tokens			outfile_mode;
-	t_tokens			operator_pos;
+	t_tokens			shell;
 	t_tokens			operator;
 }	t_node_ms;
 

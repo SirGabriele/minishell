@@ -1,30 +1,19 @@
 #include "../../includes/minishell.h"
 
-static char	*get_content_delim(char *user_input, char *delim)
+static char	*get_content_delim(char *delim)
 {
 	char	*content;
+	int		len_delim;
 
-	if (user_input[0] == user_input[1])
-	{
-		content = malloc(3 * sizeof(char));
-		if (!content)
-			return (NULL);
-		content[0] = delim[0];
-		content[1] = delim[0];
-		content[2] = '\0';
-	}
-	else
-	{
-		content = malloc(2 * sizeof(char));
-		if (!content)
-			return (NULL);
-		content[0] = delim[0];
-		content[1] = '\0';
-	}
+	len_delim = ft_strlen(delim);
+	content = malloc((len_delim + 1) * sizeof(char));
+	if (!content)
+		return (NULL);
+	content = ft_strncpy(content, delim, len_delim);
 	return (content);
 }
 
-static char	*get_content_string(char *user_input, char *delim[7])
+static char	*get_content_string(char *user_input, char *delim[10])
 {
 	char	*tmp;
 	int		i;
@@ -44,7 +33,7 @@ static char	*get_content_string(char *user_input, char *delim[7])
 	return (tmp);
 }
 
-t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
+t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[10])
 {
 	int	index_delim;
 
@@ -52,7 +41,7 @@ t_token_ms	*lst_fill(t_token_ms *tokens, char *user_input, char *delim[7])
 	if (index_delim >= 0)
 	{
 		tokens->type = identify_delim_token(user_input, delim);
-		tokens->content = get_content_delim(user_input, delim[index_delim]);
+		tokens->content = get_content_delim(delim[index_delim]);
 		if (!tokens->content)
 		{
 			ft_putstr_fd("Error : malloc could not be done\n", 2);

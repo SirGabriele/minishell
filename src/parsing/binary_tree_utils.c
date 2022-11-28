@@ -12,9 +12,9 @@ t_tokens	check_token_pos(t_token_ms *tokens, int token_pos)
 	while (tokens)
 	{
 		if (index_token == token_pos && op_parenthesis > cl_parenthesis)
-			return (TOK_IN_PAR);
+			return (TOK_NULL);
 		else if (index_token == token_pos && op_parenthesis == cl_parenthesis)
-			return (TOK_NOT_IN_PAR);
+			return (TOK_SHELL);
 		else if (tokens->type == TOK_OP_PAR)
 			op_parenthesis++;
 		else if (tokens->type == TOK_CL_PAR)
@@ -27,42 +27,71 @@ t_tokens	check_token_pos(t_token_ms *tokens, int token_pos)
 
 t_tokens	detect_operators(t_token_ms *tokens)
 {
-	t_tokens	operator_pos;
+	t_tokens	oper_pos;
+	t_token_ms	*cpy_tokens;
 	int			index_token;
 
-	operator_pos = TOK_NULL;
+	oper_pos = TOK_NULL;
+	cpy_tokens = tokens;
 	index_token = 1;
-	while (tokens)
+	while (cpy_tokens)
 	{
-		if (tokens->type == TOK_AND_OPER || tokens->type == TOK_OR_OPER
-			|| tokens->type == TOK_PIPE)
+		if (cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
+			|| cpy_tokens->type == TOK_PIPE)
 		{
-			if (check_token_pos(tokens, index_token) == TOK_NOT_IN_PAR)
-				return (TOK_NOT_IN_PAR);
-			else if (check_token_pos(tokens, index_token) == TOK_IN_PAR)
-				operator_pos = TOK_IN_PAR;
+			if (check_token_pos(tokens, index_token) == TOK_SHELL)
+				return (TOK_SHELL);
 		}
 		index_token++;
-		tokens = tokens->next;
+		cpy_tokens = cpy_tokens->next;
 	}
-	return (operator_pos);
+	return (oper_pos);
 }
 
 t_tokens	identify_operator(t_token_ms *tokens, t_tokens operator_pos)
 {
-	int	index_token;
+	t_token_ms	*cpy_tokens;
+	int			index_token;
 
+	cpy_tokens = tokens;
 	index_token = 1;
-	while (tokens)
+	while (cpy_tokens)
 	{
-		if (tokens->type == TOK_AND_OPER || tokens->type == TOK_OR_OPER
-			|| tokens->type == TOK_PIPE)
+		if (cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
+			|| cpy_tokens->type == TOK_PIPE)
 		{
 			if (check_token_pos(tokens, index_token) == operator_pos)
-				return (tokens->type);
+				return (cpy_tokens->type);
 		}
 		index_token++;
-		tokens = tokens->next;
+		cpy_tokens = cpy_tokens->next;
 	}
 	return (TOK_NULL);
+}
+
+t_token_ms	*supp_parenthesis_if_needed(t_token_ms *tokens)
+{
+	t_token_ms	*tokens_cpy;
+
+	tokens_cpy = tokens;
+	if (tokens_cpy->type == TOK_OP_PAR)
+	{
+		tokens = tokens_cpy->next;
+		while (tokens_cpy->next->next)
+			tokens_cpy = tokens_cpy->next;
+		tokens_cpy->next = NULL;
+	}
+	return (tokens);
+}
+
+int	check_parenthesis(t_token_ms *tokens)
+{
+	t_token_ms	*tmp_tokens;
+
+	tmp_tokens = tokens;
+	while (tmp_tokens->next)
+		tmp_tokens = tmp_tokens->next;
+	if (tokens->type == TOK_OP_PAR && tmp_tokens->type == TOK_CL_PAR)
+		return (TOK_NULL);
+	return (TOK_SHELL);
 }
