@@ -18,7 +18,10 @@ CHECK =	get_missing_user_input.c	\
 
 EXEC =	simulate_structs.c	\
 	print_structs.c			\
-	launch_exec.c
+	launch_exec.c			\
+	handle_all_redirs.c		\
+	heredoc_requested.c		\
+	execute_cmd.c
 
 LL = ft_lstnew_env_entry.c	\
 	ft_create_node.c
@@ -26,7 +29,8 @@ LL = ft_lstnew_env_entry.c	\
 INIT = init_root_struct.c
 
 UTILS =	what_is_index_in.c	\
-	convert_env_into_ll.c		
+	convert_env_into_ll.c	\
+	convert_env_into_arr.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/signals/, $(SIGNALS))	\

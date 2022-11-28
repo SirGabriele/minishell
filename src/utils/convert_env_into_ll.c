@@ -10,7 +10,7 @@ t_env_ms	*convert_env_into_ll(const char **env)
 	first_link = ft_lstnew_env_entry(env[i]);
 	if (first_link == NULL)
 		return (NULL);
-	cursor = first_link;;
+	cursor = first_link;
 	i++;
 	while (env[i] != NULL)
 	{
@@ -18,5 +18,9 @@ t_env_ms	*convert_env_into_ll(const char **env)
 		cursor = cursor->next;
 		i++;
 	}
+	cursor->next = ft_lstnew_env_entry("toto=tata");//parasite
+	cursor->next->next = ft_lstnew_env_entry("1=2");//parasite
+	cursor->next->next->next = ft_lstnew_env_entry("2=3");//parasite
+	cursor->next->next->next->next = ft_lstnew_env_entry("3=4");//parasite
 	return (first_link);
 }

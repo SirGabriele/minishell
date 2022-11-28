@@ -12,6 +12,14 @@
 
 #include "../libft.h"
 
+static void	free_both(char *s1, char *s2)
+{
+	if (s1 != NULL)
+		free(s1);
+	if (s2 != NULL)
+		free(s2);
+}
+
 static int	makeshift_strlen(const char *str)
 {
 	int	i;
@@ -46,7 +54,6 @@ char	*ft_strjoin_free_both(char *s1, char *s2)
 		j++;
 	}
 	tab[i + j] = '\0';
-	free(s1);
-	free(s2);
+	free_both(s1, s2);
 	return (tab);
 }

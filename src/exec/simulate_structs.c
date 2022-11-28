@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void set_root_left_right_values(t_node_ms *node)
+/*static void set_root_left_right_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
 	node->content[0] = ft_strdup("cat");
@@ -41,9 +41,23 @@ static void set_root_left_left_values(t_node_ms *node)
 	node->infile_mode = TOK_INFILE;
 	node->outfile_mode = TOK_APPEND;
 	node->operator = TOK_NULL;
-}
+}*/
 
 static void set_root_right_values(t_node_ms *node)
+{
+	node->content = malloc(sizeof(char *) * 3);
+	node->content[0] = ft_strdup("cat");
+	node->content[1] = ft_strdup("-e");
+	node->content[2] = NULL;
+	node->first_redir = NULL;
+	node->infile = NULL;
+	node->outfile = NULL;
+	node->infile_mode = TOK_NULL;
+	node->outfile_mode = TOK_NULL;
+	node->operator = TOK_NULL;
+}
+
+static void set_root_left_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
 	node->content[0] = ft_strdup("echo");
@@ -57,14 +71,9 @@ static void set_root_right_values(t_node_ms *node)
 	node->operator = TOK_NULL;
 }
 
-static void set_root_left_values(t_node_ms *node)
-{
-	node->operator = TOK_PIPE;
-}
-
 static void	set_root_values(t_node_ms *root)
 {
-	root->operator = TOK_AND_OPER;
+	root->operator = TOK_PIPE;
 }
 
 int	simulate_structs(t_node_ms *root, t_env_ms *env)
@@ -78,13 +87,13 @@ int	simulate_structs(t_node_ms *root, t_env_ms *env)
 	init_root_struct(root->right);
 	set_root_right_values(root->right);
 	
-	root->left->left = malloc(sizeof(t_node_ms));
+/*	root->left->left = malloc(sizeof(t_node_ms));
 	init_root_struct(root->left->left);
 	set_root_left_left_values(root->left->left);
 	
 	root->left->right = malloc(sizeof(t_node_ms));
 	init_root_struct(root->left->right);
-	set_root_left_right_values(root->left->right);
+	set_root_left_right_values(root->left->right);*/
 	
 	print_tree(root);
 	if (launch_exec(root, env) == -1)

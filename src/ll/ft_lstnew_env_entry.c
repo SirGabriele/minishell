@@ -48,7 +48,7 @@ static char	*get_env_key(const char *env)
 	if (key == NULL)
 		return (NULL);
 	key = strncpy(key, env, len_key);
-	return (key);	
+	return (key);
 }
 
 t_env_ms	*ft_lstnew_env_entry(const char *env)

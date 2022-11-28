@@ -1,15 +1,38 @@
 #include "../../includes/minishell.h"
 
+void	print_env_arr(char **env, char **env_real)
+{
+	int	i = 0;
+	int	j = 0;
+	int	k = 0;
+
+	while (env[i] != NULL)
+	{
+		if (env_real[j] == NULL)
+			k = 1;
+		if (k == 0)
+			ft_printf("real\t%s\n", env_real[j]);
+		ft_printf("mine\t%s\n\n", env[i]);
+		i++;
+		j++;
+	}
+}
+
 void	print_env_ll(t_env_ms *env, char **env_real)
 {
 	t_env_ms	*current;
 	int			i = 0;
+	int			j = 0;
 
 	current = env;
 	while (current != NULL)
 	{
-		ft_printf("real\t%s\n", env_real[i]);
-		ft_printf("mine\t%s=%s\n\n", current->key, current->value);
+		if (env_real[i] == NULL)
+			j = 1;
+		if (j == 0)
+			ft_printf("real\t%s\n", env_real[i]);
+		if (current->key && current->value)
+			ft_printf("mine\t%s=%s\n\n", current->key, current->value);
 		current = current->next;
 		i++;
 	}

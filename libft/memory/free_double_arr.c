@@ -16,6 +16,8 @@ void	free_double_arr(char **arr)
 {
 	int	i;
 
+	if (arr == NULL)
+		return ;
 	i = 0;
 	while (arr[i] != NULL)
 	{

@@ -46,6 +46,7 @@ char	*ft_strjoin_free_first(char *s1, char const *s2)
 		j++;
 	}
 	tab[i + j] = '\0';
-	free(s1);
+	if (s1 != NULL)
+		free(s1);
 	return (tab);
 }
