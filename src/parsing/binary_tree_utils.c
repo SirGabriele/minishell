@@ -74,7 +74,7 @@ t_token_ms	*supp_parenthesis_if_needed(t_token_ms *tokens)
 	t_token_ms	*tokens_cpy;
 
 	tokens_cpy = tokens;
-	if (tokens_cpy->type == TOK_OP_PAR)
+	if (check_parenthesis(tokens) == TOK_NULL)
 	{
 		tokens = tokens_cpy->next;
 		while (tokens_cpy->next->next)
@@ -87,11 +87,26 @@ t_token_ms	*supp_parenthesis_if_needed(t_token_ms *tokens)
 int	check_parenthesis(t_token_ms *tokens)
 {
 	t_token_ms	*tmp_tokens;
+	int			op_parenthesis;
+	int			cl_parenthesis;
 
 	tmp_tokens = tokens;
-	while (tmp_tokens->next)
-		tmp_tokens = tmp_tokens->next;
-	if (tokens->type == TOK_OP_PAR && tmp_tokens->type == TOK_CL_PAR)
-		return (TOK_NULL);
+	if (tmp_tokens->type == TOK_OP_PAR)
+	{
+		op_parenthesis = 0;
+		cl_parenthesis = 0;
+		while (tmp_tokens)
+		{
+			if (tmp_tokens->type == TOK_OP_PAR)
+				op_parenthesis++;
+			else if (tmp_tokens->type == TOK_CL_PAR)
+				cl_parenthesis++;
+			if (op_parenthesis == cl_parenthesis && !tmp_tokens->next)
+				return (TOK_NULL);
+			else if (op_parenthesis == cl_parenthesis && tmp_tokens->next)
+				return (TOK_SHELL);
+			tmp_tokens = tmp_tokens->next;
+		}
+	}
 	return (TOK_SHELL);
 }

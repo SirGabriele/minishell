@@ -1,5 +1,20 @@
 #include "../../includes/minishell.h"
 
+static char	*get_pipeline_2(t_token_ms *tokens) //a supprimer, ici juste pour un test
+{
+	char		*pipeline;
+
+	pipeline = NULL;
+	while (tokens)
+	{
+		pipeline = ft_strjoin_free_first(pipeline, tokens->content);
+		if (!pipeline)
+			return (NULL);
+		tokens = tokens->next;
+	}
+	return (pipeline);
+}
+
 static t_node_ms	*get_node(t_token_ms *tokens, t_tokens oper_pos, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
@@ -8,7 +23,7 @@ static t_node_ms	*get_node(t_token_ms *tokens, t_tokens oper_pos, t_tokens shell
 	if (binary_tree)
 	{
 		binary_tree->first_redir = NULL;
-		binary_tree->content = NULL;
+		binary_tree->content = get_pipeline_2(tokens);//a modifier : mettre content a NULL;
 		binary_tree->infile = NULL;
 		binary_tree->outfile = NULL;
 		binary_tree->infile_mode = TOK_NULL;
