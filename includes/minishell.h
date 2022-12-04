@@ -11,7 +11,7 @@
 /*	SRC	*/
 /********/
 //launch_program.c
-int				launch_program(char **user_input);
+int				launch_program(char **user_input, char **env);
 
 //prompt.c
 void			ft_signal(int sig);
@@ -56,7 +56,7 @@ t_node_ms		*build_binary_tree(t_token_ms *tokens, t_tokens what_shell);
 //binary_tree_utils.c
 t_tokens		check_token_pos(t_token_ms *tokens, int token_pos);
 t_tokens		detect_operators(t_token_ms *tokens);
-t_tokens		identify_operator(t_token_ms *tokens, t_tokens operator_pos);
+t_tokens		identify_operator(t_token_ms *tokens);
 t_token_ms		*supp_parenthesis_if_needed(t_token_ms *tokens);
 int				check_parenthesis(t_token_ms *tokens);
 
@@ -69,7 +69,7 @@ t_token_ms		*lst_fill(t_token_ms *tokens, char *user_input, char *delim[10]);
 t_token_ms		*lstnew_token(void);
 
 //get_list_infos.c
-t_node_ms		*get_list_infos(t_token_ms *tokens, t_tokens operator_pos, t_tokens what_shell);
+t_node_ms		*get_list_infos(t_token_ms *tokens, t_tokens what_shell);
 
 //get_pipeline_infos.c
 t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_tokens what_shell);
@@ -84,12 +84,18 @@ t_token_ms		*lexer(char *user_input);
 char			*parse_spaces(char *pipeline, t_token_ms *tokens);
 
 //parsing.c
-t_token_ms		*parsing(t_token_ms *tokens);
+t_token_ms		*parsing(t_token_ms *tokens, char **env);
 
 //utils_tokens.c
 int				token_length(char *user_input, char *delim[10]);
 int				is_a_delimiter(const char *user_input, char *delim[10], int index);
 t_tokens		identify_delim_token(char *user_input, char *delim[10]);
+
+//convert_var_with_dollar.c
+char			*convert_var_with_dollar(char *parsed, char *content, char **env);
+
+//dollar_utils.c
+int				what_is_dollar_in(const char *parsed, int i);
 
 /************/
 /*	UTILS	*/

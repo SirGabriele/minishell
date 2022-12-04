@@ -12,7 +12,7 @@ t_tokens	check_token_pos(t_token_ms *tokens, int token_pos)
 	while (tokens)
 	{
 		if (index_token == token_pos && op_parenthesis > cl_parenthesis)
-			return (TOK_NULL);
+			return (TOK_SUBSHELL);
 		else if (index_token == token_pos && op_parenthesis == cl_parenthesis)
 			return (TOK_SHELL);
 		else if (tokens->type == TOK_OP_PAR)
@@ -41,6 +41,8 @@ t_tokens	detect_operators(t_token_ms *tokens)
 		{
 			if (check_token_pos(tokens, index_token) == TOK_SHELL)
 				return (TOK_SHELL);
+			else if (check_token_pos(tokens, index_token) == TOK_SUBSHELL)
+				oper_pos = TOK_SUBSHELL;
 		}
 		index_token++;
 		cpy_tokens = cpy_tokens->next;
@@ -48,7 +50,7 @@ t_tokens	detect_operators(t_token_ms *tokens)
 	return (oper_pos);
 }
 
-t_tokens	identify_operator(t_token_ms *tokens, t_tokens operator_pos)
+t_tokens	identify_operator(t_token_ms *tokens)
 {
 	t_token_ms	*cpy_tokens;
 	int			index_token;
@@ -57,12 +59,10 @@ t_tokens	identify_operator(t_token_ms *tokens, t_tokens operator_pos)
 	index_token = 1;
 	while (cpy_tokens)
 	{
-		if (cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
-			|| cpy_tokens->type == TOK_PIPE)
-		{
-			if (check_token_pos(tokens, index_token) == operator_pos)
+		if ((cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
+				|| cpy_tokens->type == TOK_PIPE)
+			&& check_token_pos(tokens, index_token) == TOK_SHELL)
 				return (cpy_tokens->type);
-		}
 		index_token++;
 		cpy_tokens = cpy_tokens->next;
 	}
@@ -74,7 +74,7 @@ t_token_ms	*supp_parenthesis_if_needed(t_token_ms *tokens)
 	t_token_ms	*tokens_cpy;
 
 	tokens_cpy = tokens;
-	if (check_parenthesis(tokens) == TOK_NULL)
+	if (check_parenthesis(tokens) == TOK_SUBSHELL)
 	{
 		tokens = tokens_cpy->next;
 		while (tokens_cpy->next->next)
@@ -102,11 +102,11 @@ int	check_parenthesis(t_token_ms *tokens)
 			else if (tmp_tokens->type == TOK_CL_PAR)
 				cl_parenthesis++;
 			if (op_parenthesis == cl_parenthesis && !tmp_tokens->next)
-				return (TOK_NULL);
+				return (TOK_SUBSHELL);
 			else if (op_parenthesis == cl_parenthesis && tmp_tokens->next)
 				return (TOK_SHELL);
 			tmp_tokens = tmp_tokens->next;
 		}
 	}
-	return (TOK_SHELL);
+	return (TOK_NULL);
 }

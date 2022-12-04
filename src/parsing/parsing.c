@@ -28,7 +28,7 @@ static int	length_parsed_string(char *content)
 	return (length);
 }
 
-static char *parse_content(char *parsed, char *content)
+static char *parse_content(char *parsed, char *content, char **env)
 {
 	int	i;
 	int	j;
@@ -50,10 +50,11 @@ static char *parse_content(char *parsed, char *content)
 			parsed[j++] = content[i++];
 	}
 	parsed[j] = '\0';
+	parsed = convert_var_with_dollar(parsed, content, env);
 	return (parsed);
 }
 
-static char	*get_string_parsed(t_token_ms *tokens)
+static char	*get_string_parsed(t_token_ms *tokens, char **env)
 {
 	char	*parsed;
 
@@ -63,22 +64,20 @@ static char	*get_string_parsed(t_token_ms *tokens)
 		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
 	}
-	parsed = parse_content(parsed, tokens->content);
-	if (tokens->next)
-		parsed = parse_spaces(parsed, tokens);
+	parsed = parse_content(parsed, tokens->content, env);
+	//parsed = parse_spaces(parsed, tokens);
 	free(tokens->content);
 	return (parsed);
 }
 
-t_token_ms	*parsing(t_token_ms *tokens)
+t_token_ms	*parsing(t_token_ms *tokens, char **env)
 {
 	t_token_ms		*tmp_tokens;
 
 	tmp_tokens = tokens;
 	while (tmp_tokens)
 	{
-		//tmp_tokens->content = manage_dollar_sign();
-		tmp_tokens->content = get_string_parsed(tmp_tokens);
+		tmp_tokens->content = get_string_parsed(tmp_tokens, env);
 		if (!tmp_tokens->content)
 		{
 			free_tokens(tokens);

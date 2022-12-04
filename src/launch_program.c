@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	launch_program(char **user_input)
+int	launch_program(char **user_input, char **env)
 {
 	t_node_ms		*binary_tree;
 	t_token_ms		*tokens;
@@ -11,17 +11,12 @@ int	launch_program(char **user_input)
 	tokens = lexer(*user_input);
 	if (!tokens)
 		return (-1);
-	tokens = parsing(tokens);
+	tokens = parsing(tokens, env);
 	if (!tokens)
 		return (-1);
 	shell = check_parenthesis(tokens);
 	binary_tree = build_binary_tree(tokens, shell);
 	if (!binary_tree)
 		return (-1);
-	/*cmd_lst = parsing(tokens);
-	if (!cmd_lst)
-		return (-1);
-	free_tokens(tokens);
-	free_context(cmd_lst);*/
 	return (0);
 }

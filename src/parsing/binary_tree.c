@@ -1,26 +1,27 @@
 #include "../../includes/minishell.h"
 
-/*static void	print_token(char *str, t_tokens token) //a supprimer
+static void	print_token(char *str, t_tokens token) //a supprimer
 {
 	ft_printf("%s", str);
 	if (token == TOK_INFILE)
-		ft_printf("<\n");
+		ft_printf("<");
 	else if (token == TOK_TRUNC)
-		ft_printf(">\n");
+		ft_printf(">");
 	else if (token == TOK_HEREDOC)
-		ft_printf("<<\n");
+		ft_printf("<<");
 	else if (token == TOK_APPEND)
-		ft_printf(">>\n");
+		ft_printf(">>");
 	else if (token == TOK_PIPE)
-		ft_printf("|\n");
+		ft_printf("|");
 	else if (token == TOK_AND_OPER)
-		ft_printf("&&\n");
+		ft_printf("&&");
 	else if (token == TOK_OR_OPER)
-		ft_printf("||\n");
+		ft_printf("||");
 	else if (token == TOK_SHELL)
-		ft_printf("TOK_SHELL\n");
+		ft_printf("TOK_SHELL");
 	else if (token == TOK_NULL)
-		ft_printf("(null)\n");
+		ft_printf("(null)");
+	write(1, "\n", 1);
 }
 
 static void	print_binary_tree(t_node_ms *binary_tree) //a supprimer
@@ -38,7 +39,7 @@ static void	print_binary_tree(t_node_ms *binary_tree) //a supprimer
 		print_token("       operator -> ", binary_tree->operator);
 		ft_printf("\n\n");
 	}
-}*/
+}
 
 t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 {
@@ -48,7 +49,7 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 	oper_pos = detect_operators(tokens);
 	if (oper_pos)
 	{
-		binary_tree = get_list_infos(tokens, oper_pos, shell);
+		binary_tree = get_list_infos(tokens, shell);
 		if (!binary_tree)
 			return (NULL);
 	}
@@ -58,6 +59,6 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 		if (!binary_tree)
 			return (NULL);
 	}
-	//print_binary_tree(binary_tree);//a supprimer
+	print_binary_tree(binary_tree);//a supprimer
 	return (binary_tree);
 }

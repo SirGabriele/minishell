@@ -13,16 +13,18 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_forbidden_characters.c	\
 	ft_check_isolated_ampersands.c
 
-PARSING =	binary_tree.c			\
-			binary_tree_utils.c		\
-			free.c					\
-			ft_lst.c				\
-			get_list_infos.c		\
-			get_pipeline_infos.c	\
-			get_tokens.c			\
-			lexer.c					\
-			parse_spaces.c			\
-			parsing.c				\
+PARSING =	binary_tree.c				\
+			binary_tree_utils.c			\
+			free.c						\
+			ft_lst.c					\
+			get_list_infos.c			\
+			get_pipeline_infos.c		\
+			get_tokens.c				\
+			lexer.c						\
+			parse_spaces.c				\
+			parsing.c					\
+			convert_var_with_dollar.c	\
+			dollar_utils.c				\
 			utils_token.c
 
 UTILS =	what_is_index_in.c

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static char	*get_pipeline_2(t_token_ms *tokens) //a supprimer, ici juste pour un test
+/*static char	*get_pipeline_2(t_token_ms *tokens) //a supprimer, ici juste pour un test
 {
 	char		*pipeline;
 
@@ -13,9 +13,9 @@ static char	*get_pipeline_2(t_token_ms *tokens) //a supprimer, ici juste pour un
 		tokens = tokens->next;
 	}
 	return (pipeline);
-}
+}*/
 
-static t_node_ms	*get_node(t_token_ms *tokens, t_tokens oper_pos, t_tokens shell)
+static t_node_ms	*get_node(t_token_ms *tokens, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
 
@@ -23,18 +23,19 @@ static t_node_ms	*get_node(t_token_ms *tokens, t_tokens oper_pos, t_tokens shell
 	if (binary_tree)
 	{
 		binary_tree->first_redir = NULL;
-		binary_tree->content = get_pipeline_2(tokens);//a modifier : mettre content a NULL;
+		//binary_tree->content = get_pipeline_2(tokens);//a modifier : mettre content a NULL;
+		binary_tree->content = NULL;
 		binary_tree->infile = NULL;
 		binary_tree->outfile = NULL;
 		binary_tree->infile_mode = TOK_NULL;
 		binary_tree->outfile_mode = TOK_NULL;
 		binary_tree->shell = shell;
-		binary_tree->operator = identify_operator(tokens, oper_pos);
+		binary_tree->operator = identify_operator(tokens);
 	}
 	return (binary_tree);
 }
 
-static t_token_ms	**split_list(t_token_ms *tokens, t_tokens oper_pos)
+static t_token_ms	**split_list(t_token_ms *tokens)
 {
 	t_token_ms	**splited_tokens;
 	t_token_ms	*cpy_tokens;
@@ -49,10 +50,10 @@ static t_token_ms	**split_list(t_token_ms *tokens, t_tokens oper_pos)
 	index_token = 1;
 	while (cpy_tokens)
 	{
-		if ((cpy_tokens->next->type == TOK_AND_OPER
+		if (cpy_tokens->next && (cpy_tokens->next->type == TOK_AND_OPER
 				|| cpy_tokens->next->type == TOK_OR_OPER
 				|| cpy_tokens->next->type == TOK_PIPE)
-			&& check_token_pos(tokens, index_token + 1) == oper_pos)
+			&& check_token_pos(tokens, index_token + 1) == TOK_SHELL)
 		{
 			splited_tokens[1] = cpy_tokens->next->next;
 			cpy_tokens->next = NULL;
@@ -67,7 +68,7 @@ static t_token_ms	**split_list(t_token_ms *tokens, t_tokens oper_pos)
 static t_node_ms	*recursive(t_token_ms **splited_tokens, t_node_ms *binary_tree, t_tokens shell)
 {
 	t_tokens	shell_tmp;
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < 2)
@@ -75,10 +76,9 @@ static t_node_ms	*recursive(t_token_ms **splited_tokens, t_node_ms *binary_tree,
 		shell_tmp = shell;
 		if (shell == TOK_SHELL)
 		{
-			if (check_parenthesis(splited_tokens[i]) == TOK_NULL)
-				shell_tmp = TOK_NULL;
+			if (check_parenthesis(splited_tokens[i]) == TOK_SUBSHELL)
+				shell_tmp = TOK_SUBSHELL;
 		}
-		splited_tokens[i] = supp_parenthesis_if_needed(splited_tokens[i]);
 		if (i == 0)
 			binary_tree->left = build_binary_tree(splited_tokens[i], shell_tmp);
 		else if (i == 1)
@@ -90,15 +90,16 @@ static t_node_ms	*recursive(t_token_ms **splited_tokens, t_node_ms *binary_tree,
 	return (binary_tree);
 }
 
-t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens oper_pos, t_tokens shell)
+t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
 	t_token_ms	**splited_tokens;
 
-	binary_tree = get_node(tokens, oper_pos, shell);
+	tokens = supp_parenthesis_if_needed(tokens);
+	binary_tree = get_node(tokens, shell);
 	if (!binary_tree)
 		return (NULL);
-	splited_tokens = split_list(tokens, oper_pos);
+	splited_tokens = split_list(tokens);
 	if (!splited_tokens)
 		return (NULL);
 	binary_tree = recursive(splited_tokens, binary_tree, shell);

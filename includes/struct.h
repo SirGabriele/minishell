@@ -15,6 +15,7 @@ typedef enum e_tokens
 	TOK_AND_OPER,
 	TOK_OR_OPER,
 	TOK_SHELL,
+	TOK_SUBSHELL,
 }	t_tokens;
 
 typedef struct s_redir_list_ms
@@ -29,8 +30,8 @@ typedef struct s_node_ms
 	
 	struct s_node_ms	*left;
 	struct s_node_ms	*right;
-	struct s_redir_ms	*first_redir;
 	char				*content;
+	struct s_redir_ms	*first_redir;
 	char				*infile;
 	char				*outfile;
 	t_tokens			infile_mode;

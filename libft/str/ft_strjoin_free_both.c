@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_free_both.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:40:20 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/04 10:58:41 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/12/04 16:39:41 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+static void	free_both(char *s1, char *s2)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+}
 
 static int	makeshift_strlen(const char *str)
 {
@@ -46,7 +54,6 @@ char	*ft_strjoin_free_both(char *s1, char *s2)
 		j++;
 	}
 	tab[i + j] = '\0';
-	free(s1);
-	free(s2);
+	free_both(s1, s2);
 	return (tab);
 }

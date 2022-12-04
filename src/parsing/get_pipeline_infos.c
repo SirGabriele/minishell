@@ -22,12 +22,9 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
 
-	binary_tree = malloc(sizeof(t_node_ms));
+	binary_tree = get_redirections_infos(tokens);
 	if (!binary_tree)
 		return (NULL);
-	/*binary_tree = get_redirections_infos(tokens);
-	if (!binary->content)
-		return (NULL);*/
 	binary_tree->content = get_pipeline(tokens);
 	if (!binary_tree->content)
 		return (NULL);

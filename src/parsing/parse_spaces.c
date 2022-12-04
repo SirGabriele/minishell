@@ -58,7 +58,8 @@ char	*parse_spaces(char *pipeline, t_token_ms *tokens)
 	while (j < len_without_spaces)
 		dst[j++] = pipeline[i++];
 	dst[j] = '\0';
-	dst = add_space_if_needed(dst, tokens);
+	if (tokens->next)
+		dst = add_space_if_needed(dst, tokens);
 	if (!dst)
 		return (NULL);
 	free(pipeline);
