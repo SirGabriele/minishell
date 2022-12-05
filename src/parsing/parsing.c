@@ -65,7 +65,7 @@ static char	*get_string_parsed(t_token_ms *tokens, char **env)
 		return (NULL);
 	}
 	parsed = parse_content(parsed, tokens->content, env);
-	//parsed = parse_spaces(parsed, tokens);
+	parsed = parse_spaces(parsed, tokens);
 	free(tokens->content);
 	return (parsed);
 }

@@ -18,12 +18,12 @@ typedef enum e_tokens
 	TOK_SUBSHELL,
 }	t_tokens;
 
-typedef struct s_redir_list_ms
+typedef struct s_redir_ms
 {
-	struct s_redir_list_ms	*next;
-	char					*file_name;
-	t_tokens				mode;
-}	t_redir_list_ms;
+	struct s_redir_ms	*next;
+	char				*file_name;
+	t_tokens			mode;
+}	t_redir_ms;
 
 typedef struct s_node_ms
 {

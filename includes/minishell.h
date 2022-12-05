@@ -7,19 +7,6 @@
 # include <readline/history.h>
 # include "struct.h"
 
-/********/
-/*	SRC	*/
-/********/
-//launch_program.c
-int				launch_program(char **user_input, char **env);
-
-//prompt.c
-void			ft_signal(int sig);
-int				cmd_prompt(char **env);
-
-//highlight_syntax_error.c
-void			highlight_syntax_error(const char *str, int start, int end);
-
 /************/
 /*	CHECK	*/
 /************/
@@ -45,6 +32,19 @@ int				is_previous_syntax_valid(const char *user_input, int i);
 
 //get_missing_user_input.c
 char			*get_missing_user_input(char **user_input);
+
+/********/
+/*	SRC	*/
+/********/
+//launch_program.c
+int				launch_program(char **user_input, char **env);
+
+//prompt.c
+void			ft_signal(int sig);
+int				cmd_prompt(char **env);
+
+//highlight_syntax_error.c
+void			highlight_syntax_error(const char *str, int start, int end);
 
 /************/
 /*	PARSING	*/
@@ -96,6 +96,14 @@ char			*convert_var_with_dollar(char *parsed, char *content, char **env);
 
 //dollar_utils.c
 int				what_is_dollar_in(const char *parsed, int i);
+
+//get_redirections.c
+t_node_ms		*get_redirections_infos(t_token_ms *tokens);
+
+//get_redirections_list.c
+t_redir_ms		*get_redirections_list(t_token_ms *tokens);
+ //get_redirections_modes_and_files.c
+t_node_ms		*get_redirections_modes_and_files(t_node_ms *binary_tree);
 
 /************/
 /*	UTILS	*/

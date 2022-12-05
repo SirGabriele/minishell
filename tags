@@ -19,6 +19,7 @@ fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delim)$
 fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, i/
 fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s,/
 free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/
+free_both	libft/str/ft_strjoin_free_both.c	/^static void	free_both(char *s1, char *s2)$/
 free_tokens	src/parsing/free.c	/^void	free_tokens(t_token_ms *tokens)$/
 free_user_input_and_set_to_null	src/parsing/free.c	/^void	free_user_input_and_set_to_null(char *user_in/
 ft_atoi	libft/atoi-itoa/ft_atoi.c	/^int	ft_atoi(const char *nptr)$/
@@ -125,12 +126,17 @@ ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
 get_content_delim	src/parsing/ft_lst.c	/^static char	*get_content_delim(char *delim)$/
 get_content_string	src/parsing/ft_lst.c	/^static char	*get_content_string(char *user_input, /
 get_dollar_index	src/parsing/convert_var_with_dollar.c	/^static int	get_dollar_index(char *parsed)$/
+get_infos_if_redir	src/parsing/get_redirections_list.c	/^static t_redir_ms	*get_infos_if_redir(t_redir_ms */
 get_list_infos	src/parsing/get_list_infos.c	/^t_node_ms	*get_list_infos(t_token_ms *tokens, t_to/
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)$/
+get_mode_and_file	src/parsing/get_redirections_modes_and_files.c	/^static t_node_ms	*get_mode_and_file(t_node_ms *bin/
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
 get_node	src/parsing/get_list_infos.c	/^static t_node_ms	*get_node(t_token_ms *tokens, t_t/
 get_pipeline	src/parsing/get_pipeline_infos.c	/^static char	*get_pipeline(t_token_ms *tokens)$/
 get_pipeline_infos	src/parsing/get_pipeline_infos.c	/^t_node_ms	*get_pipeline_infos(t_token_ms *tokens, /
+get_redirections_infos	src/parsing/get_redirections.c	/^t_node_ms	*get_redirections_infos(t_token_ms *toke/
+get_redirections_list	src/parsing/get_redirections_list.c	/^t_redir_ms	*get_redirections_list(t_token_ms *toke/
+get_redirections_modes_and_files	src/parsing/get_redirections_modes_and_files.c	/^t_node_ms	*get_redirections_modes_and_files(t_node/
 get_string_parsed	src/parsing/parsing.c	/^static char	*get_string_parsed(t_token_ms *tokens,/
 get_tokens	src/parsing/get_tokens.c	/^t_token_ms	*get_tokens(char *user_input, char *del/
 handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
@@ -139,7 +145,10 @@ howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
 identify_delim_token	src/parsing/utils_token.c	/^t_tokens	identify_delim_token(char *user_input, ch/
 identify_operator	src/parsing/binary_tree_utils.c	/^t_tokens	identify_operator(t_token_ms *tokens)$/
 is_a_delimiter	src/parsing/utils_token.c	/^int	is_a_delimiter(const char *user_input, char *d/
+is_last_infile	src/parsing/get_redirections_modes_and_files.c	/^static int	is_last_infile(t_redir_ms *first_redir)/
+is_last_outfile	src/parsing/get_redirections_modes_and_files.c	/^static int	is_last_outfile(t_redir_ms *first_redir/
 is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input,/
+is_redirs_token	src/parsing/get_redirections_list.c	/^static int	is_redirs_token(t_tokens token_type)$/
 isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/
 join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_in/
 launch_program	src/launch_program.c	/^int	launch_program(char **user_input, char **env)$/
@@ -148,6 +157,7 @@ length_parsed_string	src/parsing/parsing.c	/^static int	length_parsed_string(cha
 length_without_spaces	src/parsing/parse_spaces.c	/^static int	length_without_spaces(char *pipeline)$/
 lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/
 lst_fill	src/parsing/ft_lst.c	/^t_token_ms	*lst_fill(t_token_ms *tokens, char *use/
+lstnew_redir	src/parsing/get_redirections_list.c	/^static t_redir_ms	*lstnew_redir(void)$/
 lstnew_token	src/parsing/ft_lst.c	/^t_token_ms	*lstnew_token(void)$/
 makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const cha/
 makeshift_strcat	libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *dst, const cha/
@@ -158,6 +168,7 @@ makeshift_strlen	libft/str/ft_strjoin_free_first.c	/^static int	makeshift_strlen
 makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strlen(const char *str)$/
 makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
 malloc_token	src/parsing/get_tokens.c	/^static t_token_ms	*malloc_token(void)$/
+nb_redir_left	src/parsing/get_redirections_list.c	/^static int	nb_redir_left(t_token_ms *tokens)$/
 parse_content	src/parsing/parsing.c	/^static char *parse_content(char *parsed, char *con/
 parse_spaces	src/parsing/parse_spaces.c	/^char	*parse_spaces(char *pipeline, t_token_ms *tok/
 parsing	src/parsing/parsing.c	/^t_token_ms	*parsing(t_token_ms *tokens, char **env/
@@ -171,6 +182,7 @@ replace_dollar_by_env_var	src/parsing/convert_var_with_dollar.c	/^static char	*r
 scan_after_percentage_fd	libft/ft_printf_fd/ft_printf_fd.c	/^static int	scan_after_percentage_fd(const char *fm/
 split_list	src/parsing/get_list_infos.c	/^static t_token_ms	**split_list(t_token_ms *tokens)/
 supp_parenthesis_if_needed	src/parsing/binary_tree_utils.c	/^t_token_ms	*supp_parenthesis_if_needed(t_token_ms /
+tok_is_content	src/parsing/get_pipeline_infos.c	/^static int	tok_is_content(t_token_ms *tokens)$/
 token_length	src/parsing/utils_token.c	/^int	token_length(char *user_input, char *delim[10]/
 what_is_dollar_in	src/parsing/dollar_utils.c	/^int	what_is_dollar_in(const char *parsed, int i)$/
 what_is_index_in	src/utils/what_is_index_in.c	/^int	what_is_index_in(const char *user_input, int i/
