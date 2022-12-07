@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static t_token_ms	*malloc_token(void)
+static t_token_ms	*initialize_token(void)
 {
 	t_token_ms	*tokens;
 
@@ -13,22 +13,36 @@ static t_token_ms	*malloc_token(void)
 	return (tokens);
 }
 
-static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[10])
+static int	check_tokens_left(char *user_input)
 {
-	tokens = lst_fill(tokens, user_input, delim);
-	if (!tokens)
+	int	i;
+
+	i = 0;
+	while (user_input[i])
 	{
-		ft_putstr_fd("Error : malloc could not be done\n", 2);
-		return (NULL);
+		if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
+			break;
+		i++;
 	}
-	if (ft_strlen(tokens->content) != ft_strlen(user_input))
+	while (user_input[i])
+	{
+		if (!ft_isspace(user_input[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[10], char **env)
+{
+	tokens = lst_fill(tokens, user_input, delim, env);
+	if (!tokens)
+		return (NULL);
+	if (check_tokens_left(user_input))
 	{
 		tokens->next = lstnew_token();
 		if (!tokens->next)
-		{
-			ft_putstr_fd("Error : malloc could not be done\n", 2);
 			return (NULL);
-		}
 		tokens = tokens->next;
 	}
 	else
@@ -36,30 +50,31 @@ static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char
 	return (tokens);
 }
 
-t_token_ms	*get_tokens(char *user_input, char *delim[10])
+t_token_ms	*get_tokens(char *user_input, char *delim[10], char **env)
 {
 	t_token_ms	*tokens;
 	t_token_ms	*tmp_tokens;
 	int			i;
 
-	tokens = malloc_token();
+	tokens = initialize_token();
 	if (!tokens)
 		return (NULL);
 	tmp_tokens = tokens;
 	i = 0;
-	while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
-		i++;
 	while (user_input[i])
 	{
-		tokens = assign_token_delim(tokens, user_input + i, delim);
-		if (!tokens)
-		{
-			free_tokens(tmp_tokens);
-			return (NULL);
-		}
-		i += token_length(user_input + i, delim);
-		while (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
+		if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
 			i++;
+		else
+		{
+			tokens = assign_token_delim(tokens, user_input + i, delim, env);
+			if (!tokens)
+			{
+				free_tokens(tmp_tokens);
+				return (NULL);
+			}
+			i += token_length(user_input + i, delim);
+		}
 	}
 	return (tmp_tokens);
 }

@@ -14,14 +14,24 @@ static void	fill_delimiters(char **delim)
 	delim[9] = NULL;
 }
 
-t_token_ms	*lexer(char *user_input)
+/*void	print_tokens(t_token_ms *tokens)
+{
+	while (tokens)
+	{
+		ft_printf("%s\n", tokens->content);
+		tokens = tokens->next;
+	}
+}*/
+
+t_token_ms	*lexer(char *user_input, char **env)
 {
 	t_token_ms	*tokens;
 	char		*delim[10];
 
 	fill_delimiters(delim);
-	tokens = get_tokens(user_input, delim);
+	tokens = get_tokens(user_input, delim, env);
 	if (!tokens)
 		return (NULL);
+	//print_tokens(tokens);//a supprimer
 	return (tokens);
 }

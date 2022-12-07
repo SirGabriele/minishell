@@ -18,5 +18,6 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 		if (!binary_tree)
 			return (NULL);
 	}
+	//free_tokens(tokens);
 	return (binary_tree);
 }

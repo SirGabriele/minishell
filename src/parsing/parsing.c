@@ -28,7 +28,7 @@ static int	length_parsed_string(char *content)
 	return (length);
 }
 
-static char *parse_content(char *parsed, char *content, char **env)
+static char *parse_content(char *parsed, char *content)
 {
 	int	i;
 	int	j;
@@ -50,40 +50,47 @@ static char *parse_content(char *parsed, char *content, char **env)
 			parsed[j++] = content[i++];
 	}
 	parsed[j] = '\0';
-	parsed = convert_var_with_dollar(parsed, content, env);
 	return (parsed);
 }
 
-static char	*get_string_parsed(t_token_ms *tokens, char **env)
+static char	*get_string_parsed(t_token_ms *tokens)
 {
 	char	*parsed;
 
 	parsed = malloc((length_parsed_string(tokens->content) + 1) * sizeof(char));
 	if (!parsed)
-	{
-		ft_putstr_fd("Error : malloc could not be done\n", 2);
 		return (NULL);
-	}
-	parsed = parse_content(parsed, tokens->content, env);
-	parsed = parse_spaces(parsed, tokens);
+	parsed = parse_content(parsed, tokens->content);
+	if (!parsed)
+		return (NULL);
 	free(tokens->content);
 	return (parsed);
 }
 
-t_token_ms	*parsing(t_token_ms *tokens, char **env)
+void	print_tokens(t_token_ms *tokens) //a supprimer
+{
+	while (tokens)
+	{
+		ft_printf("%s\n", tokens->content);
+		tokens = tokens->next;
+	}
+}
+
+t_token_ms	*parsing(t_token_ms *tokens)
 {
 	t_token_ms		*tmp_tokens;
 
 	tmp_tokens = tokens;
 	while (tmp_tokens)
 	{
-		tmp_tokens->content = get_string_parsed(tmp_tokens, env);
+		tmp_tokens->content = get_string_parsed(tmp_tokens);
 		if (!tmp_tokens->content)
 		{
-			free_tokens(tokens);
+			//free_tokens(tokens);
 			return (NULL);
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
+	print_tokens(tokens);//a supprimer
 	return (tokens);
 }

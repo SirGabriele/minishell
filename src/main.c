@@ -6,7 +6,7 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:08:38 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/10/05 11:08:08 by kbrousse         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:05:53 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,3 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	return (0);
 }
-
-/*main:
-
--Fonction signal
--Fonction cmd_prompt
--parsing / gestion d'erreurs
--interpretation commande (pipex)
--Variables d'environnement
--$? status derniere commande
-
-*/

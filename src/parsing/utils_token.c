@@ -43,14 +43,6 @@ int	token_length(char *user_input, char *delim[10])
 			return (i);
 		else if (index_delim >= 0 && !i)
 			return (ft_strlen(delim[index_delim]));
-		/*else if (is_a_delimiter(user_input, delim, i) >= 0 && !i)
-		{
-			if (user_input[0] == user_input[1]
-				&& *user_input != '(' && *user_input != ')')
-				return (2);
-			else
-				return (1);
-		}*/
 		else if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
 			return (i);
 		i++;
@@ -75,3 +67,15 @@ int	is_a_delimiter(const char *user_input, char *delim[10], int index)
 	return (-1);
 }
 
+int	count_nb_of_tokens_left(t_token_ms *tokens)
+{
+	int	nb_tokens;
+
+	nb_tokens = 0;
+	while (tokens)
+	{
+		nb_tokens++;
+		tokens = tokens->next;
+	}
+	return (nb_tokens);
+}

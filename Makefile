@@ -23,7 +23,7 @@ PARSING =	binary_tree.c						\
 			lexer.c								\
 			parse_spaces.c						\
 			parsing.c							\
-			convert_var_with_dollar.c			\
+			expand_var_with_dollar.c			\
 			dollar_utils.c						\
 			get_redirections.c					\
 			get_redirections_list.c				\

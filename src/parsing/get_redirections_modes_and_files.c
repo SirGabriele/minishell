@@ -41,7 +41,10 @@ static t_node_ms	*get_mode_and_file(t_node_ms *binary_tree, t_redir_ms *first_re
 	{
 		binary_tree->infile = malloc((len_filename + 1) * sizeof(char));
 		if (!binary_tree->infile)
+		{
+			//free(binary_tree);
 			return (NULL);
+		}
 		ft_strcpy(binary_tree->infile, first_redir->file_name);
 		binary_tree->infile_mode = first_redir->mode;
 	}
@@ -49,7 +52,10 @@ static t_node_ms	*get_mode_and_file(t_node_ms *binary_tree, t_redir_ms *first_re
 	{
 		binary_tree->outfile = malloc((len_filename + 1) * sizeof(char));
 		if (!binary_tree->outfile)
+		{
+			//free(binary_tree);
 			return (NULL);
+		}
 		ft_strcpy(binary_tree->outfile, first_redir->file_name);
 		binary_tree->outfile_mode = first_redir->mode;
 	}
@@ -75,7 +81,11 @@ t_node_ms	*get_redirections_modes_and_files(t_node_ms *binary_tree)
 				binary_tree = get_mode_and_file(binary_tree, first_redir);
 		}
 		if (!binary_tree)
+		{
+			//free_redirs_list(binary_tree->first_redir);
+			//free_redirs_infos(binary_tree);
 			return (NULL);
+		}
 		first_redir = first_redir->next;
 	}
 	return (binary_tree);

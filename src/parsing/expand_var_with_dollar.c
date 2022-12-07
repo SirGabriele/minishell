@@ -1,74 +1,82 @@
 #include "../../includes/minishell.h"
 
+static int	check_if_dollar_is_isolated(char *content, int index_dollar)
+{
+	if (content[index_dollar + 1] == ' ')
+		return (1);
+	if (content[index_dollar + 1] == '$')
+		return (1);
+	if (content[index_dollar + 1] == '\0')
+		return (1);
+	return (0);
+}
+
 /************************************************************************/
 /*                                                     					*/
-/*  Deletes the $STRING in parsed because $STRING doesn't exist		*/
+/*  Deletes the $STRING in content because $STRING doesn't exist		*/
 /*                                                     	 				*/
 /*  Parameters:															*/
-/*		parsed - line from the terminal								*/
+/*		content - line from the terminal								*/
 /*		i - index of the '$' symbol found								*/
 /*  Return:																*/
-/*		MALLOC'ED parsed without $STRING							*/
+/*		MALLOC'ED content without $STRING							*/
 /************************************************************************/
-static char	*delete_dollar_from_line(char *parsed, int i)
+static char	*delete_dollar_from_line_if_needed(char *content, int i)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		j;
 
 	j = 0;
-	tmp = ft_calloc(sizeof(char), i + 1);
+	tmp = ft_calloc(sizeof(char), i);
 	if (!tmp)
 	{
-		ft_printf_error("Error happened in delete_dollar_from_line's malloc\n");
-		free(parsed);
+		free(content);
 		return (NULL);
 	}
-	tmp = ft_strncpy(tmp, parsed, i);
+	ft_strncpy(tmp, content, i);
 	i++;
-	while (parsed[i + j] != ' ' && parsed[i + j] != '\"'
-		&& parsed[i + j] != '$' && parsed[i + j] != '\0'
-		&& parsed[i + j] != '\'')
+	while (!ft_isspace(content[i + j]) && content[i + j] != '\"'
+		&& content[i + j] != '$' && content[i + j] != '\0'
+		&& content[i + j] != '\'' && !ft_isdigit(content[i + j - 1]))
 		j++;
-	tmp2 = ft_strjoin_free_first(tmp, parsed + i + j);
-	free(parsed);
+	tmp2 = ft_strjoin_free_first(tmp, content + i + j);
+	free(content);
 	return (tmp2);
 }
 
 /************************************************************************/
 /*                                                     					*/
-/*  Replaces the $STRING with env_variable in parsed				*/
+/*  Replaces the $STRING with env_variable in content				*/
 /*                                                     	 				*/
 /*  Parameters:															*/
-/*		parsed - line from the terminal								*/
+/*		content - line from the terminal								*/
 /*		env_var - line containing the env_variable whole line			*/
 /*		i - index of the '$' symbol found								*/
 /*  Return:																*/
-/*		MALLOC'ED parsed with $STRING replace with its env_variable	*/
+/*		MALLOC'ED content with $STRING replace with its env_variable	*/
 /************************************************************************/
-static char	*replace_dollar_by_env_var(char *parsed, char *env_var, int i)
+static char	*replace_dollar_by_env_var(char *content, char *env_var, int i)
 {
 	char	*tmp;
 	char	*tmp2;
 	int		j;
 
 	j = 0;
-	tmp = ft_calloc(sizeof(char), i + 1);
+	tmp = ft_calloc(sizeof(char), i);
 	if (!tmp)
 	{
-		ft_printf_error("Error happened in replace_dollar"\
-			"_with_env_var's malloc\n");
-		free(parsed);
+		free(content);
 		return (NULL);
 	}
-	tmp = ft_strncpy(tmp, parsed, i);
-	while (env_var[j - 1] != '=' && env_var[j] != '\0')
+	ft_strncpy(tmp, content, i);
+	while (env_var[j] != '=' && env_var[j] != '\0')
 		j++;
-	tmp2 = ft_strjoin_free_first(tmp, env_var + j);
+	tmp2 = ft_strjoin_free_first(tmp, env_var + j + 1);
 	if (!tmp2)
 		return (NULL);
-	tmp = ft_strjoin_free_first(tmp2, parsed + i + j);
-	free(parsed);
+	tmp = ft_strjoin_free_first(tmp2, content + i + j + 1);
+	free(content);
 	return (tmp);
 }
 
@@ -77,26 +85,26 @@ static char	*replace_dollar_by_env_var(char *parsed, char *env_var, int i)
 /*  Extracts the env_variable if it exists and stores it in a string	*/
 /*                                                     	 				*/
 /*  Parameters:															*/
-/*		parsed - line from the terminal								*/
+/*		content - line from the terminal								*/
 /*		i - index of the '$' symbol found								*/
 /*		env - env_variables												*/
 /*  Return:																*/
 /*		 MALLOC'ED string containing the env_variable whole line		*/
 /************************************************************************/
-static char	*extract_env_variable_line(char *parsed, int i, char **env)
+static char	*extract_env_variable_line(char *content, int i, char **env)
 {
 	char	*var;
 	int		j;
 
 	j = 0;
-	while (parsed[i + j] != ' ' && parsed[i + j] != '\"'
-		&& parsed[i + j] != '$' && parsed[i + j] != '\0'
-		&& parsed[i + j] != '\'')
+	while (content[i + j] != ' ' && content[i + j] != '\"'
+		&& content[i + j] != '$' && content[i + j] != '\0'
+		&& content[i + j] != '\'')
 		j++;
 	var = ft_calloc(sizeof(char), j + 1);
 	if (var == NULL)
 		return (NULL);
-	var = ft_strncpy(var, parsed + i, j);
+	ft_strncpy(var, content + i, j);
 	i = 0;
 	while (env[i] != NULL)
 	{
@@ -111,20 +119,6 @@ static char	*extract_env_variable_line(char *parsed, int i, char **env)
 	return (env[i]);
 }
 
-static int	get_dollar_index(char *parsed)
-{
-	int	i;
-
-	i = 0;
-	while (parsed[i])
-	{
-		if (parsed[i] == '$')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 /************************************************************/
 /*                                                     		*/
 /*  Determines if the environment variable found is valid	*/
@@ -132,7 +126,7 @@ static int	get_dollar_index(char *parsed)
 /*	If it is not, it will be deleted from the line			*/
 /*                                                     	 	*/
 /*  Parameters:												*/
-/*		parsed - line from the terminal					*/
+/*		content - line from the terminal					*/
 /*		env - env variables									*/
 /*	Example:												*/
 /*		$USER bonjour -> kbrousse bonjour					*/
@@ -140,10 +134,9 @@ static int	get_dollar_index(char *parsed)
 /*  Return:													*/
 /*		line with env_variable converted or deleted			*/
 /************************************************************/
-char	*convert_var_with_dollar(char *parsed, char *content, char **env)
+char	*expand_var_with_dollar(char *content, char **env)
 {
 	int		i;
-	int		index_dollar;
 	char	*env_var;
 
 	i = 0;
@@ -151,16 +144,15 @@ char	*convert_var_with_dollar(char *parsed, char *content, char **env)
 	{
 		if (content[i] == '$' && what_is_dollar_in(content, i) == 0)
 		{
-			index_dollar = get_dollar_index(parsed);
-			env_var = extract_env_variable_line(parsed, index_dollar + 1, env);
-			if (env_var == NULL)
-				parsed = delete_dollar_from_line(parsed, index_dollar);
-			else
-				parsed = replace_dollar_by_env_var(parsed, env_var, index_dollar);
-			if (!parsed)
+			env_var = extract_env_variable_line(content, i + 1, env);
+			if (env_var == NULL && !check_if_dollar_is_isolated(content, i))
+				content = delete_dollar_from_line_if_needed(content, i);
+			else if (env_var)
+				content = replace_dollar_by_env_var(content, env_var, i);
+			if (!content)
 				return (NULL);
 		}
 		i++;
 	}
-	return (parsed);
+	return (content);
 }

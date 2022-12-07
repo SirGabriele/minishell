@@ -69,16 +69,20 @@ t_tokens	identify_operator(t_token_ms *tokens)
 	return (TOK_NULL);
 }
 
-t_token_ms	*supp_parenthesis_if_needed(t_token_ms *tokens)
+t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
 	tokens_cpy = tokens;
-	if (check_parenthesis(tokens) == TOK_SUBSHELL)
+	if (check_parenthesis(tokens) == TOK_SUBSHELL && detect_operators(tokens))
 	{
+		//free(tokens->content);
+		//free(tokens);
 		tokens = tokens_cpy->next;
 		while (tokens_cpy->next->next)
 			tokens_cpy = tokens_cpy->next;
+		//free(tokens_cpy->next->content);
+		//free(tokens_cpy->next);
 		tokens_cpy->next = NULL;
 	}
 	return (tokens);

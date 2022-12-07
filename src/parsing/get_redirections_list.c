@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	is_redirs_token(t_tokens token_type)
+static int	check_if_token_is_redir(t_tokens token_type)
 {
 	if (token_type == TOK_INFILE)
 		return (1);
@@ -20,10 +20,8 @@ static int	nb_redir_left(t_token_ms *tokens)
 	tmp_tokens = tokens;
 	while (tmp_tokens)
 	{
-		if (tmp_tokens->type == TOK_INFILE || tmp_tokens->type == TOK_TRUNC
-			|| tmp_tokens->type == TOK_APPEND
-			|| tmp_tokens->type == TOK_HEREDOC)
-		return (1);
+		if (check_if_token_is_redir(tmp_tokens->type))
+			return (1);
 		tmp_tokens = tmp_tokens->next;
 	}
 	return (0);
@@ -77,11 +75,14 @@ t_redir_ms	*get_redirections_list(t_token_ms *tokens)
 	cpy_tokens = NULL;
 	while (tokens)
 	{
-		if (is_redirs_token(tokens->type))
+		if (check_if_token_is_redir(tokens->type))
 		{
 			tmp_first_redir = get_infos_if_redir(tmp_first_redir, tokens);
 			if (!tmp_first_redir)
+			{
+				//free_redirs_list(first_redir);
 				return (NULL);
+			}
 			if (tokens->next->next && !cpy_tokens)
 				tokens = tokens->next->next;
 			else if (tokens->next->next)
