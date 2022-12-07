@@ -56,11 +56,8 @@ int	handle_all_redirs(t_node_ms *node, int *pipe_before)
 {
 	t_redir_ms	*redir;
 
-	if (node->operator == TOK_PIPE || node->operator == TOK_AND_OPER
-		|| node->operator == TOK_OR_OPER)
-		return (-2);
 	if (node->first_redir == NULL)
-		return (-1);
+		return (0);
 	redir = node->first_redir;
 	while (redir != NULL)
 	{

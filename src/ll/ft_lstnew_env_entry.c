@@ -34,7 +34,7 @@ static char	*get_env_value(const char *env)
 	value = malloc(sizeof(char) * (len_value + 1));
 	if (value == NULL)
 		return (NULL);
-	value = strncpy(value, env + get_len_key(env) + 1, len_value);
+	value = ft_strncpy(value, (char *)env + get_len_key(env) + 1, len_value);
 	return (value);
 }
 
@@ -47,7 +47,7 @@ static char	*get_env_key(const char *env)
 	key = malloc(sizeof(char) * (len_key + 1));
 	if (key == NULL)
 		return (NULL);
-	key = strncpy(key, env, len_key);
+	key = ft_strncpy(key, (char *)env, len_key);
 	return (key);
 }
 

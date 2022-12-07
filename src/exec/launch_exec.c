@@ -16,64 +16,40 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 	return (0);
 }
 
-static int	process_node(t_node_ms *root, t_env_ms *env,
-	int *pipe_before, int *pipe_after)
+static int	process_node(int *pipe_before, int *pipe_after, t_node_ms *root, t_env_ms *env)
 {
-	int		ret;
 	char	**env_arr;
 
-	ret = 0;
-	if (root->operator == TOK_PIPE || root->operator == TOK_AND_OPER || root->operator == TOK_OR_OPER)
-		return (0);
-/*	if (root->operator == TOK_AND_OPER && ret == 0)
-		execute command*/
-/*	if (root->operator == TOK_OR_OPER && ret != 0)
-		execute command*/
-	if (handle_all_redirs(root, pipe_before) == -1)
-		return (-1);
-	/*separer si builtin ou non*/
-	env_arr = convert_env_into_arr(env);
-	if (env_arr == NULL)
-		return (-1);
-	ret = execute_cmd(root, pipe_before, pipe_after, env_arr);
-	if (ret == -1)
-		return (-1);
-	if (transfer_pipe_content(pipe_before, pipe_after) == -1)
-		return (-1);
-	/*if (root->infile == NULL)
-		use_pipe_as_infile();*/
-	/*if (root->operator == TOK_PIPE)*/
-		/*send_pipe_left_to_right(root);*/
-	/*gerer infile*/
-	/*gerer outfile*/
-	/*if TOK_SHELL -> is not in parenthesis*/
-	/*if != TOK_SHELL -> is in parenthesis*/
-	/*recuperer &status*/
-	return (ret);
+	if (root->operator == TOK_PIPE)
+		transfer_pipe_content(pipe_before, pipe_after);
+/*	else if (root->operator == TOK_AND_OPER)
+		verify_ret_value_and_do_like_&&*/
+/*	else if (root->operator == TOK_OR_OPER)
+		verify_ret_value_and_do_like_||*/
+	else
+	{
+		int	i = 0;//A VIRER;
+		while (root->content[i] != NULL)
+		{
+			ft_printf("%s\n", root->content[i]);
+			i++;
+		}
+		ft_printf("%s\n", root->content[i]);
+		env_arr = convert_env_into_arr(env);
+		if (handle_all_redirs(root, pipe_before) == -1 || env_arr == NULL)
+			return (-1);
+		execute_cmd(pipe_before, pipe_after, root, env_arr);//adapter a la valeur ret de waitpid
+	}
+	return (0);
 }
 
-//Ajouter les valeurs de retours des waitpids
-int	launch_exec(t_node_ms *root, t_env_ms *env)
+int	launch_exec(int	*pipe_before, int *pipe_after, t_node_ms *root, t_env_ms *env)
 {
-	int	pipe_before[2];
-	int	pipe_after[2];
-
-	if (pipe(pipe_before) == -1 || pipe(pipe_after) == -1)
-		return (-1);
 	if (root->left != NULL)
-		launch_exec(root->left, env);
-	if (process_node(root, env, pipe_before, pipe_after) == -1)
+		launch_exec(pipe_before, pipe_after, root->left, env);
+	if (process_node(pipe_before, pipe_after, root, env) == -1)
 		return (-1);
-	/*trouver moyen de confirmer/infirmer le fait d'aller dans right vis à vis de && et ||*/
 	if (root->right != NULL)
-		launch_exec(root->right, env);
-	if (pipe_before[0] != 0)
-		close(pipe_before[0]);
-	if (pipe_before[1] != 0)
-		close(pipe_before[1]);
-/*	if (pipe_after[0] != 0)
-		close(pipe_after[0]);
-	if (pipe_after[1] != 0)
-		close(pipe_after[1]);*/
+		launch_exec(pipe_before, pipe_after, root->right, env);
 	return (0);
 }
