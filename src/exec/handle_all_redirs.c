@@ -61,7 +61,7 @@ int	handle_all_redirs(t_node_ms *node, int *pipe_before)
 	redir = node->first_redir;
 	while (redir != NULL)
 	{
-		printf("%s | %d\n", redir->file_name, redir->mode);//A VIRER
+//		printf("%s | %d\n", redir->file_name, redir->mode);//A VIRER
 		if (redir->mode == TOK_INFILE || redir->mode == TOK_HEREDOC)
 		{
 			if (infile_mode(redir, node, pipe_before) == -1)

@@ -1,25 +1,21 @@
 #include "../../includes/minishell.h"
 
-void	print_pipe(int *pipe, char **env)
+void	print_pipe(int *pipe)
 {
+	char	*buf;
 	pid_t	child;
-	char	**arr;
-
-	arr = malloc(sizeof(char *) * 2);
-	arr[0] = ft_strdup("/usr/bin/cat");
-	arr[1] = NULL;
+	int		i;
+	
+	buf = ft_calloc(sizeof(char), 500);
 	child = fork();
 	if (child == 0)
 	{
 		close(pipe[1]);
-		ft_printf("pipe[0] = %d\n", pipe[0]);
-		dup2(pipe[0], 0);
-		ft_printf("pipe[0] = %d\n", pipe[0]);
+		i = read(pipe[0], buf, 400);
+		write(1, buf, i);
 		close(pipe[0]);
-		execve(arr[0], arr, env);
 		exit(0);
 	}
-	ft_printf("\n");
 	waitpid(child, NULL, WUNTRACED);
 }
 

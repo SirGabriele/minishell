@@ -165,7 +165,7 @@ int		simulate_structs(t_node_ms *root, t_env_ms *env);
 void	print_tree(t_node_ms *root);
 void	print_env_ll(t_env_ms *env, char **env_real);
 void	print_env_arr(char  **env, char **env_real);
-void	print_pipe(int *pipe, char **env);
+void	print_pipe(int *pipe);
 
 //launch_exec.c
 int launch_exec(int *pipe_before, int *pipe_after, t_node_ms *root, t_env_ms *env);

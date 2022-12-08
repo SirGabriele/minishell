@@ -46,14 +46,14 @@ static void set_root_left_left_values(t_node_ms *node)
 static void set_root_right_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("cat");
+	node->content[0] = ft_strdup("/usr/bin/cat");
 	node->content[1] = ft_strdup("-e");
 	node->content[2] = NULL;
 //	node->first_redir = NULL;
 
 	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("infile");
-	node->first_redir->mode = TOK_INFILE;
+	node->first_redir->file_name = ft_strdup("EOF");
+	node->first_redir->mode = TOK_HEREDOC;
 	node->first_redir->next = malloc(sizeof(t_redir_ms));
 	node->first_redir->next->file_name = ft_strdup("outfile");
 	node->first_redir->next->mode = TOK_TRUNC;
@@ -61,9 +61,9 @@ static void set_root_right_values(t_node_ms *node)
 	node->first_redir->next->next->file_name = ft_strdup("outfile1");
 	node->first_redir->next->next->mode = TOK_APPEND;
 
-	node->infile = ft_strdup("infile");
+	node->infile = ft_strdup("EOF");
 	node->outfile = ft_strdup("outfile1");
-	node->infile_mode = TOK_INFILE;
+	node->infile_mode = TOK_HEREDOC;
 	node->outfile_mode = TOK_APPEND;
 	node->operator = TOK_NULL;
 }
@@ -71,7 +71,7 @@ static void set_root_right_values(t_node_ms *node)
 static void set_root_left_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("echo");
+	node->content[0] = ft_strdup("/usr/bin/echo");
 	node->content[1] = ft_strdup("fin");
 	node->content[2] = NULL;
 	node->first_redir = NULL;

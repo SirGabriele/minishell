@@ -1,26 +1,19 @@
 #include "../../includes/minishell.h"
 
-//faire un signal adapté pour heredoc, juste au dessus de get next line
-//remplacer get next line par readline
+//faire un signal adapté pour heredoc, juste au dessus de readline
 static int	fake_heredoc_requested(const char *delimiter)
 {
 	char	*user_input;
 	int		length_delimiter;
-	int		stdin_copy;
 
-	stdin_copy = dup(0);
 	length_delimiter = ft_strlen(delimiter);
 	while (1)
 	{
-		write(1, "> ", 2);
-		user_input = get_next_line(stdin_copy);
+		user_input = readline("heredoc> ");
 		if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
 			&& user_input[length_delimiter + 1] == '\0')
 		{
-			if (close(stdin_copy) == -1)
-				return (-1);
 			free(user_input);
-			user_input = get_next_line(stdin_copy);
 			break ;
 		}
 		free(user_input);
@@ -45,6 +38,7 @@ static int	real_heredoc_requested(const char *delimiter, int *pipe_before)
 			break ;
 		}
 		ft_putstr_fd(user_input, pipe_before[1]);
+		ft_putstr_fd("\n", pipe_before[1]);
 		free(user_input);
 		user_input = NULL;
 	}
