@@ -7,19 +7,6 @@ static int	is_operator(t_tokens type)
 	return (0);
 }
 
-static char	*get_content(t_token_ms *tokens)//a supprimer
-{
-	char		*dst;
-
-	while (tokens)
-	{
-		dst = ft_strjoin(dst, tokens->content);
-		dst = ft_strjoin(dst, " ");
-		tokens = tokens->next;
-	}
-	return (dst);
-}
-
 static t_node_ms	*get_node_infos(t_token_ms *tokens, t_tokens shell)
 {
 	t_node_ms	*binary_tree;
@@ -29,7 +16,6 @@ static t_node_ms	*get_node_infos(t_token_ms *tokens, t_tokens shell)
 	{
 		binary_tree->first_redir = NULL;
 		binary_tree->content = NULL;
-		binary_tree->test = get_content(tokens);//a supprimer
 		binary_tree->infile = NULL;
 		binary_tree->outfile = NULL;
 		binary_tree->infile_mode = TOK_NULL;

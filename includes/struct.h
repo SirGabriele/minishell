@@ -31,7 +31,6 @@ typedef struct s_node_ms
 	struct s_node_ms	*left;
 	struct s_node_ms	*right;
 	char				**content;
-	char				*test;//////////////////////////////////////////////////////////
 	struct s_redir_ms	*first_redir;
 	char				*infile;
 	char				*outfile;

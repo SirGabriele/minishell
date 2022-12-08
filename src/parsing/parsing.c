@@ -67,14 +67,14 @@ static char	*get_string_parsed(t_token_ms *tokens)
 	return (parsed);
 }
 
-void	print_tokens(t_token_ms *tokens) //a supprimer
+/*void	print_tokens_2(t_token_ms *tokens) //a supprimer
 {
 	while (tokens)
 	{
 		ft_printf("%s\n", tokens->content);
 		tokens = tokens->next;
 	}
-}
+}*/
 
 t_token_ms	*parsing(t_token_ms *tokens)
 {
@@ -91,6 +91,6 @@ t_token_ms	*parsing(t_token_ms *tokens)
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
-	print_tokens(tokens);//a supprimer
+	//print_tokens_2(tokens);//a supprimer
 	return (tokens);
 }

@@ -24,10 +24,13 @@ PARSING =	binary_tree.c						\
 			parse_spaces.c						\
 			parsing.c							\
 			expand_var_with_dollar.c			\
+			extract_env_variable_line.c			\
+			manage_dollar.c						\
 			dollar_utils.c						\
 			get_redirections.c					\
 			get_redirections_list.c				\
 			get_redirections_modes_and_files.c	\
+			del_redirections.c					\
 			utils_token.c
 
 UTILS =	what_is_index_in.c
@@ -39,7 +42,7 @@ SRCS = $(addprefix src/, $(SRC))			\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g3
 
 READLINE = -lreadline
 

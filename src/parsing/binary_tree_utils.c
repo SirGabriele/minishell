@@ -110,5 +110,7 @@ int	check_parenthesis(t_token_ms *tokens)
 			tokens = tokens->next;
 		}
 	}
+	if (tokens)
+		return (TOK_SHELL);
 	return (TOK_NULL);
 }

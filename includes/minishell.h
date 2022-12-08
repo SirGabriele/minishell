@@ -94,23 +94,32 @@ int				token_length(char *user_input, char *delim[10]);
 int				is_a_delimiter(const char *user_input, char *delim[10], int index);
 t_tokens		identify_delim_token(char *user_input, char *delim[10]);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
+int				check_if_token_is_redir(t_tokens token_type);
 
-//convert_var_with_dollar.c
+//expand_var_with_dollar.c
 char			*expand_var_with_dollar(char *content, char **env);
+
+//extract_env_variable_line.c
+char			*extract_env_variable_line(char *var, char **env);
+char			*get_var_to_look_for(char *content);
+
+//manage_dollar.c
+char			*manage_dollar(char *env_var, char *content, int i);
 
 //dollar_utils.c
 int				what_is_dollar_in(const char *parsed, int i);
 
 //get_redirections.c
-t_node_ms		*get_redirections_infos(t_token_ms *tokens, t_node_ms *binary_tree);
+t_node_ms		*get_redirections_infos(t_token_ms *tokens);
 
 //get_redirections_list.c
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
- //get_redirections_modes_and_files.c
+
+//get_redirections_modes_and_files.c
 t_node_ms		*get_redirections_modes_and_files(t_node_ms *binary_tree);
 
-//is_a_command.c
-int				is_a_command(char *parsed, char **env);
+//del_redirections.c
+t_token_ms		*del_redirections(t_token_ms *tokens);
 
 /************/
 /*	UTILS	*/

@@ -79,3 +79,16 @@ int	count_nb_of_tokens_left(t_token_ms *tokens)
 	}
 	return (nb_tokens);
 }
+
+int	check_if_token_is_redir(t_tokens token_type)
+{
+	if (token_type == TOK_INFILE)
+		return (1);
+	if (token_type == TOK_TRUNC)
+		return (2);
+	if (token_type == TOK_HEREDOC)
+		return (3);
+	if (token_type == TOK_APPEND)
+		return (4);
+	return (0);
+}
