@@ -61,6 +61,11 @@ typedef struct s_redir_ms
 	t_tokens				mode;	
 }	t_redir_ms;
 
+typedef struct s_pipe_ms
+{
+	int						before[2];
+	int						after[2];
+}	t_pipe_ms;
 /*typedef struct s_all_redirs_ms
 {
 	struct s_redir_ms		*first_redir;
@@ -165,10 +170,9 @@ int		simulate_structs(t_node_ms *root, t_env_ms *env);
 void	print_tree(t_node_ms *root);
 void	print_env_ll(t_env_ms *env, char **env_real);
 void	print_env_arr(char  **env, char **env_real);
-void	print_pipe(int *pipe);
 
 //launch_exec.c
-int launch_exec(int *pipe_before, int *pipe_after, t_node_ms *root, t_env_ms *env);
+int 	launch_exec(t_pipe_ms *pipes, pid_t *child_arr, t_node_ms *root, t_env_ms *env);
 
 //handle_all_redirs.c
 int		handle_all_redirs(t_node_ms *node, int *pipe_before);
@@ -177,7 +181,7 @@ int		handle_all_redirs(t_node_ms *node, int *pipe_before);
 int		heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before);
 
 //execute_cmd.c
-int		execute_cmd(int *pipe_before, int *pipe_after, t_node_ms *root, char **env);
+int		execute_cmd(t_pipe_ms *pipes, pid_t child, t_node_ms *root, char **env);
 
 /****************/
 /*	LINKED LIST	*/
