@@ -4,7 +4,6 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 {
 	close(pipe_before[0]);
 	close(pipe_before[1]);
-	print_pipe(pipe_after);
 	pipe_before[0] = dup(pipe_after[0]);
 	pipe_before[1] = dup(pipe_after[1]);
 	close(pipe_after[0]);
