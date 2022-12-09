@@ -18,7 +18,7 @@ CHECK =	get_missing_user_input.c	\
 
 EXEC =	simulate_structs.c	\
 	print_structs.c			\
-	launch_exec.c			\
+	start_recursive.c		\
 	handle_all_redirs.c		\
 	heredoc_requested.c		\
 	execute_cmd.c

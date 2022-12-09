@@ -45,7 +45,8 @@ static int	real_heredoc_requested(const char *delimiter, int *pipe_before)
 	return (0);
 }
 
-static int	get_position_good_heredoc(t_redir_ms *first_redir, const char *infile)
+static int	get_position_good_heredoc(t_redir_ms *first_redir,
+	const char *infile)
 {
 	t_redir_ms	*cursor;
 	int			len_delimiter;
@@ -72,7 +73,8 @@ int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before)
 	len_delim = ft_strlen(node->infile);
 	if (marker == 0)
 		marker = get_position_good_heredoc(node->first_redir, node->infile);
-	if (ft_strncmp(redir->file_name, node->infile, len_delim) == 0 && marker == 1)
+	if (ft_strncmp(redir->file_name, node->infile, len_delim) == 0
+		&& marker == 1)
 	{
 		printf("Good heredoc triggered\n");//A VIRER
 		if (real_heredoc_requested(redir->file_name, pipe_before) == -1)

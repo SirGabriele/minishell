@@ -5,7 +5,7 @@ static void	free_env(t_env_ms *env)
 {
 	t_env_ms	*current;
 	t_env_ms	*next;
-	
+
 	current = env;
 	while (current != NULL)
 	{

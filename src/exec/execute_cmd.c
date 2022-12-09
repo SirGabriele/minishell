@@ -47,6 +47,7 @@ static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 	redirect_outfile(pipes->after, root);
 	execve(root->content[0], root->content, env);
 	ft_printf("Execve failed\n");
+	//free_memory
 	exit(1);
 }
 

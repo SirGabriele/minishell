@@ -1,24 +1,5 @@
 #include "../../includes/minishell.h"
 
-void	print_pipe(int *pipe)
-{
-	char	*buf;
-	pid_t	child;
-	int		i;
-	
-	buf = ft_calloc(sizeof(char), 500);
-	child = fork();
-	if (child == 0)
-	{
-		close(pipe[1]);
-		i = read(pipe[0], buf, 400);
-		write(1, buf, i);
-		close(pipe[0]);
-		exit(0);
-	}
-	waitpid(child, NULL, WUNTRACED);
-}
-
 void	print_env_arr(char **env, char **env_real)
 {
 	int	i = 0;

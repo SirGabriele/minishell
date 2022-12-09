@@ -66,17 +66,8 @@ typedef struct s_pipe_ms
 	int						before[2];
 	int						after[2];
 }	t_pipe_ms;
-/*typedef struct s_all_redirs_ms
-{
-	struct s_redir_ms		*first_redir;
-	char					*infile;
-	char					*outfile;
-	int						pipefd[2];
-	t_tokens				infile_mode;
-	t_tokens				outfile_mode;
-}	t_all_redirs_ms;*/
 
-typedef struct	s_node_ms
+typedef struct s_node_ms
 {
 	struct s_node_ms		*left;
 	struct s_node_ms		*right;
@@ -157,7 +148,7 @@ char	*get_missing_user_input(char **user_input);
 /************/
 
 //init_root_struct.c
-void  	 init_root_struct(t_node_ms *root);
+void	init_root_struct(t_node_ms *root);
 
 /************/
 /*	EXEC	*/
@@ -169,10 +160,11 @@ int		simulate_structs(t_node_ms *root, t_env_ms *env);
 //print_structs.c
 void	print_tree(t_node_ms *root);
 void	print_env_ll(t_env_ms *env, char **env_real);
-void	print_env_arr(char  **env, char **env_real);
+void	print_env_arr(char **env, char **env_real);
 
 //launch_exec.c
-int 	launch_exec(t_pipe_ms *pipes, pid_t *child_arr, t_node_ms *root, t_env_ms *env);
+int		start_recursive(t_pipe_ms *pipes, pid_t *children_arr, \
+	t_node_ms *root, t_env_ms *env);
 
 //handle_all_redirs.c
 int		handle_all_redirs(t_node_ms *node, int *pipe_before);
@@ -181,7 +173,7 @@ int		handle_all_redirs(t_node_ms *node, int *pipe_before);
 int		heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before);
 
 //execute_cmd.c
-int		execute_cmd(t_pipe_ms *pipes, pid_t child, t_node_ms *root, char **env);
+int		execute_cmd(t_pipe_ms *pipes, pid_t children_arr, t_node_ms *root, char **env);
 
 /****************/
 /*	LINKED LIST	*/
