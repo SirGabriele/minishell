@@ -23,7 +23,7 @@ static int	process_node(t_pipe_ms *pipes, pid_t *children_arr,
 
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
-/*	else if (root->operator == TOK_AND_OPER)
+/*	if (root->operator == TOK_AND_OPER)
 		verify_ret_value_and_do_like_&&*/
 /*	else if (root->operator == TOK_OR_OPER)
 		verify_ret_value_and_do_like_||*/

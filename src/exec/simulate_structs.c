@@ -13,29 +13,11 @@ static int	get_nb_cmd(t_node_ms *root)
 	return (i);
 }
 
-static void	set_root_left_right_values(t_node_ms *node)
+/*static void	set_root_left_right_right_right_values(t_node_ms *node)
 {
-/*	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("cat");
-	node->content[1] = ft_strdup("-e");
-	node->content[2] = NULL;
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("outfile");
-	node->first_redir->mode = TOK_INFILE;
-	node->first_redir->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->file_name = ft_strdup("outfile1");
-	node->first_redir->next->mode = TOK_TRUNC;
-	node->first_redir->next->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->next->file_name = ft_strdup("outfile2");
-	node->first_redir->next->next->mode = TOK_APPEND;
-	node->infile = ft_strdup("outfile");
-	node->outfile = ft_strdup("outfile2");
-	node->infile_mode = TOK_INFILE;
-	node->outfile_mode = TOK_APPEND;
-	node->operator = TOK_NULL;*/
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/echo");
-	node->content[1] = ft_strdup("bonjour");
+	node->content[0] = ft_strdup("/usr/bin/grep");
+	node->content[1] = ft_strdup("fond");
 	node->content[2] = NULL;
 	node->first_redir = NULL;
 	node->infile = NULL;
@@ -43,126 +25,89 @@ static void	set_root_left_right_values(t_node_ms *node)
 	node->infile_mode = TOK_NULL;
 	node->outfile_mode = TOK_NULL;
 	node->operator = TOK_NULL;
-}
+}*/
 
-static void	set_root_left_left_values(t_node_ms *node)
+/*static void	set_root_left_right_right_left_values(t_node_ms *node)
 {
-/*	node->content = malloc(sizeof(char *) * 2);
-	node->content[0] = ft_strdup("echo");
-	node->content[1] = NULL;
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("EOF");
-	node->first_redir->mode = TOK_HEREDOC;
-	node->first_redir->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->file_name = ft_strdup("infile");
-	node->first_redir->next->mode = TOK_INFILE;
-	node->first_redir->next->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->next->file_name = ft_strdup("outfile");
-	node->first_redir->next->next->mode = TOK_APPEND;
-	node->infile = ft_strdup("infile");
-	node->outfile = ft_strdup("outfile");
-	node->infile_mode = TOK_INFILE;
-	node->outfile_mode = TOK_APPEND;
-	node->operator = TOK_NULL;*/
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/cat");
-	node->content[1] = ft_strdup("-e");
+	node->content[0] = ft_strdup("/usr/bin/echo");
+	node->content[1] = ft_strdup("fond");
 	node->content[2] = NULL;
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("EOF");
-	node->first_redir->mode = TOK_HEREDOC;
-	node->first_redir->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->file_name = ft_strdup("infile");
-	node->first_redir->next->mode = TOK_INFILE;
-	node->first_redir->next->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->next->file_name = ft_strdup("outfile");
-	node->first_redir->next->next->mode = TOK_TRUNC;
-	node->first_redir->next->next->next = NULL;
-	node->infile = ft_strdup("infile");
-	node->outfile = ft_strdup("outfile");
-	node->infile_mode = TOK_INFILE;
-	node->outfile_mode = TOK_TRUNC;
+	node->first_redir = NULL;
+	node->infile = NULL;
+	node->outfile = NULL;
+	node->infile_mode = TOK_NULL;
+	node->outfile_mode = TOK_NULL;
 	node->operator = TOK_NULL;
-}
+}*/
+
+/*static void	set_root_left_right_right_values(t_node_ms *node)
+{
+	node->operator = TOK_PIPE;
+}*/
+
+/*static void set_root_left_right_left_values(t_node_ms *node)
+{
+	node->content = malloc(sizeof(char *) * 3);
+	node->content[0] = ft_strdup("/usr/bin/echo");
+	node->content[1] = ft_strdup("coucou");
+	node->content[2] = NULL;
+	node->first_redir = NULL;
+	node->infile = NULL;
+	node->outfile = NULL;
+	node->infile_mode = TOK_NULL;
+	node->outfile_mode = TOK_NULL;
+	node->operator = TOK_NULL;
+}*/
+
+/*static void	set_root_left_right_values(t_node_ms *node)
+{
+	node->operator = TOK_PIPE;
+}*/
+
+/*static void	set_root_left_left_values(t_node_ms *node)
+{
+	node->content = malloc(sizeof(char *) * 3);
+	node->content[0] = ft_strdup("/usr/bin/echo");
+	node->content[1] = ft_strdup("test");
+	node->content[2] = NULL;
+	node->first_redir = NULL;
+	node->infile = NULL;
+	node->outfile = NULL;
+	node->infile_mode = TOK_NULL;
+	node->outfile_mode = TOK_NULL;
+	node->operator = TOK_NULL;
+}*/
 
 static void	set_root_right_values(t_node_ms *node)
 {
-/*	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/cat");
-	node->content[1] = ft_strdup("-e");
-	node->content[2] = NULL;
-//	node->first_redir = NULL;
-
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("EOF");
-	node->first_redir->mode = TOK_HEREDOC;
-	node->first_redir->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->file_name = ft_strdup("outfile");
-	node->first_redir->next->mode = TOK_TRUNC;
-	node->first_redir->next->next = malloc(sizeof(t_redir_ms));
-	node->first_redir->next->next->file_name = ft_strdup("outfile1");
-	node->first_redir->next->next->mode = TOK_APPEND;
-
-	node->infile = ft_strdup("EOF");
-	node->outfile = ft_strdup("outfile1");
-	node->infile_mode = TOK_HEREDOC;
-	node->outfile_mode = TOK_APPEND;
-	node->operator = TOK_NULL;*/
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/cat");
-	node->content[1] = ft_strdup("-e");
-	node->content[2] = NULL;
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("outfile1");
-	node->first_redir->mode = TOK_TRUNC;
+	node->content[0] = ft_strdup("/usr/bin/ls");
+	node->content[1] = NULL;
+	node->first_redir = NULL;
 	node->infile = NULL;
-	node->outfile = ft_strdup("outfile1");
-	node->infile_mode = TOK_NULL;
-	node->outfile_mode = TOK_TRUNC;
+	node->outfile = NULL;
+	node->infile_mode = TOK_PIPE;
+	node->outfile_mode = TOK_NULL;
 	node->operator = TOK_NULL;
 }
 
 static void	set_root_left_values(t_node_ms *node)
 {
-/*	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/echo");
-	node->content[1] = ft_strdup("fin");
-	node->content[2] = NULL;
+	node->content = malloc(sizeof(char *) * 3);
+	node->content[0] = ft_strdup("/usr/bin/catt");
+	node->content[1] = NULL;
 	node->first_redir = NULL;
 	node->infile = NULL;
-	node->outfile = ft_strdup("outfile");
-	node->infile_mode = TOK_NULL;
-	node->outfile_mode = TOK_NULL;
-	node->operator = TOK_NULL;*/
-/*	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/cat");
-	node->content[1] = ft_strdup("-e");
-	node->content[2] = NULL;
-	node->first_redir = malloc(sizeof(t_redir_ms));
-	node->first_redir->file_name = ft_strdup("infile");
-	node->first_redir->mode = TOK_INFILE;
-	node->first_redir->next = NULL;
-	node->infile = ft_strdup("infile");
 	node->outfile = NULL;
-	node->infile_mode = TOK_INFILE;
-	node->outfile_mode = TOK_NULL;
-	node->operator = TOK_NULL;*/
-	node->operator = TOK_PIPE;
+	node->infile_mode = TOK_NULL;
+	node->outfile_mode = TOK_PIPE;
+	node->operator = TOK_NULL;
 }
 
 static void	set_root_values(t_node_ms *root)
 {
 	root->operator = TOK_PIPE;
-/*	root->content = malloc(sizeof(char *) * 3);
-	root->content[0] = ft_strdup("/usr/bin/cat");
-	root->content[1] = ft_strdup("-e");
-	root->content[2] = NULL;
-	root->first_redir = NULL;
-	root->infile = NULL;
-	root->outfile = NULL;
-	root->infile_mode = TOK_NULL;
-	root->outfile_mode = TOK_NULL;
-	root->operator = TOK_NULL;*/
 }
 
 int	simulate_structs(t_node_ms *root, t_env_ms *env)
@@ -186,13 +131,29 @@ int	simulate_structs(t_node_ms *root, t_env_ms *env)
 	init_root_struct(root->right);
 	set_root_right_values(root->right);
 
-	root->left->left = malloc(sizeof(t_node_ms));
+/*	root->left->left = malloc(sizeof(t_node_ms));
 	init_root_struct(root->left->left);
 	set_root_left_left_values(root->left->left);
 
 	root->left->right = malloc(sizeof(t_node_ms));
 	init_root_struct(root->left->right);
 	set_root_left_right_values(root->left->right);
+	
+	root->left->right->left = malloc(sizeof(t_node_ms));
+	init_root_struct(root->left->right->left);
+	set_root_left_right_left_values(root->left->right->left);
+	
+	root->left->right->right = malloc(sizeof(t_node_ms));
+	init_root_struct(root->left->right->right);
+	set_root_left_right_right_values(root->left->right->right);
+	
+	root->left->right->right->left = malloc(sizeof(t_node_ms));
+	init_root_struct(root->left->right->right->left);
+	set_root_left_right_right_left_values(root->left->right->right->left);
+	
+	root->left->right->right->right = malloc(sizeof(t_node_ms));
+	init_root_struct(root->left->right->right->right);
+	set_root_left_right_right_right_values(root->left->right->right->right);*/
 
 	print_tree(root); (void)env;
 	i = 0;

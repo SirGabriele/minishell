@@ -13,7 +13,7 @@ static void	redirect_outfile(int *pipe_after, t_node_ms *root)
 		dup2(fd, 1);
 		close(fd);
 	}
-	else
+	if (root->outfile == NULL && root->outfile_mode == TOK_PIPE)
 		dup2(pipe_after[1], 1);
 	close(pipe_after[1]);
 	close(pipe_after[0]);
@@ -34,7 +34,7 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 		dup2(fd, 0);
 		close(fd);
 	}
-	else
+	if (root->infile == NULL && root->infile_mode == TOK_PIPE)
 		dup2(pipe_before[0], 0);
 	close(pipe_before[0]);
 	close(pipe_before[1]);
