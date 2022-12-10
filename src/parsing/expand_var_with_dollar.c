@@ -28,7 +28,10 @@ char	*expand_var_with_dollar(char *content, char **env)
 		{
 			var_to_look_for = get_var_to_look_for(content + i + 1);
 			if (!var_to_look_for)
+			{
+				free(content);
 				return (NULL);
+			}
 			env_var = extract_env_variable_line(var_to_look_for, env);
 			content = manage_dollar(env_var, content, i);
 			if (!content)

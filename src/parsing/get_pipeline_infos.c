@@ -13,15 +13,17 @@ static char	**get_pipeline(t_token_ms *tokens)
 	i = 0;
 	while (tokens)
 	{
-		if (tokens->type == TOK_STRING)
+		if (check_if_token_is_redir(tokens->type))
+			tokens = tokens->next->next;
+		else
 		{
 			pipelines[i] = NULL;
 			pipelines[i] = ft_strjoin(pipelines[i], tokens->content);
 			if (!pipelines[i])
 				return (NULL);
+			tokens = tokens->next;
+			i++;
 		}
-		i++;
-		tokens = tokens->next;
 	}
 	pipelines[i] = NULL;
 	return (pipelines);
@@ -34,13 +36,12 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_tokens shell)
 	binary_tree = get_redirections_infos(tokens);
 	if (!binary_tree)
 		return (NULL);
-	tokens = del_redirections(tokens);
 	binary_tree->content = get_pipeline(tokens);
 	if (!binary_tree->content)
 	{
-		//free_redirs_list(binary_tree->first_redir);
-		//free_redirs_infos(binary_tree);
-		//free(binary_tree);
+		free_redirs_list(binary_tree->first_redir);
+		free_redirs_infos(binary_tree);
+		free(binary_tree);
 		return (NULL);
 	}
 	binary_tree->shell = shell;

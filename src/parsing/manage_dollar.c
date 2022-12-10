@@ -78,7 +78,10 @@ static char	*replace_dollar_by_env_var(char *content, char *env_var, int i)
 		j++;
 	tmp2 = ft_strjoin_free_first(tmp, env_var + j + 1);
 	if (!tmp2)
+	{
+		free(content);
 		return (NULL);
+	}
 	tmp = ft_strjoin_free_first(tmp2, content + i + j + 1);
 	free(content);
 	return (tmp);
@@ -90,13 +93,19 @@ static char	*replace_argument(char *content, int i)
 
 	tmp = malloc((i + 1) * sizeof(char));
 	if (!tmp)
+	{
+		free(content);
 		return (NULL);
+	}
 	ft_strncpy(tmp, content, i);
 	if (content[i + 1] == '0')
 	{
 		tmp = ft_strjoin_free_first(tmp, "minishell");
 		if (!tmp)
+		{
+			free(content);
 			return (NULL);
+		}
 	}
 	tmp = ft_strjoin_free_first(tmp, content + i + 2);
 	free(content);

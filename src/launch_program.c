@@ -15,7 +15,10 @@ int	launch_program(char **user_input, char **env)
 	shell = check_parenthesis(tokens);
 	binary_tree = build_binary_tree(tokens, shell);
 	if (!binary_tree)
+	{
+		free_n_tokens(tokens, 0);
 		return (-1);
+	}
 	free_binary_tree(binary_tree);
 	return (0);
 }

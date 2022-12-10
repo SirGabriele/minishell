@@ -36,12 +36,18 @@ char			*get_missing_user_input(char **user_input);
 /********/
 /*	SRC	*/
 /********/
+
+//signal.c
+void			ft_signal(int sig);
+
 //launch_program.c
 int				launch_program(char **user_input, char **env);
 
 //prompt.c
-void			ft_signal(int sig);
 int				cmd_prompt(char **env);
+
+//utils.c
+int 			check_nb_commands(char *user_input);
 
 //highlight_syntax_error.c
 void			highlight_syntax_error(const char *str, int start, int end);
@@ -61,7 +67,7 @@ t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
 int				check_parenthesis(t_token_ms *tokens);
 
 //free.c
-void			free_tokens(t_token_ms *tokens);
+void			free_n_tokens(t_token_ms *tokens, int nb_to_free);
 void			free_splited_tokens(t_token_ms **splited_tokens);
 void			free_redirs_list(t_redir_ms *first_redir);
 void			free_redirs_infos(t_node_ms *binary_tree);
@@ -73,6 +79,18 @@ t_token_ms		*lstnew_token(void);
 
 //get_list_infos.c
 t_node_ms		*get_list_infos(t_token_ms *tokens, t_tokens what_shell);
+
+//split_list.c
+t_token_ms		**split_list(t_token_ms *tokens);
+
+//get_first_half.c
+t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
+
+//get_second_half.c
+t_token_ms		*get_second_half(t_token_ms *tokens);
+
+//is_operator.c
+int				is_operator(t_tokens type);
 
 //get_pipeline_infos.c
 t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_tokens what_shell);

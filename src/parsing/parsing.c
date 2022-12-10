@@ -86,7 +86,7 @@ t_token_ms	*parsing(t_token_ms *tokens)
 		tmp_tokens->content = get_string_parsed(tmp_tokens);
 		if (!tmp_tokens->content)
 		{
-			//free_tokens(tokens);
+			free_n_tokens(tokens, 0);
 			return (NULL);
 		}
 		tmp_tokens = tmp_tokens->next;

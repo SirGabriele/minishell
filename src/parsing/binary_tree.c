@@ -8,6 +8,7 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 	oper_pos = detect_operators(tokens);
 	if (oper_pos)
 	{
+		tokens = del_parenthesis_if_needed(tokens);
 		binary_tree = get_list_infos(tokens, shell);
 		if (!binary_tree)
 			return (NULL);
@@ -18,6 +19,6 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
 		if (!binary_tree)
 			return (NULL);
 	}
-	//free_tokens(tokens);
+	free_n_tokens(tokens, 0);
 	return (binary_tree);
 }

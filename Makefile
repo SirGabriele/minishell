@@ -4,7 +4,9 @@ LIBFT = libft/libft.a
 
 SRC = main.c					\
 	prompt.c					\
+	signal.c					\
 	launch_program.c			\
+	utils.c						\
 	highlight_syntax_error.c
 
 CHECK =	get_missing_user_input.c	\
@@ -30,10 +32,12 @@ PARSING =	binary_tree.c						\
 			get_redirections.c					\
 			get_redirections_list.c				\
 			get_redirections_modes_and_files.c	\
-			del_redirections.c					\
-			utils_token.c
-
-UTILS =	what_is_index_in.c
+			utils_token.c						\
+			split_list.c						\
+			get_first_half.c					\
+			get_second_half.c					\
+			is_operator.c						\
+			what_is_index_in.c
 
 SRCS = $(addprefix src/, $(SRC))			\
 	$(addprefix src/parsing/, $(PARSING))	\

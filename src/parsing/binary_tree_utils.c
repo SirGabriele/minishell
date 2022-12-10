@@ -73,17 +73,18 @@ t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
-	tokens_cpy = tokens;
 	if (check_parenthesis(tokens) == TOK_SUBSHELL && detect_operators(tokens))
 	{
-		//free(tokens->content);
-		//free(tokens);
-		tokens = tokens_cpy->next;
+		tokens_cpy = tokens->next;
+		free(tokens->content);
+		free(tokens);
+		tokens = tokens_cpy;
 		while (tokens_cpy->next->next)
 			tokens_cpy = tokens_cpy->next;
-		//free(tokens_cpy->next->content);
-		//free(tokens_cpy->next);
+		free(tokens_cpy->next->content);
+		free(tokens_cpy->next);
 		tokens_cpy->next = NULL;
+		tokens = del_parenthesis_if_needed(tokens);
 	}
 	return (tokens);
 }

@@ -18,12 +18,10 @@ static int	check_tokens_left(char *user_input)
 	int	i;
 
 	i = 0;
-	while (user_input[i])
-	{
-		if (ft_isspace(user_input[i]) && !what_is_index_in(user_input, i))
-			break;
+	while (user_input[i]
+		&& ft_isspace(user_input[i])
+		&& !what_is_index_in(user_input, i))
 		i++;
-	}
 	while (user_input[i])
 	{
 		if (!ft_isspace(user_input[i]))
@@ -35,10 +33,13 @@ static int	check_tokens_left(char *user_input)
 
 static t_token_ms	*assign_token_delim(t_token_ms *tokens, char *user_input, char *delim[10], char **env)
 {
+	int	token_len;
+
 	tokens = lst_fill(tokens, user_input, delim, env);
 	if (!tokens)
 		return (NULL);
-	if (check_tokens_left(user_input))
+	token_len = token_length(user_input, delim);
+	if (check_tokens_left(user_input + token_len))
 	{
 		tokens->next = lstnew_token();
 		if (!tokens->next)
@@ -70,7 +71,7 @@ t_token_ms	*get_tokens(char *user_input, char *delim[10], char **env)
 			tokens = assign_token_delim(tokens, user_input + i, delim, env);
 			if (!tokens)
 			{
-				free_tokens(tmp_tokens);
+				free_n_tokens(tmp_tokens, 0);
 				return (NULL);
 			}
 			i += token_length(user_input + i, delim);
