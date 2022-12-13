@@ -12,8 +12,37 @@ outfile_mode = TOK_PIPE -> dup2(pipes->after[1], 1);
 
 -------------------------------------------------------------
 
-tester la commande-> adapter valeur de retour
-tester les flags -> adapter valeur de retour
-tester files -> adapter valeur de retour
 valeur de retour == return value de execve ON SUCCESS
 				== return value de exit() si execve fail
+
+1 ->	infile non existant
+		permission denied (pas le droit de read ou tentative d'ecrire dans un fichier readonly)
+		mauvaise option avec un non built in
+		argument de commande non existant
+		lecture d'un directory
+
+2 ->	mauvaise option avec un built in
+
+126 ->	command not executable
+
+
+127 -> command not found (wrong path)
+
+255 ->	invalid/out of range value in exit()
+
+------------------------------------------------------------
+
+faire la gestion des && et || dans la recursive
+
+------------------------------------------------------------
+
+faire la recherche des PATHS avec content[0]
+test un infile inexsistant et voir code d'erreur
+
+------------------------------------------------------------
+
+ajouter les codes d'erreurs des signaux
+
+------------------------------------------------------------
+
+echo $_

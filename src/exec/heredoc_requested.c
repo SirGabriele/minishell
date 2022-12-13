@@ -87,5 +87,6 @@ int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before)
 			return (-1);
 		marker--;
 	}
+	marker = 0;
 	return (0);
 }

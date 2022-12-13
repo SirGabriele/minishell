@@ -21,7 +21,8 @@ EXEC =	simulate_structs.c	\
 	start_recursive.c		\
 	handle_all_redirs.c		\
 	heredoc_requested.c		\
-	execute_cmd.c
+	execute_cmd.c			\
+	verify_cmd_path.c
 
 LL = ft_lstnew_env_entry.c	\
 	ft_create_node.c

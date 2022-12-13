@@ -16,10 +16,11 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 	return (0);
 }
 
-static int	process_node(t_pipe_ms *pipes, pid_t *children_arr,
+//separer builtin ou non
+static int	process_node(t_pipe_ms *pipes, t_children_ms *children,
 	t_node_ms *root, t_env_ms *env)
 {
-	char	**env_arr;
+	char		**env_arr;
 
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
@@ -29,31 +30,28 @@ static int	process_node(t_pipe_ms *pipes, pid_t *children_arr,
 		verify_ret_value_and_do_like_||*/
 	else
 	{
-		int	i = 0;//A VIRER;
+/*		int	i = 0;//A VIRER;
 		while (root->content[i] != NULL)
 		{
 			ft_printf("%s\n", root->content[i]);
 			i++;
 		}
-		ft_printf("%s\n\n", root->content[i]);
-		static int a = 0;//A VIRER
-		printf("children_arr[%d]\n", a);//A VIRER
+		ft_printf("%s\n\n", root->content[i]);*/
 		env_arr = convert_env_into_arr(env);
-		if (handle_all_redirs(root, pipes->before) == -1 || env_arr == NULL)
+		if (env_arr == NULL || handle_all_redirs(root, pipes->before) == -1)
 			return (-1);
-		execute_cmd(pipes, children_arr[a], root, env_arr);//adapter a la valeur ret de waitpid
-		a++;
+		execute_cmd(pipes, children, root, env_arr);
 	}
 	return (0);
 }
 
-int	start_recursive(t_pipe_ms *pipes, pid_t *child_arr, t_node_ms *root, t_env_ms *env)
+int	start_recursive(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env)
 {
 	if (root->left != NULL)
-		start_recursive(pipes, child_arr, root->left, env);
-	if (process_node(pipes, child_arr, root, env) == -1)
+		start_recursive(pipes, children, root->left, env);
+	if (process_node(pipes, children, root, env) == -1)
 		return (-1);
 	if (root->right != NULL)
-		start_recursive(pipes, child_arr, root->right, env);
+		start_recursive(pipes, children, root->right, env);
 	return (0);
 }

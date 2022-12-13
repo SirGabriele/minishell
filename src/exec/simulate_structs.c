@@ -1,16 +1,14 @@
 #include "../../includes/minishell.h"
 
-static int	get_nb_cmd(t_node_ms *root)
+static int	get_nb_cmd(t_node_ms *root, int *i)
 {
-	static int	i = 0;
-
 	if (root->left != NULL)
-		get_nb_cmd(root->left);
+		get_nb_cmd(root->left, i);
 	if (root->left == NULL)
-		i++;
+		(*i)++;
 	if (root->right != NULL)
-		get_nb_cmd(root->right);
-	return (i);
+		get_nb_cmd(root->right, i);
+	return (*i);
 }
 
 /*static void	set_root_left_right_right_right_values(t_node_ms *node)
@@ -82,8 +80,9 @@ static int	get_nb_cmd(t_node_ms *root)
 static void	set_root_right_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/ls");
-	node->content[1] = NULL;
+	node->content[0] = ft_strdup("/usr/bin/cat");
+	node->content[1] = ft_strdup("-e");
+	node->content[2] = NULL;
 	node->first_redir = NULL;
 	node->infile = NULL;
 	node->outfile = NULL;
@@ -95,8 +94,9 @@ static void	set_root_right_values(t_node_ms *node)
 static void	set_root_left_values(t_node_ms *node)
 {
 	node->content = malloc(sizeof(char *) * 3);
-	node->content[0] = ft_strdup("/usr/bin/catt");
-	node->content[1] = NULL;
+	node->content[0] = ft_strdup("/usr/bin/echo");
+	node->content[1] = ft_strdup("coucou");
+	node->content[2] = NULL;
 	node->first_redir = NULL;
 	node->infile = NULL;
 	node->outfile = NULL;
@@ -112,10 +112,12 @@ static void	set_root_values(t_node_ms *root)
 
 int	simulate_structs(t_node_ms *root, t_env_ms *env)
 {
-	t_pipe_ms	*pipes;
-	pid_t		*children_arr;
-	int			nb_cmd;
-	int			i;
+	t_pipe_ms		*pipes;
+	t_children_ms	*children;
+	int				nb_cmd;
+	int				i;
+	int				wstatus;
+	int				status_code;
 
 	pipes = malloc(sizeof(t_pipe_ms));
 	if (pipes == NULL)
@@ -155,22 +157,34 @@ int	simulate_structs(t_node_ms *root, t_env_ms *env)
 	init_root_struct(root->left->right->right->right);
 	set_root_left_right_right_right_values(root->left->right->right->right);*/
 
-	print_tree(root); (void)env;
-	i = 0;
-	nb_cmd = get_nb_cmd(root);
-	children_arr = malloc(sizeof(pid_t) * nb_cmd);
-	if (children_arr == NULL)
+//	print_tree(root); (void)env;
+	nb_cmd = get_nb_cmd(root, &nb_cmd);
+	children = malloc(sizeof(t_children_ms));
+	if (children == NULL)
 		return (-1);
-	if (start_recursive(pipes, children_arr, root, env) == -1)
+	children->pid_arr = malloc(sizeof(pid_t) * nb_cmd);
+	if (children->pid_arr == NULL)
+		return (-1);
+	children->index = 0;
+	if (start_recursive(pipes, children, root, env) == -1)
 		return (-1);
 	if (close(pipes->before[0]) == -1)
 		return (-1);
 	if (close(pipes->before[1]) == -1)
 		return (-1);
+	i = 0;
 	while (i < nb_cmd)
 	{
-		waitpid(children_arr[i], NULL, WUNTRACED);
+		waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
 		i++;
+	}
+	if (WIFEXITED(wstatus))
+	{
+		status_code = WEXITSTATUS(wstatus);
+		if (status_code == 0)
+			ft_putstr_fd("\e[42mSuccess\e[0m\n", 2);
+		else
+			ft_putstr_fd("\e[41mFailure\e[0m\n", 2);
 	}
 	return (0);
 }

@@ -45,21 +45,31 @@ static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 {
 	redirect_infile(pipes->before, root);
 	redirect_outfile(pipes->after, root);
+	root->content[0] = verify_cmd_path(root, env);
+	if (root->content[0] == NULL)
+	{
+		//free_memory
+		ft_putstr_fd("Command does not exist\n", 2);//A VIRER;
+		exit(127);
+	}
+//	ft_putstr_fd("Command exists\n", 2);//A VIRER
 	execve(root->content[0], root->content, env);
-	ft_printf("Execve failed\n");
+	ft_putstr_fd("Execve failed\n", 2);//A VIRER
 	//free_memory
 	exit(1);
 }
 
-int	execute_cmd(t_pipe_ms *pipes, pid_t child, t_node_ms *root, char **env)
+//ajouter la separation si builtin ou non
+int	execute_cmd(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, char **env)
 {
-	child = fork();
-	if (child == -1)
+	children->pid_arr[children->index] = fork();
+	if (children->pid_arr[children->index] == -1)
 	{
 		ft_putstr_fd("Forking failed\n", 2);
 		return (-1);
 	}
-	if (child == 0)
+	if (children->pid_arr[children->index] == 0)
 		go_to_fork(pipes, root, env);
+	children->index++;
 	return (0);
 }
