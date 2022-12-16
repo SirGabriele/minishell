@@ -16,12 +16,13 @@ valeur de retour == return value de execve ON SUCCESS
 				== return value de exit() si execve fail
 
 1 ->	infile non existant
-		permission denied (pas le droit de read ou tentative d'ecrire dans un fichier readonly)
+		permission denied (pas le droit de read ou tentative d'ecrire dans un fichier readonly) OK
 		mauvaise option avec un non built in
 		argument de commande non existant
 		lecture d'un directory
 
-2 ->	mauvaise option avec un built in
+2 ->	mauvaise option avec un built in OK
+		utilisation d'une commande exigeant un argument, mais n'en ayant OK
 
 126 ->	command not executable
 
@@ -46,3 +47,11 @@ ajouter les codes d'erreurs des signaux
 ------------------------------------------------------------
 
 echo $_
+
+------------------------------------------------------------
+
+Changer execve qui prend root->content[0] avec le path. Ne pas changer root->content[0] pour string avec path
+
+------------------------------------------------------------
+
+Faire en sorte que les heredoc passent dans le parsing, virer les quotes et expand

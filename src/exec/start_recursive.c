@@ -20,7 +20,7 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 static int	process_node(t_pipe_ms *pipes, t_children_ms *children,
 	t_node_ms *root, t_env_ms *env)
 {
-	char		**env_arr;
+	char	**env_arr;
 
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
@@ -38,7 +38,7 @@ static int	process_node(t_pipe_ms *pipes, t_children_ms *children,
 		}
 		ft_printf("%s\n\n", root->content[i]);*/
 		env_arr = convert_env_into_arr(env);
-		if (env_arr == NULL || handle_all_redirs(root, pipes->before) == -1)
+		if (env_arr == NULL)
 			return (-1);
 		execute_cmd(pipes, children, root, env_arr);
 	}

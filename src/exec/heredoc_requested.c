@@ -65,17 +65,19 @@ static int	get_position_good_heredoc(t_redir_ms *first_redir,
 	return (count);
 }
 
-int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before)
+int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker)
 {
-	static int	marker = 0;
 	int			len_delim;
 
 	len_delim = ft_strlen(node->infile);
-	if (marker == 0)
-		marker = get_position_good_heredoc(node->first_redir, node->infile);
+	if (*marker == 0)
+		(*marker) = get_position_good_heredoc(node->first_redir, node->infile);
 	if (ft_strncmp(redir->file_name, node->infile, len_delim) == 0
-		&& marker == 1)
+		&& (*marker) == 1)
 	{
+/*		close(pipe_before[0]);
+		close(pipe_before[1]);
+		pipe(pipe_before);*/
 		printf("Good heredoc triggered\n");//A VIRER
 		if (real_heredoc_requested(redir->file_name, pipe_before) == -1)
 			return (-1);
@@ -85,8 +87,7 @@ int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before)
 		printf("Useless heredoc triggered\n");//A VIRER
 		if (fake_heredoc_requested(redir->file_name) == -1)
 			return (-1);
-		marker--;
+		(*marker)--;
 	}
-	marker = 0;
 	return (0);
 }

@@ -173,10 +173,10 @@ int		start_recursive(t_pipe_ms *pipes, t_children_ms *children, \
 	t_node_ms *root, t_env_ms *env);
 
 //handle_all_redirs.c
-int		handle_all_redirs(t_node_ms *node, int *pipe_before);
+int		handle_all_redirs(t_node_ms *node, int *pipe_before, int *marker);
 
 //heredoc_requested.c
-int		heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before);
+int		heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker);
 
 //execute_cmd.c
 int		execute_cmd(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, char **env);

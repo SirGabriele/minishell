@@ -34,7 +34,8 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 		dup2(fd, 0);
 		close(fd);
 	}
-	if (root->infile == NULL && root->infile_mode == TOK_PIPE)
+	if ((root->infile == NULL && root->infile_mode == TOK_PIPE)
+			|| (root->infile != NULL && root->infile_mode == TOK_HEREDOC))
 		dup2(pipe_before[0], 0);
 	close(pipe_before[0]);
 	close(pipe_before[1]);
@@ -43,6 +44,20 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 //free memory in forks
 static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 {
+	int	marker;
+	int	exit_code;
+
+	marker = 0;
+	exit_code = handle_all_redirs(root, pipes->before, &marker);
+	if (exit_code != 0)
+	{
+		//free memory
+		close(pipes->before[0]);
+		close(pipes->before[1]);
+		close(pipes->after[0]);
+		close(pipes->after[1]);
+		exit(exit_code);
+	}
 	redirect_infile(pipes->before, root);
 	redirect_outfile(pipes->after, root);
 	root->content[0] = verify_cmd_path(root, env);
@@ -54,7 +69,7 @@ static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 	}
 //	ft_putstr_fd("Command exists\n", 2);//A VIRER
 	execve(root->content[0], root->content, env);
-	ft_putstr_fd("Execve failed\n", 2);//A VIRER
+//	ft_putstr_fd("Execve failed\n", 2);//A VIRER
 	//free_memory
 	exit(1);
 }
