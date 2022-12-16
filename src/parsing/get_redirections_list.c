@@ -27,7 +27,8 @@ static t_redir_ms	*lstnew_redir(void)
 	return (lst);
 }
 
-static t_redir_ms	*get_infos_if_redir(t_redir_ms *first_redir, t_token_ms *tokens)
+static t_redir_ms	*get_infos_if_redir(t_redir_ms *first_redir, \
+	t_token_ms *tokens)
 {
 	int	len_content;
 
@@ -49,6 +50,19 @@ static t_redir_ms	*get_infos_if_redir(t_redir_ms *first_redir, t_token_ms *token
 	return (first_redir);
 }
 
+/************************************************************/
+/*															*/
+/*	Gets every redirections and stocks them in a list		*/
+/*	containing modes and files								*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens	-	link									*/
+/*															*/
+/*	Return:													*/
+/*		first_redir	-	linked list of redirections			*/
+/*															*/
+/************************************************************/
+
 t_redir_ms	*get_redirections_list(t_token_ms *tokens)
 {
 	t_redir_ms	*first_redir;
@@ -64,10 +78,7 @@ t_redir_ms	*get_redirections_list(t_token_ms *tokens)
 		{
 			tmp_first_redir = get_infos_if_redir(tmp_first_redir, tokens);
 			if (!tmp_first_redir)
-			{
-				//free_redirs_list(first_redir);
 				return (NULL);
-			}
 			tokens = tokens->next;
 		}
 		tokens = tokens->next;

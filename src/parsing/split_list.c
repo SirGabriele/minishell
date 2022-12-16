@@ -32,6 +32,19 @@ static t_token_ms	**get_both_halves(t_token_ms *tokens_1, int index_token)
 	return (splited_tokens);
 }
 
+/************************************************************/
+/*															*/
+/*	Splits the linked list in two							*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens	-	linked list								*/
+/*															*/
+/*	Return:													*/
+/*		splited_tokens	-	double array containing			*/
+/*							both halves						*/
+/*															*/
+/************************************************************/
+
 t_token_ms	**split_list(t_token_ms *tokens)
 {
 	t_token_ms	**splited_tokens;

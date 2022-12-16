@@ -29,11 +29,44 @@ static char	**get_pipeline(t_token_ms *tokens)
 	return (pipelines);
 }
 
-t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_tokens shell)
+void	execution(char **content)//a supprimer
+{
+	int	len;
+
+	len = ft_strlen(content[0]);
+	if (!ft_strncmp(content[0], "echo", len))
+		ft_echo(content + 1);
+	else if (!ft_strncmp(content[0], "cd", len))
+		ft_cd(content + 1);
+	else if (!ft_strncmp(content[0], "pwd", len))
+		ft_pwd();
+	else if (!ft_strncmp(content[0], "env", len))
+		ft_env(content + 1, NULL);
+	/*else if (!ft_strncmp(content[0], "export", len))
+		ft_export(content + 1, NULL);*/
+}
+
+/************************************************************/
+/*															*/
+/*	Gets infos about redirections and get the command		*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens		-	link								*/
+/*		shell		-	what is command in					*/
+/*		operators	-	the last two operators of 			*/
+/*						the command line					*/
+/*															*/
+/*	Return:													*/
+/*		binary_tree	-	edited binary_tree					*/
+/*															*/
+/************************************************************/
+
+t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
+	t_enum_token *operators)
 {
 	t_node_ms	*binary_tree;
 
-	binary_tree = get_redirections_infos(tokens);
+	binary_tree = get_redirections_infos(tokens, operators);
 	if (!binary_tree)
 		return (NULL);
 	binary_tree->content = get_pipeline(tokens);
@@ -45,5 +78,6 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_tokens shell)
 		return (NULL);
 	}
 	binary_tree->shell = shell;
+	execution(binary_tree->content);//a supprimer
 	return (binary_tree);
 }

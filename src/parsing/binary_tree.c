@@ -1,24 +1,67 @@
 #include "../../includes/minishell.h"
 
-t_node_ms	*build_binary_tree(t_token_ms *tokens, t_tokens shell)
+static t_enum_token	*initialize(void)
 {
-	t_node_ms	*binary_tree;
-	t_tokens	oper_pos;
+	t_enum_token	*operators;
 
-	oper_pos = detect_operators(tokens);
+	operators = malloc(2 * sizeof(t_enum_token));
+	if (!operators)
+	{
+		perror(NULL);
+		return (NULL);
+	}
+	operators[0] = TOK_NULL;
+	operators[1] = TOK_NULL;
+	return (operators);
+}
+
+t_node_ms	*build_binary_tree(t_token_ms *tokens, t_enum_token shell, \
+	t_enum_token *operators)
+{
+	t_node_ms		*binary_tree;
+	t_enum_token	oper_pos;
+
+	oper_pos = what_is_oper_in(tokens);
 	if (oper_pos)
 	{
 		tokens = del_parenthesis_if_needed(tokens);
-		binary_tree = get_list_infos(tokens, shell);
+		binary_tree = get_list_infos(tokens, shell, operators);
 		if (!binary_tree)
 			return (NULL);
 	}
 	else
 	{
-		binary_tree = get_pipeline_infos(tokens, shell);
+		binary_tree = get_pipeline_infos(tokens, shell, operators);
 		if (!binary_tree)
 			return (NULL);
 	}
-	free_n_tokens(tokens, 0);
+	free_tokens(tokens);
 	return (binary_tree);
+}
+
+/************************************************************/
+/*															*/
+/*	Creates binary_tree										*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens - linked list of tokens						*/
+/*															*/
+/*	Return:													*/
+/*		root - root of binary_tree							*/
+/*															*/
+/************************************************************/
+
+t_node_ms	*start_binary_tree(t_token_ms *tokens)
+{
+	t_node_ms		*root;
+	t_enum_token	*operators;
+	t_enum_token	shell;
+
+	operators = initialize();
+	if (!operators)
+		return (NULL);
+	shell = check_parenthesis(tokens);
+	root = build_binary_tree(tokens, shell, operators);
+	free(operators);
+	return (root);
 }

@@ -35,4 +35,3 @@ int	what_is_dollar_in(const char *parsed, int i)
 	}
 	return (-1);
 }
-

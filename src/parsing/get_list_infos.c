@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static t_node_ms	*get_node_infos(t_token_ms *tokens, t_tokens shell)
+static t_node_ms	*set_node_infos(t_token_ms *tokens, t_enum_token shell)
 {
 	t_node_ms	*binary_tree;
 
@@ -14,40 +14,44 @@ static t_node_ms	*get_node_infos(t_token_ms *tokens, t_tokens shell)
 		binary_tree->infile_mode = TOK_NULL;
 		binary_tree->outfile_mode = TOK_NULL;
 		binary_tree->shell = shell;
-		binary_tree->operator = identify_operator(tokens);
+		binary_tree->operator = identify_splitting_operator(tokens);
 	}
 	return (binary_tree);
 }
 
-static t_node_ms	*recursive(t_token_ms **splited_tokens, t_node_ms *binary_tree, t_tokens shell)
+static t_node_ms	*recursive(t_token_ms **splited_tokens, \
+	t_node_ms *binary_tree, t_enum_token shell, t_enum_token *operators)
 {
-	t_tokens	shell_tmp;
-	int			i;
-
-	i = 0;
-	while (i < 2)
-	{
-		shell_tmp = shell;
-		if (shell == TOK_SHELL)
-		{
-			if (check_parenthesis(splited_tokens[i]) == TOK_SUBSHELL)
-				shell_tmp = TOK_SUBSHELL;
-		}
-		if (i == 0)
-			binary_tree->left = build_binary_tree(splited_tokens[i], shell_tmp);
-		else if (i == 1)
-			binary_tree->right = build_binary_tree(splited_tokens[i], shell_tmp);
-		i++;
-	}
+	binary_tree->left = left_branch(splited_tokens[0],
+			binary_tree->operator, shell, operators);
+	binary_tree->right = right_branch(splited_tokens[1],
+			binary_tree->operator, shell, operators);
 	return (binary_tree);
 }
 
-t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens shell)
+/************************************************************/
+/*															*/
+/*	Gets the list's infos, split the linked list in two and	*/
+/*	launch the recursive									*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens		-	linked list							*/
+/*		shell		-	what is command in					*/
+/*		operators	- 	array containing the last two 		*/
+/*						operators							*/
+/*															*/
+/*	Return:													*/
+/*		binary_tree	-	edited binary_tree					*/
+/*															*/
+/************************************************************/
+
+t_node_ms	*get_list_infos(t_token_ms *tokens, t_enum_token shell, \
+	t_enum_token *operators)
 {
 	t_node_ms	*binary_tree;
 	t_token_ms	**splited_tokens;
 
-	binary_tree = get_node_infos(tokens, shell);
+	binary_tree = set_node_infos(tokens, shell);
 	if (!binary_tree)
 		return (NULL);
 	splited_tokens = split_list(tokens);
@@ -56,7 +60,7 @@ t_node_ms	*get_list_infos(t_token_ms *tokens, t_tokens shell)
 		free(binary_tree);
 		return (NULL);
 	}
-	binary_tree = recursive(splited_tokens, binary_tree, shell);
+	binary_tree = recursive(splited_tokens, binary_tree, shell, operators);
 	if (!binary_tree)
 	{
 		free_splited_tokens(splited_tokens);

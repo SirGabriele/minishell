@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
-static t_token_ms	*incremente_half_1_if_needed(t_token_ms *half_1, int index_token)
+static t_token_ms	*incremente_half_if_needed(t_token_ms *half_1, \
+	int index_token)
 {
 	if (index_token > 1)
 	{
@@ -14,31 +15,40 @@ static t_token_ms	*incremente_half_1_if_needed(t_token_ms *half_1, int index_tok
 	return (half_1);
 }
 
+/***********************************************/
+/*              get_first_half :               */
+/*                                             */
+/*   copy the token (that represents           */
+/*   the first half) in cpy_half_1             */
+/*                                             */
+/*   index_token represent where the initial   */
+/*   token was split                           */
+/***********************************************/
+
 t_token_ms	*get_first_half(t_token_ms *tokens, int index_token)
 {
-	t_token_ms	*half_1;
-	t_token_ms	*cpy_half_1;
+	t_token_ms	*half;
+	t_token_ms	*cpy_half;
 
-	half_1 = lstnew_token();
-	if (!half_1)
+	half = lstnew_token();
+	if (!half)
 		return (NULL);
-	cpy_half_1 = half_1;
+	cpy_half = half;
 	while (index_token)
 	{
-		half_1->content = NULL;
-		half_1->content = ft_strjoin(half_1->content, tokens->content);
-		if (!half_1->content)
+		half->content = NULL;
+		half->content = ft_strjoin(half->content, tokens->content);
+		if (!half->content)
 			return (NULL);
-		half_1->type = tokens->type;
-		half_1 = incremente_half_1_if_needed(half_1, index_token);
-		if (!half_1)
+		half->type = tokens->type;
+		half = incremente_half_if_needed(half, index_token);
+		if (!half)
 		{
-			free_n_tokens(cpy_half_1, 0);
+			free_tokens(cpy_half);
 			return (NULL);
 		}
 		tokens = tokens->next;
 		index_token--;
 	}
-	return (cpy_half_1);
+	return (cpy_half);
 }
-

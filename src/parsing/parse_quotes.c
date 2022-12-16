@@ -28,7 +28,7 @@ static int	length_parsed_string(char *content)
 	return (length);
 }
 
-static char *parse_content(char *parsed, char *content)
+static char	*parse_content(char *parsed, char *content)
 {
 	int	i;
 	int	j;
@@ -36,7 +36,7 @@ static char *parse_content(char *parsed, char *content)
 
 	i = 0;
 	j = 0;
-	while (content[i])
+	while (content[i])//a modifier incrementer quand on est sur une quote (utiliser what_is_index_in)
 	{
 		if (content[i] == '\'' || content[i] == '\"')
 		{
@@ -59,7 +59,10 @@ static char	*get_string_parsed(t_token_ms *tokens)
 
 	parsed = malloc((length_parsed_string(tokens->content) + 1) * sizeof(char));
 	if (!parsed)
+	{
+		perror(NULL);
 		return (NULL);
+	}
 	parsed = parse_content(parsed, tokens->content);
 	if (!parsed)
 		return (NULL);
@@ -67,16 +70,21 @@ static char	*get_string_parsed(t_token_ms *tokens)
 	return (parsed);
 }
 
-/*void	print_tokens_2(t_token_ms *tokens) //a supprimer
-{
-	while (tokens)
-	{
-		ft_printf("%s\n", tokens->content);
-		tokens = tokens->next;
-	}
-}*/
+/************************************************************/
+/*															*/
+/*	Definition:	Delete useless quotes						*/
+/*															*/
+/*	Parameters:												*/
+/*		tokens - link list of tokens with potential useless	*/
+/*				 quotes										*/
+/*															*/
+/*	Return:													*/
+/*		tokens - link list without useless quotes			*/
+/*		NULL - failure										*/
+/*															*/
+/************************************************************/
 
-t_token_ms	*parsing(t_token_ms *tokens)
+t_token_ms	*parse_quotes(t_token_ms *tokens)
 {
 	t_token_ms		*tmp_tokens;
 
@@ -86,11 +94,10 @@ t_token_ms	*parsing(t_token_ms *tokens)
 		tmp_tokens->content = get_string_parsed(tmp_tokens);
 		if (!tmp_tokens->content)
 		{
-			free_n_tokens(tokens, 0);
+			free_tokens(tokens);
 			return (NULL);
 		}
 		tmp_tokens = tmp_tokens->next;
 	}
-	//print_tokens_2(tokens);//a supprimer
 	return (tokens);
 }

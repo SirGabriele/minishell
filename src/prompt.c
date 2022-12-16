@@ -6,6 +6,20 @@ static void	free_user_input_and_set_to_null(char *user_input)
 	user_input = NULL;
 }
 
+static int	check_nb_commands(char *user_input)
+{
+	int	i;
+
+	i = 0;
+	while (user_input[i])
+	{
+		if (!ft_isspace(user_input[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static int	handle_prompt(char *user_input)
 {
 	if (!user_input)

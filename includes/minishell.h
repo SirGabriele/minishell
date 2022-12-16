@@ -2,148 +2,107 @@
 # define MINISHELL_H
 
 # include <signal.h>
-# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
+# include "../libft/libft.h"
 # include "struct.h"
 
 /************/
 /*	CHECK	*/
 /************/
 
-//check_paired_characters.c
 int				are_all_pipes_closed(const char *user_input);
 int				are_all_parenthesis_paired(const char *user_input);
-
-//ft_check_quotes.c
 int				ft_check_isolated_quotes(const char *user_input);
-
-//ft_check_forbidden_characters.c
 int				ft_check_forbidden_characters(const char *user_input);
-
-//ft_check_isolated_ampersands.c
 int				ft_check_isolated_ampersands(const char *user_input);
-
-//ft_check_pipes.c
 int				ft_check_syntax_before_character(const char *user_input, \
 					int i, const char *character);
 int				what_is_index_in(const char *user_input, int i);
 int				is_previous_syntax_valid(const char *user_input, int i);
-
-//get_missing_user_input.c
 char			*get_missing_user_input(char **user_input);
 
 /********/
 /*	SRC	*/
 /********/
 
-//signal.c
-void			ft_signal(int sig);
-
-//launch_program.c
 int				launch_program(char **user_input, char **env);
-
-//prompt.c
+void			ft_signal(int sig);
 int				cmd_prompt(char **env);
-
-//utils.c
-int 			check_nb_commands(char *user_input);
-
-//highlight_syntax_error.c
 void			highlight_syntax_error(const char *str, int start, int end);
 
 /************/
-/*	PARSING	*/
+/*	 FREE	*/
 /************/
 
-//binary_tree.c
-t_node_ms		*build_binary_tree(t_token_ms *tokens, t_tokens what_shell);
-
-//binary_tree_utils.c
-t_tokens		check_token_pos(t_token_ms *tokens, int token_pos);
-t_tokens		detect_operators(t_token_ms *tokens);
-t_tokens		identify_operator(t_token_ms *tokens);
-t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
-int				check_parenthesis(t_token_ms *tokens);
-
-//free.c
-void			free_n_tokens(t_token_ms *tokens, int nb_to_free);
+void			free_tokens(t_token_ms *tokens);
 void			free_splited_tokens(t_token_ms **splited_tokens);
 void			free_redirs_list(t_redir_ms *first_redir);
 void			free_redirs_infos(t_node_ms *binary_tree);
 void			free_binary_tree(t_node_ms *binary_tree);
+void			free_double(char **double_str);
+void			free_env_list(t_env_ms *env);
 
-//ft_lst.c
-t_token_ms		*lst_fill(t_token_ms *tokens, char *user_input, char *delim[10], char **env);
+/************/
+/* PARSING	*/
+/************/
+
+t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token what_shell, \
+					t_enum_token *operators);
+t_node_ms		*start_binary_tree(t_token_ms *tokens);
+t_enum_token	check_token_pos(t_token_ms *tokens, int token_pos);
+t_enum_token	what_is_oper_in(t_token_ms *tokens);
+t_enum_token	identify_splitting_operator(t_token_ms *tokens);
+t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
+int				check_parenthesis(t_token_ms *tokens);
+t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, \
+					char *delim[11], char **env);
 t_token_ms		*lstnew_token(void);
-
-//get_list_infos.c
-t_node_ms		*get_list_infos(t_token_ms *tokens, t_tokens what_shell);
-
-//split_list.c
+t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, \
+					t_enum_token shell, t_enum_token *operators);
+t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, \
+					t_enum_token shell, t_enum_token *operators);
+t_node_ms		*get_list_infos(t_token_ms *tokens, t_enum_token what_shell, \
+					t_enum_token *operators);
 t_token_ms		**split_list(t_token_ms *tokens);
-
-//get_first_half.c
 t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
-
-//get_second_half.c
 t_token_ms		*get_second_half(t_token_ms *tokens);
-
-//is_operator.c
-int				is_operator(t_tokens type);
-
-//get_pipeline_infos.c
-t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_tokens what_shell);
-
-//get_tokens.c
-t_token_ms		*get_tokens(char *user_input, char *delim[10], char **env);
-
-//lexer.c
+int				is_operator(t_enum_token type);
+t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
+					t_enum_token *operators);
 t_token_ms		*lexer(char *user_input, char **env);
-
-//parse_spaces.c
-char			*parse_spaces(char *pipeline);
-
-//parsing.c
-t_token_ms		*parsing(t_token_ms *tokens);
-
-//utils_tokens.c
-int				token_length(char *user_input, char *delim[10]);
-int				is_a_delimiter(const char *user_input, char *delim[10], int index);
-t_tokens		identify_delim_token(char *user_input, char *delim[10]);
+t_token_ms		*parse_quotes(t_token_ms *tokens);
+int				token_content_length(char *user_input, char *delim[11]);
+int				get_index_delimiter(const char *user_input, char *delim[11], \
+					int index);
+t_enum_token	identify_delim_token(int index_delim);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
-int				check_if_token_is_redir(t_tokens token_type);
-
-//expand_var_with_dollar.c
+int				check_if_token_is_redir(t_enum_token token_type);
 char			*expand_var_with_dollar(char *content, char **env);
-
-//extract_env_variable_line.c
 char			*extract_env_variable_line(char *var, char **env);
 char			*get_var_to_look_for(char *content);
-
-//manage_dollar.c
 char			*manage_dollar(char *env_var, char *content, int i);
-
-//dollar_utils.c
 int				what_is_dollar_in(const char *parsed, int i);
-
-//get_redirections.c
-t_node_ms		*get_redirections_infos(t_token_ms *tokens);
-
-//get_redirections_list.c
+t_node_ms		*get_redirections_infos(t_token_ms *tokens, \
+					t_enum_token *operators);
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
-
-//get_redirections_modes_and_files.c
-t_node_ms		*get_redirections_modes_and_files(t_node_ms *binary_tree);
-
-//del_redirections.c
+t_node_ms		*manage_modes_and_files(t_node_ms *binary_tree);
+t_node_ms		*get_mode_and_file(t_node_ms *binary_tree, \
+					t_redir_ms *first_redir);
 t_token_ms		*del_redirections(t_token_ms *tokens);
-
-/************/
-/*	UTILS	*/
-/************/
-
-//what_is_index_in.c
 int				what_is_index_in(const char *user_input, int i);
+
+/****************/
+/*	 BUILTINS	*/
+/****************/
+
+int				ft_echo(char **content);
+int				ft_cd(char **content);
+int				ft_pwd(void);
+int				ft_env(char **content, t_env_ms *env);
+int				ft_export(char **content, t_env_ms *env);
+t_env_ms		*set_values_export(char **content, t_env_ms *env);
+t_env_ms		*get_env(char *content, t_env_ms *env);
 
 #endif
