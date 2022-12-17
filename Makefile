@@ -11,8 +11,7 @@ SIGNALS = signals_one.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
-	ft_check_quotes.c				\
-	ft_check_forbidden_characters.c
+	ft_check_quotes.c
 
 PARSING =   start_binary_tree.c	\
 	fill_token.c				\
@@ -26,7 +25,6 @@ PARSING =   start_binary_tree.c	\
 	get_redirections_infos.c	\
 	manage_modes_and_files.c	\
 	get_mode_and_file.c			\
-	identify_delim_token.c		\
 	split_list.c				\
 	get_first_half.c			\
 	get_second_half.c			\

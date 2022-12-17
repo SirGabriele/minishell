@@ -14,7 +14,7 @@
 /*															*/
 /************************************************************/
 
-t_enum_token	check_token_pos(t_token_ms *tokens, int token_pos)
+t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos)
 {
 	int	op_parenthesis;
 	int	cl_parenthesis;
@@ -66,9 +66,9 @@ t_enum_token	what_is_oper_in(t_token_ms *tokens)
 		if (cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
 			|| cpy_tokens->type == TOK_PIPE)
 		{
-			if (check_token_pos(tokens, index_token) == TOK_SHELL)
+			if (is_token_in_parenthesis(tokens, index_token) == TOK_SHELL)
 				return (TOK_SHELL);
-			else if (check_token_pos(tokens, index_token) == TOK_SUBSHELL)
+			else if (is_token_in_parenthesis(tokens, index_token) == TOK_SUBSHELL)
 				oper_pos = TOK_SUBSHELL;
 		}
 		index_token++;
@@ -102,7 +102,7 @@ t_enum_token	identify_splitting_operator(t_token_ms *tokens)
 	{
 		if ((cpy_tokens->type == TOK_AND_OPER || cpy_tokens->type == TOK_OR_OPER
 				|| cpy_tokens->type == TOK_PIPE)
-			&& check_token_pos(tokens, index_token) == TOK_SHELL)
+			&& is_token_in_parenthesis(tokens, index_token) == TOK_SHELL)
 			return (cpy_tokens->type);
 		index_token++;
 		cpy_tokens = cpy_tokens->next;
@@ -126,7 +126,7 @@ t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
-	if (check_parenthesis(tokens) == TOK_SUBSHELL && what_is_oper_in(tokens))
+	if (check_parenthesis(tokens) == TOK_SUBSHELL && what_is_oper_in(tokens))//what_is_oper_in useless ?
 	{
 		tokens_cpy = tokens->next;
 		free(tokens->content);
@@ -170,7 +170,7 @@ int	check_parenthesis(t_token_ms *tokens)
 				op_parenthesis++;
 			else if (tokens->type == TOK_CL_PAR)
 				cl_parenthesis++;
-			if (op_parenthesis == cl_parenthesis && !tokens->next)//je ne comprends pas pourquoi si op == cl alors TOK_SUBSHELL
+			if (op_parenthesis == cl_parenthesis && !tokens->next)
 				return (TOK_SUBSHELL);
 			else if (op_parenthesis == cl_parenthesis && tokens->next)//pareil
 				return (TOK_SHELL);

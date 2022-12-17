@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-/*static void	wait_for_all_the_forks(t_children_ms *children, int nb_nodes, t_env_ms *env_ll)
+static void	wait_for_all_the_forks(t_children_ms *children, int nb_nodes, t_env_ms *env_ll)
 {
 	int	i;
 	int	wstatus;
@@ -23,7 +23,7 @@
 	}
 	(void)env_ll;
 //	set_exit_code_to(env_ll, exit_code);
-}*/
+}
 
 static int	get_nb_nodes(t_node_ms *root, int *i)//ne pas compter les nodes qui sont entre des () car ils iront dans des sous forks. If root->operator == TOK_OP_PAR -> ne pas incrémenter while root->operator == TOK_CL_PAR
 {
@@ -70,14 +70,9 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 		return (-1);
 	if (start_recursive(pipes, children, root, env_ll) == -1)
 		return (-1);
-	if (close(pipes->before[0]) == -1 || close(pipes->before[1] == -1))
+	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1)
 		return (-1);
-/*	wait_for_all_the_forks(children, nb_nodes, env_ll);
-	//free children*/
-	(void)children;
-	(void)root;
-	(void)env_ll;
-	(void)pipes;
-	(void)nb_nodes;
+	wait_for_all_the_forks(children, nb_nodes, env_ll);
+	//free children
 	return (0);
 }

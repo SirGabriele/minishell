@@ -14,6 +14,7 @@
 /*		-1	-	character is between single or double quotes		*/
 /*																	*/
 /********************************************************************/
+
 int	what_is_index_in(const char *user_input, int i)
 {
 	int		j;

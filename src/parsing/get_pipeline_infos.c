@@ -6,7 +6,7 @@ static char	**get_pipeline(t_token_ms *tokens)
 	int			nb_tokens_left;
 	int			i;
 
-	nb_tokens_left = count_nb_of_tokens_left(tokens);//verifier si bonne valeur
+	nb_tokens_left = count_nb_of_tokens_left(tokens);
 	pipelines = malloc((nb_tokens_left + 1) * sizeof(char *));
 	if (!pipelines)
 		return (NULL);
@@ -67,6 +67,7 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
 {
 	t_node_ms	*root;
 
+	tokens = del_parenthesis_if_needed(tokens);
 	root = get_redirections_infos(tokens, operators);
 	if (!root)
 		return (NULL);

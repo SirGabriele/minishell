@@ -65,33 +65,9 @@ Demander à Doc s'il est préferable d'initialiser un tableau à [DEFINE SIZE] o
 -------------------------------------------------------------
 
 Voir dans
-	fill_token.c
-		l52
-		l53
-		l60
-
-	utils_token.c
-		l27
-
-	expand_var_with_dollar.c
-		revoir ensemble le fonctionnement et le nom des variables
-		changer le calloc
-		mettre le bon commentaire tout en haut
 
 	parse_quotes.c
-		l31
 		l62
-
-	binary_tree_utils.c
-		l168
-		l125 expliquer le fonctionnement
-	
-	split_list.c
-		l16
-	
-	get_list_info.c
-		l23
-		l51 parler des 8000 déclarations de la même variable
 	
 	get_pipeline_infos.c
 		l9
@@ -99,3 +75,9 @@ Voir dans
 	diff get_first_half et get_second_half
 	
 	commentaires à finir dans binary_tree_utils.c
+	
+------------------------------------------------------------
+
+les checks genre <> 
+erreur de check ferme minishell
+comportement binary_tree avec (echo dsa)

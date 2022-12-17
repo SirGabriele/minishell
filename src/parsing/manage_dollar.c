@@ -15,16 +15,6 @@ static int	examine_dollar_conditions(char *content, int i)
 	return (0);
 }
 
-/************************************************************************/
-/*                                                     					*/
-/*  Deletes the $STRING in content because $STRING doesn't exist		*/
-/*                                                     	 				*/
-/*  Parameters:															*/
-/*		content - line from the terminal								*/
-/*		i - index of the '$' symbol found								*/
-/*  Return:																*/
-/*		MALLOC'ED content without $STRING							*/
-/************************************************************************/
 static char	*delete_dollar_from_line_if_needed(char *content, int i)
 {
 	char	*tmp;
@@ -49,17 +39,6 @@ static char	*delete_dollar_from_line_if_needed(char *content, int i)
 	return (tmp2);
 }
 
-/************************************************************************/
-/*                                                     					*/
-/*  Replaces the $STRING with env_variable in content				*/
-/*                                                     	 				*/
-/*  Parameters:															*/
-/*		content - line from the terminal								*/
-/*		env_var - line containing the env_variable whole line			*/
-/*		i - index of the '$' symbol found								*/
-/*  Return:																*/
-/*		MALLOC'ED content with $STRING replace with its env_variable	*/
-/************************************************************************/
 static char	*replace_dollar_by_env_var(char *content, char *env_var, int i)
 {
 	char	*tmp;
@@ -87,13 +66,14 @@ static char	*replace_dollar_by_env_var(char *content, char *env_var, int i)
 	return (tmp);
 }
 
-static char	*replace_argument(char *content, int i)
+static char	*replace_dollar_zero(char *content, int i)
 {
 	char	*tmp;
 
 	tmp = malloc((i + 1) * sizeof(char));
 	if (!tmp)
 	{
+		perror(NULL);
 		free(content);
 		return (NULL);
 	}
@@ -103,6 +83,7 @@ static char	*replace_argument(char *content, int i)
 		tmp = ft_strjoin_free_first(tmp, "minishell");
 		if (!tmp)
 		{
+			perror(NULL);
 			free(content);
 			return (NULL);
 		}
@@ -113,6 +94,20 @@ static char	*replace_argument(char *content, int i)
 	return (tmp);
 }
 
+/****************************************************************/
+/*                                                     			*/
+/*  Replaces dollar by env variable								*/
+/*                                                     	 		*/
+/*  Parameters:													*/
+/*		env_var	-	env variable line							*/
+/*		content	-	string with dollar							*/
+/*		i		-	dollar index								*/
+/*																*/
+/*  Return:														*/
+/*		content	-	the newly formed line						*/
+/*																*/
+/****************************************************************/
+
 char	*manage_dollar(char *env_var, char *content, int i)
 {
 	if (env_var)
@@ -120,6 +115,6 @@ char	*manage_dollar(char *env_var, char *content, int i)
 	else if (!examine_dollar_conditions(content, i))
 		content = delete_dollar_from_line_if_needed(content, i);
 	else if (examine_dollar_conditions(content, i) == 2)
-		content = replace_argument(content, i);
+		content = replace_dollar_zero(content, i);
 	return (content);
 }

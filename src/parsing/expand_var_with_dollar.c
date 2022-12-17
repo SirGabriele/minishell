@@ -1,44 +1,47 @@
 #include "../../includes/minishell.h"
 
-/************************************************************************/
-/*                                                     					*/
-/*  Extracts the env_variable if it exists and stores it in a string	*/
-/*                                                     	 				*/
-/*  Parameters:															*/
-/*		content - line from the terminal								*/
-/*		i - index of the '$' symbol found								*/
-/*		env - env_variables												*/
-/*  Return:																*/
-/*		 MALLOC'ED string containing the env_variable whole line		*/
-/************************************************************************/
+/********************************************************************/
+/*                                                     				*/
+/*	Extracts the env_variable if it exists and stores it in a		*/
+/*		string														*/
+/*                                                     	 			*/
+/*  Parameters:														*/
+/*		key_to_expand	-	key of the command line					*/
+/*		env_arr			-	double array containing env variables	*/
+/*																	*/
+/*  Return:															*/
+/*		env_arr[i]	-	the env variable found						*/
+/*		NULL		-	no env variable found						*/
+/*																	*/
+/********************************************************************/
 
-static char	*extract_env_variable_line(char *var_to_look_for, char **env_arr)
+static char	*extract_env_variable_line(char *key_to_expand, char **env_arr)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = ft_strlen(var_to_look_for);
+	j = ft_strlen(key_to_expand);
 	while (env_arr[i] != NULL)
 	{
-		if (ft_strncmp(var_to_look_for, env_arr[i], j) == 0 && env_arr[i][j] == '=')
+		if (ft_strncmp(key_to_expand, env_arr[i], j) == 0 && env_arr[i][j] == '=')
 			break ;
 		i++;
 	}
 	if (env_arr[i] == NULL)
 	{
-		free(var_to_look_for);
-		var_to_look_for = NULL;
+		free(key_to_expand);
+		key_to_expand = NULL;
 		return (NULL);
 	}
-	free(var_to_look_for);
-	var_to_look_for = NULL;
+	free(key_to_expand);
+	key_to_expand = NULL;
 	return (env_arr[i]);
 }
 
-static char	*get_var_to_look_for(char *content)
+static char	*get_key_to_expand(char *content)
 {
-	char	*var;
+	char	*key_to_expand;
 	int		j;
 
 	j = 0;
@@ -46,11 +49,14 @@ static char	*get_var_to_look_for(char *content)
 		&& content[j] != '$' && content[j] != '\0'
 		&& content[j] != '\'')
 		j++;
-	var = ft_calloc(sizeof(char), j + 1);
-	if (var == NULL)
+	key_to_expand = malloc(sizeof(char) * (j + 1));
+	if (key_to_expand == NULL)
+	{
+		perror(NULL);
 		return (NULL);
-	ft_strncpy(var, content, j);
-	return (var);
+	}
+	ft_strncpy(key_to_expand, content, j);
+	return (key_to_expand);
 }
 
 /****************************************************************/
@@ -71,7 +77,7 @@ static char	*get_var_to_look_for(char *content)
 
 char	*expand_var_with_dollar(char *content, char **env_arr)
 {
-	char	*var_to_look_for;
+	char	*key_to_expand;
 	char	*env_var;
 	int		i;
 
@@ -80,13 +86,13 @@ char	*expand_var_with_dollar(char *content, char **env_arr)
 	{
 		if (content[i] == '$' && what_is_dollar_in(content, i) == 0)
 		{
-			var_to_look_for = get_var_to_look_for(content + i + 1);
-			if (!var_to_look_for)
+			key_to_expand = get_key_to_expand(content + i + 1);
+			if (!key_to_expand)
 			{
 				free(content);
 				return (NULL);
 			}
-			env_var = extract_env_variable_line(var_to_look_for, env_arr);
+			env_var = extract_env_variable_line(key_to_expand, env_arr);
 			content = manage_dollar(env_var, content, i);
 			if (!content)
 				return (NULL);

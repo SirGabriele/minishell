@@ -29,7 +29,6 @@ void			highlight_syntax_error(const char *str, int start, int end);
 int				are_all_pipes_closed(const char *user_input);
 int				are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll);
 int				ft_check_isolated_quotes(const char *user_input);
-int				ft_check_forbidden_characters(const char *user_input);
 int				ft_check_syntax_before_character(const char *user_input, \
 					int i, const char *character);
 int				what_is_index_in(const char *user_input, int i);
@@ -88,7 +87,6 @@ t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
 					t_enum_token *operators);
 t_node_ms		*get_redirections_infos(t_token_ms *tokens, t_enum_token *operators);
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
-t_enum_token	identify_delim_token(int index_delim);
 t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
 					t_enum_token *operators);
 t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
@@ -120,7 +118,7 @@ int				check_parenthesis(t_token_ms *tokens);
 t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
-t_enum_token	check_token_pos(t_token_ms *tokens, int token_pos);
+t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 
 /************/
 /*	FREE	*/

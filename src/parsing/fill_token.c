@@ -1,16 +1,38 @@
 #include "../../includes/minishell.h"
 
-static char	*get_content_delim(char *delim)
+static t_enum_token	check_second_half(int index_delimiter, t_enum_token token_type)
 {
-	char	*content;
-	int		len_delim;
+	if (index_delimiter == 5)
+		token_type = TOK_TRUNC;
+	else if (index_delimiter == 6)
+		token_type = TOK_OR_OPER;
+	else if (index_delimiter == 7)
+		token_type = TOK_PIPE;
+	else if (index_delimiter == 8)
+		token_type = TOK_AND_OPER;
+	else if (index_delimiter == 9)
+		token_type = TOK_NULL;
+	return (token_type);
+}
 
-	len_delim = ft_strlen(delim);
-	content = malloc((len_delim + 1) * sizeof(char));
-	if (!content)
-		return (NULL);
-	ft_strncpy(content, delim, len_delim);
-	return (content);
+static t_enum_token	get_token_type(int index_delimiter)
+{
+	t_enum_token	token_type;
+
+	token_type = TOK_NULL;
+	if (index_delimiter == 0)
+		token_type = TOK_OP_PAR;
+	else if (index_delimiter == 1)
+		token_type = TOK_CL_PAR;
+	else if (index_delimiter == 2)
+		token_type = TOK_HEREDOC;
+	else if (index_delimiter == 3)
+		token_type = TOK_APPEND;
+	else if (index_delimiter == 4)
+		token_type = TOK_INFILE;
+	else
+		token_type = check_second_half(index_delimiter, token_type);
+	return (token_type);
 }
 
 static char	*get_content_string(char *user_input, char *delim[10])
@@ -49,15 +71,15 @@ t_token_ms	*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
 	index_delim = get_index_delimiter(user_input, delim, 0);
 	if (index_delim >= 0)
 	{
-		tokens->type = identify_delim_token(index_delim);//pourquoi ne pas mettre tokens->type = get_token_type?
-		tokens->content = get_content_delim(delim[index_delim]);//tokens->content = ft_strdup(delim[index_delim])?
+		tokens->type = get_token_type(index_delim);
+		tokens->content = ft_strdup(delim[index_delim]);
 		if (!tokens->content)
 			return (NULL);
 	}
 	else
 	{
 		tokens->type = TOK_STRING;
-		tokens->content = get_content_string(user_input, delim);//avec echo "d d d d d d d", content = "d d d d d d"?
+		tokens->content = get_content_string(user_input, delim);
 		if (!tokens->content)
 			return (NULL);
 		tokens->content = expand_var_with_dollar(tokens->content, env_arr);

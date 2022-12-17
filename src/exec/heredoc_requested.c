@@ -1,5 +1,11 @@
 #include "../../includes/minishell.h"
 
+static void	sent_eof_in_heredoc(int line, const char *delimiter)
+{
+	ft_printf_fd(2, "minishell: warning: here-document at line %d delimited "\
+		"by end-of-file (wanted `%s')\n", line, delimiter);
+}
+
 static int	fake_heredoc_requested(const char *delimiter)//faire un signal adaptÃ© pour heredoc
 {
 	char	*user_input;
@@ -9,6 +15,11 @@ static int	fake_heredoc_requested(const char *delimiter)//faire un signal adaptÃ
 	while (1)
 	{
 		user_input = readline("heredoc> ");
+		if (!user_input)
+		{
+			ft_putstr_fd("minishell: syntax error: unexpected end of file\nexit\n", 2);
+			return (-1);
+		}
 		if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
 			&& user_input[length_delimiter + 1] == '\0')
 		{
@@ -39,22 +50,28 @@ static int	real_heredoc_requested(const char *delimiter, int *pipe_before)//fair
 {
 	char	*user_input;
 	int		length_delimiter;
+	int		line;
 
+	line = 0;
 	length_delimiter = ft_strlen(delimiter);
 	while (1)
 	{
-		user_input = readline("heredoc> ");
+		user_input = readline("> ");
+		if (!user_input)
+		{
+			sent_eof_in_heredoc(line, delimiter);
+			return (-1);
+		}
 		if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
 			&& user_input[length_delimiter + 1] == '\0')
-		{
-			free(user_input);
 			break ;
-		}
 		ft_putstr_fd(user_input, pipe_before[1]);
 		ft_putstr_fd("\n", pipe_before[1]);
 		free(user_input);
+		line++;
 		user_input = NULL;
 	}
+	free(user_input);
 	return (0);
 }
 

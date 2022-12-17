@@ -16,7 +16,7 @@ static t_token_ms	*incremente_half_if_needed(t_token_ms *half_1, \
 }
 
 /***********************************************/
-/*              get_first_half :               */
+/*              get_left_list :               */
 /*                                             */
 /*   copy the token (that represents           */
 /*   the first half) in cpy_half_1             */

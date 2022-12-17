@@ -20,7 +20,7 @@ static t_node_ms	*set_node_infos(t_token_ms *tokens, t_enum_token shell)
 }
 
 static t_node_ms	*recursive(t_token_ms **splitted_tokens, \
-	t_node_ms *root, t_enum_token shell, t_enum_token *operators)//c'est pas une recursive ça, si?
+	t_node_ms *root, t_enum_token shell, t_enum_token *operators)
 {
 	root->left = left_branch(splitted_tokens[0],
 			root->operator, shell, operators);
