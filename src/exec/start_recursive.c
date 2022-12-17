@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
+/*static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 {
 	close(pipe_before[0]);
 	close(pipe_before[1]);
@@ -14,44 +14,46 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 		return (-1);
 	}
 	return (0);
-}
+}*/
 
-//separer builtin ou non
-static int	process_node(t_pipe_ms *pipes, t_children_ms *children,
-	t_node_ms *root, t_env_ms *env)
+//pour export, envoyer une adresse vers env_ll afin qu'export la modifie vraiment
+//ajouter handle_all_redirs dans les builtin
+/*static int	process_node(t_pipes_ms *pipes, t_children_ms *children,
+	t_node_ms *root, t_env_ms *env_ll)//separer builtin ou non ET gerer selon TOK_SHELL, TOK_SUBSHELL
 {
-	char	**env_arr;
+//	char	**env_arr;
 
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
-/*	if (root->operator == TOK_AND_OPER)
-		verify_ret_value_and_do_like_&&*/
-/*	else if (root->operator == TOK_OR_OPER)
-		verify_ret_value_and_do_like_||*/
+	if (root->operator == TOK_AND_OPER)
+		verify_ret_value_and_do_like_&&
+	else if (root->operator == TOK_OR_OPER)
+		verify_ret_value_and_do_like_||
 	else
 	{
-/*		int	i = 0;//A VIRER;
+		int	i = 0;//A VIRER;
 		while (root->content[i] != NULL)
 		{
 			ft_printf("%s\n", root->content[i]);
 			i++;
 		}
-		ft_printf("%s\n\n", root->content[i]);*/
-		env_arr = convert_env_into_arr(env);
+		ft_printf("%s\n\n", root->content[i]);
+		env_arr = convert_env_ll_into_arr(env_ll);
 		if (env_arr == NULL)
 			return (-1);
 		execute_cmd(pipes, children, root, env_arr);
+		free_double_arr(env_arr);
 	}
 	return (0);
-}
+}*/
 
-int	start_recursive(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env)
+int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)//gerer selon TOK_OP_PAR ou TOK_CL_PAR
 {
 	if (root->left != NULL)
-		start_recursive(pipes, children, root->left, env);
-	if (process_node(pipes, children, root, env) == -1)
-		return (-1);
+		start_recursive(pipes, children, root->left, env_ll);
+/*	if (process_node(pipes, children, root, env_ll) == -1)
+		return (-1);*/
 	if (root->right != NULL)
-		start_recursive(pipes, children, root->right, env);
+		start_recursive(pipes, children, root->right, env_ll);
 	return (0);
 }

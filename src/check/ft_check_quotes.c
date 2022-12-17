@@ -17,10 +17,12 @@ static int	is_quote_closed(const char *user_input, int i)
 /*	Detects if an isolated quote is in the line				*/
 /*															*/
 /*	Parameters:												*/
-/*		user_input - line from the terminal         		*/
+/*		user_input	-	line from the terminal         		*/
+/*															*/
 /*	Return:													*/
-/*		0 - no isolated quote is detected					*/
-/*		1 - an isolated quote is detected and highlighted	*/
+/*		0	-	no isolated quote is detected				*/
+/*		1	-	an isolated quote is detected and 			*/
+/*				highlighted									*/
 /*															*/
 /************************************************************/
 int	ft_check_isolated_quotes(const char *user_input)

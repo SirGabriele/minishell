@@ -19,24 +19,40 @@ static char	*get_cmd_path(t_node_ms *root, char **env_paths_arr)
 	return (NULL);
 }
 
-static char	*get_env_path_var(char **env)
+static char	*get_env_path_var(char **env_arr)
 {
 	char	*path;
 	int	i;
 
 	i = 0;
-	while (ft_strncmp(env[i], "PATH=", 5) != 0 && env[i] != NULL)
+	while (ft_strncmp(env_arr[i], "PATH=", 5) != 0 && env_arr[i] != NULL)
 		i++;
-	if (env[i] == NULL)
+	if (env_arr[i] == NULL)
 	{
 		ft_putstr_fd("PATH variable not found\n", 2);
 		return (NULL);
 	}
-	path = ft_strdup(env[i]);
+	path = ft_strdup(env_arr[i]);
 	return (path);
 }
 
-char	*verify_cmd_path(t_node_ms *root, char **env)
+/****************************************************************/
+/*																*/
+/*	Verifies if the requested command already includes its		*/
+/*		correct path. If it does not, seeks its correct			*/
+/*		path													*/
+/*																*/
+/*	Parameters:													*/
+/*		root	-	root of the binary tree						*/
+/*		env_arr	-	double array containing the end variables	*/
+/*																*/
+/*	Return:														*/
+/*		cmd_path	-	the correct command's path				*/
+/*		NULL		-	the command's path was not found		*/
+/*																*/
+/****************************************************************/
+
+char	*verify_cmd_path(t_node_ms *root, char **env_arr)
 {
 	char	**env_paths_arr;
 	char	*env_path_var;
@@ -44,7 +60,7 @@ char	*verify_cmd_path(t_node_ms *root, char **env)
 
 	if (access(root->content[0], F_OK) == 0)
 		return (root->content[0]);
-	env_path_var = get_env_path_var(env);
+	env_path_var = get_env_path_var(env_arr);
 	if (env_path_var == NULL)
 		return (NULL);
 	env_paths_arr = ft_split(env_path_var + 5, ':');

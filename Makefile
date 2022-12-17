@@ -5,41 +5,67 @@ LIBFT = libft/libft.a
 SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
-	highlight_syntax_error.c	\
-	free_program.c
+	highlight_syntax_error.c
 
 SIGNALS = signals_one.c
 
 CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
 	ft_check_quotes.c				\
-	ft_check_forbidden_characters.c	\
-	ft_check_isolated_ampersands.c
+	ft_check_forbidden_characters.c
 
-EXEC =	simulate_structs.c	\
-	print_structs.c			\
+PARSING =   start_binary_tree.c	\
+	fill_token.c				\
+	get_list_infos.c			\
+	get_pipeline_infos.c		\
+	lexer.c						\
+	parse_quotes.c				\
+	expand_var_with_dollar.c	\
+	manage_dollar.c				\
+	get_redirections_list.c		\
+	get_redirections_infos.c	\
+	manage_modes_and_files.c	\
+	get_mode_and_file.c			\
+	identify_delim_token.c		\
+	split_list.c				\
+	get_first_half.c			\
+	get_second_half.c			\
+	left_branch.c				\
+	right_branch.c
+
+
+EXEC =	print_structs.c		\
+	initialize_children.c	\
 	start_recursive.c		\
+	launch_exec.c			\
 	handle_all_redirs.c		\
 	heredoc_requested.c		\
 	execute_cmd.c			\
 	verify_cmd_path.c
 
-LL = ft_lstnew_env_entry.c	\
-	ft_create_node.c
+LINKED_LIST = ft_lstnew_env_entry.c	\
+	initialize_node.c				\
+	ft_lstnew_token.c				\
+	ft_lstnew_node.c
 
-INIT = init_root_struct.c
+UTILS =	what_is_index_in.c		\
+	convert_env_arr_into_ll.c	\
+	convert_env_ll_into_arr.c	\
+	binary_tree_utils.c			\
+	dollar_utils.c				\
+	utils_token.c
 
-UTILS =	what_is_index_in.c	\
-	convert_env_into_ll.c	\
-	convert_env_into_arr.c
+FREE = free.c	\
+	free_2.c
 
-SRCS = $(addprefix src/, $(SRC))			\
-	$(addprefix src/signals/, $(SIGNALS))	\
-	$(addprefix src/check/, $(CHECK))		\
-	$(addprefix src/utils/, $(UTILS))		\
-	$(addprefix src/ll/, $(LL))				\
-	$(addprefix src/init/, $(INIT))			\
-	$(addprefix src/exec/, $(EXEC))
+SRCS = $(addprefix src/, $(SRC))					\
+	$(addprefix src/signals/, $(SIGNALS))			\
+	$(addprefix src/check/, $(CHECK))				\
+	$(addprefix src/parsing/, $(PARSING))			\
+	$(addprefix src/exec/, $(EXEC))					\
+	$(addprefix src/linked_list/, $(LINKED_LIST))	\
+	$(addprefix src/utils/, $(UTILS))				\
+	$(addprefix src/free/, $(FREE))
 
 CC = clang
 

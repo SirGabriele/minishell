@@ -28,17 +28,17 @@ static int	ft_check_special_characters(const char *user_input)
 /*	Checks is a forbidden symbol is in the user_input line	*/
 /*															*/
 /*	Parameters:												*/
-/*		user_input - line from the terminal         		*/
+/*		user_input	-	line from the terminal         		*/
 /*															*/
 /*	Return:													*/
-/*		-1 - a forbidden character is detected				*/
-/*		 0 - no forbidden character is detected 			*/
+/*		-1	-	a forbidden character is detected			*/
+/*		 0	-	no forbidden character is detected 			*/
 /*															*/
 /************************************************************/
+
 int	ft_check_forbidden_characters(const char *user_input)
 {
-	if (ft_check_isolated_ampersands(user_input) == -1
-		|| ft_check_special_characters(user_input) == -1)
+	if (ft_check_special_characters(user_input) == -1)
 		return (-1);
 	return (0);
 }

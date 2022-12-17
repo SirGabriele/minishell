@@ -132,7 +132,7 @@ static void	set_root_values(t_node_ms *root)
 
 int	simulate_structs(t_node_ms *root, t_env_ms *env)
 {
-	t_pipe_ms		*pipes;
+	t_pipes_ms		*pipes;
 	t_children_ms	*children;
 	int				nb_cmd;
 	int				i;
@@ -146,38 +146,38 @@ int	simulate_structs(t_node_ms *root, t_env_ms *env)
 		return (-1);
 	set_root_values(root);
 	root->left = malloc(sizeof(t_node_ms));
-	init_root_struct(root->left);
+	initialize_node(root->left);
 	set_root_left_values(root->left);
 
 	root->right = malloc(sizeof(t_node_ms));
-	init_root_struct(root->right);
+	initialize_node(root->right);
 	set_root_right_values(root->right);
 
 /*	root->left->left = malloc(sizeof(t_node_ms));
-	init_root_struct(root->left->left);
+	initialize_node(root->left->left);
 	set_root_left_left_values(root->left->left);*/
 
 /*	root->left->right = malloc(sizeof(t_node_ms));
-	init_root_struct(root->left->right);
+	initialize_node(root->left->right);
 	set_root_left_right_values(root->left->right);*/
 	
 /*	root->right->left = malloc(sizeof(t_node_ms));
-	init_root_struct(root->right->left);
+	initialize_node(root->right->left);
 	set_root_right_left_values(root->right->left);
 	
 	root->right->right = malloc(sizeof(t_node_ms));
-	init_root_struct(root->right->right);
+	initialize_node(root->right->right);
 	set_root_right_right_values(root->right->right);
 	
 	root->right->right->left = malloc(sizeof(t_node_ms));
-	init_root_struct(root->right->right->left);
+	initialize_node(root->right->right->left);
 	set_root_right_right_left_values(root->right->right->left);
 	
 	root->right->right->right = malloc(sizeof(t_node_ms));
-	init_root_struct(root->right->right->right);
+	initialize_node(root->right->right->right);
 	set_root_right_right_right_values(root->right->right->right);*/
 
-	print_tree(root); (void)env;
+//	print_tree(root); (void)env;
 	nb_cmd = get_nb_cmd(root, &nb_cmd);
 	children = malloc(sizeof(t_children_ms));
 	if (children == NULL)

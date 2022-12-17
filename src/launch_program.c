@@ -1,3 +1,4 @@
+#include "../includes/structs_ms.h"
 #include "../includes/minishell.h"
 
 /************************************************************/
@@ -8,18 +9,18 @@
 /*		or paired											*/
 /*															*/
 /*	Parameters:												*/
-/*		user_input - line from the terminal					*/
+/*		user_input	-	line from the terminal				*/
 /*															*/
 /*	Return:													*/
-/*		-1 - an error occured								*/
-/*		 0 - the line has been correctly replaced			*/
+/*		-1	-	an error occured							*/
+/*		 0	-	the line has been correctly replaced		*/
 /*															*/
 /************************************************************/
 
-static int	ft_check_closed_characters(char **user_input)
+static int	ft_check_closed_characters(char **user_input, t_env_ms *env_ll)
 {
 	while (are_all_pipes_closed(*user_input) == -1
-		|| are_all_parenthesis_paired(*user_input) == -1)
+		|| are_all_parenthesis_paired(*user_input, env_ll) == -1)
 	{
 		*user_input = get_missing_user_input(user_input);
 		if (*user_input == NULL)
@@ -54,9 +55,9 @@ static int	ft_check_closed_characters(char **user_input)
 	return (0);
 }*/
 
-static int	ft_check_syntax_error(char **user_input)
+static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 {
-	if (ft_check_closed_characters(user_input) == -1)
+	if (ft_check_closed_characters(user_input, env_ll) == -1)
 		return (-1);
 	if (ft_check_isolated_quotes(*user_input) == -1)
 		return (-1);
@@ -71,11 +72,27 @@ static int	ft_check_syntax_error(char **user_input)
 	return (0);
 }
 
-int	launch_program(t_node_ms *root, char **user_input, t_env_ms *env)
+int	launch_program(char **user_input, t_env_ms *env_ll)
 {
-	if (ft_check_syntax_error(user_input) == -1)
+	t_node_ms		*root;
+	t_token_ms		*tokens;
+
+	if (*user_input[0] == '\0')
+		return (0);
+//	set_exit_code_to(env_ll, 0);
+	if (ft_check_syntax_error(user_input, env_ll) == -1)
 		return (-1);
-	if (simulate_structs(root, env) == -1)
+	tokens = lexer(*user_input, env_ll);
+	if (!tokens)
 		return (-1);
+	tokens = parse_quotes(tokens);
+	if (!tokens)
+		return (-1);
+	root = start_binary_tree(tokens);
+	if (!root)
+		return (-1);
+	if (launch_exec(root, env_ll) == -1)
+		return (-1);
+//	free_binary_tree(root);
 	return (0);
 }

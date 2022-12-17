@@ -55,3 +55,47 @@ Changer execve qui prend root->content[0] avec le path. Ne pas changer root->con
 ------------------------------------------------------------
 
 Faire en sorte que les heredoc passent dans le parsing, virer les quotes et expand
+
+------------------------------------------------------------
+
+Demander à Doc pour parentheses qui ne font que la priorité ou qui font les subshells
+Demander à Doc s'il est préferable d'initialiser un tableau à [DEFINE SIZE] ou malloc
+	+	malloc taille pile et while (i < taille) || malloc taille pile + 1 et while (arr[i] != NULL)
+
+-------------------------------------------------------------
+
+Voir dans
+	fill_token.c
+		l52
+		l53
+		l60
+
+	utils_token.c
+		l27
+
+	expand_var_with_dollar.c
+		revoir ensemble le fonctionnement et le nom des variables
+		changer le calloc
+		mettre le bon commentaire tout en haut
+
+	parse_quotes.c
+		l31
+		l62
+
+	binary_tree_utils.c
+		l168
+		l125 expliquer le fonctionnement
+	
+	split_list.c
+		l16
+	
+	get_list_info.c
+		l23
+		l51 parler des 8000 déclarations de la même variable
+	
+	get_pipeline_infos.c
+		l9
+	
+	diff get_first_half et get_second_half
+	
+	commentaires à finir dans binary_tree_utils.c

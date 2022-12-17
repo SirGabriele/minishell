@@ -1,8 +1,0 @@
-										|
-					|								cat -e	> outfile		
-	echo test						|
-					echo coucou						|
-									echo fond				grep fond
-
-
-(echo test | (echo coucou | (echo fond | grep fond))) | cat -e > outfile

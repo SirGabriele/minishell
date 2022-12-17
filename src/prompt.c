@@ -25,7 +25,7 @@ static int	handle_prompt(char *user_input)
 	return (0);
 }
 
-int	cmd_prompt(t_node_ms *root, t_env_ms *env)
+int	cmd_prompt(t_env_ms *env_ll)
 {
 	char	*user_input;
 
@@ -34,8 +34,11 @@ int	cmd_prompt(t_node_ms *root, t_env_ms *env)
 		user_input = readline("minishell> ");
 		if (handle_prompt(user_input) == -1)
 			return (0);
-		if (launch_program(root, &user_input, env) == -1)
-			free_user_input_and_set_to_null(user_input);
+		if (launch_program(&user_input, env_ll) == -1)
+		{
+//			free_user_input_and_set_to_null(user_input);
+			return (-1);
+		}
 		else
 		{
 //			ft_printf("%s\n", user_input);//A VIRER

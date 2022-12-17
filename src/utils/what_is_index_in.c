@@ -6,12 +6,12 @@
 /*	or not in any sort of quotes									*/
 /*                                                     	 			*/
 /*  Parameters:														*/
-/*		user_input - line from the terminal							*/
-/*		i - index of the character to check							*/
+/*		user_input	-	line from the terminal						*/
+/*		i			-	index of the character to check				*/
 /*																	*/
 /*  Return:															*/
-/*		0 - character is alone										*/
-/*	   -1 - character is between single or double quotes			*/
+/*		 0	-	character is alone									*/
+/*		-1	-	character is between single or double quotes		*/
 /*																	*/
 /********************************************************************/
 int	what_is_index_in(const char *user_input, int i)

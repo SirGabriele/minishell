@@ -1,216 +1,136 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "structs_ms.h"
 # include "../libft/libft.h"
 
+/*	signal()	*/
 # include <signal.h>
-///////////////
-//	signal();
-///////////////
 
 # include <readline/readline.h>
 # include <readline/history.h>
-///////////////
-//	readline;
-///////////////
 
+/*	open()	*/
 # include <fcntl.h>
-////////////////
-//	open
-////////////////
-
-# include <sys/wait.h>
-///////////////
-//	waipid
-///////////////
-
-typedef enum e_tokens
-{
-	TOK_NULL,/*0*/
-	TOK_STRING,/*1*/
-	TOK_OP_PAR,/*2*/
-	TOK_CL_PAR,/*3*/
-	TOK_INFILE,/*4*/
-	TOK_TRUNC,/*5*/
-	TOK_HEREDOC,/*6*/
-	TOK_APPEND,/*7*/
-	TOK_PIPE,/*8*/
-	TOK_AND_OPER,/*9*/
-	TOK_OR_OPER,/*10*/
-	TOK_SHELL,/*11*/
-}	t_tokens;
-
-/*typedef struct s_cmd_list_ms
-{
-	struct s_cmd_list_ms	*next;
-	char					**cmd_and_args;
-	char					*correct_path;
-}	t_cmd_list_ms;*/
-
-typedef struct s_env_ms
-{
-	struct s_env_ms			*next;
-	char					*key;
-	char					*value;
-}	t_env_ms;
-
-typedef struct s_redir_ms
-{
-	struct s_redir_ms		*next;
-	char					*file_name;
-	t_tokens				mode;	
-}	t_redir_ms;
-
-typedef struct s_pipe_ms
-{
-	int						before[2];
-	int						after[2];
-}	t_pipe_ms;
-
-typedef struct s_children_ms
-{
-	pid_t					*pid_arr;
-	int						index;
-}	t_children_ms;
-
-typedef struct s_node_ms
-{
-	struct s_node_ms		*left;
-	struct s_node_ms		*right;
-	struct s_redir_ms		*first_redir;
-	char					**content;
-	char					*infile;
-	char					*outfile;
-	t_tokens				infile_mode;
-	t_tokens				outfile_mode;
-	t_tokens				operator;
-}	t_node_ms;
-
-/*typedef struct s_context_ms
-{
-	struct s_context_ms		*next;
-	struct s_all_redirs_ms	*all_redirs;
-	t_tokens				what_is_pipeline_after;
-	char					*pipeline;
-}	t_context_ms;*/
-
-typedef struct s_token_ms
-{
-	struct s_token_ms	*next;
-	char				*content;
-	t_tokens			type;
-}	t_token_ms;
-
-/************/
-/*	SIGNALS	*/
-/************/
-void	ft_signal_user_input(int sig);
 
 /********/
 /*	SRC	*/
 /********/
 
-//prompt.c
-void	ft_signal(int sig);
-int		cmd_prompt(t_node_ms *root, t_env_ms *env);
-
-//launch_program.c
-int		launch_program(t_node_ms *root, char **user_input, t_env_ms *env);
-
-//highlight_syntax_error.c
-void	highlight_syntax_error(const char *str, int start, int end);
-
-//free_program.c
-void	free_program(t_node_ms *root, t_env_ms *env);
+void			ft_signal(int sig);
+int				cmd_prompt(t_env_ms *env_ll);
+int				launch_program(char **user_input, t_env_ms *env);
+void			highlight_syntax_error(const char *str, int start, int end);
 
 /************/
 /*	CHECK	*/
 /************/
 
-//check_paired_characters.c
-int		are_all_pipes_closed(const char *user_input);
-int		are_all_parenthesis_paired(const char *user_input);
-
-//ft_check_quotes.c
-int		ft_check_isolated_quotes(const char *user_input);
-
-//ft_check_forbidden_characters.c
-int		ft_check_forbidden_characters(const char *user_input);
-
-//ft_check_isolated_ampersands.c
-int		ft_check_isolated_ampersands(const char *user_input);
-
-//ft_check_pipes.c
-int		ft_check_syntax_before_character(const char *user_input, \
-				int i, const char *character);
-int		what_is_index_in(const char *user_input, int i);
-int		is_previous_syntax_valid(const char *user_input, int i);
-
-//get_missing_user_input.c
-char	*get_missing_user_input(char **user_input);
+int				are_all_pipes_closed(const char *user_input);
+int				are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll);
+int				ft_check_isolated_quotes(const char *user_input);
+int				ft_check_forbidden_characters(const char *user_input);
+int				ft_check_syntax_before_character(const char *user_input, \
+					int i, const char *character);
+int				what_is_index_in(const char *user_input, int i);
+int				is_previous_syntax_valid(const char *user_input, int i);
+char			*get_missing_user_input(char **user_input);
 
 /************/
-/*	INIT	*/
+/*	SIGNALS	*/
 /************/
-
-//init_root_struct.c
-void	init_root_struct(t_node_ms *root);
+void			ft_signal_user_input(int sig);
 
 /************/
 /*	EXEC	*/
 /************/
 
-//simulate_struct.c
-int		simulate_structs(t_node_ms *root, t_env_ms *env);
+void			initialize_node(t_node_ms *node);
+t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes);
+int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
+					t_node_ms *root, t_env_ms *env_ll);
+int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
+int				handle_all_redirs(t_node_ms *node, int *pipe_before, int *marker);
+int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
+				t_node_ms *root, t_env_ms *env);
+int				heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker);
+int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, char **env);
+char			*verify_cmd_path(t_node_ms *root, char **env);
 
 //print_structs.c
 void	print_tree(t_node_ms *root);
 void	print_env_ll(t_env_ms *env, char **env_real);
 void	print_env_arr(char **env, char **env_real);
 
-//launch_exec.c
-int		start_recursive(t_pipe_ms *pipes, t_children_ms *children, \
-	t_node_ms *root, t_env_ms *env);
-
-//handle_all_redirs.c
-int		handle_all_redirs(t_node_ms *node, int *pipe_before, int *marker);
-
-//heredoc_requested.c
-int		heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker);
-
-//execute_cmd.c
-int		execute_cmd(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, char **env);
-
-//verify_cmd_path.c
-char	*verify_cmd_path(t_node_ms *root, char **env);
-
 /****************/
 /*	LINKED LIST	*/
 /****************/
 
-/*//ft_lstnew_cmd
-t_cmd_list_ms	*ft_lstnew_cmd(char *command_and_args);
+t_env_ms		*ft_lstnew_env_entry(const char *env);
+void			initialize_node(t_node_ms *node);
+t_token_ms		*ft_lstnew_token(void);
+t_node_ms		*ft_lstnew_node(void);
 
-//ft_lstnew_redir.c
-t_redir_ms		*ft_lstnew_redir(char *file_name, t_tokens mode);
 
-//init_structs.c
-void			init_context_struct(t_context_ms *context);
-void			init_context_all_redirs(t_all_redirs_ms *all_redirs);*/
-//ft_lstnew_env_entry.c
-t_env_ms	*ft_lstnew_env_entry(const char *env);
-t_node_ms	*ft_create_node(void);
+/************/
+/*	PARSING	*/
+/************/
+
+char			*expand_var_with_dollar(char *content, char **env_arr);
+t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
+					char **env_arr);
+t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
+t_token_ms		*get_second_half(t_token_ms *tokens);
+t_node_ms		*get_list_infos(t_token_ms *tokens, t_enum_token shell, \
+					t_enum_token *operators);
+t_node_ms		*get_mode_and_file(t_node_ms *binary_tree, t_redir_ms *first_redir);
+t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
+					t_enum_token *operators);
+t_node_ms		*get_redirections_infos(t_token_ms *tokens, t_enum_token *operators);
+t_redir_ms		*get_redirections_list(t_token_ms *tokens);
+t_enum_token	identify_delim_token(int index_delim);
+t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
+					t_enum_token *operators);
+t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
+					t_enum_token *operators);
+t_token_ms		*lexer(char *user_input, t_env_ms *env_ll);
+char			*manage_dollar(char *env_var, char *content, int i);
+t_node_ms		*manage_modes_and_files(t_node_ms *root);
+t_token_ms		*parse_quotes(t_token_ms *tokens);
+t_token_ms		**split_list(t_token_ms *tokens);
+t_node_ms		*start_binary_tree(t_token_ms *tokens);
+t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token shell, \
+					t_enum_token *operators);
+
 /************/
 /*	UTILS	*/
 /************/
 
-//what_is_index_in.c
-int			what_is_index_in(const char *user_input, int i);
+int				what_is_index_in(const char *user_input, int i);
+int				what_is_dollar_in(const char *parsed, int i);
+int				is_operator(t_enum_token type);
+int				is_token_type_a_redir(t_enum_token token_type);
+int				count_nb_of_tokens_left(t_token_ms *tokens);
+int				get_index_delimiter(const char *user_input, char *delim[10], int index);
+int				token_content_length(char *user_input, char *delim[10]);
+t_env_ms		*convert_env_arr_into_ll(const char **env);
+char			**convert_env_ll_into_arr(t_env_ms *env);
+//void			set_exit_code_to(env_ll, 0);//to code
+int				check_parenthesis(t_token_ms *tokens);
+t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
+t_enum_token	identify_splitting_operator(t_token_ms *tokens);
+t_enum_token	what_is_oper_in(t_token_ms *tokens);
+t_enum_token	check_token_pos(t_token_ms *tokens, int token_pos);
 
-//convert_env_into_ll.c
-t_env_ms	*convert_env_into_ll(const char **env);
+/************/
+/*	FREE	*/
+/************/
 
-//convert_env_into_arr.c
-char		**convert_env_into_arr(t_env_ms *env);
+void			free_redirs_infos(t_node_ms *binary_tree);
+void			free_redirs_list(t_redir_ms *first_redir);
+void			free_splitted_tokens(t_token_ms **splitted_tokens);
+void			free_tokens(t_token_ms *tokens);
+void			free_env_list(t_env_ms *env);
+void			free_binary_tree(t_node_ms *binary_tree);
 
 #endif

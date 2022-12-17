@@ -26,11 +26,6 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 	if (root->infile != NULL && root->infile_mode == TOK_INFILE)
 	{
 		fd = open(root->infile, O_RDONLY);
-		if (fd < 0)
-		{
-			ft_putstr_fd("Could not open the specified infile\n", 2);
-			exit(1);
-		}
 		dup2(fd, 0);
 		close(fd);
 	}
@@ -42,7 +37,7 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 }
 
 //free memory in forks
-static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
+static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *root, char **env_arr)
 {
 	int	marker;
 	int	exit_code;
@@ -60,7 +55,7 @@ static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 	}
 	redirect_infile(pipes->before, root);
 	redirect_outfile(pipes->after, root);
-	root->content[0] = verify_cmd_path(root, env);
+	root->content[0] = verify_cmd_path(root, env_arr);
 	if (root->content[0] == NULL)
 	{
 		//free_memory
@@ -68,23 +63,22 @@ static void	go_to_fork(t_pipe_ms *pipes, t_node_ms *root, char **env)
 		exit(127);
 	}
 //	ft_putstr_fd("Command exists\n", 2);//A VIRER
-	execve(root->content[0], root->content, env);
+	execve(root->content[0], root->content, env_arr);
 //	ft_putstr_fd("Execve failed\n", 2);//A VIRER
 	//free_memory
 	exit(1);
 }
 
-//ajouter la separation si builtin ou non
-int	execute_cmd(t_pipe_ms *pipes, t_children_ms *children, t_node_ms *root, char **env)
+int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, char **env_arr)//ajouter la separation si builtin ou non
 {
 	children->pid_arr[children->index] = fork();
 	if (children->pid_arr[children->index] == -1)
 	{
-		ft_putstr_fd("Forking failed\n", 2);
+		ft_putstr_fd("Fork() failed\n", 2);
 		return (-1);
 	}
 	if (children->pid_arr[children->index] == 0)
-		go_to_fork(pipes, root, env);
+		go_in_child_process(pipes, root, env_arr);
 	children->index++;
 	return (0);
 }

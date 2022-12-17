@@ -1,7 +1,6 @@
 #include "../../includes/minishell.h"
 
-//faire un signal adapté pour heredoc, juste au dessus de readline
-static int	fake_heredoc_requested(const char *delimiter)
+static int	fake_heredoc_requested(const char *delimiter)//faire un signal adapté pour heredoc
 {
 	char	*user_input;
 	int		length_delimiter;
@@ -22,7 +21,21 @@ static int	fake_heredoc_requested(const char *delimiter)
 	return (0);
 }
 
-static int	real_heredoc_requested(const char *delimiter, int *pipe_before)
+/****************************************************************/
+/*																*/
+/*	Triggers an interactive mode and writes the specified lines	*/
+/*		into pipe_before until the correct delimiter is written	*/
+/*																*/
+/*	Parameters:													*/
+/*		delimiter	-	the correct delimiter					*/
+/*		pipe_before	-	the pipe that will be used as input		*/
+/*																*/
+/*	Return:														*/
+/*		 0	-	the pipe was correctly filled					*/
+/*																*/
+/****************************************************************/
+
+static int	real_heredoc_requested(const char *delimiter, int *pipe_before)//faire un signal adapté pour heredoc
 {
 	char	*user_input;
 	int		length_delimiter;
@@ -45,6 +58,22 @@ static int	real_heredoc_requested(const char *delimiter, int *pipe_before)
 	return (0);
 }
 
+/****************************************************************/
+/*																*/
+/*	Counts the amount of heredoc redirection associated to this	*/
+/*		command in case of several heredoc with the same		*/
+/*		delimiter												*/
+/*																*/
+/*	Parameters:													*/
+/*		first_redir	-	a linked list containing all the		*/
+/*						redirections associated to this	command	*/
+/*		infile		-	the name of the infile to used			*/
+/*																*/
+/*	Return:														*/
+/*		count	-	the amount of found heredocs				*/
+/*																*/
+/****************************************************************/
+
 static int	get_position_good_heredoc(t_redir_ms *first_redir,
 	const char *infile)
 {
@@ -65,7 +94,7 @@ static int	get_position_good_heredoc(t_redir_ms *first_redir,
 	return (count);
 }
 
-int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker)
+int	heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker)//gestion signaux a ajouter
 {
 	int			len_delim;
 
