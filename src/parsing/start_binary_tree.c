@@ -31,6 +31,7 @@ t_node_ms	*build_binary_tree(t_token_ms *tokens, t_enum_token shell, \
 	}
 	else
 	{
+		tokens = del_parenthesis_if_needed(tokens);
 		root = get_pipeline_infos(tokens, shell, operators);
 		if (!root)
 			return (NULL);
