@@ -39,13 +39,9 @@ static int	nb_redirs(t_token_ms *tokens)
 /*																*/
 /****************************************************************/
 
-t_node_ms	*get_redirections_infos(t_token_ms *tokens, t_enum_token *operators)
+t_node_ms	*get_redirections_infos(t_node_ms *root, t_token_ms *tokens, \
+	t_enum_token *operators)
 {
-	t_node_ms	*root;
-
-	root = ft_lstnew_node();
-	if (!root)
-		return (NULL);
 	if (nb_redirs(tokens))
 	{
 		root->first_redir = get_redirections_list(tokens);

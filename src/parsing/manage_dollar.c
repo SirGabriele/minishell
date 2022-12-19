@@ -18,79 +18,48 @@ static int	examine_dollar_conditions(char *content, int i)
 static char	*delete_dollar_from_line_if_needed(char *content, int i)
 {
 	char	*tmp;
-	char	*tmp2;
 	int		j;
 
 	j = 0;
-	tmp = ft_calloc(sizeof(char), i + 1);
-	if (!tmp)
-	{
-		free(content);
-		return (NULL);
-	}
-	ft_strncpy(tmp, content, i);
+	tmp = ft_strndup(content, i);
 	i++;
 	while (!ft_isspace(content[i + j]) && content[i + j] != '\"'
 		&& content[i + j] != '$' && content[i + j] != '\0'
 		&& content[i + j] != '\'' && !ft_isdigit(content[i + j - 1]))
 		j++;
-	tmp2 = ft_strjoin_free_first(tmp, content + i + j);
+	if (tmp)
+		tmp = ft_strjoin_free_first(tmp, content + i + j);
 	free(content);
-	return (tmp2);
+	return (tmp);
 }
 
 static char	*replace_dollar_by_env_var(char *content, char *env_var, int i)
 {
 	char	*tmp;
-	char	*tmp2;
 	int		j;
 
 	j = 0;
-	tmp = ft_calloc(sizeof(char), i + 1);
-	if (!tmp)
-	{
-		free(content);
-		return (NULL);
-	}
-	ft_strncpy(tmp, content, i);
+	tmp = ft_strndup(content, i);
 	while (env_var[j] != '=' && env_var[j] != '\0')
 		j++;
-	tmp2 = ft_strjoin_free_first(tmp, env_var + j + 1);
-	if (!tmp2)
-	{
-		free(content);
-		return (NULL);
-	}
-	tmp = ft_strjoin_free_first(tmp2, content + i + j + 1);
+	if (tmp)
+		tmp = ft_strjoin_free_first(tmp, env_var + j + 1);
+	if (tmp)
+		tmp = ft_strjoin_free_first(tmp, content + i + j + 1);
 	free(content);
 	return (tmp);
 }
 
-static char	*replace_dollar_zero(char *content, int i)
+static char	*replace_dollar_digit(char *content, int i)
 {
 	char	*tmp;
 
-	tmp = malloc((i + 1) * sizeof(char));
-	if (!tmp)
-	{
-		perror(NULL);
-		free(content);
-		return (NULL);
-	}
-	ft_strncpy(tmp, content, i);
-	if (content[i + 1] == '0')
-	{
+	tmp = ft_strndup(content, i);
+	if (content[i + 1] == '0' && tmp)
 		tmp = ft_strjoin_free_first(tmp, "minishell");
-		if (!tmp)
-		{
-			perror(NULL);
-			free(content);
-			return (NULL);
-		}
-	}
-	tmp = ft_strjoin_free_first(tmp, content + i + 2);
+	if (tmp)
+		tmp = ft_strjoin_free_first(tmp, content + i + 2);
 	free(content);
-	content = NULL;
 	return (tmp);
 }
 
@@ -115,6 +84,8 @@ char	*manage_dollar(char *env_var, char *content, int i)
 	else if (!examine_dollar_conditions(content, i))
 		content = delete_dollar_from_line_if_needed(content, i);
 	else if (examine_dollar_conditions(content, i) == 2)
-		content = replace_dollar_zero(content, i);
+		content = replace_dollar_digit(content, i);
+	if (!content)
+		perror(NULL);
 	return (content);
 }

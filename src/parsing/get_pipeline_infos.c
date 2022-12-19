@@ -1,29 +1,38 @@
 #include "../../includes/minishell.h"
 
-static char	**get_pipeline(t_token_ms *tokens)
+static char	**malloc_pipelines(t_token_ms *tokens)
 {
 	char		**pipelines;
 	int			nb_tokens_left;
-	int			i;
 
 	nb_tokens_left = count_nb_of_tokens_left(tokens);
 	pipelines = malloc((nb_tokens_left + 1) * sizeof(char *));
 	if (!pipelines)
 		return (NULL);
+	return (pipelines);
+}
+
+static char	**get_pipeline(t_token_ms *tokens)
+{
+	char		**pipelines;
+	int			i;
+
+	pipelines = malloc_pipelines(tokens);
+	if (!pipelines)
+		return (NULL);
 	i = 0;
 	while (tokens)
 	{
-		if (is_token_type_a_redir(tokens->type))
-			tokens = tokens->next->next;
-		else
+		if (!is_token_type_a_redir(tokens->type))
 		{
-			pipelines[i] = NULL;
-			pipelines[i] = ft_strjoin(pipelines[i], tokens->content);
+			pipelines[i] = ft_strdup(tokens->content);
 			if (!pipelines[i])
 				return (NULL);
-			tokens = tokens->next;
 			i++;
 		}
+		else
+			tokens = tokens->next;
+		tokens = tokens->next;
 	}
 	pipelines[i] = NULL;
 	return (pipelines);
@@ -44,12 +53,10 @@ static char	**get_pipeline(t_token_ms *tokens)
 /*															*/
 /************************************************************/
 
-t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
+t_node_ms	*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \
 	t_enum_token *operators)
 {
-	t_node_ms	*root;
-
-	root = get_redirections_infos(tokens, operators);
+	root = get_redirections_infos(root, tokens, operators);
 	if (!root)
 		return (NULL);
 	root->content = get_pipeline(tokens);
@@ -60,6 +67,5 @@ t_node_ms	*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
 		free(root);
 		return (NULL);
 	}
-	root->shell = shell;
 	return (root);
 }
