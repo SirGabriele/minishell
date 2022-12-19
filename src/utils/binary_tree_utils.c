@@ -126,7 +126,7 @@ t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 {
 	t_token_ms	*tokens_cpy;
 
-	if (check_parenthesis(tokens) == TOK_SUBSHELL/* && what_is_oper_in(tokens)*/)//what_is_oper_in useless ?
+	if (check_parenthesis(tokens) == TOK_SUBSHELL)//what_is_oper_in useless ?
 	{
 		tokens_cpy = tokens->next;
 		free(tokens->content);
@@ -155,7 +155,7 @@ t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 /*															*/
 /************************************************************/
 
-int	check_parenthesis(t_token_ms *tokens)
+t_enum_token	check_parenthesis(t_token_ms *tokens)
 {
 	int			op_parenthesis;
 	int			cl_parenthesis;
@@ -179,5 +179,5 @@ int	check_parenthesis(t_token_ms *tokens)
 	}
 	if (tokens)
 		return (TOK_SHELL);
-	return (0);
+	return (TOK_NULL);
 }

@@ -3,7 +3,6 @@
 static pid_t	*initialize_pid_arr(pid_t *pid_arr, int nb_cmd)
 {
 	pid_arr = malloc(sizeof(pid_t) * nb_cmd);
-
 	if (pid_arr == NULL)
 	{
 		perror(NULL);
@@ -36,7 +35,10 @@ t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes)
 	}
 	children->pid_arr = initialize_pid_arr(children->pid_arr, nb_nodes);
 	if (children->pid_arr == NULL)
+	{
+		perror(NULL);
 		return (NULL);
+	}
 	children->index = 0;
 	return (children);
 }

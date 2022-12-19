@@ -68,7 +68,7 @@ void	print_env_arr(char **env, char **env_real);
 t_env_ms		*ft_lstnew_env_entry(const char *env);
 void			initialize_node(t_node_ms *node);
 t_token_ms		*ft_lstnew_token(void);
-t_node_ms		*ft_lstnew_node(void);
+t_node_ms		*ft_lstnew_node(t_token_ms *ms);
 
 
 /************/
@@ -80,25 +80,22 @@ t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
 					char **env_arr);
 t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
 t_token_ms		*get_second_half(t_token_ms *tokens);
-t_node_ms		*get_list_infos(t_token_ms *tokens, t_enum_token shell, \
+t_node_ms		*get_list_infos(t_node_ms *root, t_token_ms *tokens, \
 					t_enum_token *operators);
 t_node_ms		*get_mode_and_file(t_node_ms *binary_tree, t_redir_ms *first_redir);
-t_node_ms		*get_pipeline_infos(t_token_ms *tokens, t_enum_token shell, \
-					t_enum_token *operators);
-t_node_ms		*get_redirections_infos(t_token_ms *tokens, t_enum_token *operators);
+t_node_ms		*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, t_enum_token *operators);
+t_node_ms		*get_redirections_infos(t_node_ms *root, t_token_ms *tokens, t_enum_token *operators);
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
-t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
+t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, \
 					t_enum_token *operators);
-t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token shell, \
-					t_enum_token *operators);
+t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token *operators);
 t_token_ms		*lexer(char *user_input, t_env_ms *env_ll);
 char			*manage_dollar(char *env_var, char *content, int i);
 t_node_ms		*manage_modes_and_files(t_node_ms *root);
 t_token_ms		*parse_quotes(t_token_ms *tokens);
 t_token_ms		**split_list(t_token_ms *tokens);
 t_node_ms		*start_binary_tree(t_token_ms *tokens);
-t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token shell, \
-					t_enum_token *operators);
+t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token *operators);
 
 /************/
 /*	UTILS	*/
@@ -114,7 +111,7 @@ int				token_content_length(char *user_input, char *delim[10]);
 t_env_ms		*convert_env_arr_into_ll(const char **env);
 char			**convert_env_ll_into_arr(t_env_ms *env);
 //void			set_exit_code_to(env_ll, 0);//to code
-int				check_parenthesis(t_token_ms *tokens);
+t_enum_token	check_parenthesis(t_token_ms *tokens);
 t_token_ms		*del_parenthesis_if_needed(t_token_ms *tokens);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);

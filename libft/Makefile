@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/11/21 07:46:24 by kbrousse         ###   ########.fr        #
+#    Updated: 2022/12/19 15:02:38 by jsauvain         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -45,6 +45,7 @@ STR   =		ft_strlen.c					\
 			ft_striteri.c				\
 			ft_split.c					\
 			ft_strdup.c					\
+			ft_strndup.c				\
 			ft_strdup_double.c
 
 MEMORY =	ft_memset.c			\

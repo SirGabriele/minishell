@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_node_ms	*ft_lstnew_node(void)
+t_node_ms	*ft_lstnew_node(t_token_ms *tokens)
 {
 	t_node_ms	*node;
 
@@ -15,7 +15,7 @@ t_node_ms	*ft_lstnew_node(void)
 	node->outfile = NULL;
 	node->infile_mode = TOK_NULL;
 	node->outfile_mode = TOK_NULL;
-	node->shell = TOK_NULL;
+	node->shell = check_parenthesis(tokens);
 	node->operator = TOK_NULL;
 	return (node);
 }
