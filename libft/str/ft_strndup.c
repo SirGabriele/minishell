@@ -56,7 +56,7 @@ static char	*makeshift_strcat(char *dst, const char *src, int n)
 char	*ft_strndup(const char *s, int n)
 {
 	char	*dup;
-	
+
 	dup = malloc_right_size(s, n);
 	if (dup == NULL)
 		return (NULL);

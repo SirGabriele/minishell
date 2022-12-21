@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static char	*get_cmd_path(t_node_ms *root, char **env_paths_arr)
+static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)
 {
 	char	*cmd_path;
 	int		i;
@@ -9,7 +9,7 @@ static char	*get_cmd_path(t_node_ms *root, char **env_paths_arr)
 	while (env_paths_arr[i] != NULL)
 	{
 		cmd_path = ft_strjoin(env_paths_arr[i], "/");
-		cmd_path = ft_strjoin_free_first(cmd_path, root->content[0]);
+		cmd_path = ft_strjoin_free_first(cmd_path, user_input_cmd);
 		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
@@ -29,7 +29,7 @@ static char	*get_env_path_var(char **env_arr)
 		i++;
 	if (env_arr[i] == NULL)
 	{
-		ft_putstr_fd("PATH variable not found\n", 2);
+		ft_putstr_fd("PATH variable not found\n", 2);//A VIRER
 		return (NULL);
 	}
 	path = ft_strdup(env_arr[i]);
@@ -43,8 +43,9 @@ static char	*get_env_path_var(char **env_arr)
 /*		path													*/
 /*																*/
 /*	Parameters:													*/
-/*		root	-	root of the binary tree						*/
-/*		env_arr	-	double array containing the end variables	*/
+/*		user_input_cmd	-	the command written by the user		*/
+/*		env_arr			-	double array containing the end		*/
+/*							variables							*/
 /*																*/
 /*	Return:														*/
 /*		cmd_path	-	the correct command's path				*/
@@ -52,21 +53,21 @@ static char	*get_env_path_var(char **env_arr)
 /*																*/
 /****************************************************************/
 
-char	*verify_cmd_path(t_node_ms *root, char **env_arr)
+char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 {
 	char	**env_paths_arr;
 	char	*env_path_var;
 	char	*cmd_path;
 
-	if (access(root->content[0], F_OK) == 0)
-		return (root->content[0]);
+	if (access(user_input_cmd, F_OK) == 0)
+		return (user_input_cmd);
 	env_path_var = get_env_path_var(env_arr);
 	if (env_path_var == NULL)
 		return (NULL);
 	env_paths_arr = ft_split(env_path_var + 5, ':');
 	if (env_paths_arr == NULL)
 		return (NULL);
-	cmd_path = get_cmd_path(root, env_paths_arr);
+	cmd_path = get_cmd_path(user_input_cmd, env_paths_arr);
 	free_double_arr(env_paths_arr);
 	free(env_path_var);
 	return (cmd_path);

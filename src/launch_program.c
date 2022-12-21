@@ -7,7 +7,7 @@ int	launch_program(char **user_input, t_env_ms *env_ll)
 
 	if (*user_input[0] == '\0')
 		return (0);
-//	set_exit_code_to(env_ll, 0);
+	set_exit_code(env_ll, 0);
 	tokens = lexer(*user_input, env_ll);
 	if (!tokens)
 		return (-1);

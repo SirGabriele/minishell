@@ -1,13 +1,14 @@
 #include "../../includes/minishell.h"
 
-static void	wait_for_all_the_forks(t_children_ms *children, int nb_nodes, t_env_ms *env_ll)
+static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 {
 	int	i;
 	int	wstatus;
 	int	exit_code;
 
 	i = 0;
-	while (i < nb_nodes)
+	exit_code = 0;
+	while (i < children->index)
 	{
 		waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
 		i++;
@@ -15,17 +16,13 @@ static void	wait_for_all_the_forks(t_children_ms *children, int nb_nodes, t_env_
 	if (WIFEXITED(wstatus))
 	{
 		exit_code = WEXITSTATUS(wstatus);
-		ft_printf_fd(2, "Exit code is : %d\n", exit_code);//A VIRER
-		if (exit_code == 0)
-			ft_putstr_fd("\e[42mSuccess\e[0m\n", 2);//A VIRER
-		else
-			ft_putstr_fd("\e[41mFailure\e[0m\n", 2);//A VIRER
+		ft_printf_fd(2, "Waitpid_all exit code is : %d\n", exit_code);//A VIRER
+		set_exit_code(env_ll, exit_code);
 	}
-	(void)env_ll;
-//	set_exit_code_to(env_ll, exit_code);
+	ft_printf_fd(2, "Waitpid all ?=%d\n", get_exit_code(env_ll));//A VIRER
 }
 
-static int	get_nb_nodes(t_node_ms *root, int *i)//ne pas compter les nodes qui sont entre des () car ils iront dans des sous forks. If root->operator == TOK_OP_PAR -> ne pas incrémenter while root->operator == TOK_CL_PAR
+static int	get_nb_nodes(t_node_ms *root, int *i)
 {
 	if (root->left != NULL)
 		get_nb_nodes(root->left, i);
@@ -72,7 +69,8 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 		return (-1);
 	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1)
 		return (-1);
-	wait_for_all_the_forks(children, nb_nodes, env_ll);
+	wait_for_all_the_forks(children, env_ll);
 	//free children
+	//free pipes
 	return (0);
 }

@@ -15,14 +15,14 @@ outfile_mode = TOK_PIPE -> dup2(pipes->after[1], 1);
 valeur de retour == return value de execve ON SUCCESS
 				== return value de exit() si execve fail
 
-1 ->	infile non existant
+1 ->	infile non existant OK
 		permission denied (pas le droit de read ou tentative d'ecrire dans un fichier readonly) OK
 		mauvaise option avec un non built in
 		argument de commande non existant
-		lecture d'un directory
+		lecture d'un directory OK
 
 2 ->	mauvaise option avec un built in OK
-		utilisation d'une commande exigeant un argument, mais n'en ayant OK
+		utilisation d'une commande exigeant un argument, mais n'en ayant pas OK
 
 126 ->	command not executable
 
@@ -30,15 +30,6 @@ valeur de retour == return value de execve ON SUCCESS
 127 -> command not found (wrong path)
 
 255 ->	invalid/out of range value in exit()
-
-------------------------------------------------------------
-
-faire la gestion des && et || dans la recursive
-
-------------------------------------------------------------
-
-faire la recherche des PATHS avec content[0]
-test un infile inexsistant et voir code d'erreur
 
 ------------------------------------------------------------
 
@@ -50,15 +41,10 @@ echo $_
 
 ------------------------------------------------------------
 
-Changer execve qui prend root->content[0] avec le path. Ne pas changer root->content[0] pour string avec path
-
-------------------------------------------------------------
-
 Faire en sorte que les heredoc passent dans le parsing, virer les quotes et expand
 
 ------------------------------------------------------------
 
-Demander à Doc pour parentheses qui ne font que la priorité ou qui font les subshells
 Demander à Doc s'il est préferable d'initialiser un tableau à [DEFINE SIZE] ou malloc
 	+	malloc taille pile et while (i < taille) || malloc taille pile + 1 et while (arr[i] != NULL)
 

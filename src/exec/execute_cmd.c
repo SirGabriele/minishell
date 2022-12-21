@@ -39,12 +39,13 @@ static void	redirect_infile(int *pipe_before, t_node_ms *root)
 //free memory in forks
 static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *root, char **env_arr)
 {
-	int	marker;
-	int	exit_code;
+	char	*correct_path;
+	int		marker;
+	int		exit_code;
 
 	marker = 0;
 	exit_code = handle_all_redirs(root, pipes->before, &marker);
-	if (exit_code != 0)
+	if (exit_code != 0 || root->content == NULL)//a tester avec "> cat"
 	{
 		//free memory
 		close(pipes->before[0]);
@@ -55,22 +56,47 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *root, char **env_a
 	}
 	redirect_infile(pipes->before, root);
 	redirect_outfile(pipes->after, root);
-	root->content[0] = verify_cmd_path(root, env_arr);
-	if (root->content[0] == NULL)
+	correct_path = verify_cmd_path(root->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 47
+	if (correct_path == NULL)
 	{
 		//free_memory
-		ft_putstr_fd("Command does not exist\n", 2);//A VIRER;
+		ft_putstr_fd("Command does not exist\n", 2);//A VIRER
 		exit(127);
 	}
 //	ft_putstr_fd("Command exists\n", 2);//A VIRER
-	execve(root->content[0], root->content, env_arr);
-//	ft_putstr_fd("Execve failed\n", 2);//A VIRER
+	execve(correct_path, root->content, env_arr);
+	ft_putstr_fd("Execve failed\n", 2);//A VIRER
 	//free_memory
 	exit(1);
 }
 
-int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, char **env_arr)//ajouter la separation si builtin ou non
+/****************************************************************/
+/*																*/
+/*	Creates the child process in which the command will be		*/
+/*		executed												*/
+/*																*/
+/*	Parameters:													*/
+/*		pipes		-	structure containing the two pipes		*/
+/*		children	-	structure containing the fork-linked	*/
+/*						variables								*/
+/*		root		-	root of the binary tree					*/
+/*		env_ll		-	linked list of the env_variables		*/
+/*																*/
+/*	Return:														*/
+/*		 0	-	accomplished its duty							*/
+/*		-1	-	something failed								*/
+/*																*/
+/****************************************************************/
+
+//pour export, envoyer une adresse vers env_ll afin qu'export la modifie vraiment
+//ajouter handle_all_redirs dans les builtin
+int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms **env_ll)//ajouter la separation si builtin ou non
 {
+	char	**env_arr;
+
+	env_arr = convert_env_ll_into_arr(*env_ll);
+	if (env_arr == NULL)
+		return (-1);
 	children->pid_arr[children->index] = fork();
 	if (children->pid_arr[children->index] == -1)
 	{
@@ -80,5 +106,6 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, cha
 	if (children->pid_arr[children->index] == 0)
 		go_in_child_process(pipes, root, env_arr);
 	children->index++;
+	free_double_arr(env_arr);
 	return (0);
 }

@@ -16,36 +16,54 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 	return (0);
 }
 
-//pour export, envoyer une adresse vers env_ll afin qu'export la modifie vraiment
-//ajouter handle_all_redirs dans les builtin
-static int	process_node(t_pipes_ms *pipes, t_children_ms *children,
-	t_node_ms *root, t_env_ms *env_ll)//separer builtin ou non ET gerer selon TOK_SHELL, TOK_SUBSHELL
+static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
 {
-	char	**env_arr;
-
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
-/*	if (root->operator == TOK_AND_OPER)
-		verify_ret_value_and_do_like_&&*/
-/*	else if (root->operator == TOK_OR_OPER)
-		verify_ret_value_and_do_like_||*/
-	else
-	{
-		env_arr = convert_env_ll_into_arr(env_ll);
-		if (env_arr == NULL)
-			return (-1);
-		execute_cmd(pipes, children, root, env_arr);
-		free_double_arr(env_arr);
-	}
-	return (0);
+	else if (root->operator == TOK_AND_OPER)
+		root = apply_and_operator(pipes, children, root, env_ll);
+	else if (root->operator == TOK_OR_OPER)
+		root = apply_or_operator(pipes, children, root, env_ll);
+	return (root);
 }
 
-int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)//gerer selon TOK_OP_PAR ou TOK_CL_PAR
+/****************************************************************/
+/*																*/
+/*	Travels through the binary tree and do different things		*/
+/*		depending on the type of node it meets					*/
+/*																*/
+/*	Parameters:													*/
+/*		pipes		-	structure containing the two pipes		*/
+/*		children	-	structure containing the fork-linked	*/
+/*						variables								*/
+/*		root		-	root of the binary tree					*/
+/*		env_ll		-	linked list of the env_variables		*/
+/*																*/
+/*	Return:														*/
+/*		 0	-	accomplished its duty							*/
+/*		-1	-	something failed								*/
+/*		-2	-	the execution must stop but not close the		*/
+/*				program											*/
+/*																*/
+/****************************************************************/
+
+int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
 {
 	if (root->left != NULL)
 		start_recursive(pipes, children, root->left, env_ll);
-	if (process_node(pipes, children, root, env_ll) == -1)
-		return (-1);
+	if (root->operator == TOK_PIPE
+		|| root->operator == TOK_AND_OPER
+		|| root->operator == TOK_OR_OPER)
+	{
+		root = operator_detected(pipes, children, root, env_ll);
+		if (root == NULL)
+			return (-2);
+	}
+	else
+	{
+		if (execute_cmd(pipes, children, root, &env_ll) == -1)
+			return (-1);
+	}
 	if (root->right != NULL)
 		start_recursive(pipes, children, root->right, env_ll);
 	return (0);

@@ -39,7 +39,9 @@ EXEC =	print_structs.c		\
 	handle_all_redirs.c		\
 	heredoc_requested.c		\
 	execute_cmd.c			\
-	verify_cmd_path.c
+	verify_cmd_path.c		\
+	operator_and_handling.c	\
+	operator_or_handling.c
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
 	initialize_node.c				\
@@ -51,7 +53,9 @@ UTILS =	what_is_index_in.c		\
 	convert_env_ll_into_arr.c	\
 	binary_tree_utils.c			\
 	dollar_utils.c				\
-	utils_token.c
+	utils_token.c				\
+	exit_code_utils.c			\
+	print_content_pipe.c
 
 FREE = free.c	\
 	free_2.c
