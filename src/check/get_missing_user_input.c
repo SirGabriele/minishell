@@ -34,7 +34,7 @@ char	*get_missing_user_input(char **user_input)//Ajouter la gestion des signaux 
 	while (1)
 	{
 		missing_input = readline("> ");
-		if (!missing_input)//a voir si \n (enter) est un !missing input
+		if (!missing_input)
 		{
 			write(2, err_msg, ft_strlen(err_msg));
 			return (NULL);

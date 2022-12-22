@@ -1,5 +1,11 @@
 #include "../includes/minishell.h"
 
+static void	free_user_input_and_set_to_null(char *user_input)
+{
+	free(user_input);
+	user_input = NULL;
+}
+
 /************************************************************/
 /*															*/
 /*	Verifies if all characters that needs to be closed		*/
@@ -44,7 +50,10 @@ static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 
 	ret = ft_check_closed_characters(user_input, env_ll);
 	if (ret != 0)
+	{
+		free_user_input_and_set_to_null(*user_input);
 		return (ret);
+	}
 	if (ft_check_isolated_quotes(*user_input) == -1)
 		return (-1);
 //	if (ft_check_shift_association(*user_input) == -1)
@@ -54,12 +63,6 @@ static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 //	if (ft_check_syntax_shifts(*user_input) == -1)
 //		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
 	return (0);
-}
-
-static void	free_user_input_and_set_to_null(char *user_input)
-{
-	free(user_input);
-	user_input = NULL;
 }
 
 static int	handle_prompt(char *user_input)
@@ -104,5 +107,5 @@ int	cmd_prompt(t_env_ms *env_ll)
 		else
 			free_user_input_and_set_to_null(user_input);
 	}
-	return (0);
+	return (3);
 }

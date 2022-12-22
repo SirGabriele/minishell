@@ -20,8 +20,7 @@ static void	display_error(const char *user_input, int i, t_env_ms *env_ll)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `)'\n", 2);
 	highlight_syntax_error(user_input, i, i);
-	(void)env_ll;
-//	set_exit_code_to(env_ll, 2);
+	set_exit_code(env_ll, 2);
 }
 
 /************************************************************/
@@ -84,8 +83,7 @@ int	are_all_pipes_closed(const char *user_input)
 	i = 0;
 	while (user_input[i])
 	{
-		if ((user_input[i] == '|' && user_input[i + 1] != '|')
-			&& (user_input[i - 1] != '|'))
+		if (user_input[i] == '|')
 		{
 			i++;
 			while (ft_isprint(user_input[i]) == 0 && user_input[i] != '\0')
