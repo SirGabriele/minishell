@@ -13,6 +13,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, ft_signal_user_input);
 	signal(SIGQUIT, SIG_IGN);
 	cmd_prompt(env_ll);
-	//free_env_ll;
+	free_env_list(env_ll);
 	return (3);
 }

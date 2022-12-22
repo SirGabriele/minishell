@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
+/*static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 {
 	int	i;
 	int	wstatus;
@@ -8,6 +8,7 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 
 	i = 0;
 	exit_code = 0;
+	wstatus = 0;
 	while (i < children->index)
 	{
 		waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
@@ -16,10 +17,8 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 	if (WIFEXITED(wstatus))
 	{
 		exit_code = WEXITSTATUS(wstatus);
-		ft_printf_fd(2, "Waitpid_all exit code is : %d\n", exit_code);//A VIRER
 		set_exit_code(env_ll, exit_code);
 	}
-	ft_printf_fd(2, "Waitpid all ?=%d\n", get_exit_code(env_ll));//A VIRER
 }
 
 static int	get_nb_nodes(t_node_ms *root, int *i)
@@ -32,7 +31,7 @@ static int	get_nb_nodes(t_node_ms *root, int *i)
 		get_nb_nodes(root->right, i);
 	return (*i);
 }
-
+*/
 /****************************************************************/
 /*																*/
 /*	Carries out the whole execution process (preparation		*/
@@ -50,7 +49,7 @@ static int	get_nb_nodes(t_node_ms *root, int *i)
 
 int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 {
-	t_children_ms	*children;
+/*	t_children_ms	*children;
 	t_pipes_ms		*pipes;
 	int				nb_nodes;
 
@@ -71,6 +70,8 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 		return (-1);
 	wait_for_all_the_forks(children, env_ll);
 	//free children
-	//free pipes
-	return (0);
+	//free pipes*/
+	(void)root;
+	(void)env_ll;
+	return (-1);
 }

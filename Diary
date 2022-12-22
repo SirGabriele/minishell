@@ -42,6 +42,7 @@ echo $_
 ------------------------------------------------------------
 
 Faire en sorte que les heredoc passent dans le parsing, virer les quotes et expand
+Refaire la partie heredoc pour n'en avoir qu'un seul et fermer/réouvrir les pipes à chaque appel + déclarer marker là où il faut
 
 ------------------------------------------------------------
 

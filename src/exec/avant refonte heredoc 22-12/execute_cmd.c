@@ -40,9 +40,11 @@ static void	redirect_infile(int *pipe_before, t_node_ms *node)
 static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, char **env_arr)
 {
 	char	*correct_path;
+	int		marker;
 	int		exit_code;
 
-	exit_code = handle_all_redirs(node, pipes->before);
+	marker = 0;
+	exit_code = handle_all_redirs(node, pipes->before, &marker);
 	if (exit_code != 0 || node->content == NULL)//a tester avec "> cat"
 	{
 		//free memory

@@ -32,8 +32,7 @@ PARSING =   start_binary_tree.c	\
 	right_branch.c
 
 
-EXEC =	print_structs.c		\
-	initialize_children.c	\
+EXEC =	initialize_children.c	\
 	start_recursive.c		\
 	launch_exec.c			\
 	handle_all_redirs.c		\

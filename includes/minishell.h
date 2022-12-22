@@ -44,27 +44,22 @@ void			ft_signal_user_input(int sig);
 /*	EXEC	*/
 /************/
 
-t_node_ms		*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, \
+t_node_ms		*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms *env_ll);
-t_node_ms		*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, \
+t_node_ms		*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms *env_ll);
 t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes);
 char			*verify_cmd_path(char *user_input_cmd, char **env);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env_ll);
 int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
-int				handle_all_redirs(t_node_ms *node, int *pipe_before, int *marker);
+int				handle_all_redirs(t_node_ms *node, int *pipe_before);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env);
-int				heredoc_requested(t_redir_ms *redir, t_node_ms *node, int *pipe_before, int *marker);
-int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, \
+int				heredoc_requested(t_redir_ms *redir, int *pipe_before);
+int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
-
-//print_structs.c
-void	print_tree(t_node_ms *root);
-void	print_env_ll(t_env_ms *env, char **env_real);
-void	print_env_arr(char **env, char **env_real);
 
 /****************/
 /*	LINKED LIST	*/

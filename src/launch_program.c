@@ -18,7 +18,10 @@ int	launch_program(char **user_input, t_env_ms *env_ll)
 	if (!root)
 		return (-1);
 	if (launch_exec(root, env_ll) == -1)
+	{
+		free_binary_tree(root);
 		return (-1);
+	}
 	free_binary_tree(root);
 	return (0);
 }

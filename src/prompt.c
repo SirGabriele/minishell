@@ -98,14 +98,11 @@ int	cmd_prompt(t_env_ms *env_ll)
 			continue ;
 		if (launch_program(&user_input, env_ll) == -1)
 		{
-//			free_user_input_and_set_to_null(user_input);
+			free_user_input_and_set_to_null(user_input);
 			return (-1);
 		}
 		else
-		{
-//			ft_printf("%s\n", user_input);//A VIRER
 			free_user_input_and_set_to_null(user_input);
-		}
 	}
 	return (0);
 }
