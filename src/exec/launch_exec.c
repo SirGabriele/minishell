@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-/*static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
+static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 {
 	int	i;
 	int	wstatus;
@@ -31,7 +31,7 @@ static int	get_nb_nodes(t_node_ms *root, int *i)
 		get_nb_nodes(root->right, i);
 	return (*i);
 }
-*/
+
 /****************************************************************/
 /*																*/
 /*	Carries out the whole execution process (preparation		*/
@@ -49,7 +49,7 @@ static int	get_nb_nodes(t_node_ms *root, int *i)
 
 int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 {
-/*	t_children_ms	*children;
+	t_children_ms	*children;
 	t_pipes_ms		*pipes;
 	int				nb_nodes;
 
@@ -73,5 +73,5 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 	//free pipes*/
 	(void)root;
 	(void)env_ll;
-	return (-1);
+	return (0);
 }

@@ -87,18 +87,25 @@ t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, t_enum_token *op
 t_node_ms		*manage_modes_and_files(t_node_ms *root);
 t_node_ms		*start_binary_tree(t_token_ms *tokens);
 t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token *operators);
-t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
-					char **env_arr);
+t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, char *delim[10]);
 t_token_ms		*parse_quotes(t_token_ms *tokens);
 t_token_ms		**split_list(t_token_ms *tokens);
 t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
 t_token_ms		*get_second_half(t_token_ms *tokens);
-t_token_ms		*lexer(char *user_input, t_env_ms *env_ll);
+t_token_ms		*lexer(char *user_input);
 
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
-char			*manage_dollar(char *env_var, char *content, int i);
-char			*expand_var_with_dollar(char *content, char **env_arr);
 
+/********************/
+/*	DOLLAR_EXPAND	*/
+/********************/
+
+t_token_ms		*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
+					t_token_ms *tokens_parsed, t_env_ms *env_ll);
+char			*get_new_content(char *parsed, char *key, char *value, \
+					int nb_dollars);
+char			*join_and_manage_dollar(char *new_parsed, char *parsed, \
+					char *value, int key_len, int i);
 
 /************/
 /*	UTILS	*/
@@ -109,9 +116,15 @@ t_env_ms		*convert_env_arr_into_ll(const char **env);
 char			**convert_env_ll_into_arr(t_env_ms *env);
 int				what_is_index_in(const char *user_input, int i);
 int				what_is_dollar_in(const char *parsed, int i);
+int 			count_dollars_to_replace(char *content);
 int				is_operator(t_enum_token type);
 int				is_token_type_a_redir(t_enum_token token_type);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
+char    		*get_key_to_expand(char *parsed);
+char    		*get_key_value(t_env_ms *env_ll, char *key);
+int 			is_it_a_closed_quotes(char *content, char quote);
+int 			examine_dollar_conditions(char *content, int i);
+int 			get_diff_nb_dollars(char *old_parsed, char *parsed);
 int				get_index_delimiter(const char *user_input, char *delim[10], int index);
 int				token_content_length(char *user_input, char *delim[10]);
 int				get_exit_code(t_env_ms *env_ll);

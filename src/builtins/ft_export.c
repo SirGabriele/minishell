@@ -18,8 +18,8 @@ int	ft_export(char **content, t_env_ms *env)
 	if (!*content)
 		print_all_environment(env);
 	/*else if (check_errors_env_format(content))
-		return (1);
+		return (1);*/
 	else
-		env = set_values_export(content, env);*/
+		env = set_values_export(content, env);
 	return (0);
 }

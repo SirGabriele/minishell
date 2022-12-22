@@ -1,4 +1,6 @@
 Mmain	src/main.c	/^int	main(int argc, char **argv, char **env)$/
+apply_and_operator	src/exec/operator_and_handling.c	/^t_node_ms	*apply_and_operator(t_pipes_ms *pipes, t/
+apply_or_operator	src/exec/operator_or_handling.c	/^t_node_ms	*apply_or_operator(t_pipes_ms *pipes, t_/
 are_all_parenthesis_paired	src/check/check_paired_characters.c	/^int	are_all_parenthesis_paired(const char *user_in/
 are_all_pipes_closed	src/check/check_paired_characters.c	/^int	are_all_pipes_closed(const char *user_input)$/
 are_there_tokens_left	src/parsing/lexer.c	/^static int	are_there_tokens_left(char *user_input)/
@@ -18,20 +20,21 @@ cmd_prompt	src/prompt.c	/^int	cmd_prompt(t_env_ms *env_ll)$/
 convert_env_arr_into_ll	src/utils/convert_env_arr_into_ll.c	/^t_env_ms	*convert_env_arr_into_ll(const char **env/
 convert_env_ll_into_arr	src/utils/convert_env_ll_into_arr.c	/^char	**convert_env_ll_into_arr(t_env_ms *env)$/
 count_args	src/builtins/ft_cd.c	/^static int	count_args(char **content)$/
+count_dollars_to_replace	src/utils/dollar_utils.c	/^int	count_dollars_to_replace(char *content)$/
 count_nb_charac	src/check/check_paired_characters.c	/^static int	count_nb_charac(const char *user_input,/
 count_nb_of_tokens_left	src/utils/utils_token.c	/^int	count_nb_of_tokens_left(t_token_ms *tokens)$/
 cpy_operators	src/parsing/left_branch.c	/^static t_enum_token	*cpy_operators(t_enum_token *o/
 cpy_operators	src/parsing/right_branch.c	/^static t_enum_token	*cpy_operators(t_enum_token *o/
 create_token_list	src/parsing/lexer.c	/^static t_token_ms	*create_token_list(char *user_in/
 del_parenthesis_if_needed	src/utils/binary_tree_utils.c	/^t_token_ms	*del_parenthesis_if_needed(t_token_ms */
-delete_dollar_from_line_if_needed	src/parsing/manage_dollar.c	/^static char	*delete_dollar_from_line_if_needed(cha/
+delete_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*delete_dollar(char *parsed, int nb_do/
 display_error	src/check/check_paired_characters.c	/^static void	display_error(const char *user_input, /
-examine_dollar_conditions	src/parsing/manage_dollar.c	/^static int	examine_dollar_conditions(char *content/
+examine_dollar_conditions	src/utils/dollar_utils_2.c	/^int	examine_dollar_conditions(char *content, int i/
 execute_cmd	src/exec/execute_cmd.c	/^int	execute_cmd(t_pipes_ms *pipes, t_children_ms */
-expand_var_with_dollar	src/parsing/expand_var_with_dollar.c	/^char	*expand_var_with_dollar(char *content, char */
+expand_according_to_dollar_conditions	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_according_to_dollar_conditions/
+expand_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_dollar(char *parsed, char *unp/
+expand_var_with_dollar	src/dollar_expand/expand_var_with_dollar.c	/^t_token_ms	*expand_var_with_dollar(t_token_ms *tok/
 extend_env_list	src/builtins/extend_env_list.c	/^t_env_ms	*extend_env_list(char **content)$/
-extract_env_variable_line	src/parsing/expand_var_with_dollar.c	/^static char	*extract_env_variable_line(char *key_t/
-fake_heredoc_requested	src/exec/heredoc_requested.c	/^static int	fake_heredoc_requested(const char *deli/
 fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, int /
 fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delimiters)$/
 fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, i/
@@ -164,32 +167,39 @@ ft_substrlen	libft/str/ft_substrlen.c	/^int	ft_substrlen(char const *s, char c)$
 ft_tolower	libft/char/ft_tolower.c	/^int	ft_tolower(int c)$/
 ft_toupper	libft/char/ft_toupper.c	/^int	ft_toupper(int c)$/
 get_both_halves	src/parsing/split_list.c	/^static t_token_ms	**get_both_halves(t_token_ms *fi/
-get_cmd_path	src/exec/verify_cmd_path.c	/^static char	*get_cmd_path(t_node_ms *root, char **/
+get_cmd_path	src/exec/verify_cmd_path.c	/^static char	*get_cmd_path(char *user_input_cmd, ch/
 get_content_string	src/parsing/fill_token.c	/^static char	*get_content_string(char *user_input, /
+get_content_with_env_values	src/dollar_expand/expand_var_with_dollar.c	/^static char	*get_content_with_env_values(char *par/
+get_diff_nb_dollars	src/utils/dollar_utils_2.c	/^int	get_diff_nb_dollars(char *old_parsed, char *pa/
 get_env	src/builtins/get_env.c	/^t_env_ms	*get_env(char *content, t_env_ms *env)$/
 get_env_key	src/linked_list/ft_lstnew_env_entry.c	/^static char	*get_env_key(const char *env)$/
 get_env_path_var	src/exec/verify_cmd_path.c	/^static char	*get_env_path_var(char **env_arr)$/
 get_env_value	src/linked_list/ft_lstnew_env_entry.c	/^static char	*get_env_value(const char *env)$/
 get_equal_sign_index	src/builtins/change_value_if_key_exists.c	/^static int	get_equal_sign_index(char *content)$/
 get_equal_sign_index	src/builtins/get_env.c	/^static int	get_equal_sign_index(char *content)$/
+get_exit_code	src/utils/exit_code_utils.c	/^int	get_exit_code(t_env_ms *env_ll)$/
+get_exit_code	src/utils/get_exit_code.c	/^int	get_exit_code(t_env_ms *env_ll)$/
 get_first_half	src/parsing/get_first_half.c	/^t_token_ms	*get_first_half(t_token_ms *tokens, int/
 get_index_delimiter	src/utils/utils_token.c	/^int	get_index_delimiter(const char *user_input, ch/
 get_infos_if_redir	src/parsing/get_redirections_list.c	/^static t_redir_ms	*get_infos_if_redir(t_redir_ms */
-get_key_to_expand	src/parsing/expand_var_with_dollar.c	/^static char	*get_key_to_expand(char *content)$/
+get_key_to_expand	src/utils/dollar_utils.c	/^char	*get_key_to_expand(char *parsed)$/
+get_key_value	src/utils/dollar_utils.c	/^char	*get_key_value(t_env_ms *env_ll, char *key)$/
 get_len_key	src/linked_list/ft_lstnew_env_entry.c	/^static int	get_len_key(const char *env)$/
 get_len_linked_list	src/utils/convert_env_ll_into_arr.c	/^static int	get_len_linked_list(t_env_ms *env)$/
 get_len_src	libft/str/ft_strdup_double.c	/^static int	get_len_src(const char **src)$/
 get_len_value	src/linked_list/ft_lstnew_env_entry.c	/^static int	get_len_value(const char *env)$/
+get_length_without_spaces	src/dollar_expand/get_new_content.c	/^static int	get_length_without_spaces(char *value)$/
 get_list_infos	src/parsing/get_list_infos.c	/^t_node_ms	*get_list_infos(t_node_ms *root, t_token/
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)\/\/A/
 get_mode_and_file	src/parsing/get_mode_and_file.c	/^t_node_ms	*get_mode_and_file(t_node_ms *binary_tre/
 get_nb_args	src/builtins/ft_env.c	/^static int	get_nb_args(char **content)$/
-get_nb_nodes	src/exec/launch_exec.c	/^static int	get_nb_nodes(t_node_ms *root, int *i)\/\//
+get_nb_nodes	src/exec/launch_exec.c	/^static int	get_nb_nodes(t_node_ms *root, int *i)$/
 get_nb_options	src/builtins/ft_echo.c	/^static int	get_nb_options(char **content)$/
+get_new_content	src/dollar_expand/get_new_content.c	/^char	*get_new_content(char *parsed, char *key, cha/
+get_new_parsed	src/dollar_expand/get_new_content.c	/^static char	*get_new_parsed(char *parsed, char *va/
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/
 get_pipeline	src/parsing/get_pipeline_infos.c	/^static char	**get_pipeline(t_token_ms *tokens)$/
 get_pipeline_infos	src/parsing/get_pipeline_infos.c	/^t_node_ms	*get_pipeline_infos(t_node_ms *root, t_t/
-get_position_good_heredoc	src/exec/heredoc_requested.c	/^static int	get_position_good_heredoc(t_redir_ms *f/
 get_redirections_infos	src/parsing/get_redirections_infos.c	/^t_node_ms	*get_redirections_infos(t_node_ms *root,/
 get_redirections_list	src/parsing/get_redirections_list.c	/^t_redir_ms	*get_redirections_list(t_token_ms *toke/
 get_right_list	src/parsing/split_list.c	/^static t_token_ms	*get_right_list(t_token_ms *toke/
@@ -200,7 +210,7 @@ get_token_type	src/parsing/fill_token.c	/^static t_enum_token	get_token_type(int
 go_in_child_process	src/exec/execute_cmd.c	/^static void	go_in_child_process(t_pipes_ms *pipes,/
 handle_all_redirs	src/exec/handle_all_redirs.c	/^int	handle_all_redirs(t_node_ms *node, int *pipe_b/
 handle_prompt	src/prompt.c	/^static int	handle_prompt(char *user_input)$/
-heredoc_requested	src/exec/heredoc_requested.c	/^int	heredoc_requested(t_redir_ms *redir, t_node_ms/
+heredoc_requested	src/exec/heredoc_requested.c	/^int	heredoc_requested(t_redir_ms *redir, int *pipe/
 highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int s/
 howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/
 identify_error	src/builtins/ft_cd.c	/^static void	identify_error(char *content)\/\/EFAULT /
@@ -208,26 +218,29 @@ identify_splitting_operator	src/utils/binary_tree_utils.c	/^t_enum_token	identif
 incremente_half_2_if_needed	src/parsing/get_second_half.c	/^static t_token_ms	*incremente_half_2_if_needed(t_t/
 incremente_half_if_needed	src/parsing/get_first_half.c	/^static t_token_ms	*incremente_half_if_needed(t_tok/
 infile_context	src/parsing/get_mode_and_file.c	/^static t_node_ms	*infile_context(t_node_ms *binary/
-infile_mode	src/exec/handle_all_redirs.c	/^static int	infile_mode(t_redir_ms *redir, t_node_m/
+infile_mode	src/exec/handle_all_redirs.c	/^static int	infile_mode(t_redir_ms *redir, int *pip/
 initialize_children	src/exec/initialize_children.c	/^t_children_ms	*initialize_children(t_children_ms */
 initialize_node	src/linked_list/initialize_node.c	/^void	initialize_node(t_node_ms *node)$/
 initialize_operators	src/parsing/start_binary_tree.c	/^static t_enum_token	*initialize_operators(void)$/
 initialize_pid_arr	src/exec/initialize_children.c	/^static pid_t	*initialize_pid_arr(pid_t *pid_arr, i/
+is_it_a_closed_quotes	src/utils/dollar_utils_2.c	/^int	is_it_a_closed_quotes(char *content, char quot/
 is_last_infile	src/parsing/manage_modes_and_files.c	/^static int	is_last_infile(t_redir_ms *first_redir)/
 is_last_outfile	src/parsing/manage_modes_and_files.c	/^static int	is_last_outfile(t_redir_ms *first_redir/
 is_operator	src/utils/utils_token.c	/^int	is_operator(t_enum_token type)$/
 is_option	src/builtins/ft_echo.c	/^static int	is_option(char *content)$/
 is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input,/
+is_there_a_command	src/parsing/get_pipeline_infos.c	/^static int  is_there_a_command(t_token_ms *tokens)/
 is_token_in_parenthesis	src/utils/binary_tree_utils.c	/^t_enum_token	is_token_in_parenthesis(t_token_ms *t/
 is_token_type_a_redir	src/utils/utils_token.c	/^int	is_token_type_a_redir(t_enum_token token_type)/
 isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/
+join_and_manage_dollar	src/dollar_expand/join_and_manage_dollar.c	/^char	*join_and_manage_dollar(char *new_parsed, cha/
 join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_in/
 launch_exec	src/exec/launch_exec.c	/^int	launch_exec(t_node_ms *root, t_env_ms *env_ll)/
 launch_program	src/launch_program.c	/^int	launch_program(char **user_input, t_env_ms *en/
 left_branch	src/parsing/left_branch.c	/^t_node_ms	*left_branch(t_token_ms *tokens, t_enum_/
 len_int	libft/atoi-itoa/ft_itoa.c	/^static int	len_int(int n)$/
 length_parsed_string	src/parsing/parse_quotes.c	/^static int	length_parsed_string(char *content)$/
-lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input, t_env_ms *env_/
+lexer	src/parsing/lexer.c	/^t_token_ms	*lexer(char *user_input)$/
 lstnew_env	src/builtins/extend_env_list.c	/^static t_env_ms	*lstnew_env(void)$/
 makeshift_memcpy	libft/str/ft_strtrim.c	/^static char	*makeshift_memcpy(char *tab, const cha/
 makeshift_strcat	libft/str/ft_strdup.c	/^static char	*makeshift_strcat(char *dst, const cha/
@@ -240,42 +253,43 @@ makeshift_strlen	libft/str/ft_strjoin_free_second.c	/^static int	makeshift_strle
 makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const char *str)$/
 malloc_pipelines	src/parsing/get_pipeline_infos.c	/^static char	**malloc_pipelines(t_token_ms *tokens)/
 malloc_right_size	libft/str/ft_strndup.c	/^static char	*malloc_right_size(const char *s, int /
-manage_dollar	src/parsing/manage_dollar.c	/^char	*manage_dollar(char *env_var, char *content, /
 manage_modes_and_files	src/parsing/manage_modes_and_files.c	/^t_node_ms	*manage_modes_and_files(t_node_ms *root)/
 modify_value	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*modify_value(char *content, t_env/
 nb_redir_left	src/parsing/get_redirections_list.c	/^static int	nb_redir_left(t_token_ms *tokens)$/
 nb_redirs	src/parsing/get_redirections_infos.c	/^static int	nb_redirs(t_token_ms *tokens)$/
+operator_detected	src/exec/start_recursive.c	/^static t_node_ms	*operator_detected(t_pipes_ms *pi/
 outfile_context	src/parsing/get_mode_and_file.c	/^static t_node_ms	*outfile_context(t_node_ms *binar/
 outfile_mode	src/exec/handle_all_redirs.c	/^static int	outfile_mode(t_redir_ms *redir)$/
 parse_content	src/parsing/parse_quotes.c	/^static char	*parse_content(char *parsed, char *con/
 parse_quotes	src/parsing/parse_quotes.c	/^t_token_ms	*parse_quotes(t_token_ms *tokens)$/
+parse_spaces	src/dollar_expand/get_new_content.c	/^static char	*parse_spaces(char *value)$/
 print_after_end	src/highlight_syntax_error.c	/^static void	print_after_end(const char *str, int e/
 print_all_environment	src/builtins/ft_export.c	/^static void	print_all_environment(t_env_ms *env)$/
 print_before_start	src/highlight_syntax_error.c	/^static void	print_before_start(const char *str, in/
-print_env_arr	src/exec/print_structs.c	/^void	print_env_arr(char **env, char **env_real)$/
-print_env_ll	src/exec/print_structs.c	/^void	print_env_ll(t_env_ms *env, char **env_real)$/
+print_content_pipe	src/utils/print_content_pipe.c	/^void	print_content_pipe(int *pipe, t_env_ms *env_l/
 print_initialized_environment	src/builtins/ft_env.c	/^static void	print_initialized_environment(t_env_ms/
-print_node	src/exec/print_structs.c	/^void	print_node(t_node_ms *node)$/
 print_syntax_error	src/highlight_syntax_error.c	/^static void	print_syntax_error(const char *str, in/
-print_tree	src/exec/print_structs.c	/^void	print_tree(t_node_ms *root)$/
-process_node	src/exec/start_recursive.c	/^static int	process_node(t_pipes_ms *pipes, t_child/
-real_heredoc_requested	src/exec/heredoc_requested.c	/^static int	real_heredoc_requested(const char *deli/
 recursive	src/parsing/get_list_infos.c	/^static t_node_ms	*recursive(t_token_ms **splitted_/
 redirect_infile	src/exec/execute_cmd.c	/^static void	redirect_infile(int *pipe_before, t_no/
 redirect_outfile	src/exec/execute_cmd.c	/^static void	redirect_outfile(int *pipe_after, t_no/
-replace_dollar_by_env_var	src/parsing/manage_dollar.c	/^static char	*replace_dollar_by_env_var(char *conte/
-replace_dollar_digit	src/parsing/manage_dollar.c	/^static char	*replace_dollar_digit(char *content, i/
+replace_dollar_digit	src/dollar_expand/join_and_manage_dollar.c	/^static char	*replace_dollar_digit(char *new_parsed/
 right_branch	src/parsing/right_branch.c	/^t_node_ms	*right_branch(t_token_ms *tokens, t_enum/
 scan_after_percentage_fd	libft/ft_printf_fd/ft_printf_fd.c	/^static int	scan_after_percentage_fd(const char *fm/
 sent_eof_in_heredoc	src/exec/heredoc_requested.c	/^static void	sent_eof_in_heredoc(int line, const ch/
+set_exit_code	src/utils/exit_code_utils.c	/^void	set_exit_code(t_env_ms *env_ll, int exit_code/
+set_exit_code	src/utils/get_exit_code.c	/^void	set_exit_code(t_env_ms *env_ll, int exit_code/
 set_node_infos	src/parsing/start_binary_tree.c	/^static t_node_ms	*set_node_infos(t_token_ms *token/
+set_values_export	src/builtins/set_values_export.c	/^t_env_ms	*set_values_export(char **content, t_env_/
+skip_commands_until_and_operator	src/exec/operator_or_handling.c	/^static t_node_ms	*skip_commands_until_and_operator/
+skip_commands_until_or_operator	src/exec/operator_and_handling.c	/^static t_node_ms	*skip_commands_until_or_operator(/
 split_list	src/parsing/split_list.c	/^t_token_ms	**split_list(t_token_ms *tokens)$/
 start_binary_tree	src/parsing/start_binary_tree.c	/^t_node_ms	*start_binary_tree(t_token_ms *tokens)$/
 start_recursive	src/exec/start_recursive.c	/^int	start_recursive(t_pipes_ms *pipes, t_children_/
 tok_is_content	src/parsing/get_redirections_infos.c	/^static int	tok_is_content(t_token_ms *tokens)$/
 token_content_length	src/utils/utils_token.c	/^int	token_content_length(char *user_input, char *d/
 transfer_pipe_content	src/exec/start_recursive.c	/^static int	transfer_pipe_content(int *pipe_before,/
-verify_cmd_path	src/exec/verify_cmd_path.c	/^char	*verify_cmd_path(t_node_ms *root, char **env_/
+trigger_heredoc	src/exec/heredoc_requested.c	/^static int	trigger_heredoc(const char *delimiter, /
+verify_cmd_path	src/exec/verify_cmd_path.c	/^char	*verify_cmd_path(char *user_input_cmd, char */
 verify_simple_infile	src/exec/handle_all_redirs.c	/^static int	verify_simple_infile(t_redir_ms *redir)/
 wait_for_all_the_forks	src/exec/launch_exec.c	/^static void	wait_for_all_the_forks(t_children_ms */
 what_is_dollar_in	src/utils/dollar_utils.c	/^int	what_is_dollar_in(const char *parsed, int i)$/

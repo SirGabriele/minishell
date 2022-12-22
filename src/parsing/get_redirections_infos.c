@@ -1,23 +1,10 @@
 #include "../../includes/minishell.h"
 
-static int	tok_is_content(t_token_ms *tokens)
-{
-	if (tokens->type == TOK_INFILE)
-		return (1);
-	if (tokens->type == TOK_TRUNC)
-		return (1);
-	if (tokens->type == TOK_APPEND)
-		return (1);
-	if (tokens->type == TOK_HEREDOC)
-		return (1);
-	return (0);
-}
-
 static int	nb_redirs(t_token_ms *tokens)
 {
 	while (tokens)
 	{
-		if (tok_is_content(tokens))
+		if (is_token_type_a_redir(tokens->type))
 			return (1);
 		tokens = tokens->next;
 	}
