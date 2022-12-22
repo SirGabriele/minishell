@@ -14,7 +14,7 @@ static void	print_initialized_environment(t_env_ms *tmp_env)
 {
 	while (tmp_env)
 	{
-		if (tmp_env->value)
+		if (tmp_env->value && ft_strncmp(tmp->value, "?", 1) != 0)
 		{
 			ft_printf_fd(0, "%s", tmp_env->key);
 			ft_printf_fd(0, "%s\n", tmp_env->value);

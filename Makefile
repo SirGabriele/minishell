@@ -19,8 +19,6 @@ PARSING =   start_binary_tree.c	\
 	get_pipeline_infos.c		\
 	lexer.c						\
 	parse_quotes.c				\
-	expand_var_with_dollar.c	\
-	manage_dollar.c				\
 	get_redirections_list.c		\
 	get_redirections_infos.c	\
 	manage_modes_and_files.c	\
@@ -31,6 +29,9 @@ PARSING =   start_binary_tree.c	\
 	left_branch.c				\
 	right_branch.c
 
+DOLLAR_EXPAND = expand_var_with_dollar.c	\
+			get_new_content.c				\
+			join_and_manage_dollar.c
 
 EXEC =	initialize_children.c	\
 	start_recursive.c		\
@@ -52,6 +53,7 @@ UTILS =	what_is_index_in.c		\
 	convert_env_ll_into_arr.c	\
 	binary_tree_utils.c			\
 	dollar_utils.c				\
+	dollar_utils_2.c			\
 	utils_token.c				\
 	exit_code_utils.c			\
 	print_content_pipe.c
@@ -59,13 +61,14 @@ UTILS =	what_is_index_in.c		\
 FREE = free.c	\
 	free_2.c
 
-SRCS = $(addprefix src/, $(SRC))					\
-	$(addprefix src/signals/, $(SIGNALS))			\
-	$(addprefix src/check/, $(CHECK))				\
-	$(addprefix src/parsing/, $(PARSING))			\
-	$(addprefix src/exec/, $(EXEC))					\
-	$(addprefix src/linked_list/, $(LINKED_LIST))	\
-	$(addprefix src/utils/, $(UTILS))				\
+SRCS = $(addprefix src/, $(SRC))						\
+	$(addprefix src/signals/, $(SIGNALS))				\
+	$(addprefix src/check/, $(CHECK))					\
+	$(addprefix src/parsing/, $(PARSING))				\
+	$(addprefix src/exec/, $(EXEC))						\
+	$(addprefix src/linked_list/, $(LINKED_LIST))		\
+	$(addprefix src/utils/, $(UTILS))					\
+	$(addprefix src/dollar_expand/, $(DOLLAR_EXPAND))	\
 	$(addprefix src/free/, $(FREE))
 
 CC = clang

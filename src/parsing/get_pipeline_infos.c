@@ -1,5 +1,18 @@
 #include "../../includes/minishell.h"
 
+static int  is_there_a_command(t_token_ms *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->type == TOK_STRING)
+			return (1);
+		else if (is_token_type_a_redir(tokens->type))
+			tokens = tokens->next;
+		tokens = tokens->next;
+	}
+	return (0);
+}
+
 static char	**malloc_pipelines(t_token_ms *tokens)
 {
 	char		**pipelines;
@@ -59,13 +72,16 @@ t_node_ms	*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \
 	root = get_redirections_infos(root, tokens, operators);
 	if (!root)
 		return (NULL);
-	root->content = get_pipeline(tokens);
-	if (!root->content)
+	if (is_there_a_command(tokens))
 	{
-		free_redirs_list(root->first_redir);
-		free_redirs_infos(root);
-		free(root);
-		return (NULL);
+		root->content = get_pipeline(tokens);
+		if (!root->content)
+		{
+			free_redirs_list(root->first_redir);
+			free_redirs_infos(root);
+			free(root);
+			return (NULL);
+		}
 	}
 	return (root);
 }

@@ -63,8 +63,7 @@ static char	*get_content_string(char *user_input, char *delim[10])
 /*															*/
 /************************************************************/
 
-t_token_ms	*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
-	char **env_arr)
+t_token_ms	*fill_token(t_token_ms *tokens, char *user_input, char *delim[10])
 {
 	int	index_delim;
 
@@ -80,9 +79,6 @@ t_token_ms	*fill_token(t_token_ms *tokens, char *user_input, char *delim[10], \
 	{
 		tokens->type = TOK_STRING;
 		tokens->content = get_content_string(user_input, delim);
-		if (!tokens->content)
-			return (NULL);
-		tokens->content = expand_var_with_dollar(tokens->content, env_arr);
 		if (!tokens->content)
 			return (NULL);
 	}

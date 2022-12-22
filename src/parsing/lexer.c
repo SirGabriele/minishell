@@ -32,11 +32,11 @@ static int	are_there_tokens_left(char *user_input)
 }
 
 static t_token_ms	*assign_token(t_token_ms *tokens, \
-	char *user_input, char *delim[10], char **env_arr)
+	char *user_input, char *delim[10])
 {
 	int	token_len;
 
-	tokens = fill_token(tokens, user_input, delim, env_arr);
+	tokens = fill_token(tokens, user_input, delim);
 	if (!tokens)
 		return (NULL);
 	token_len = token_content_length(user_input, delim);
@@ -52,7 +52,7 @@ static t_token_ms	*assign_token(t_token_ms *tokens, \
 	return (tokens);
 }
 
-static t_token_ms	*create_token_list(char *user_input, char *delim[10], char **env_arr)
+static t_token_ms	*create_token_list(char *user_input, char *delim[10])
 {
 	t_token_ms	*tokens;
 	t_token_ms	*tmp_tokens;
@@ -69,7 +69,7 @@ static t_token_ms	*create_token_list(char *user_input, char *delim[10], char **e
 			i++;
 		else
 		{
-			tokens = assign_token(tokens, user_input + i, delim, env_arr);
+			tokens = assign_token(tokens, user_input + i, delim);
 			if (!tokens)
 			{
 				free_tokens(tmp_tokens);
@@ -109,19 +109,14 @@ static void	fill_delimiters(char **delimiters)
 /*																*/
 /****************************************************************/
 
-t_token_ms	*lexer(char *user_input, t_env_ms *env_ll)
+t_token_ms	*lexer(char *user_input)
 {
 	t_token_ms	*tokens;
 	char		*delimiters[10];
-	char		**env_arr;//voir si bien free
 
 	fill_delimiters(delimiters);
-	env_arr = convert_env_ll_into_arr(env_ll);
-	if (env_arr == NULL)
-		return (NULL);
-	tokens = create_token_list(user_input, delimiters, env_arr);
+	tokens = create_token_list(user_input, delimiters);
 	if (!tokens)
 		return (NULL);
-	free_double_arr(env_arr);
 	return (tokens);
 }

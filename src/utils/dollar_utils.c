@@ -1,3 +1,5 @@
+#include "../../includes/minishell.h"
+
 /********************************************************************/
 /*                                                     				*/
 /*  Determines if the environment variable found is between			*/
@@ -37,4 +39,54 @@ int	what_is_dollar_in(const char *parsed, int i)
 		j++;
 	}
 	return (-1);
+}
+
+int	count_dollars_to_replace(char *content)
+{
+	int	i;
+	int	nb_dollars;
+
+	i = 0;
+	nb_dollars = 0;
+	while (content[i])
+	{
+		if (content[i] == '$' && !what_is_dollar_in(content, i))
+			nb_dollars++;
+		i++;
+	}
+	return (nb_dollars);
+}
+
+char	*get_key_to_expand(char *parsed)
+{
+	char	*key_to_expand;
+	int		j;
+
+	j = 0;
+	while (parsed[j] != ' ' && parsed[j] != '\"'
+		&& parsed[j] != '$' && parsed[j] != '\0'
+		&& parsed[j] != '\'')
+		j++;
+	key_to_expand = ft_strndup(parsed, j);
+	if (key_to_expand == NULL)
+	{
+		free(parsed);
+		perror(NULL);
+		return (NULL);
+	}
+	return (key_to_expand);
+}
+
+char	*get_key_value(t_env_ms *env_ll, char *key)
+{
+	int	len;
+
+	len = ft_strlen(key);
+	while (env_ll)
+	{
+		if (!ft_strncmp(env_ll->key, key, len) && len)
+			return (env_ll->value);
+		env_ll = env_ll->next;
+	}
+	return (NULL);
 }
