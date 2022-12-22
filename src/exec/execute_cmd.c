@@ -95,15 +95,20 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	env_arr = convert_env_ll_into_arr(*env_ll);
 	if (env_arr == NULL)
 		return (-1);
-	children->pid_arr[children->index] = fork();
-	if (children->pid_arr[children->index] == -1)
+//	if (is_a_builtin() == 0)
+//		launch_builtin();
+	else
 	{
-		ft_putstr_fd("Fork() failed\n", 2);
-		return (-1);
+		children->pid_arr[children->index] = fork();
+		if (children->pid_arr[children->index] == -1)
+		{
+			ft_putstr_fd("Fork() failed\n", 2);
+			return (-1);
+		}
+		if (children->pid_arr[children->index] == 0)
+			go_in_child_process(pipes, node, env_arr);
+		children->index++;
 	}
-	if (children->pid_arr[children->index] == 0)
-		go_in_child_process(pipes, node, env_arr);
-	children->index++;
 	free_double_arr(env_arr);
 	return (0);
 }
