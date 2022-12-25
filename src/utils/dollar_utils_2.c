@@ -10,7 +10,12 @@ int	is_it_a_closed_quotes(char *content, char quote)
 	while (content[i])
 	{
 		if (content[i] == quote)
-			quotes++;
+		{
+			if ((quote == '\'' && what_is_dollar_in(content, i))
+				|| (quote == '\"' && !what_is_dollar_in(content, i)))
+
+				quotes++;
+		}
 		i++;
 	}
 	if (!(quotes % 2))

@@ -21,11 +21,12 @@ static void	identify_error(char *content)//EFAULT EIO ELOOP
 	free(error);
 }
 
-int	ft_cd(char **content)
+void	ft_cd(char **content, t_env_ms *env)
 {
 	int	exit_status;
 	int	nb_args;
 
+	(void)env;
 	exit_status = 1;
 	nb_args = count_args(content);
 	if (nb_args == 1)
@@ -38,5 +39,4 @@ int	ft_cd(char **content)
 		ft_printf_fd(2, "minishell: cd: missing relative/absolute path\n");
 	else
 		ft_printf_fd(2, "minishell: cd: too many arguments\n");
-	return (exit_status);
 }

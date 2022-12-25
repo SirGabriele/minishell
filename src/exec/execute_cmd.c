@@ -95,8 +95,8 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	env_arr = convert_env_ll_into_arr(*env_ll);
 	if (env_arr == NULL)
 		return (-1);
-//	if (is_a_builtin() == 0)
-//		launch_builtin();
+	if (is_a_builtin(node->content[0]) == 0)
+		launch_builtin(node->content, *env_ll);
 	else
 	{
 		children->pid_arr[children->index] = fork();

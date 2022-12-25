@@ -1,35 +1,51 @@
 #include "../../includes/minishell.h"
 
-static int	get_equal_sign_index(char *content)
+static t_env_ms	*lstnew_env(void)
+{
+	t_env_ms	*env;
+
+	env = malloc(sizeof(t_env_ms));
+	if (!env)
+		return (NULL);
+	env->next = NULL;
+	return (env);
+}
+
+static int	get_delim_sign_index(char *content)
 {
 	int	i;
 
 	i = 0;
 	while (content[i])
 	{
-		if (content[i] == '=')
+		if (content[i] == '=' || content[i] == '+')
 			return (i);
+		i++;
 	}
 	return (i);
 }
 
-t_env_ms	*get_env(char *content, t_env_ms *env)
+t_env_ms	*get_env(char *content)
 {
-	char	*key;
-	char	*value;
-	int		index_equal;
+	t_env_ms	*env;
+	char		*key;
+	char		*value;
+	int			index_delim;
 
-	index_equal = get_equal_sign_index(content);
-	env->key = malloc((index_equal + 1) * sizeof(char));
+	(void)key;
+	(void)value;
+	env = lstnew_env();
+	if (!env)
+		return (NULL);
+	index_delim = get_delim_sign_index(content);
+	env->key = ft_strndup(content, index_delim);
 	if (!env->key)
 		return (NULL);
-	env->value = malloc((ft_strlen(content) - index_equal + 1) * sizeof(char));
+	env->value = ft_strdup(content + index_delim + 1);
 	if (!env->value)
 	{
 		free(env->key);
 		perror(NULL);
 	}
-	ft_strncpy(env->key, content, index_equal);
-	ft_strncpy(env->value, content, ft_strlen(content) - index_equal);
 	return (env);
 }

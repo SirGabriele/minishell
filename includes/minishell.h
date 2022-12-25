@@ -60,6 +60,8 @@ int				heredoc_requested(t_redir_ms *redir, int *pipe_before);
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
+int				is_a_builtin(char *content);
+void			launch_builtin(char **content, t_env_ms *env_ll);
 
 /****************/
 /*	LINKED LIST	*/
@@ -135,6 +137,21 @@ t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 
+/**************/
+/*  BUILTINS  */
+/**************/
+
+void			ft_echo(char **content, t_env_ms *env);
+void			ft_cd(char **content, t_env_ms *env);
+void			ft_pwd(t_env_ms *env);
+void			ft_export(char **content, t_env_ms *env);
+void			ft_unset(char **content, t_env_ms *env);
+t_env_ms		*set_values_export(char **content, t_env_ms *env);
+int				ft_env(char **content, t_env_ms *env);
+t_env_ms		*get_env(char *content);
+t_env_ms		*change_value(char *content, t_env_ms *env);
+t_env_ms		*extend_env_list(char *content, t_env_ms *env);
+int				check_errors_env_format(char **content);
 
 /************/
 /*	FREE	*/

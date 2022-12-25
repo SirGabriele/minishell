@@ -48,6 +48,7 @@ static char	*parse_spaces(char *value)
 		else
 			value_parsed[j++] = value[i++];
 	}
+	value_parsed[j] = '\0';
 	return (value_parsed);
 }
 

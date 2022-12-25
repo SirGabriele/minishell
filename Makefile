@@ -41,6 +41,7 @@ EXEC =	initialize_children.c	\
 	execute_cmd.c			\
 	verify_cmd_path.c		\
 	operator_and_handling.c	\
+	builtin_execution.c		\
 	operator_or_handling.c
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
@@ -58,6 +59,18 @@ UTILS =	what_is_index_in.c		\
 	exit_code_utils.c			\
 	print_content_pipe.c
 
+BUILTINS = ft_echo.c					\
+		ft_cd.c							\
+		ft_pwd.c						\
+		ft_export.c						\
+		ft_unset.c						\
+		ft_env.c						\
+		change_value_if_key_exists.c	\
+		check_errors_env_format.c		\
+		extend_env_list.c				\
+		get_env.c						\
+		set_values_export.c
+
 FREE = free.c	\
 	free_2.c
 
@@ -69,6 +82,7 @@ SRCS = $(addprefix src/, $(SRC))						\
 	$(addprefix src/linked_list/, $(LINKED_LIST))		\
 	$(addprefix src/utils/, $(UTILS))					\
 	$(addprefix src/dollar_expand/, $(DOLLAR_EXPAND))	\
+	$(addprefix src/builtins/, $(BUILTINS))				\
 	$(addprefix src/free/, $(FREE))
 
 CC = clang

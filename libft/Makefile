@@ -33,6 +33,7 @@ STR   =		ft_strlen.c					\
 			ft_strncpy.c				\
 			ft_strchr.c					\
 			ft_strrchr.c				\
+			ft_strcmp.c					\
 			ft_strncmp.c				\
 			ft_strnstr.c				\
 			ft_strjoin.c				\

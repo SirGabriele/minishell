@@ -65,7 +65,7 @@ char	*get_key_to_expand(char *parsed)
 	j = 0;
 	while (parsed[j] != ' ' && parsed[j] != '\"'
 		&& parsed[j] != '$' && parsed[j] != '\0'
-		&& parsed[j] != '\'')
+		&& parsed[j] != '\'' && parsed[j] != '=')
 		j++;
 	key_to_expand = ft_strndup(parsed, j);
 	if (key_to_expand == NULL)
@@ -84,7 +84,8 @@ char	*get_key_value(t_env_ms *env_ll, char *key)
 	len = ft_strlen(key);
 	while (env_ll)
 	{
-		if (!ft_strncmp(env_ll->key, key, len) && len)
+		if (!ft_strncmp(env_ll->key, key, len) 
+			&& len && !env_ll->key[len])
 			return (env_ll->value);
 		env_ll = env_ll->next;
 	}
