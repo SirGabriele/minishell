@@ -32,14 +32,15 @@ cpy_operators	src/parsing/left_branch.c	/^static t_enum_token	*cpy_operators(t_e
 cpy_operators	src/parsing/right_branch.c	/^static t_enum_token	*cpy_operators(t_enum_token *operators)$/;"	f	file:
 create_token_list	src/parsing/lexer.c	/^static t_token_ms	*create_token_list(char *user_input, char *delim[10])$/;"	f	file:
 del_parenthesis_if_needed	src/utils/binary_tree_utils.c	/^t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)$/;"	f
-delete_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*delete_dollar(char *parsed, int nb_dollar)$/;"	f	file:
+delete_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*delete_dollar(char *parsed, char *unparsed, int i)$/;"	f	file:
 delete_link_if_needed	src/builtins/ft_unset.c	/^static void	delete_link_if_needed(t_env_ms *env, char *content)$/;"	f	file:
 display_error	src/check/check_paired_characters.c	/^static void	display_error(const char *user_input, int i, t_env_ms *env_ll)$/;"	f	file:
 edit_command_status	src/builtins/ft_echo.c	/^static void	edit_command_status(t_env_ms *env)$/;"	f	file:
+edit_command_status	src/builtins/ft_unset.c	/^static void	edit_command_status(t_env_ms *env)$/;"	f	file:
 examine_dollar_conditions	src/utils/dollar_utils_2.c	/^int	examine_dollar_conditions(char *content, int i)$/;"	f
 execute_cmd	src/exec/execute_cmd.c	/^int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)\/\/ajouter la separation si builtin ou non$/;"	f
 expand_according_to_dollar_conditions	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_according_to_dollar_conditions(char *parsed, \\$/;"	f	file:
-expand_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_dollar(char *parsed, char *unparsed, t_env_ms *env_ll, \\$/;"	f	file:
+expand_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_dollar(char *parsed, char *unparsed, int i, \\$/;"	f	file:
 expand_var_with_dollar	src/dollar_expand/expand_var_with_dollar.c	/^t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \\$/;"	f
 extend_env_list	src/builtins/extend_env_list.c	/^t_env_ms	*extend_env_list(char *content, t_env_ms *env)$/;"	f
 fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, int nb_cells, char **arr)$/;"	f	file:
@@ -181,7 +182,6 @@ get_content_string	src/parsing/fill_token.c	/^static char	*get_content_string(ch
 get_content_with_env_values	src/dollar_expand/expand_var_with_dollar.c	/^static char	*get_content_with_env_values(char *parsed, char *unparsed, \\$/;"	f	file:
 get_delim_sign_index	src/builtins/change_value_if_key_exists.c	/^static int	get_delim_sign_index(char *content)$/;"	f	file:
 get_delim_sign_index	src/builtins/get_env.c	/^static int	get_delim_sign_index(char *content)$/;"	f	file:
-get_diff_nb_dollars	src/utils/dollar_utils_2.c	/^int	get_diff_nb_dollars(char *old_parsed, char *parsed)$/;"	f
 get_env	src/builtins/get_env.c	/^t_env_ms	*get_env(char *content)$/;"	f
 get_env_key	src/linked_list/ft_lstnew_env_entry.c	/^static char	*get_env_key(const char *env)$/;"	f	file:
 get_env_path_var	src/exec/verify_cmd_path.c	/^static char	*get_env_path_var(char **env_arr)$/;"	f	file:
@@ -191,7 +191,7 @@ get_exit_code	src/utils/get_exit_code.c	/^int	get_exit_code(t_env_ms *env_ll)$/;
 get_first_half	src/parsing/get_first_half.c	/^t_token_ms	*get_first_half(t_token_ms *tokens, int index_token)$/;"	f
 get_index_delimiter	src/utils/utils_token.c	/^int	get_index_delimiter(const char *user_input, char *delim[10], int index)$/;"	f
 get_infos_if_redir	src/parsing/get_redirections_list.c	/^static t_redir_ms	*get_infos_if_redir(t_redir_ms *first_redir, \\$/;"	f	file:
-get_key_to_expand	src/utils/dollar_utils.c	/^char	*get_key_to_expand(char *parsed)$/;"	f
+get_key_to_expand	src/utils/dollar_utils.c	/^char	*get_key_to_expand(char *content)$/;"	f
 get_key_value	src/utils/dollar_utils.c	/^char	*get_key_value(t_env_ms *env_ll, char *key)$/;"	f
 get_len_key	src/linked_list/ft_lstnew_env_entry.c	/^static int	get_len_key(const char *env)$/;"	f	file:
 get_len_linked_list	src/utils/convert_env_ll_into_arr.c	/^static int	get_len_linked_list(t_env_ms *env)$/;"	f	file:
@@ -202,6 +202,7 @@ get_list_infos	src/parsing/get_list_infos.c	/^t_node_ms	*get_list_infos(t_node_m
 get_missing_user_input	src/check/get_missing_user_input.c	/^char	*get_missing_user_input(char **user_input)\/\/Ajouter la gestion des signaux dans ce mode interactif$/;"	f
 get_mode_and_file	src/parsing/get_mode_and_file.c	/^t_node_ms	*get_mode_and_file(t_node_ms *binary_tree, t_redir_ms *first_redir)$/;"	f
 get_nb_args	src/builtins/ft_env.c	/^static int	get_nb_args(char **content)$/;"	f	file:
+get_nb_dollars	src/utils/dollar_utils_2.c	/^int	get_nb_dollars(char *unparsed, int i)$/;"	f
 get_nb_nodes	src/exec/launch_exec.c	/^static int	get_nb_nodes(t_node_ms *root, int *i)$/;"	f	file:
 get_nb_options	src/builtins/ft_echo.c	/^static int	get_nb_options(char **content)$/;"	f	file:
 get_new_content	src/dollar_expand/get_new_content.c	/^char	*get_new_content(char *parsed, char *key, char *value, int nb_dollars)$/;"	f
@@ -234,6 +235,7 @@ initialize_node	src/linked_list/initialize_node.c	/^void	initialize_node(t_node_
 initialize_operators	src/parsing/start_binary_tree.c	/^static t_enum_token	*initialize_operators(void)$/;"	f	file:
 initialize_pid_arr	src/exec/initialize_children.c	/^static pid_t	*initialize_pid_arr(pid_t *pid_arr, int nb_cmd)$/;"	f	file:
 is_a_builtin	src/exec/builtin_execution.c	/^int	is_a_builtin(char *content)$/;"	f
+is_dollar_inside_quotes	src/utils/dollar_utils_2.c	/^int	is_dollar_inside_quotes(char *content, int i)$/;"	f
 is_it_a_closed_quotes	src/utils/dollar_utils_2.c	/^int	is_it_a_closed_quotes(char *content, char quote)$/;"	f
 is_last_infile	src/parsing/manage_modes_and_files.c	/^static int	is_last_infile(t_redir_ms *first_redir)$/;"	f	file:
 is_last_outfile	src/parsing/manage_modes_and_files.c	/^static int	is_last_outfile(t_redir_ms *first_redir)$/;"	f	file:

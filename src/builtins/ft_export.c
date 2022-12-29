@@ -3,13 +3,28 @@
 static void	print_all_environment(t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
+	char		letter;
 
-	tmp_env = env;
-	while (tmp_env)
+	letter = 'A';
+	while (letter)
 	{
-		ft_printf_fd(0, "declare -x %s=\"", tmp_env->key);
-		ft_printf_fd(0, "%s\"\n", tmp_env->value);
-		tmp_env = tmp_env->next;
+		tmp_env = env;
+		while (tmp_env)
+		{
+			if (tmp_env->key[0] == letter)
+			{
+				ft_printf_fd(0, "declare -x %s", tmp_env->key);
+				if (tmp_env->value)
+					ft_printf_fd(0, "=\"%s\"", tmp_env->value);
+				ft_printf_fd(0, "\n");
+			}
+			tmp_env = tmp_env->next;
+		}
+		if (letter == 'Z')
+			letter = '`';
+		else if (letter == 'z')
+			letter = -1;
+		letter++;
 	}
 }
 

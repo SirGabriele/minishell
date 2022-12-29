@@ -1,18 +1,20 @@
 #include "../../includes/minishell.h"
 
-static char	*expand_dollar(char *parsed, char *unparsed, t_env_ms *env_ll, \
-	int nb_dollars)
+static char	*expand_dollar(char *parsed, char *unparsed, int i, \
+	t_env_ms *env_ll)
 {
 	char	*key;
 	char	*value;
 	char	*new_parsed;
+	int		nb_dollars;
 
-	key = get_key_to_expand(unparsed + 1);
+	key = get_key_to_expand(unparsed + i + 1);
 	if (!key)
 	{
 		free(parsed);
 		return (NULL);
 	}
+	nb_dollars = get_nb_dollars(unparsed, i);
 	value = get_key_value(env_ll, key);
 	new_parsed = get_new_content(parsed, key, value, nb_dollars);
 	free(key);
@@ -21,66 +23,68 @@ static char	*expand_dollar(char *parsed, char *unparsed, t_env_ms *env_ll, \
 	return (new_parsed);
 }
 
-static char	*delete_dollar(char *parsed, int nb_dollar)
+static char	*delete_dollar(char *parsed, char *unparsed, int i)
 {
 	char	*new_parsed;
-	int		i;
+	int		nb_dollars;
+	int		j;
 
-	i = 0;
 	new_parsed = NULL;
-	while (parsed[i])
+	nb_dollars = get_nb_dollars(unparsed, i);
+	j = 0;
+	while (parsed[j])
 	{
-		if (parsed[i] == '$')
-			nb_dollar--;
-		if (parsed[i] == '$' && !nb_dollar)
+		if (parsed[j] == '$')
+			nb_dollars--;
+		if (parsed[j] == '$' && !nb_dollars)
 		{
-			new_parsed = ft_strndup(parsed, i);
+			new_parsed = ft_strndup(parsed, j);
 			if (new_parsed)
-				new_parsed = ft_strjoin_free_first(new_parsed, parsed + i + 1);
+				new_parsed = ft_strjoin_free_first(new_parsed, parsed + j + 1);
 			if (!new_parsed)
 				free(parsed);
 			return (new_parsed);
 		}
-		i++;
+		j++;
 	}
 	free(parsed);
 	return (new_parsed);
 }
 
 static char	*expand_according_to_dollar_conditions(char *parsed, \
-	char *unparsed, t_env_ms *env_ll, int nb_dollars)
+	char *unparsed, int i, t_env_ms *env_ll)
 {
-	if (examine_dollar_conditions(unparsed, 0) == 2
-		|| !examine_dollar_conditions(unparsed, 0))
-		parsed = expand_dollar(parsed, unparsed, env_ll, nb_dollars);
-	else if (examine_dollar_conditions(unparsed, 0) == 3)
-		parsed = delete_dollar(parsed, nb_dollars);
+	char	*key;
+
+	key = get_key_to_expand(unparsed + i + 1);
+	if (examine_dollar_conditions(unparsed, i) == 2
+		|| key[0])
+		parsed = expand_dollar(parsed, unparsed, i, env_ll);
+	else if (examine_dollar_conditions(unparsed, i) == 3)
+		parsed = delete_dollar(parsed, unparsed, i);
 	return (parsed);
 }
 
 static char	*get_content_with_env_values(char *parsed, char *unparsed, \
 	t_env_ms *env_ll)
 {
-	char	*old_parsed;
+	char	*key;
 	int		i;
-	int		nb_dollars;
 
 	i = 0;
-	nb_dollars = 0;
 	while (unparsed[i])
 	{
-		if (unparsed[i] == '$')
-			nb_dollars++;
-		if (unparsed[i] == '$' && !what_is_dollar_in(unparsed, i))
+		if (unparsed[i] == '$' && !what_is_dollar_in(unparsed, i)
+			&& examine_dollar_conditions(unparsed, i) != 1)
 		{
-			old_parsed = parsed;
 			parsed = expand_according_to_dollar_conditions(parsed, \
-				unparsed + i, env_ll, nb_dollars);
+				unparsed, i, env_ll);
 			if (!parsed)
 				return (NULL);
-			if (get_diff_nb_dollars(old_parsed, parsed))
-				nb_dollars--;
-
+			key = get_key_to_expand(unparsed + i + 1);
+			if (examine_dollar_conditions(unparsed, i) == 2
+				|| examine_dollar_conditions(unparsed, i) == 3 || key[0])
+				unparsed[i] = '0';
 		}
 		i++;
 	}

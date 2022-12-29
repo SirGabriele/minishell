@@ -57,20 +57,20 @@ int	count_dollars_to_replace(char *content)
 	return (nb_dollars);
 }
 
-char	*get_key_to_expand(char *parsed)
+char	*get_key_to_expand(char *content)
 {
 	char	*key_to_expand;
 	int		j;
 
 	j = 0;
-	while (parsed[j] != ' ' && parsed[j] != '\"'
-		&& parsed[j] != '$' && parsed[j] != '\0'
-		&& parsed[j] != '\'' && parsed[j] != '=')
+	while (content[j] != ' ' && content[j] != '\"'
+		&& content[j] != '$' && content[j] != '\0'
+		&& content[j] != '\'' && content[j] != '=')
 		j++;
-	key_to_expand = ft_strndup(parsed, j);
+	key_to_expand = ft_strndup(content, j);
 	if (key_to_expand == NULL)
 	{
-		free(parsed);
+		free(content);
 		perror(NULL);
 		return (NULL);
 	}

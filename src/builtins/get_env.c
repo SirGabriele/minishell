@@ -28,12 +28,8 @@ static int	get_delim_sign_index(char *content)
 t_env_ms	*get_env(char *content)
 {
 	t_env_ms	*env;
-	char		*key;
-	char		*value;
 	int			index_delim;
 
-	(void)key;
-	(void)value;
 	env = lstnew_env();
 	if (!env)
 		return (NULL);
@@ -41,11 +37,15 @@ t_env_ms	*get_env(char *content)
 	env->key = ft_strndup(content, index_delim);
 	if (!env->key)
 		return (NULL);
-	env->value = ft_strdup(content + index_delim + 1);
-	if (!env->value)
+	env->value = NULL;
+	if (content[index_delim])
 	{
-		free(env->key);
-		perror(NULL);
+		env->value = ft_strdup(content + index_delim + 1);
+		if (!env->value)
+		{
+			free(env->key);
+			perror(NULL);
+		}
 	}
 	return (env);
 }

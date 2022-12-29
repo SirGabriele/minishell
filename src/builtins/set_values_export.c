@@ -8,7 +8,8 @@ static int	key_exists(char *content, t_env_ms *env)
 	{
 		len = ft_strlen(env->key);
 		if (!ft_strncmp(content, env->key, len)
-			&& (content[len] == '=' || content[len] == '+'))
+			&& (content[len] == '=' || content[len] == '+'
+			|| !content[len]))
 			return (1);
 		env = env->next;
 	}

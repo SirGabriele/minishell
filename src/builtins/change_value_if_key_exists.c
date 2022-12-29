@@ -46,7 +46,7 @@ static t_env_ms	*get_new_value_if_needed(char *content, t_env_ms *env)
 	{
 		if (content[index_equal] == '+')
 			env = append_value(content + index_equal + 2, env);
-		else
+		else if (content[index_equal] == '=')
 			env = modify_value(content + index_equal + 1, env);
 	}
 	return (env);

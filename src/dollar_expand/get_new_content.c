@@ -84,8 +84,7 @@ char	*get_new_content(char *parsed, char *key, char *value, int nb_dollars)
 	{
 		if (parsed[i] == '$')
 			nb_dollars--;
-		if (parsed[i] == '$' && examine_dollar_conditions(parsed, i) != 1
-			&& !nb_dollars)
+		if (parsed[i] == '$' && !nb_dollars)
 		{
 			new_parsed = get_new_parsed(parsed, value, key_len, i);
 			return (new_parsed);
