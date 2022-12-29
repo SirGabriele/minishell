@@ -38,8 +38,10 @@ t_env_ms	*get_env(char *content)
 	if (!env->key)
 		return (NULL);
 	env->value = NULL;
-	if (content[index_delim])
+	if (content[index_delim] == '+' || content[index_delim] == '=')
 	{
+		if (content[index_delim] == '+')
+			index_delim++;
 		env->value = ft_strdup(content + index_delim + 1);
 		if (!env->value)
 		{

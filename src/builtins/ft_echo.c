@@ -2,11 +2,14 @@
 
 static void	edit_command_status(t_env_ms *env)
 {
-	while (env)
+	t_env_ms	*tmp_env;
+
+	tmp_env = env;
+	while (tmp_env)
 	{
-		if (!ft_strcmp(env->key, "?"))
-			env->value[0] = '0';
-		env = env->next;
+		if (!ft_strcmp(tmp_env->key, "?"))
+			tmp_env->value[0] = '0';
+		tmp_env = tmp_env->next;
 	}
 }
 

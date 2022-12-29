@@ -11,7 +11,7 @@ static void	print_all_environment(t_env_ms *env)
 		tmp_env = env;
 		while (tmp_env)
 		{
-			if (tmp_env->key[0] == letter)
+			if (tmp_env->key[0] == letter/* && ft_strcmp(tmp_env->key, "?")*/)
 			{
 				ft_printf_fd(0, "declare -x %s", tmp_env->key);
 				if (tmp_env->value)
@@ -23,6 +23,8 @@ static void	print_all_environment(t_env_ms *env)
 		if (letter == 'Z')
 			letter = '`';
 		else if (letter == 'z')
+			letter = '^';
+		else if (letter == '_')
 			letter = -1;
 		letter++;
 	}

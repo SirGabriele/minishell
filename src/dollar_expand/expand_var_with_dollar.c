@@ -43,6 +43,7 @@ static char	*delete_dollar(char *parsed, char *unparsed, int i)
 				new_parsed = ft_strjoin_free_first(new_parsed, parsed + j + 1);
 			if (!new_parsed)
 				free(parsed);
+			free(parsed);
 			return (new_parsed);
 		}
 		j++;
@@ -62,6 +63,7 @@ static char	*expand_according_to_dollar_conditions(char *parsed, \
 		parsed = expand_dollar(parsed, unparsed, i, env_ll);
 	else if (examine_dollar_conditions(unparsed, i) == 3)
 		parsed = delete_dollar(parsed, unparsed, i);
+	free(key);
 	return (parsed);
 }
 
@@ -85,6 +87,7 @@ static char	*get_content_with_env_values(char *parsed, char *unparsed, \
 			if (examine_dollar_conditions(unparsed, i) == 2
 				|| examine_dollar_conditions(unparsed, i) == 3 || key[0])
 				unparsed[i] = '0';
+			free(key);
 		}
 		i++;
 	}

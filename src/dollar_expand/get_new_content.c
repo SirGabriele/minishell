@@ -58,14 +58,22 @@ static char	*get_new_parsed(char *parsed, char *value, int key_len, int i)
 	char	*value_parsed;
 
 	if (value)
+	{
 		value_parsed = parse_spaces(value);
+		if (!value_parsed)
+			return (NULL);
+	}
 	else
 		value_parsed = NULL;
 	new_parsed = ft_strndup(parsed, i);
 	if (!new_parsed)
+	{
+		free(value_parsed);
 		return (NULL);
+	}
 	new_parsed = join_and_manage_dollar(new_parsed, parsed, \
 		value_parsed, key_len, i);
+	free(value_parsed);
 	return (new_parsed);
 }
 
@@ -77,9 +85,6 @@ char	*get_new_content(char *parsed, char *key, char *value, int nb_dollars)
 
 	i = 0;
 	key_len = ft_strlen(key);
-	new_parsed = ft_strdup(parsed);
-	if (!new_parsed)
-		return (NULL);
 	while (parsed[i])
 	{
 		if (parsed[i] == '$')
@@ -91,5 +96,5 @@ char	*get_new_content(char *parsed, char *key, char *value, int nb_dollars)
 		}
 		i++;
 	}
-	return (new_parsed);
+	return (parsed);
 }

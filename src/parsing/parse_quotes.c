@@ -61,7 +61,7 @@ static char	*get_string_parsed(t_token_ms *tokens)
 {
 	char	*parsed;
 
-	parsed = malloc((length_parsed_string(tokens->content) + 1) * sizeof(char));//est-ce vraiment parsed_string? C'est pas plutot string avant parsing?
+	parsed = malloc((length_parsed_string(tokens->content) + 1) * sizeof(char));
 	if (!parsed)
 	{
 		perror(NULL);

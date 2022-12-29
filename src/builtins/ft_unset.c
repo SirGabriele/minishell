@@ -27,7 +27,7 @@ static void	delete_link_if_needed(t_env_ms *env, char *content)
 	}
 }
 
-void	ft_unset(char **content, t_env_ms *env)
+t_env_ms	*ft_unset(char **content, t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
 	int	i;
@@ -46,4 +46,5 @@ void	ft_unset(char **content, t_env_ms *env)
 		i++;
 	}
 	edit_command_status(env);
+	return (env);
 }

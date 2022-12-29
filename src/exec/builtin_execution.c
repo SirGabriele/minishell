@@ -21,7 +21,6 @@ int	is_a_builtin(char *content)
 
 void	launch_builtin(char **content, t_env_ms *env_ll)
 {
-	(void)env_ll;
 	if (!ft_strcmp(content[0], "echo"))
 		ft_echo(content + 1, env_ll);
 	else if (!ft_strcmp(content[0], "cd"))
@@ -35,6 +34,5 @@ void	launch_builtin(char **content, t_env_ms *env_ll)
 	else if (!ft_strcmp(content[0], "env"))
 		ft_env(content + 1, env_ll);
 	//else if (!ft_strcmp(content[0], "exit"))
-	//	ft_exit(content + 1);
-
+	//	env_ll = ft_exit(content + 1);
 }

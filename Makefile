@@ -14,6 +14,7 @@ CHECK =	get_missing_user_input.c	\
 	ft_check_quotes.c
 
 PARSING =   start_binary_tree.c	\
+	build_binary_tree.c			\
 	fill_token.c				\
 	get_list_infos.c			\
 	get_pipeline_infos.c		\

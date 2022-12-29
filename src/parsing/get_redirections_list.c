@@ -30,7 +30,7 @@ static t_redir_ms	*ft_lstnew_redir(void)
 	return (lst);
 }
 
-static t_redir_ms	*get_infos_if_redir(t_redir_ms *first_redir, \
+static t_redir_ms	*get_infos(t_redir_ms *first_redir, \
 	t_token_ms *tokens)
 {
 	int	len_content;
@@ -79,7 +79,7 @@ t_redir_ms	*get_redirections_list(t_token_ms *tokens)
 	{
 		if (is_token_type_a_redir(tokens->type))
 		{
-			tmp_first_redir = get_infos_if_redir(tmp_first_redir, tokens);
+			tmp_first_redir = get_infos(tmp_first_redir, tokens);
 			if (!tmp_first_redir)
 				return (NULL);
 			tokens = tokens->next;

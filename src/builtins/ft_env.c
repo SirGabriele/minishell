@@ -14,7 +14,7 @@ static void	print_initialized_environment(t_env_ms *tmp_env)
 {
 	while (tmp_env)
 	{
-		if (tmp_env->value && ft_strncmp(tmp_env->value, "?", 1) != 0)
+		if (tmp_env->value && ft_strcmp(tmp_env->key, "?"))
 		{
 			ft_printf_fd(0, "%s=", tmp_env->key);
 			ft_printf_fd(0, "%s\n", tmp_env->value);
@@ -23,7 +23,7 @@ static void	print_initialized_environment(t_env_ms *tmp_env)
 	}
 }
 
-int	ft_env(char **content, t_env_ms *env)
+t_env_ms	*ft_env(char **content, t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
 
@@ -33,7 +33,7 @@ int	ft_env(char **content, t_env_ms *env)
 	else
 	{
 		ft_printf_fd(2, "minishell: env: too many arguments\n");
-		return (1);
+		return (NULL);
 	}
-	return (0);
+	return (env);
 }
