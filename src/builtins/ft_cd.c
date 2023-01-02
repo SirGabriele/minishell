@@ -34,7 +34,7 @@ static void	identify_error(char *content)//EFAULT EIO ELOOP
 	free(error);
 }
 
-void	ft_cd(char **content, t_env_ms *env)
+int	ft_cd(char **content, t_env_ms *env)
 {
 	int	exit_status;
 	int	nb_args;
@@ -53,4 +53,5 @@ void	ft_cd(char **content, t_env_ms *env)
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 	set_exit_code(env, 0);
 //	edit_command_status(env);
+	return (0);
 }

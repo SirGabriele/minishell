@@ -19,12 +19,15 @@ int	is_a_builtin(char *content)
 	return (1);
 }
 
-void	launch_builtin(char **content, t_env_ms *env_ll)
+int	launch_builtin(char **content, t_env_ms *env_ll)
 {
+	int	ret;
+
+	ret = 0;
 	if (!ft_strcmp(content[0], "echo"))
-		ft_echo(content + 1, env_ll);
+		ret = ft_echo(content + 1, env_ll);
 	else if (!ft_strcmp(content[0], "cd"))
-		ft_cd(content + 1, env_ll);
+		ret = ft_cd(content + 1, env_ll);
 	else if (!ft_strcmp(content[0], "pwd"))
 		ft_pwd(env_ll);
 	else if (!ft_strcmp(content[0], "export"))
@@ -35,4 +38,5 @@ void	launch_builtin(char **content, t_env_ms *env_ll)
 		ft_env(content + 1, env_ll);
 	//else if (!ft_strcmp(content[0], "exit"))
 	//	env_ll = ft_exit(content + 1);
+	return (ret);
 }

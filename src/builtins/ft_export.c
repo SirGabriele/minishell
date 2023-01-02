@@ -1,5 +1,6 @@
 #include "../../includes/minishell.h"
 
+//sa march pa
 static void	print_all_environment(t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
@@ -13,9 +14,9 @@ static void	print_all_environment(t_env_ms *env)
 		{
 			if (tmp_env->key[0] == letter/* && ft_strcmp(tmp_env->key, "?")*/)
 			{
-				ft_printf_fd(0, "declare -x %s", tmp_env->key);
+				ft_printf_fd(1, "declare -x %s", tmp_env->key);
 				if (tmp_env->value)
-					ft_printf_fd(0, "=\"%s\"", tmp_env->value);
+					ft_printf_fd(1, "=\"%s\"", tmp_env->value);
 				write(1, "\n", 1);
 			}
 			tmp_env = tmp_env->next;

@@ -46,7 +46,7 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-void	ft_echo(char **content, t_env_ms *env)
+int	ft_echo(char **content, t_env_ms *env)//envoyer echo toujours dans un fork
 {
 	int	i;
 	int	options;
@@ -63,5 +63,6 @@ void	ft_echo(char **content, t_env_ms *env)
 	if (!options)
 		ft_printf("\n");
 	set_exit_code(env, 0);
+	return (0);
 //	edit_command_status(env);
 }

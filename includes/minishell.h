@@ -61,7 +61,7 @@ int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, 
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
 int				is_a_builtin(char *content);
-void			launch_builtin(char **content, t_env_ms *env_ll);
+int				launch_builtin(char **content, t_env_ms *env_ll);
 void			expand_dollar_heredoc(char *user_input, int *pipe_before, t_env_ms *env_ll);
 
 /****************/
@@ -144,8 +144,8 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /**************/
 
 int				check_errors_env_format(char **content);
-void			ft_echo(char **content, t_env_ms *env);
-void			ft_cd(char **content, t_env_ms *env);
+int				ft_echo(char **content, t_env_ms *env);
+int				ft_cd(char **content, t_env_ms *env);
 void			ft_pwd(t_env_ms *env);
 void			ft_export(char **content, t_env_ms *env);
 t_env_ms		*ft_env(char **content, t_env_ms *env);

@@ -45,17 +45,13 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 
 	exit_code = handle_all_redirs(node, pipes->before, env_ll);
 	env_arr = convert_env_ll_into_arr(env_ll);
+	redirect_infile(pipes->before, node);
+	redirect_outfile(pipes->after, node);
 	if (env_arr == NULL || exit_code != 0 || node->content == NULL)//a tester avec "> cat"
 	{
 		//free memory
-		close(pipes->before[0]);
-		close(pipes->before[1]);
-		close(pipes->after[0]);
-		close(pipes->after[1]);
 		exit(exit_code);
 	}
-	redirect_infile(pipes->before, node);
-	redirect_outfile(pipes->after, node);
 	correct_path = verify_cmd_path(node->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 47
 	if (correct_path == NULL)
 	{
@@ -100,25 +96,19 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 //ajouter handle_all_redirs dans les builtin
 int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)//ajouter la separation si builtin ou non
 {
-//	char	**env_arr;
-
-//	if (is_a_builtin(node->content[0]) == 0)
-//		launch_builtin(node->content, *env_ll);
-//	else
-//	{
-//	env_arr = convert_env_ll_into_arr(*env_ll);
-//	if (env_arr == NULL)
-//		return (-1);
-	children->pid_arr[children->index] = fork();
-	if (children->pid_arr[children->index] == -1)
+	if (is_a_builtin(node->content[0]) == 0)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
+		children->pid_arr[children->index] = launch_builtin(node->content, *env_ll);
+	else
 	{
-		ft_putstr_fd("Fork() failed\n", 2);
-		return (-1);
+		children->pid_arr[children->index] = fork();
+		if (children->pid_arr[children->index] == -1)
+		{
+			ft_putstr_fd("Fork() failed\n", 2);
+			return (-1);
+		}
+		if (children->pid_arr[children->index] == 0)
+			go_in_child_process(pipes, node, *env_ll);
 	}
-	if (children->pid_arr[children->index] == 0)
-		go_in_child_process(pipes, node, *env_ll);
 	children->index++;
-//	free_double_arr(env_arr);
-//	}
 	return (0);
 }
