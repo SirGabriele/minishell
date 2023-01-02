@@ -22,7 +22,7 @@ int	is_a_builtin(char *content)
 void	launch_builtin(char **content, t_env_ms *env_ll)
 {
 	if (!ft_strcmp(content[0], "echo"))
-		ft_echo(content + 1, env_ll);//faire les redirections
+		ft_echo(content + 1, env_ll);
 	else if (!ft_strcmp(content[0], "cd"))
 		ft_cd(content + 1, env_ll);
 	else if (!ft_strcmp(content[0], "pwd"))

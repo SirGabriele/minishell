@@ -32,7 +32,7 @@ t_env_ms	*ft_env(char **content, t_env_ms *env)
 		print_initialized_environment(tmp_env);
 	else
 	{
-		ft_printf_fd(2, "minishell: env: too many arguments\n");
+		ft_putstr_fd("minishell: env: too many arguments\n", 2);
 		return (NULL);
 	}
 	return (env);

@@ -37,13 +37,15 @@ static void	redirect_infile(int *pipe_before, t_node_ms *node)
 }
 
 //free memory in forks
-static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, char **env_arr)
+static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *env_ll)
 {
+	char	**env_arr;
 	char	*correct_path;
 	int		exit_code;
 
-	exit_code = handle_all_redirs(node, pipes->before);
-	if (exit_code != 0 || node->content == NULL)//a tester avec "> cat"
+	exit_code = handle_all_redirs(node, pipes->before, env_ll);
+	env_arr = convert_env_ll_into_arr(env_ll);
+	if (env_arr == NULL || exit_code != 0 || node->content == NULL)//a tester avec "> cat"
 	{
 		//free memory
 		close(pipes->before[0]);
@@ -58,10 +60,18 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, char **env_a
 	if (correct_path == NULL)
 	{
 		//free_memory
+		free_binary_tree(pipes->tree_root);
+		free_env_list(env_ll);
+		free(pipes->children->pid_arr);
+		free(pipes->children);
+		free_double_arr(env_arr);
+		free(pipes);
+		close(0);
+		close(1);
+		close(2);
 		ft_putstr_fd("Command does not exist\n", 2);//A VIRER
 		exit(127);
 	}
-//	ft_putstr_fd("Command exists\n", 2);//A VIRER
 	execve(correct_path, node->content, env_arr);
 	ft_putstr_fd("Execve failed\n", 2);//A VIRER
 	//free_memory
@@ -90,25 +100,25 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, char **env_a
 //ajouter handle_all_redirs dans les builtin
 int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)//ajouter la separation si builtin ou non
 {
-	char	**env_arr;
+//	char	**env_arr;
 
-	env_arr = convert_env_ll_into_arr(*env_ll);
-	if (env_arr == NULL)
-		return (-1);
-	if (is_a_builtin(node->content[0]) == 0)
-		launch_builtin(node->content, *env_ll);
-	else
+//	if (is_a_builtin(node->content[0]) == 0)
+//		launch_builtin(node->content, *env_ll);
+//	else
+//	{
+//	env_arr = convert_env_ll_into_arr(*env_ll);
+//	if (env_arr == NULL)
+//		return (-1);
+	children->pid_arr[children->index] = fork();
+	if (children->pid_arr[children->index] == -1)
 	{
-		children->pid_arr[children->index] = fork();
-		if (children->pid_arr[children->index] == -1)
-		{
-			ft_putstr_fd("Fork() failed\n", 2);
-			return (-1);
-		}
-		if (children->pid_arr[children->index] == 0)
-			go_in_child_process(pipes, node, env_arr);
-		children->index++;
+		ft_putstr_fd("Fork() failed\n", 2);
+		return (-1);
 	}
-	free_double_arr(env_arr);
+	if (children->pid_arr[children->index] == 0)
+		go_in_child_process(pipes, node, *env_ll);
+	children->index++;
+//	free_double_arr(env_arr);
+//	}
 	return (0);
 }

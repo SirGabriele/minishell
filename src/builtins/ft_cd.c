@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	edit_command_status(t_env_ms *env)
+/*static void	edit_command_status(t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
 
@@ -11,7 +11,7 @@ static void	edit_command_status(t_env_ms *env)
 			tmp_env->value[0] = '0';
 		tmp_env = tmp_env->next;
 	}
-}
+}*/
 
 static int	count_args(char **content)
 {
@@ -48,8 +48,9 @@ void	ft_cd(char **content, t_env_ms *env)
 			identify_error(*content);
 	}
 	else if (!nb_args)
-		ft_printf_fd(2, "minishell: cd: missing relative/absolute path\n");
+		ft_putstr_fd("minishell: cd: missing relative/absolute path\n", 2);
 	else
-		ft_printf_fd(2, "minishell: cd: too many arguments\n");
-	edit_command_status(env);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+	set_exit_code(env, 0);
+//	edit_command_status(env);
 }

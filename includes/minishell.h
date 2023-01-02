@@ -44,24 +44,25 @@ void			ft_signal_user_input(int sig);
 /*	EXEC	*/
 /************/
 
+t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes);
 t_node_ms		*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms *env_ll);
 t_node_ms		*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms *env_ll);
-t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes);
 char			*verify_cmd_path(char *user_input_cmd, char **env);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env_ll);
 int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
-int				handle_all_redirs(t_node_ms *node, int *pipe_before);
+int				handle_all_redirs(t_node_ms *node, int *pipe_before, t_env_ms *env_ll);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env);
-int				heredoc_requested(t_redir_ms *redir, int *pipe_before);
+int				heredoc_requested(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll);
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
 int				is_a_builtin(char *content);
 void			launch_builtin(char **content, t_env_ms *env_ll);
+void			expand_dollar_heredoc(char *user_input, int *pipe_before, t_env_ms *env_ll);
 
 /****************/
 /*	LINKED LIST	*/
@@ -142,17 +143,17 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /*  BUILTINS  */
 /**************/
 
+int				check_errors_env_format(char **content);
 void			ft_echo(char **content, t_env_ms *env);
 void			ft_cd(char **content, t_env_ms *env);
 void			ft_pwd(t_env_ms *env);
 void			ft_export(char **content, t_env_ms *env);
-void			ft_unset(char **content, t_env_ms *env);
-void			ft_env(char **content, t_env_ms *env);
+t_env_ms		*ft_env(char **content, t_env_ms *env);
+t_env_ms		*ft_unset(char **content, t_env_ms *env);
 t_env_ms		*set_values_export(char **content, t_env_ms *env);
 t_env_ms		*get_env(char *content);
 t_env_ms		*change_value(char *content, t_env_ms *env);
 t_env_ms		*extend_env_list(char *content, t_env_ms *env);
-int				check_errors_env_format(char **content);
 
 /************/
 /*	FREE	*/

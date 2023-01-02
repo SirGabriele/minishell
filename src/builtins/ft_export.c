@@ -16,7 +16,7 @@ static void	print_all_environment(t_env_ms *env)
 				ft_printf_fd(0, "declare -x %s", tmp_env->key);
 				if (tmp_env->value)
 					ft_printf_fd(0, "=\"%s\"", tmp_env->value);
-				ft_printf_fd(0, "\n");
+				write(1, "\n", 1);
 			}
 			tmp_env = tmp_env->next;
 		}

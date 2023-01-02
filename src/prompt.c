@@ -106,7 +106,6 @@ int	cmd_prompt(t_env_ms *env_ll)
 		}
 		else
 			free_user_input_and_set_to_null(user_input);
-		set_exit_code(env_ll, 0);
 	}
 	return (3);
 }

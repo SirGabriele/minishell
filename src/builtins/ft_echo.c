@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static void	edit_command_status(t_env_ms *env)
+/*static void	edit_command_status(t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
 
@@ -11,7 +11,7 @@ static void	edit_command_status(t_env_ms *env)
 			tmp_env->value[0] = '0';
 		tmp_env = tmp_env->next;
 	}
-}
+}*/
 
 static int	is_option(char *content)
 {
@@ -62,5 +62,6 @@ void	ft_echo(char **content, t_env_ms *env)
 	}
 	if (!options)
 		ft_printf("\n");
-	edit_command_status(env);
+	set_exit_code(env, 0);
+//	edit_command_status(env);
 }

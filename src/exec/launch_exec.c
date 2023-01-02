@@ -19,6 +19,8 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 		exit_code = WEXITSTATUS(wstatus);
 		set_exit_code(env_ll, exit_code);
 	}
+	free(children->pid_arr);//A VOIR
+	free(children);//A VOIR
 }
 
 static int	get_nb_nodes(t_node_ms *root, int *i)
@@ -64,14 +66,15 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 	children = initialize_children(children, nb_nodes);
 	if (children == NULL)
 		return (-1);
+	pipes->tree_root = root;
+	pipes->children = children;
 	if (start_recursive(pipes, children, root, env_ll) == -1)
 		return (-1);
 	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1)
 		return (-1);
+	if (close(pipes->after[0]) == -1 || close(pipes->after[1]) == -1)
+		return (-1);
 	wait_for_all_the_forks(children, env_ll);
-	//free children
 	free(pipes);
-	(void)root;
-	(void)env_ll;
 	return (0);
 }

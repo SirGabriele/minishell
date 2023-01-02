@@ -39,16 +39,6 @@ ajouter les codes d'erreurs des signaux
 
 echo $_
 
-------------------------------------------------------------
-
-Faire en sorte que les heredoc passent dans le parsing, virer les quotes et expand
-Refaire la partie heredoc pour n'en avoir qu'un seul et fermer/réouvrir les pipes à chaque appel + déclarer marker là où il faut
-
-------------------------------------------------------------
-
-Demander à Doc s'il est préferable d'initialiser un tableau à [DEFINE SIZE] ou malloc
-	+	malloc taille pile et while (i < taille) || malloc taille pile + 1 et while (arr[i] != NULL)
-
 -------------------------------------------------------------
 
 Voir dans
@@ -65,6 +55,7 @@ Voir dans
 	
 ------------------------------------------------------------
 
-les checks genre <> 
+les checks genre <>, | >, < |, | &&
+ne pas expand les infile, outfile, delimiter. echo << $PATH attend '$PATH' en delimiter
 erreur de check ferme minishell
 comportement binary_tree avec (echo dsa)

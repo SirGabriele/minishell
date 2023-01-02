@@ -64,8 +64,10 @@ typedef struct s_children_ms
 
 typedef struct s_pipe_ms
 {
-	int	before[2];
-	int	after[2];
+	t_node_ms		*tree_root;
+	t_children_ms	*children;
+	int				before[2];
+	int				after[2];
 }	t_pipes_ms;
 
 #endif

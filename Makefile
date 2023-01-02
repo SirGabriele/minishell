@@ -34,7 +34,7 @@ DOLLAR_EXPAND = expand_var_with_dollar.c	\
 			get_new_content.c				\
 			join_and_manage_dollar.c
 
-EXEC =	initialize_children.c	\
+EXEC = initialize_children.c	\
 	start_recursive.c		\
 	launch_exec.c			\
 	handle_all_redirs.c		\
@@ -42,8 +42,9 @@ EXEC =	initialize_children.c	\
 	execute_cmd.c			\
 	verify_cmd_path.c		\
 	operator_and_handling.c	\
-	builtin_execution.c		\
-	operator_or_handling.c
+	launch_builtin.c		\
+	operator_or_handling.c	\
+	expand_dollar_heredoc.c
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
 	initialize_node.c				\
