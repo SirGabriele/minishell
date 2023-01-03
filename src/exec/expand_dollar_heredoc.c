@@ -28,9 +28,13 @@ static char *get_env_value(char *user_input, int len_after_dollar, t_env_ms *env
 	while (env_cpy != NULL)
 	{
 		if (ft_strcmp(env_cpy->key, key) == 0)
+		{
+			free(key);
 			return (env_cpy->value);
+		}
 		env_cpy = env_cpy->next;
 	}
+	free(key);
 	return (NULL);
 }
 
@@ -50,6 +54,8 @@ void	expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll
 			env_value = get_env_value(user_input + i + 1, len_after_dollar, env_ll);
 			if (env_value != NULL)
 				ft_putstr_fd(env_value, pipes->before[1]);
+			else
+				write(pipes->before[1], "$", 1);
 			i += len_after_dollar;
 		}
 		else

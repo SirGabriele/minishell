@@ -106,7 +106,7 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		children->index++;
 		return (-1);
 	}
-	if (is_cd_or_exit(node->content[0]) == 0 && node->shell == TOK_SHELL)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
+	if (is_cd_or_exit(node->content[0]) == 0 && node->shell == TOK_SHELL)
 		simple_cd_or_exit(node->content, *env_ll);
 	else
 	{

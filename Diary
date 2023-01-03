@@ -51,7 +51,7 @@ comportement binary_tree avec (echo dsa)
 
 BUILTIN
 echo
-cd semble tout OK
+cd PAS DANS UN FORK semble tout OK
 pwd
 export
 unset
