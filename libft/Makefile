@@ -106,7 +106,7 @@ SRCS   =	$(addprefix char/, $(CHAR))							\
 			$(addprefix ft_printf_error/, $(FT_PRINTF_ERROR))
 	
 
-FLAGS =	-Wall -Wextra -Werror -g
+FLAGS =	-Wall -Wextra -Werror -gdwarf-4
 
 OBJS =	$(SRCS:.c=.o)
 

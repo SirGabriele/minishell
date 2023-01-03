@@ -89,7 +89,7 @@ SRCS = $(addprefix src/, $(SRC))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 READLINE = -lreadline
 

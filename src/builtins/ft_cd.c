@@ -1,5 +1,23 @@
 #include "../../includes/minishell.h"
 
+/*static void edit_command_status(t_env_ms *env, int nb_args, int exit_status)
+{
+	t_env_ms    *tmp_env;
+
+	tmp_env = env;
+	while (tmp_env)
+	{
+		if (!ft_strcmp(tmp_env->key, "?"))
+		{
+			if (nb_args == 1 && !exit_status)
+				tmp_env->value[0] = '0';
+			else if (nb_args != 1 || exit_status)
+				tmp_env->value[0] = '1';
+		}
+		tmp_env = tmp_env->next;
+	}
+}*/
+
 static int	count_args(char **content)
 {
 	int	i;
@@ -10,7 +28,7 @@ static int	count_args(char **content)
 	return (i);
 }
 
-static void	identify_error(char *content, t_env_ms *env_ll)//EFAULT EIO ELOOP
+static void	identify_error(char *content)
 {
 	char	*error;
 
@@ -19,7 +37,6 @@ static void	identify_error(char *content, t_env_ms *env_ll)//EFAULT EIO ELOOP
 		perror(NULL);
 	perror(error);
 	free(error);
-	set_exit_code(env_ll, 1);
 }
 
 int	ft_cd(char **content, t_env_ms *env_ll)
@@ -34,7 +51,7 @@ int	ft_cd(char **content, t_env_ms *env_ll)
 	{
 		exit_status = chdir(content[0]);
 		if (exit_status)
-			identify_error(*content, env_ll);
+			identify_error(*content);
 		else
 			set_exit_code(env_ll, 0);
 		return (0);
