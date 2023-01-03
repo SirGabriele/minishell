@@ -1,18 +1,5 @@
 #include "../../includes/minishell.h"
 
-/*static void	edit_command_status(t_env_ms *env)
-{
-	t_env_ms	*tmp_env;
-
-	tmp_env = env;
-	while (tmp_env)
-	{
-		if (!ft_strcmp(tmp_env->key, "?"))
-			tmp_env->value[0] = '0';
-		tmp_env = tmp_env->next;
-	}
-}*/
-
 static int	is_option(char *content)
 {
 	int	i;
@@ -46,17 +33,17 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(t_node_ms *node, t_env_ms *env_ll)
+int	ft_echo(char **content, t_env_ms *env_ll)
 {
 	int	i;
 	int	options;
 
 	i = 0;
-	options = get_nb_options(node->content + 1);
-	while (node->content[1 + i + options])
+	options = get_nb_options(content + 1);
+	while (content[1 + i + options])
 	{
-		ft_printf("%s", node->content[1 + i + options]);
-		if (node->content[1 + i + options + 1])
+		ft_printf("%s", content[1 + i + options]);
+		if (content[1 + i + options + 1])
 			write(1, " ", 1);
 		i++;
 	}
@@ -64,5 +51,4 @@ int	ft_echo(t_node_ms *node, t_env_ms *env_ll)
 		write(1, "\n", 1);
 	set_exit_code(env_ll, 0);
 	return (0);
-//	edit_command_status(env);
 }

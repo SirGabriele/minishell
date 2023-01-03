@@ -49,11 +49,11 @@ comportement binary_tree avec (echo dsa)
 
 ------------------------------------------------------------
 
-BUILTIN
+BUILTIN		IN FORK		OUT FORK
 echo
-cd PAS DANS UN FORK semble tout OK
+cd						OK
 pwd
 export
-unset
+unset					OK
 env
 exit

@@ -1,15 +1,5 @@
 #include "../../includes/minishell.h"
 
-/*static void	edit_command_status(t_env_ms *env)
-{
-	while (env)
-	{
-		if (!ft_strcmp(env->key, "?"))
-			env->value[0] = '0';
-		env = env->next;
-	}
-}*/
-
 static void	delete_link_if_needed(t_env_ms *env, char *content)
 {
 	t_env_ms	*tmp;
@@ -27,7 +17,7 @@ static void	delete_link_if_needed(t_env_ms *env, char *content)
 	}
 }
 
-t_env_ms	*ft_unset(char **content, t_env_ms *env)
+int	ft_unset(char **content, t_env_ms *env)
 {
 	t_env_ms	*tmp_env;
 	int	i;
@@ -46,6 +36,5 @@ t_env_ms	*ft_unset(char **content, t_env_ms *env)
 		i++;
 	}
 	set_exit_code(env, 0);
-//	edit_command_status(env);
-	return (env);
+	return (0);
 }

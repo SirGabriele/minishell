@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
-static void	free_memory_fork(t_pipes_ms *pipes, char **env_arr, t_env_ms *env_ll)
+static void	free_memory_fork_and_exit(t_pipes_ms *pipes, char **env_arr,
+	t_env_ms *env_ll, int exit_code)
 {
 	free_binary_tree(pipes->tree_root);
 	free_env_list(env_ll);
@@ -11,6 +12,7 @@ static void	free_memory_fork(t_pipes_ms *pipes, char **env_arr, t_env_ms *env_ll
 	close(0);
 	close(1);
 	close(2);
+	exit(exit_code);
 }
 
 static void	redirect_outfile(int *pipe_after, t_node_ms *node)
@@ -49,32 +51,27 @@ static void	redirect_infile(int *pipe_before, t_node_ms *node)
 	close(pipe_before[1]);
 }
 
-//free memory in forks
 static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *env_ll)
 {
 	char	**env_arr;
 	char	*correct_path;
+	int		exit_code;
 
 	env_arr = convert_env_ll_into_arr(env_ll);
 	redirect_infile(pipes->before, node);
 	redirect_outfile(pipes->after, node);
-	if (env_arr == NULL || node->content == NULL)//a tester avec "> cat"
+	if (env_arr == NULL || node->content == NULL)
+		free_memory_fork_and_exit(pipes, env_arr, env_ll, 0);
+	if (is_a_builtin(node->content[0]) == 0)
 	{
-		ft_putstr_fd("No command written\n", 2);//A VIRER
-		free_memory_fork(pipes, env_arr, env_ll);
-		exit(0);
+		exit_code = exec_builtin(node, env_ll);
+		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code);
 	}
-	correct_path = verify_cmd_path(node->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 59
+	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
-	{
-		free_memory_fork(pipes, env_arr, env_ll);
-		ft_putstr_fd("Command does not exist\n", 2);//A VIRER
-		exit(127);
-	}
+		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
 	execve(correct_path, node->content, env_arr);
-	ft_putstr_fd("Execve failed\n", 2);//A VIRER
-	free_memory_fork(pipes, env_arr, env_ll);
-	exit(1);
+	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);//1 ou 2 a voir. Test où execve fail: .
 }
 
 /****************************************************************/
@@ -96,7 +93,7 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 /****************************************************************/
 
 //ajouter handle_all_redirs dans les builtin
-int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)//ajouter la separation si builtin ou non
+int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)
 {
 	int	exit_code;
 
@@ -106,8 +103,9 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		children->index++;
 		return (-1);
 	}
-	if (is_cd_or_exit(node->content[0]) == 0 && node->shell == TOK_SHELL)
-		simple_cd_or_exit(node->content, *env_ll);
+	if (node->content && is_non_forkable_builtin(node->content[0]) == 0
+		&& node->shell == TOK_SHELL)
+		out_of_fork_builtin(node->content, *env_ll);
 	else
 	{
 		children->pid_arr[children->index] = fork();

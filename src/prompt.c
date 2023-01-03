@@ -91,7 +91,10 @@ int	cmd_prompt(t_env_ms *env_ll)
 
 	while (1)
 	{
-		user_input = readline("minishell> ");
+		user_input = getcwd(NULL, 0);
+		ft_printf("\e[1;96m%s\e[0m$", user_input);
+		free(user_input);
+		user_input = readline(" ");
 		if (handle_prompt(user_input) == -1)
 			return (0);
 		ret = ft_check_syntax_error(&user_input, env_ll);

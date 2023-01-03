@@ -26,8 +26,6 @@ int	launch_program(char **user_input, t_env_ms *env_ll)
 {
 	t_node_ms	*root;
 	int			ret;
-//	t_token_ms	*tokens_unparsed;
-//	t_token_ms	*tokens_parsed;
 
 	ret = 0;
 	if (*user_input[0] == '\0')

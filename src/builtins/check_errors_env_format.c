@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	check_key_format(char *content)
+static int	check_key_format(char *content, t_env_ms *env_ll)
 {
 	if (!ft_isalpha(content[0]) && content[0] != '_')
 	{
@@ -11,7 +11,7 @@ static int	check_key_format(char *content)
 	return (0);
 }
 
-static int	check_spaces_after_key(char *content)
+static int	check_spaces_after_key(char *content, t_env_ms *env_ll)
 {
 	int	i;
 
@@ -33,16 +33,20 @@ static int	check_spaces_after_key(char *content)
 
 int	check_errors_env_format(char **content)
 {
-	int		i;
+	int	i;
+	int	ret;
 
-	i = 0;
+	ret = 0;
+	i = 1;
 	while (content[i])
 	{
-		if (check_key_format(content[i]))
-			return (1);
-		else if (check_spaces_after_key(content[i]))
-			return (1);
+		ret = check_key_format(content[i]);
+		if (ret != 0)
+			return (ret);
+		ret = check_spaces_after_key(content[i]);
+		if (ret != 0)
+			return (ret);
 		i++;
 	}
-	return (0);
+	return (ret);
 }

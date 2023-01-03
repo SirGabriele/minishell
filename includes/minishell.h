@@ -60,11 +60,12 @@ int				heredoc_requested(t_redir_ms *redir, t_pipes_ms *pipes, t_env_ms *env_ll)
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
-int				is_a_simple_builtin(char *content, t_node_ms *root);
+int				is_a_builtin(char *content);
+int				exec_builtin(t_node_ms *node, t_env_ms *env_ll);
 int				launch_builtin(char **content, t_env_ms *env_ll);
 void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll);
-int				is_cd_or_exit(char *content);//a deplacer dans utils
-int				simple_cd_or_exit(char **content, t_env_ms *env_ll);//a deplacer dans utils
+int				is_non_forkable_builtin(char *content);//a deplacer dans utils
+void			out_of_fork_builtin(char **content, t_env_ms *env_ll);//a deplacer dans utils
 
 /****************/
 /*	LINKED LIST	*/
@@ -145,13 +146,13 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /*  BUILTINS  */
 /**************/
 
-int				check_errors_env_format(char **content);
-int				ft_echo(t_node_ms *node, t_env_ms *env_ll);
+int				check_errors_env_format(char **content, t_env_ms *env_ll);
+int				ft_echo(char **content, t_env_ms *env_ll);
 int				ft_cd(char **content, t_env_ms *env_ll);
-void			ft_pwd(t_env_ms *env_ll);
-void			ft_export(char **content, t_env_ms *env_ll);
+int				ft_pwd(t_env_ms *env_ll);
+int				ft_export(char **content, t_env_ms *env_ll);
 t_env_ms		*ft_env(char **content, t_env_ms *env_ll);
-t_env_ms		*ft_unset(char **content, t_env_ms *env_ll);
+int				ft_unset(char **content, t_env_ms *env_ll);
 t_env_ms		*set_values_export(char **content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
 t_env_ms		*change_value(char *content, t_env_ms *env_ll);
