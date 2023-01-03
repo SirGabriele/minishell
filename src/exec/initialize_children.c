@@ -2,7 +2,7 @@
 
 static pid_t	*initialize_pid_arr(pid_t *pid_arr, int nb_cmd)
 {
-	pid_arr = malloc(sizeof(pid_t) * nb_cmd);
+	pid_arr = ft_calloc(sizeof(pid_t), nb_cmd);
 	if (pid_arr == NULL)
 	{
 		perror(NULL);

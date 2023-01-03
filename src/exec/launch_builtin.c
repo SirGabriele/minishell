@@ -19,52 +19,57 @@
 	return (1);
 }*/
 
-static int	is_a_pipeline(t_node_ms *root)
+int	is_cd_or_exit(char *content)//ajouter verif redirection. cd Desktop > out < infile
 {
-	int	ret;
-
-	while (root->left != NULL)
-	{
-		ret = root->operator;
-		root = root->left;
-	}
-	return (ret);
+	if (!ft_strcmp(content, "cd"))
+		return (0);
+//	else if (!ft_strcmp(content[0], "exit"))
+//		return (0);
+	return (1);
 }
 
-int	is_a_simple_builtin(char *content, t_node_ms *root)
+int	is_a_builtin(char *content)
 {
-	int	ret;
-
-	ret = 0;
-	if ((!ft_strcmp(content, "echo")
+	if (!ft_strcmp(content, "echo")
 		|| !ft_strcmp(content, "cd")
 		|| !ft_strcmp(content, "pwd")
 		|| !ft_strcmp(content, "export")
 		|| !ft_strcmp(content, "unset")
 		|| !ft_strcmp(content, "env")
 		|| !ft_strcmp(content, "exit"))
-		&& is_a_pipeline(root) != TOK_PIPE)
 		return (0);
 	return (1);
 }
 
-int	launch_builtin(char **content, t_env_ms *env_ll)
+/*int	is_a_builtin(t_node_ms *node, t_env_ms *env_ll)//ajouter verif redirection. cd Desktop > out < infile
 {
 	int	ret;
 
 	ret = 0;
-	if (!ft_strcmp(content[0], "echo"))
-		ret = ft_echo(content + 1, env_ll);
+//	if (!ft_strcmp(content[0], "echo"))
+//		ret = ft_echo(node, env_ll);
 	else if (!ft_strcmp(content[0], "cd"))
-		ret = ft_cd(content + 1, env_ll);
-	else if (!ft_strcmp(content[0], "pwd"))
-		ft_pwd(env_ll);
+		ret = ft_cd(node, env_ll);
+//	else if (!ft_strcmp(content[0], "pwd"))
+		ret = ft_pwd(node, env_ll);
 	else if (!ft_strcmp(content[0], "export"))
-		ft_export(content + 1, env_ll);
+		ret = ft_export(node, env_ll);
 	else if (!ft_strcmp(content[0], "unset"))
-		ft_unset(content + 1, env_ll);
+		ret = ft_unset(node, env_ll);
 	else if (!ft_strcmp(content[0], "env"))
-		ft_env(content + 1, env_ll);
+		ret = ft_env(node, env_ll);//
+	//else if (!ft_strcmp(content[0], "exit"))
+	//	env_ll = ft_exit(content + 1);
+	return (ret);
+}*/
+
+int	simple_cd_or_exit(char **content, t_env_ms *env_ll)
+{
+	int	ret;
+	
+	ret = 0;
+	if (!ft_strcmp(content[0], "cd"))
+		ret = ft_cd(content + 1, env_ll);
 	//else if (!ft_strcmp(content[0], "exit"))
 	//	env_ll = ft_exit(content + 1);
 	return (ret);

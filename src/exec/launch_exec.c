@@ -11,10 +11,11 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 	wstatus = 0;
 	while (i < children->index)
 	{
-		waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
+		if (children->pid_arr[i] != 0)
+			waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
 		i++;
 	}
-	if (WIFEXITED(wstatus))
+	if (children->pid_arr[children->index - 1] != 0 && WIFEXITED(wstatus))
 	{
 		exit_code = WEXITSTATUS(wstatus);
 		set_exit_code(env_ll, exit_code);

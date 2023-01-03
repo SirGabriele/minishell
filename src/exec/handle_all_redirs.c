@@ -50,7 +50,7 @@ static int	verify_simple_infile(t_redir_ms *redir)
 	return (0);
 }
 
-static int	infile_mode(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll)
+static int	infile_mode(t_redir_ms *redir, t_pipes_ms *pipes, t_env_ms *env_ll)
 {
 	int	exit_code;
 
@@ -62,7 +62,7 @@ static int	infile_mode(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll)
 	}
 	else
 	{
-		exit_code = heredoc_requested(redir, pipe_before, env_ll);
+		exit_code = heredoc_requested(redir, pipes, env_ll);
 		if (exit_code != 0)
 			return (exit_code);
 	}
@@ -86,7 +86,7 @@ static int	infile_mode(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll)
 /*																	*/
 /********************************************************************/
 
-int	handle_all_redirs(t_node_ms *node, int *pipe_before, t_env_ms *env_ll)
+int	handle_all_redirs(t_node_ms *node, t_pipes_ms *pipes, t_env_ms *env_ll)
 {
 	t_redir_ms	*redir;
 	int			exit_code;
@@ -98,7 +98,7 @@ int	handle_all_redirs(t_node_ms *node, int *pipe_before, t_env_ms *env_ll)
 	{
 		if (redir->mode == TOK_INFILE || redir->mode == TOK_HEREDOC)
 		{
-			exit_code = infile_mode(redir, pipe_before, env_ll);
+			exit_code = infile_mode(redir, pipes, env_ll);
 			if (exit_code != 0)
 				return (exit_code);
 		}

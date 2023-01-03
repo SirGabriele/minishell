@@ -41,7 +41,6 @@ static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, 
 /*																*/
 /*	Return:														*/
 /*		 0	-	accomplished its duty							*/
-/*		-1	-	something failed								*/
 /*		-2	-	the execution must stop but not close the		*/
 /*				program											*/
 /*																*/
@@ -49,7 +48,7 @@ static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, 
 
 int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
 {
-	if (root->left != NULL)
+	if (root && root->left != NULL)
 		start_recursive(pipes, children, root->left, env_ll);
 	if (root->operator == TOK_PIPE
 		|| root->operator == TOK_AND_OPER
@@ -62,9 +61,9 @@ int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root,
 	else
 	{
 		if (execute_cmd(pipes, children, root, &env_ll) == -1)
-			return (-1);
+			return (-2);
 	}
-	if (root->right != NULL)
+	if (root && root->right != NULL)
 		start_recursive(pipes, children, root->right, env_ll);
 	return (0);
 }

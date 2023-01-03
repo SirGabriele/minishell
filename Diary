@@ -1,20 +1,3 @@
-Gerer les redirections si TOK NULL ou TOK PIPE
-
-cat
-infile_mode = TOK_NULL -> pas de dup2
-outfile_mode = TOK_NULL -> pas de dup2
-
-cat | ls
-infile_mode = TOK_NULL -> pas de dup2
-outfile_mode = TOK_PIPE -> dup2(pipes->after[1], 1);
-
-		OK
-
--------------------------------------------------------------
-
-valeur de retour == return value de execve ON SUCCESS
-				== return value de exit() si execve fail
-
 1 ->	infile non existant OK
 		permission denied (pas le droit de read ou tentative d'ecrire dans un fichier readonly) OK
 		mauvaise option avec un non built in
@@ -41,6 +24,10 @@ echo $_
 
 -------------------------------------------------------------
 
+faire redirection pas dans le meme fork que la commande. test faux : cat << EOF | echo oui
+
+-------------------------------------------------------------
+
 Voir dans
 
 	parse_quotes.c
@@ -59,3 +46,14 @@ les checks genre <>, | >, < |, | &&
 ne pas expand les infile, outfile, delimiter. echo << $PATH attend '$PATH' en delimiter
 erreur de check ferme minishell
 comportement binary_tree avec (echo dsa)
+
+------------------------------------------------------------
+
+BUILTIN
+echo
+cd semble tout OK
+pwd
+export
+unset
+env
+exit

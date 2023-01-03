@@ -29,7 +29,6 @@ int	launch_program(char **user_input, t_env_ms *env_ll)
 //	t_token_ms	*tokens_unparsed;
 //	t_token_ms	*tokens_parsed;
 
-	set_exit_code(env_ll, 0);
 	ret = 0;
 	if (*user_input[0] == '\0')
 		return (ret);

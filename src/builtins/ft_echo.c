@@ -46,23 +46,23 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(char **content, t_env_ms *env)//envoyer echo toujours dans un fork
+int	ft_echo(t_node_ms *node, t_env_ms *env_ll)
 {
 	int	i;
 	int	options;
 
 	i = 0;
-	options = get_nb_options(content);
-	while (content[i + options])
+	options = get_nb_options(node->content + 1);
+	while (node->content[1 + i + options])
 	{
-		ft_printf("%s", content[i + options]);
-		if (content[i + options + 1])
-			ft_printf(" ");
+		ft_printf("%s", node->content[1 + i + options]);
+		if (node->content[1 + i + options + 1])
+			write(1, " ", 1);
 		i++;
 	}
 	if (!options)
-		ft_printf("\n");
-	set_exit_code(env, 0);
+		write(1, "\n", 1);
+	set_exit_code(env_ll, 0);
 	return (0);
 //	edit_command_status(env);
 }

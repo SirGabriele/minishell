@@ -54,16 +54,15 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 {
 	char	**env_arr;
 	char	*correct_path;
-	int		exit_code;
 
-	exit_code = handle_all_redirs(node, pipes->before, env_ll);
 	env_arr = convert_env_ll_into_arr(env_ll);
 	redirect_infile(pipes->before, node);
 	redirect_outfile(pipes->after, node);
-	if (env_arr == NULL || exit_code != 0 || node->content == NULL)//a tester avec "> cat"
+	if (env_arr == NULL || node->content == NULL)//a tester avec "> cat"
 	{
+		ft_putstr_fd("No command written\n", 2);//A VIRER
 		free_memory_fork(pipes, env_arr, env_ll);
-		exit(exit_code);
+		exit(0);
 	}
 	correct_path = verify_cmd_path(node->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 59
 	if (correct_path == NULL)
@@ -96,12 +95,19 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 /*																*/
 /****************************************************************/
 
-//pour export, envoyer une adresse vers env_ll afin qu'export la modifie vraiment
 //ajouter handle_all_redirs dans les builtin
 int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)//ajouter la separation si builtin ou non
 {
-	if (is_a_simple_builtin(node->content[0], pipes->tree_root) == 0)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
-		children->pid_arr[children->index] = launch_builtin(node->content, *env_ll);
+	int	exit_code;
+
+	exit_code = handle_all_redirs(node, pipes, *env_ll);
+	if (exit_code != 0)
+	{
+		children->index++;
+		return (-1);
+	}
+	if (is_cd_or_exit(node->content[0]) == 0 && node->shell == TOK_SHELL)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
+		simple_cd_or_exit(node->content, *env_ll);
 	else
 	{
 		children->pid_arr[children->index] = fork();

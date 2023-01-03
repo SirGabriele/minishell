@@ -38,7 +38,7 @@ int				is_previous_syntax_valid(const char *user_input, int i);
 /************/
 /*	SIGNALS	*/
 /************/
-void			ft_signal_user_input(int sig);
+void			handler_first_readline(int sig);
 
 /************/
 /*	EXEC	*/
@@ -53,16 +53,18 @@ char			*verify_cmd_path(char *user_input_cmd, char **env);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env_ll);
 int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
-int				handle_all_redirs(t_node_ms *node, int *pipe_before, t_env_ms *env_ll);
+int				handle_all_redirs(t_node_ms *node, t_pipes_ms *pipes, t_env_ms *env_ll);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env);
-int				heredoc_requested(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll);
+int				heredoc_requested(t_redir_ms *redir, t_pipes_ms *pipes, t_env_ms *env_ll);
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
 int				is_a_simple_builtin(char *content, t_node_ms *root);
 int				launch_builtin(char **content, t_env_ms *env_ll);
-void			expand_dollar_heredoc(char *user_input, int *pipe_before, t_env_ms *env_ll);
+void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll);
+int				is_cd_or_exit(char *content);//a deplacer dans utils
+int				simple_cd_or_exit(char **content, t_env_ms *env_ll);//a deplacer dans utils
 
 /****************/
 /*	LINKED LIST	*/
@@ -144,16 +146,16 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /**************/
 
 int				check_errors_env_format(char **content);
-int				ft_echo(char **content, t_env_ms *env);
-int				ft_cd(char **content, t_env_ms *env);
-void			ft_pwd(t_env_ms *env);
-void			ft_export(char **content, t_env_ms *env);
-t_env_ms		*ft_env(char **content, t_env_ms *env);
-t_env_ms		*ft_unset(char **content, t_env_ms *env);
-t_env_ms		*set_values_export(char **content, t_env_ms *env);
+int				ft_echo(t_node_ms *node, t_env_ms *env_ll);
+int				ft_cd(char **content, t_env_ms *env_ll);
+void			ft_pwd(t_env_ms *env_ll);
+void			ft_export(char **content, t_env_ms *env_ll);
+t_env_ms		*ft_env(char **content, t_env_ms *env_ll);
+t_env_ms		*ft_unset(char **content, t_env_ms *env_ll);
+t_env_ms		*set_values_export(char **content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
-t_env_ms		*change_value(char *content, t_env_ms *env);
-t_env_ms		*extend_env_list(char *content, t_env_ms *env);
+t_env_ms		*change_value(char *content, t_env_ms *env_ll);
+t_env_ms		*extend_env_list(char *content, t_env_ms *env_ll);
 
 /************/
 /*	FREE	*/
