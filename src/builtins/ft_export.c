@@ -1,7 +1,6 @@
 #include "../../includes/minishell.h"
 
-//sa march pa
-static void	print_all_environment(t_env_ms *env)
+static void	print_all_environment(t_env_ms *env_ll)//ca ne trie qu'avec la premier lettre
 {
 	t_env_ms	*tmp_env;
 	char		letter;
@@ -9,7 +8,7 @@ static void	print_all_environment(t_env_ms *env)
 	letter = 'A';
 	while (letter)
 	{
-		tmp_env = env;
+		tmp_env = env_ll;
 		while (tmp_env)
 		{
 			if (tmp_env->key[0] == letter/* && ft_strcmp(tmp_env->key, "?")*/)
@@ -31,12 +30,18 @@ static void	print_all_environment(t_env_ms *env)
 	}
 }
 
-void	ft_export(char **content, t_env_ms *env)
+int	ft_export(char **content, t_env_ms **env_ll)
 {
-	if (!*content)
-		print_all_environment(env);
-	else if (check_errors_env_format(content))
-		return ;
+	int	ret;
+
+	ret = 0;
+	if (!content[1])
+		print_all_environment(*env_ll);
 	else
-		env = set_values_export(content, env);
+		ret = check_errors_env_format(content);
+	if (ret != 0)
+		return (ret);
+//	else
+//		env = set_values_export(content, env_ll);//adapter avec lstnewentry
+	return (0);
 }

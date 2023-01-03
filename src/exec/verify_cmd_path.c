@@ -10,7 +10,7 @@ static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)
 	{
 		cmd_path = ft_strjoin(env_paths_arr[i], "/");
 		cmd_path = ft_strjoin_free_first(cmd_path, user_input_cmd);
-		if (access(cmd_path, F_OK) == 0)
+		if (access(cmd_path, X_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
 		cmd_path = NULL;
@@ -59,7 +59,7 @@ char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 	char	*env_path_var;
 	char	*cmd_path;
 
-	if (access(user_input_cmd, F_OK) == 0)
+	if (access(user_input_cmd, X_OK) == 0)
 		return (user_input_cmd);
 	env_path_var = get_env_path_var(env_arr);
 	if (env_path_var == NULL)

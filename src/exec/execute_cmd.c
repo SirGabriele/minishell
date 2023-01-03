@@ -64,7 +64,7 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 0);
 	if (is_a_builtin(node->content[0]) == 0)
 	{
-		exit_code = exec_builtin(node, env_ll);
+		exit_code = exec_builtin(node, &env_ll);
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code);
 	}
 	correct_path = verify_cmd_path(node->content[0], env_arr);
@@ -105,7 +105,8 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	}
 	if (node->content && is_non_forkable_builtin(node->content[0]) == 0
 		&& node->shell == TOK_SHELL)
-		out_of_fork_builtin(node->content, *env_ll);
+//		out_of_fork_builtin(node->content, env_ll);
+		exec_builtin(node, env_ll);
 	else
 	{
 		children->pid_arr[children->index] = fork();

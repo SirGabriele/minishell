@@ -1,17 +1,20 @@
 #include "../../includes/minishell.h"
 
-static int	check_key_format(char *content, t_env_ms *env_ll)
+static int	check_key_format(char *content)
 {
 	if (!ft_isalpha(content[0]) && content[0] != '_')
 	{
-		ft_printf_fd(2, "minishell: export: `%s': not a valid indentifier\n",
-			content);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(content, 2);
+			ft_putstr_fd("': not a valid indentifier\n", 2);
+//		ft_printf_fd(2, "minishell: export: `%s': not a valid indentifier\n",
+//			content);
 		return (1);
 	}
 	return (0);
 }
 
-static int	check_spaces_after_key(char *content, t_env_ms *env_ll)
+static int	check_spaces_after_key(char *content)
 {
 	int	i;
 
@@ -20,8 +23,11 @@ static int	check_spaces_after_key(char *content, t_env_ms *env_ll)
 	{
 		if (content[i] == '=' && ft_isspace(content[i - 1]))
 		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid indentifier\n",
-				content + i);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(content + i, 2);
+			ft_putstr_fd("': not a valid indentifier\n", 2);
+//			ft_printf_fd(2, "minishell: export: `%s': not a valid indentifier\n",
+//				content + i);
 			return (1);
 		}
 		else if (content[i] == '=' && !ft_isspace(content[i - 1]))

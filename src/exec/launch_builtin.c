@@ -43,17 +43,17 @@ int	is_a_builtin(char *content)
 	return (1);
 }
 
-int	exec_builtin(t_node_ms *node, t_env_ms *env_ll)//ajouter verif redirection. cd Desktop > out < infile
+int	exec_builtin(t_node_ms *node, t_env_ms **env_ll)//ajouter verif redirection. cd Desktop > out < infile
 {
 	int	ret;
 
 	ret = 0;
 	if (!ft_strcmp(node->content[0], "echo"))
-		ret = ft_echo(node->content, env_ll);
+		ret = ft_echo(node->content, *env_ll);
 	else if (!ft_strcmp(node->content[0], "cd"))
-		ret = ft_cd(node->content, env_ll);
+		ret = ft_cd(node->content, *env_ll);
 	else if (!ft_strcmp(node->content[0], "pwd"))
-		ret = ft_pwd(env_ll);
+		ret = ft_pwd(*env_ll);
 	else if (!ft_strcmp(node->content[0], "export"))
 		ret = ft_export(node->content, env_ll);
 /*	else if (!ft_strcmp(node->content[0], "unset"))
@@ -65,12 +65,14 @@ int	exec_builtin(t_node_ms *node, t_env_ms *env_ll)//ajouter verif redirection. 
 	return (ret);
 }
 
-void	out_of_fork_builtin(char **content, t_env_ms *env_ll)
+/*void	out_of_fork_builtin(char **content, t_env_ms **env_ll)
 {
 	if (!ft_strcmp(content[0], "cd"))
-		ft_cd(content + 1, env_ll);
+		ft_cd(content + 1, *env_ll);
 	else if (!ft_strcmp(content[0], "unset"))
-		ft_unset(content + 1, env_ll);
+		ft_unset(content + 1, *env_ll);
+	else if (!ft_strcmp(content[0], "export"))
+		ft_export(node->content, env_ll);
 	//else if (!ft_strcmp(content[0], "exit"))
 	//	ft_exit(content + 1);
-}
+}*/

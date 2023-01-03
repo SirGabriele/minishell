@@ -53,7 +53,7 @@ BUILTIN		IN FORK		OUT FORK
 echo
 cd						OK
 pwd
-export
+export		!!!!!!!!!!!!!!!!!test export toto=tata!!!!!!!!!!!!!!!!!!!
 unset					OK
 env
 exit
