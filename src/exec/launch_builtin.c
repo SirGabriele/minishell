@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	is_a_builtin(char *content)
+/*int	is_a_builtin(char *content)
 {
 	if (!ft_strcmp(content, "echo"))
 		return (0);
@@ -15,6 +15,35 @@ int	is_a_builtin(char *content)
 	if (!ft_strcmp(content, "env"))
 		return (0);
 	if (!ft_strcmp(content, "exit"))
+		return (0);
+	return (1);
+}*/
+
+static int	is_a_pipeline(t_node_ms *root)
+{
+	int	ret;
+
+	while (root->left != NULL)
+	{
+		ret = root->operator;
+		root = root->left;
+	}
+	return (ret);
+}
+
+int	is_a_simple_builtin(char *content, t_node_ms *root)
+{
+	int	ret;
+
+	ret = 0;
+	if ((!ft_strcmp(content, "echo")
+		|| !ft_strcmp(content, "cd")
+		|| !ft_strcmp(content, "pwd")
+		|| !ft_strcmp(content, "export")
+		|| !ft_strcmp(content, "unset")
+		|| !ft_strcmp(content, "env")
+		|| !ft_strcmp(content, "exit"))
+		&& is_a_pipeline(root) != TOK_PIPE)
 		return (0);
 	return (1);
 }

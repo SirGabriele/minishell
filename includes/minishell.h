@@ -60,7 +60,7 @@ int				heredoc_requested(t_redir_ms *redir, int *pipe_before, t_env_ms *env_ll);
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
-int				is_a_builtin(char *content);
+int				is_a_simple_builtin(char *content, t_node_ms *root);
 int				launch_builtin(char **content, t_env_ms *env_ll);
 void			expand_dollar_heredoc(char *user_input, int *pipe_before, t_env_ms *env_ll);
 

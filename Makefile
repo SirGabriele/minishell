@@ -58,7 +58,7 @@ UTILS =	what_is_index_in.c		\
 	dollar_utils.c				\
 	dollar_utils_2.c			\
 	utils_token.c				\
-	exit_code_utils.c			\
+	utils_exit_code.c			\
 	print_content_pipe.c
 
 BUILTINS = ft_echo.c					\

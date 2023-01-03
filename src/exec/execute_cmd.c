@@ -1,5 +1,18 @@
 #include "../../includes/minishell.h"
 
+static void	free_memory_fork(t_pipes_ms *pipes, char **env_arr, t_env_ms *env_ll)
+{
+	free_binary_tree(pipes->tree_root);
+	free_env_list(env_ll);
+	free(pipes->children->pid_arr);
+	free(pipes->children);
+	free_double_arr(env_arr);
+	free(pipes);
+	close(0);
+	close(1);
+	close(2);
+}
+
 static void	redirect_outfile(int *pipe_after, t_node_ms *node)
 {
 	int	fd;
@@ -49,28 +62,19 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 	redirect_outfile(pipes->after, node);
 	if (env_arr == NULL || exit_code != 0 || node->content == NULL)//a tester avec "> cat"
 	{
-		//free memory
+		free_memory_fork(pipes, env_arr, env_ll);
 		exit(exit_code);
 	}
-	correct_path = verify_cmd_path(node->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 47
+	correct_path = verify_cmd_path(node->content[0], env_arr);//obtenir le bon exit_code avec une fonction comme a la ligne 59
 	if (correct_path == NULL)
 	{
-		//free_memory
-		free_binary_tree(pipes->tree_root);
-		free_env_list(env_ll);
-		free(pipes->children->pid_arr);
-		free(pipes->children);
-		free_double_arr(env_arr);
-		free(pipes);
-		close(0);
-		close(1);
-		close(2);
+		free_memory_fork(pipes, env_arr, env_ll);
 		ft_putstr_fd("Command does not exist\n", 2);//A VIRER
 		exit(127);
 	}
 	execve(correct_path, node->content, env_arr);
 	ft_putstr_fd("Execve failed\n", 2);//A VIRER
-	//free_memory
+	free_memory_fork(pipes, env_arr, env_ll);
 	exit(1);
 }
 
@@ -96,7 +100,7 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 //ajouter handle_all_redirs dans les builtin
 int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)//ajouter la separation si builtin ou non
 {
-	if (is_a_builtin(node->content[0]) == 0)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
+	if (is_a_simple_builtin(node->content[0], pipes->tree_root) == 0)//split simple commande et commande dans une pipeline. if pipeline ->exec dans un fork////is_a_simple_buitlin
 		children->pid_arr[children->index] = launch_builtin(node->content, *env_ll);
 	else
 	{
