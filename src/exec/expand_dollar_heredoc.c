@@ -51,11 +51,13 @@ void	expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll
 		if (user_input[i] == '$')
 		{
 			len_after_dollar = get_len_key(user_input, i);
+			if (len_after_dollar == 0)
+				write(pipes->before[1], "$", 1);
 			env_value = get_env_value(user_input + i + 1, len_after_dollar, env_ll);
 			if (env_value != NULL)
 				ft_putstr_fd(env_value, pipes->before[1]);
 			else
-				write(pipes->before[1], "$", 1);
+				write(pipes->before[1], "", 1);
 			i += len_after_dollar;
 		}
 		else
