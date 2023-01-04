@@ -38,9 +38,14 @@ t_node_ms	*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node
 	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1
 		|| close(pipes->after[0]) == -1 || close(pipes->after[1]))
 		return (NULL);
-	waitpid(children->pid_arr[children->index - 1], &wstatus, WUNTRACED);
-	if (WIFEXITED(wstatus))
-		exit_code = WEXITSTATUS(wstatus);
+	if (is_a_builtin(node->left->content[0]) != 0)
+	{
+		waitpid(children->pid_arr[children->index - 1], &wstatus, WUNTRACED);
+		if (WIFEXITED(wstatus))
+			exit_code = WEXITSTATUS(wstatus);
+	}
+	else
+		exit_code = children->pid_arr[children->index - 1];
 	set_exit_code(env_ll, exit_code);
 	if (pipe(pipes->before) == -1 || pipe(pipes->after) == -1)
 		return (NULL);

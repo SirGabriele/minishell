@@ -32,6 +32,6 @@ t_env_ms	*convert_env_arr_into_ll(const char **env)
 		cursor = cursor->next;
 		i++;
 	}
-	cursor->next = ft_lstnew_env_entry("?=0");//A virer
+	cursor->next = ft_lstnew_env_entry("?=0");
 	return (first_link);
 }

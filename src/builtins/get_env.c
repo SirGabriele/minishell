@@ -6,7 +6,10 @@ static t_env_ms	*lstnew_env(void)
 
 	env = malloc(sizeof(t_env_ms));
 	if (!env)
+	{
+		perror(NULL);
 		return (NULL);
+	}
 	env->next = NULL;
 	return (env);
 }
@@ -22,7 +25,7 @@ static int	get_delim_sign_index(char *content)
 			return (i);
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 t_env_ms	*get_env(char *content)
@@ -34,20 +37,41 @@ t_env_ms	*get_env(char *content)
 	if (!env)
 		return (NULL);
 	index_delim = get_delim_sign_index(content);
-	env->key = ft_strndup(content, index_delim);
-	if (!env->key)
-		return (NULL);
-	env->value = NULL;
-	if (content[index_delim] == '+' || content[index_delim] == '=')
+	if (index_delim == 0)
 	{
-		if (content[index_delim] == '+')
-			index_delim++;
+		env->key = ft_strndup(content, ft_strlen(content));
+		if (!env->key)
+		{
+			free(env);
+			perror(NULL);
+			return (NULL);
+		}
+		env->value = malloc(sizeof(char) * 1);
+		if (!env->value)
+		{
+			free(env->key);
+			free(env);
+			perror(NULL);
+			return (NULL);
+		}
+		env->value[0] = '\0';
+	}
+	else
+	{
+		env->key = ft_strndup(content, index_delim);
 		env->value = ft_strdup(content + index_delim + 1);
 		if (!env->value)
 		{
 			free(env->key);
+			free(env);
 			perror(NULL);
+			return (NULL);
 		}
 	}
+//	env->value = NULL;
+//	if (content[index_delim] == '+' || content[index_delim] == '=')
+//	{
+//		if (content[index_delim] == '+')
+//			index_delim++;
 	return (env);
 }

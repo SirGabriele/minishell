@@ -1,7 +1,28 @@
 #include "../../includes/minishell.h"
 
-static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
+static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
+	t_node_ms *root, int *i)
 {
+	if (root->left != NULL)
+		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->left, i);
+	if (root->content && is_a_builtin(root->content[0]) == 0)
+	{
+		to_wait_or_not_to_wait[*i] = 0;
+		(*i)++;
+	}
+	if (root->content && is_a_builtin(root->content[0]) == 1)
+	{
+		to_wait_or_not_to_wait[*i] = 1;
+		(*i)++;
+	}
+	if (root->right != NULL)
+		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->right, i);
+}
+
+static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll,
+	int nb_nodes, t_node_ms *root)
+{
+	int	*to_wait_or_not_to_wait;
 	int	i;
 	int	wstatus;
 	int	exit_code;
@@ -9,19 +30,23 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)
 	i = 0;
 	exit_code = 0;
 	wstatus = 0;
+	to_wait_or_not_to_wait = malloc(sizeof(int) * nb_nodes);
+	fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root, &i);
+	i = 0;
 	while (i < children->index)
 	{
-		if (children->pid_arr[i] != 0)
+		if (to_wait_or_not_to_wait[i] == 1)
 			waitpid(children->pid_arr[i], &wstatus, WUNTRACED);
+		else
+			exit_code = children->pid_arr[i];
 		i++;
 	}
-	if (children->pid_arr[children->index - 1] != 0 && WIFEXITED(wstatus))
-	{
+	if (to_wait_or_not_to_wait[i - 1] == 1 && WIFEXITED(wstatus))
 		exit_code = WEXITSTATUS(wstatus);
-		set_exit_code(env_ll, exit_code);
-	}
+	set_exit_code(env_ll, exit_code);
 	free(children->pid_arr);//A VOIR
 	free(children);//A VOIR
+	free(to_wait_or_not_to_wait);
 }
 
 static int	get_nb_nodes(t_node_ms *root, int *i)
@@ -75,7 +100,7 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 		return (-1);
 	if (close(pipes->after[0]) == -1 || close(pipes->after[1]) == -1)
 		return (-1);
-	wait_for_all_the_forks(children, env_ll);
+	wait_for_all_the_forks(children, env_ll, nb_nodes, root);
 	free(pipes);
 	return (0);
 }

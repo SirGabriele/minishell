@@ -59,7 +59,13 @@ t_env_ms	*ft_lstnew_env_entry(const char *env)
 	if (elem == NULL)
 		return (NULL);
 	elem->key = get_env_key(env);
-	elem->value = get_env_value(env);
+	if (ft_strlen(elem->key) == ft_strlen(env))
+	{
+		elem->value = malloc(sizeof(char) * 1);
+		elem->value[0] = '\0';
+	}
+	else
+		elem->value = get_env_value(env);
 	if (elem->key == NULL || elem->value == NULL)
 		return (NULL);
 	elem->next = NULL;

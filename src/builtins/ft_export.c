@@ -30,16 +30,32 @@ static void	print_all_environment(t_env_ms *env_ll)//ca ne trie qu'avec la premi
 
 int	ft_export(char **content, t_env_ms **env_ll)
 {
+	int	i;
 	int	ret;
 
 	ret = 0;
+	i = 1;
 	if (!content[1])
+	{
 		print_all_environment(*env_ll);
-	else
-		ret = check_errors_env_format(content);
-	if (ret != 0)
-		return (ret);
-//	else
-//		env = set_values_export(content, env_ll);//adapter avec lstnewentry
-	return (0);
+		set_exit_code(*env_ll, 0);
+		return (0);
+	}
+	while (content[i] != NULL)
+	{
+		if (check_errors_env_format(content[i]) == 1)
+		{
+			ret = 1;
+			set_exit_code(*env_ll, 1);
+		}
+		*env_ll = set_values_export(content[i], *env_ll);
+		if (*env_ll == NULL)
+		{
+			ft_putstr_fd("Error occured in ft_export.c\n", 2);
+			set_exit_code(*env_ll, 1);
+			return (1);
+		}
+		i++;
+	}
+	return (ret);
 }

@@ -103,10 +103,11 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		children->index++;
 		return (-1);
 	}
-	if (node->content && is_non_forkable_builtin(node->content[0]) == 0
-		&& node->shell == TOK_SHELL)
+//	if (node->content && is_non_forkable_builtin(node->content[0]) == 0
+//		&& node->shell == TOK_SHELL)
 //		out_of_fork_builtin(node->content, env_ll);
-		exec_builtin(node, env_ll);
+	if (node->content && is_a_builtin(node->content[0]) == 0 && node->shell == TOK_SHELL)
+		children->pid_arr[children->index] = exec_builtin(node, env_ll);
 	else
 	{
 		children->pid_arr[children->index] = fork();
