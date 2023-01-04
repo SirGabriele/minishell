@@ -5,7 +5,8 @@ LIBFT = libft/libft.a
 SRC = main.c					\
 	prompt.c					\
 	launch_program.c			\
-	highlight_syntax_error.c
+	highlight_syntax_error.c	\
+	get_pwd_prompt.c
 
 SIGNALS = signals_one.c
 

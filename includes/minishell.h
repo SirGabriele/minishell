@@ -21,6 +21,7 @@ int				cmd_prompt(t_env_ms *env_ll);
 int				launch_program(char **user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
+char			*get_pwd_prompt(t_env_ms *env_ll);
 
 /************/
 /*	CHECK	*/

@@ -49,11 +49,15 @@ comportement binary_tree avec (echo dsa)
 
 ------------------------------------------------------------
 
-BUILTIN		IN FORK		OUT FORK
+leak avec 
+user_input = "pwd";
+user_input = *n'importe quoi*
+
+BUILTIN		IN FORK		OUT FORK	notes
 echo
-cd						OK
+cd						OK			doit mettre à jour la variable PWD
 pwd
-export		!!!!!!!!!!!!!!!!!test export toto=tata!!!!!!!!!!!!!!!!!!!
-unset					OK
+export		OK			OK
+unset					
 env
 exit

@@ -92,7 +92,6 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 /*																*/
 /****************************************************************/
 
-//ajouter handle_all_redirs dans les builtin
 int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)
 {
 	int	exit_code;
@@ -103,9 +102,6 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		children->index++;
 		return (-1);
 	}
-//	if (node->content && is_non_forkable_builtin(node->content[0]) == 0
-//		&& node->shell == TOK_SHELL)
-//		out_of_fork_builtin(node->content, env_ll);
 	if (node->content && is_a_builtin(node->content[0]) == 0 && node->shell == TOK_SHELL)
 		children->pid_arr[children->index] = exec_builtin(node, env_ll);
 	else

@@ -92,9 +92,8 @@ int	cmd_prompt(t_env_ms *env_ll)
 
 	while (1)
 	{
-		pwd_prompt = getcwd(NULL, 0);
-		ft_printf("\e[1;96m%s\e[0m", pwd_prompt);
-		user_input = readline("$ ");
+		pwd_prompt = get_pwd_prompt(env_ll);
+		user_input = readline(pwd_prompt);
 		free(pwd_prompt);
 		if (handle_prompt(user_input) == -1)
 			return (0);

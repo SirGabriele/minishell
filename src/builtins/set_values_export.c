@@ -29,7 +29,7 @@ static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)
 	return (NULL);
 }
 
-t_env_ms	*set_values_export(char *content, t_env_ms *env_ll)//export = casse $? && export =toto $?=toto
+t_env_ms	*set_values_export(char *content, t_env_ms *env_ll)
 {
 	t_env_ms	*link_to_modify;
 	

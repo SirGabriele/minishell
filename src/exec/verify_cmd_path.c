@@ -25,13 +25,10 @@ static char	*get_env_path_var(char **env_arr)
 	int	i;
 
 	i = 0;
-	while (ft_strncmp(env_arr[i], "PATH=", 5) != 0 && env_arr[i] != NULL)
+	while (env_arr[i] != NULL && ft_strncmp(env_arr[i], "PATH=", 5) != 0)
 		i++;
 	if (env_arr[i] == NULL)
-	{
-		ft_putstr_fd("PATH variable not found\n", 2);//A VIRER
 		return (NULL);
-	}
 	path = ft_strdup(env_arr[i]);
 	return (path);
 }
@@ -63,7 +60,10 @@ char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 		return (user_input_cmd);
 	env_path_var = get_env_path_var(env_arr);
 	if (env_path_var == NULL)
+	{
+		ft_printf_fd(2, "minishell: %s: No such file or directory\n", user_input_cmd);
 		return (NULL);
+	}
 	env_paths_arr = ft_split(env_path_var + 5, ':');
 	if (env_paths_arr == NULL)
 		return (NULL);
