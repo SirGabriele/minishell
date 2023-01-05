@@ -49,6 +49,11 @@ comportement binary_tree avec (echo dsa)
 
 ------------------------------------------------------------
 
+export 1 | export toto=tata || export tata=toto
+tata est export alors qu'il ne devrait pas
+
+echo $-asd
+
 leak avec 
 user_input = "pwd";
 user_input = *n'importe quoi*
