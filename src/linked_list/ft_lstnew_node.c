@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_node_ms	*ft_lstnew_node(t_token_ms *tokens)
+t_node_ms	*ft_lstnew_node(t_enum_token *operators)
 {
 	t_node_ms	*node;
 
@@ -15,7 +15,10 @@ t_node_ms	*ft_lstnew_node(t_token_ms *tokens)
 	node->outfile = NULL;
 	node->infile_mode = TOK_NULL;
 	node->outfile_mode = TOK_NULL;
-	node->shell = check_parenthesis(tokens);
+	if (operators[0] == TOK_PIPE || operators[1] == TOK_PIPE)
+		node->shell = TOK_SUBSHELL;
+	else
+		node->shell = TOK_SHELL;
 	node->operator = TOK_NULL;
 	return (node);
 }

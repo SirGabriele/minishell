@@ -72,7 +72,7 @@ void			out_of_fork_builtin(char **content, t_env_ms **env_ll);//a deplacer dans 
 /*	LINKED LIST	*/
 /****************/
 
-t_node_ms		*ft_lstnew_node(t_token_ms *ms);
+t_node_ms		*ft_lstnew_node(t_enum_token *operators);
 t_token_ms		*ft_lstnew_token(void);
 t_env_ms		*ft_lstnew_env_entry(const char *env);
 void			initialize_node(t_node_ms *node);
@@ -138,7 +138,6 @@ int				token_content_length(char *user_input, char *delim[10]);
 int				get_exit_code(t_env_ms *env_ll);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(int *pipe, t_env_ms *env_ll);
-t_enum_token	check_parenthesis(t_token_ms *tokens);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);

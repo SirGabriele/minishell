@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-append_value	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*append_value(char *content, t_env_ms *env)$/;"	f	file:
+append_value	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*append_value(char *content, t_env_ms *link_to_modify)$/;"	f	file:
 apply_and_operator	src/exec/operator_and_handling.c	/^t_node_ms	*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms *env_ll)$/;"	f
 apply_or_operator	src/exec/operator_or_handling.c	/^t_node_ms	*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms *env_ll)$/;"	f
 are_all_parenthesis_paired	src/check/check_paired_characters.c	/^int	are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll)$/;"	f
@@ -13,10 +13,10 @@ are_there_tokens_left	src/parsing/lexer.c	/^static int	are_there_tokens_left(cha
 assign_token	src/parsing/lexer.c	/^static t_token_ms	*assign_token(t_token_ms *tokens, \\$/;"	f	file:
 associate_key_value	src/utils/convert_env_ll_into_arr.c	/^char	*associate_key_value(t_env_ms *env)$/;"	f
 build_binary_tree	src/parsing/build_binary_tree.c	/^t_node_ms	*build_binary_tree(t_token_ms *tokens, t_enum_token *operators)$/;"	f
-change_value	src/builtins/change_value_if_key_exists.c	/^t_env_ms	*change_value(char *content, t_env_ms *env)$/;"	f
-check_errors_env_format	src/builtins/check_errors_env_format.c	/^int	check_errors_env_format(char **content)$/;"	f
+change_value	src/builtins/change_value_if_key_exists.c	/^t_env_ms	*change_value(char *content, t_env_ms *link_to_modify)$/;"	f
+check_errors_env_format	src/builtins/check_errors_env_format.c	/^int	check_errors_env_format(char *content)$/;"	f
 check_key_format	src/builtins/check_errors_env_format.c	/^static int	check_key_format(char *content)$/;"	f	file:
-check_parenthesis	src/utils/binary_tree_utils.c	/^t_enum_token	check_parenthesis(t_token_ms *tokens)$/;"	f
+check_parenthesis	src/utils/binary_tree_utils.c	/^t_enum_token	check_parenthesis(t_token_ms *tokens)\/\/supp if not used$/;"	f
 check_redir	src/parsing/manage_modes_and_files.c	/^static int	check_redir(t_redir_ms *first_redir)$/;"	f	file:
 check_second_half	src/parsing/fill_token.c	/^static t_enum_token	check_second_half(int index_delimiter, t_enum_token token_type)$/;"	f	file:
 check_spaces_after_key	src/builtins/check_errors_env_format.c	/^static int	check_spaces_after_key(char *content)$/;"	f	file:
@@ -31,12 +31,13 @@ count_nb_of_tokens_left	src/utils/utils_token.c	/^int	count_nb_of_tokens_left(t_
 cpy_operators	src/parsing/left_branch.c	/^static t_enum_token	*cpy_operators(t_enum_token *operators)$/;"	f	file:
 cpy_operators	src/parsing/right_branch.c	/^static t_enum_token	*cpy_operators(t_enum_token *operators)$/;"	f	file:
 create_token_list	src/parsing/lexer.c	/^static t_token_ms	*create_token_list(char *user_input, char *delim[10])$/;"	f	file:
-del_parenthesis_if_needed	src/utils/binary_tree_utils.c	/^t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)$/;"	f
+del_parenthesis_if_needed	src/parsing/del_parenthesis_if_needed.c	/^t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)$/;"	f
 delete_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*delete_dollar(char *parsed, char *unparsed, int i)$/;"	f	file:
 delete_link_if_needed	src/builtins/ft_unset.c	/^static void	delete_link_if_needed(t_env_ms *env, char *content)$/;"	f	file:
 display_error	src/check/check_paired_characters.c	/^static void	display_error(const char *user_input, int i, t_env_ms *env_ll)$/;"	f	file:
-edit_command_status	src/builtins/ft_cd.c	/^static void edit_command_status(t_env_ms *env, int nb_args, int exit_status)$/;"	f	file:
-edit_command_status	src/builtins/ft_env.c	/^static void	edit_command_status(t_env_ms *env, char exit_status)$/;"	f	file:
+does_key_exist	src/builtins/set_values_export.c	/^static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)$/;"	f	file:
+does_path_var_exist	src/get_pwd_prompt.c	/^static int	does_path_var_exist(t_env_ms *env_ll)$/;"	f	file:
+does_pwd_var_exist	src/get_pwd_prompt.c	/^static int	does_pwd_var_exist(t_env_ms *env_ll)$/;"	f	file:
 examine_dollar_conditions	src/utils/dollar_utils_2.c	/^int	examine_dollar_conditions(char *content, int i)$/;"	f
 exec_builtin	src/exec/launch_builtin.c	/^int	exec_builtin(t_node_ms *node, t_env_ms **env_ll)\/\/ajouter verif redirection. cd Desktop > out < infile$/;"	f
 execute_cmd	src/exec/execute_cmd.c	/^int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)$/;"	f
@@ -44,11 +45,12 @@ expand_according_to_dollar_conditions	src/dollar_expand/expand_var_with_dollar.c
 expand_dollar	src/dollar_expand/expand_var_with_dollar.c	/^static char	*expand_dollar(char *parsed, char *unparsed, int i, \\$/;"	f	file:
 expand_dollar_heredoc	src/exec/expand_dollar_heredoc.c	/^void	expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll)$/;"	f
 expand_var_with_dollar	src/dollar_expand/expand_var_with_dollar.c	/^t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \\$/;"	f
-extend_env_list	src/builtins/extend_env_list.c	/^t_env_ms	*extend_env_list(char *content, t_env_ms *env)$/;"	f
+extend_env_list	src/builtins/set_values_export.c	/^t_env_ms	*extend_env_list(char *content, t_env_ms *env_ll)$/;"	f
 fill_arr	libft/str/ft_split.c	/^static char	**fill_arr(char const *s, char c, int nb_cells, char **arr)$/;"	f	file:
 fill_delimiters	src/parsing/lexer.c	/^static void	fill_delimiters(char **delimiters)$/;"	f	file:
 fill_malloc	libft/atoi-itoa/ft_itoa.c	/^static char	*fill_malloc(char *tab, int len_int, int n)$/;"	f	file:
 fill_string	libft/str/ft_split.c	/^static char	*fill_string(char *arr, const char *s, int n, char c)$/;"	f	file:
+fill_to_wait_or_not_to_wait	src/exec/launch_exec.c	/^static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,$/;"	f	file:
 fill_token	src/parsing/fill_token.c	/^t_token_ms	*fill_token(t_token_ms *tokens, char *user_input, char *delim[10])$/;"	f
 free_arr	libft/str/ft_split.c	/^static void	free_arr(char **arr)$/;"	f	file:
 free_binary_tree	src/free/free_2.c	/^void	free_binary_tree(t_node_ms *binary_tree)$/;"	f
@@ -62,6 +64,7 @@ free_memory_fork_and_exit	src/exec/execute_cmd.c	/^static void	free_memory_fork_
 free_program	src/free_program.c	/^void	free_program(t_node_ms *root, t_env_ms *env)$/;"	f
 free_redirs_infos	src/free/free.c	/^void	free_redirs_infos(t_node_ms *binary_tree)$/;"	f
 free_redirs_list	src/free/free.c	/^void	free_redirs_list(t_redir_ms *first_redir)$/;"	f
+free_redirs_tokens	src/parsing/delete_redirs_from_tokens.c	/^static void	free_redirs_tokens(t_token_ms *tokens)$/;"	f	file:
 free_splitted_tokens	src/free/free.c	/^void	free_splitted_tokens(t_token_ms **splitted_tokens)$/;"	f
 free_tokens	src/free/free.c	/^void	free_tokens(t_token_ms *tokens)$/;"	f
 free_user_input_and_set_to_null	src/prompt.c	/^static void	free_user_input_and_set_to_null(char *user_input)$/;"	f	file:
@@ -74,7 +77,7 @@ ft_check_closed_characters	src/prompt.c	/^static int	ft_check_closed_characters(
 ft_check_isolated_quotes	src/check/ft_check_quotes.c	/^int	ft_check_isolated_quotes(const char *user_input)$/;"	f
 ft_check_syntax_error	src/prompt.c	/^static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)$/;"	f	file:
 ft_echo	src/builtins/ft_echo.c	/^int	ft_echo(char **content, t_env_ms *env_ll)$/;"	f
-ft_env	src/builtins/ft_env.c	/^t_env_ms	*ft_env(char **content, t_env_ms *env)$/;"	f
+ft_env	src/builtins/ft_env.c	/^t_env_ms	*ft_env(char **content, t_env_ms *env_ll)$/;"	f
 ft_erase_linkgnl	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_erase_linkgnl(t_listgnl **first_elem, t_listgnl *temp)$/;"	f
 ft_export	src/builtins/ft_export.c	/^int	ft_export(char **content, t_env_ms **env_ll)$/;"	f
 ft_fill_line	libft/gnl_tdl/get_next_line_bonus.c	/^void	ft_fill_line(t_listgnl *temp)$/;"	f
@@ -181,8 +184,8 @@ get_both_halves	src/parsing/split_list.c	/^static t_token_ms	**get_both_halves(t
 get_cmd_path	src/exec/verify_cmd_path.c	/^static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)$/;"	f	file:
 get_content_string	src/parsing/fill_token.c	/^static char	*get_content_string(char *user_input, char *delim[10])$/;"	f	file:
 get_content_with_env_values	src/dollar_expand/expand_var_with_dollar.c	/^static char	*get_content_with_env_values(char *parsed, char *unparsed, \\$/;"	f	file:
-get_delim_sign_index	src/builtins/change_value_if_key_exists.c	/^static int	get_delim_sign_index(char *content)$/;"	f	file:
 get_delim_sign_index	src/builtins/get_env.c	/^static int	get_delim_sign_index(char *content)$/;"	f	file:
+get_delim_symbol_index	src/builtins/change_value_if_key_exists.c	/^static int	get_delim_symbol_index(char *content)$/;"	f	file:
 get_env	src/builtins/get_env.c	/^t_env_ms	*get_env(char *content)$/;"	f
 get_env_key	src/linked_list/ft_lstnew_env_entry.c	/^static char	*get_env_key(const char *env)$/;"	f	file:
 get_env_path_var	src/exec/verify_cmd_path.c	/^static char	*get_env_path_var(char **env_arr)$/;"	f	file:
@@ -210,10 +213,12 @@ get_nb_nodes	src/exec/launch_exec.c	/^static int	get_nb_nodes(t_node_ms *root, i
 get_nb_options	src/builtins/ft_echo.c	/^static int	get_nb_options(char **content)$/;"	f	file:
 get_new_content	src/dollar_expand/get_new_content.c	/^char	*get_new_content(char *parsed, char *key, char *value, int nb_dollars)$/;"	f
 get_new_parsed	src/dollar_expand/get_new_content.c	/^static char	*get_new_parsed(char *parsed, char *value, int key_len, int i)$/;"	f	file:
-get_new_value_if_needed	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*get_new_value_if_needed(char *content, t_env_ms *env)$/;"	f	file:
+get_new_tokens_adress	src/parsing/del_parenthesis_if_needed.c	/^static t_token_ms	*get_new_tokens_adress(t_token_ms *tokens, int increment)$/;"	f	file:
+get_new_value_if_needed	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*get_new_value_if_needed(char *content, t_env_ms *link_to_modify)$/;"	f	file:
 get_next_line	libft/gnl_tdl/get_next_line_bonus.c	/^char	*get_next_line(int fd)$/;"	f
 get_pipeline	src/parsing/get_pipeline_infos.c	/^static char	**get_pipeline(t_token_ms *tokens)$/;"	f	file:
 get_pipeline_infos	src/parsing/get_pipeline_infos.c	/^t_node_ms	*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \\$/;"	f
+get_pwd_prompt	src/get_pwd_prompt.c	/^char	*get_pwd_prompt(t_env_ms *env_ll)$/;"	f
 get_redirections_infos	src/parsing/get_redirections_infos.c	/^t_node_ms	*get_redirections_infos(t_node_ms *root, t_token_ms *tokens, \\$/;"	f
 get_redirections_list	src/parsing/get_redirections_list.c	/^t_redir_ms	*get_redirections_list(t_token_ms *tokens)$/;"	f
 get_right_list	src/parsing/split_list.c	/^static t_token_ms	*get_right_list(t_token_ms *tokens, int index_token)$/;"	f	file:
@@ -228,7 +233,7 @@ handler_first_readline	src/signals/signals_one.c	/^void	handler_first_readline(i
 heredoc_requested	src/exec/heredoc_requested.c	/^int	heredoc_requested(t_redir_ms *redir, t_pipes_ms *pipes, t_env_ms *env_ll)\/\/gestion signaux a ajouter$/;"	f
 highlight_syntax_error	src/highlight_syntax_error.c	/^void	highlight_syntax_error(const char *str, int start, int end)$/;"	f
 howmanysep	libft/str/ft_split.c	/^static int	howmanysep(char const *s, char c)$/;"	f	file:
-identify_error	src/builtins/ft_cd.c	/^static void	identify_error(char *content, t_env_ms *env_ll)$/;"	f	file:
+identify_error	src/builtins/ft_cd.c	/^static void	identify_error(char *content, t_env_ms *env_ll)\/\/EFAULT EIO ELOOP$/;"	f	file:
 identify_splitting_operator	src/utils/binary_tree_utils.c	/^t_enum_token	identify_splitting_operator(t_token_ms *tokens)$/;"	f
 incremente_half_2_if_needed	src/parsing/get_second_half.c	/^static t_token_ms	*incremente_half_2_if_needed(t_token_ms *half_2, \\$/;"	f	file:
 incremente_half_if_needed	src/parsing/get_first_half.c	/^static t_token_ms	*incremente_half_if_needed(t_token_ms *half_1, \\$/;"	f	file:
@@ -243,7 +248,6 @@ is_dollar_inside_quotes	src/utils/dollar_utils_2.c	/^int	is_dollar_inside_quotes
 is_it_a_closed_quotes	src/utils/dollar_utils_2.c	/^int	is_it_a_closed_quotes(char *content, char quote)$/;"	f
 is_last_infile	src/parsing/manage_modes_and_files.c	/^static int	is_last_infile(t_redir_ms *first_redir)$/;"	f	file:
 is_last_outfile	src/parsing/manage_modes_and_files.c	/^static int	is_last_outfile(t_redir_ms *first_redir)$/;"	f	file:
-is_non_forkable_builtin	src/exec/launch_builtin.c	/^int	is_non_forkable_builtin(char *content)\/\/ajouter verif redirection. cd Desktop > out < infile$/;"	f
 is_operator	src/utils/utils_token.c	/^int	is_operator(t_enum_token type)$/;"	f
 is_option	src/builtins/ft_echo.c	/^static int	is_option(char *content)$/;"	f	file:
 is_quote_closed	src/check/ft_check_quotes.c	/^static int	is_quote_closed(const char *user_input, int i)$/;"	f	file:
@@ -253,7 +257,6 @@ is_token_type_a_redir	src/utils/utils_token.c	/^int	is_token_type_a_redir(t_enum
 isinset	libft/str/ft_strtrim.c	/^static int	isinset(char c, const char *set)$/;"	f	file:
 join_and_manage_dollar	src/dollar_expand/join_and_manage_dollar.c	/^char	*join_and_manage_dollar(char *new_parsed, char *parsed, \\$/;"	f
 join_strings_add_space	src/check/get_missing_user_input.c	/^static char	*join_strings_add_space(char **user_input, char *missing_input)$/;"	f	file:
-key_exists	src/builtins/set_values_export.c	/^static int	key_exists(char *content, t_env_ms *env)$/;"	f	file:
 launch_exec	src/exec/launch_exec.c	/^int	launch_exec(t_node_ms *root, t_env_ms *env_ll)$/;"	f
 launch_program	src/launch_program.c	/^int	launch_program(char **user_input, t_env_ms *env_ll)$/;"	f
 left_branch	src/parsing/left_branch.c	/^t_node_ms	*left_branch(t_token_ms *tokens, t_enum_token oper, \\$/;"	f
@@ -274,7 +277,7 @@ makeshift_strlen	libft/str/ft_substr.c	/^static size_t	makeshift_strlen(const ch
 malloc_pipelines	src/parsing/get_pipeline_infos.c	/^static char	**malloc_pipelines(t_token_ms *tokens)$/;"	f	file:
 malloc_right_size	libft/str/ft_strndup.c	/^static char	*malloc_right_size(const char *s, int n)$/;"	f	file:
 manage_modes_and_files	src/parsing/manage_modes_and_files.c	/^t_node_ms	*manage_modes_and_files(t_node_ms *root)$/;"	f
-modify_value	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*modify_value(char *content, t_env_ms *env)$/;"	f	file:
+modify_value	src/builtins/change_value_if_key_exists.c	/^static t_env_ms	*modify_value(char *content, t_env_ms *link_to_modify)$/;"	f	file:
 nb_redir_left	src/parsing/get_redirections_list.c	/^static int	nb_redir_left(t_token_ms *tokens)$/;"	f	file:
 nb_redirs	src/parsing/get_redirections_infos.c	/^static int	nb_redirs(t_token_ms *tokens)$/;"	f	file:
 node_related	src/parsing/build_binary_tree.c	/^static t_node_ms	*node_related(t_token_ms *tokens, t_node_ms *root, \\$/;"	f	file:
@@ -302,7 +305,7 @@ sent_eof_in_heredoc	src/exec/heredoc_requested.c	/^static void	sent_eof_in_hered
 set_exit_code	src/utils/get_exit_code.c	/^void	set_exit_code(t_env_ms *env_ll, int exit_code)$/;"	f
 set_exit_code	src/utils/utils_exit_code.c	/^void	set_exit_code(t_env_ms *env_ll, int exit_code)$/;"	f
 set_node_infos	src/parsing/build_binary_tree.c	/^static t_node_ms	*set_node_infos(t_token_ms *tokens)$/;"	f	file:
-set_values_export	src/builtins/set_values_export.c	/^t_env_ms	*set_values_export(char **content, t_env_ms *env)$/;"	f
+set_values_export	src/builtins/set_values_export.c	/^t_env_ms	*set_values_export(char *content, t_env_ms *env_ll)$/;"	f
 skip_commands_until_and_operator	src/exec/operator_or_handling.c	/^static t_node_ms	*skip_commands_until_and_operator(t_node_ms *node)$/;"	f	file:
 skip_commands_until_or_operator	src/exec/operator_and_handling.c	/^static t_node_ms	*skip_commands_until_or_operator(t_node_ms *node)$/;"	f	file:
 split_list	src/parsing/split_list.c	/^t_token_ms	**split_list(t_token_ms *tokens)$/;"	f
@@ -313,7 +316,7 @@ transfer_pipe_content	src/exec/start_recursive.c	/^static int	transfer_pipe_cont
 trigger_heredoc	src/exec/heredoc_requested.c	/^static int	trigger_heredoc(const char *delimiter, t_pipes_ms *pipes, t_env_ms *env_ll)\/\/faire un signal adapté pour heredoc$/;"	f	file:
 verify_cmd_path	src/exec/verify_cmd_path.c	/^char	*verify_cmd_path(char *user_input_cmd, char **env_arr)$/;"	f
 verify_simple_infile	src/exec/handle_all_redirs.c	/^static int	verify_simple_infile(t_redir_ms *redir)$/;"	f	file:
-wait_for_all_the_forks	src/exec/launch_exec.c	/^static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll)$/;"	f	file:
+wait_for_all_the_forks	src/exec/launch_exec.c	/^static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll,$/;"	f	file:
 what_is_dollar_in	src/utils/dollar_utils.c	/^int	what_is_dollar_in(const char *parsed, int i)$/;"	f
 what_is_index_in	src/utils/what_is_index_in.c	/^int	what_is_index_in(const char *user_input, int i)$/;"	f
 what_is_oper_in	src/utils/binary_tree_utils.c	/^t_enum_token	what_is_oper_in(t_token_ms *tokens)$/;"	f

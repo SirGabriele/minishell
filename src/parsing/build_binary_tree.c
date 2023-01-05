@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static t_node_ms	*set_node_infos(t_token_ms *tokens)
+static t_node_ms	*set_node_infos(void)
 {
 	t_node_ms	*node;
 
@@ -13,7 +13,7 @@ static t_node_ms	*set_node_infos(t_token_ms *tokens)
 		node->outfile = NULL;
 		node->infile_mode = TOK_NULL;
 		node->outfile_mode = TOK_NULL;
-		node->shell = check_parenthesis(tokens);
+		node->shell = TOK_NULL;
 		node->operator = TOK_NULL;
 	}
 	return (node);
@@ -22,7 +22,7 @@ static t_node_ms	*set_node_infos(t_token_ms *tokens)
 static t_node_ms	*node_related(t_token_ms *tokens, t_node_ms *root, \
 	t_enum_token *operators)
 {
-	root = set_node_infos(tokens);
+	root = set_node_infos();
 	if (!root)
 	{
 		free_tokens(tokens);
@@ -37,7 +37,7 @@ static t_node_ms	*node_related(t_token_ms *tokens, t_node_ms *root, \
 static t_node_ms	*pipeline_related(t_token_ms *tokens, t_node_ms *root, \
 	t_enum_token *operators)
 {
-	root = ft_lstnew_node(tokens);
+	root = ft_lstnew_node(operators);
 	if (!root)
 	{
 		free_tokens(tokens);

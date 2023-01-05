@@ -14,21 +14,22 @@ CHECK =	get_missing_user_input.c	\
 	check_paired_characters.c		\
 	ft_check_quotes.c
 
-PARSING =   start_binary_tree.c	\
-	build_binary_tree.c			\
-	fill_token.c				\
-	get_list_infos.c			\
-	get_pipeline_infos.c		\
-	lexer.c						\
-	parse_quotes.c				\
-	get_redirections_list.c		\
-	get_redirections_infos.c	\
-	manage_modes_and_files.c	\
-	get_mode_and_file.c			\
-	split_list.c				\
-	get_first_half.c			\
-	get_second_half.c			\
-	left_branch.c				\
+PARSING =   start_binary_tree.c		\
+	build_binary_tree.c				\
+	del_parenthesis_if_needed.c	\
+	fill_token.c					\
+	get_list_infos.c				\
+	get_pipeline_infos.c			\
+	lexer.c							\
+	parse_quotes.c					\
+	get_redirections_list.c			\
+	get_redirections_infos.c		\
+	manage_modes_and_files.c		\
+	get_mode_and_file.c				\
+	split_list.c					\
+	get_first_half.c				\
+	get_second_half.c				\
+	left_branch.c					\
 	right_branch.c
 
 DOLLAR_EXPAND = expand_var_with_dollar.c	\

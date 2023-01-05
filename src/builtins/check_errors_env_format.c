@@ -42,16 +42,12 @@ static int	check_spaces_after_key(char *content)
 
 int	check_errors_env_format(char *content)
 {
-	int	ret;
 	int	error;
 
-	ret = 0;
 	error = 0;
 	if (check_key_format(content) == 1)
 		error = 1;
 	if (content[0] != '=' && check_spaces_after_key(content) == 1)
 		error = 1;
-	if (error == 1)
-		return (1);
-	return (0);
+	return (error);
 }
