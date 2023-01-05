@@ -23,24 +23,18 @@ static void	print_all_environment(t_env_ms *env_ll)//ca ne trie qu'avec la premi
 		if (letter == 'Z')
 			letter = '`';
 		else if (letter == 'z')
-			letter = '^';
+			letter = -1;
 		letter++;
 	}
 }
 
-int	ft_export(char **content, t_env_ms **env_ll)
+static int	manage_values(char **content, t_env_ms **env_ll)
 {
 	int	i;
 	int	ret;
 
 	ret = 0;
 	i = 1;
-	if (!content[1])
-	{
-		print_all_environment(*env_ll);
-		set_exit_code(*env_ll, 0);
-		return (0);
-	}
 	while (content[i] != NULL)
 	{
 		if (check_errors_env_format(content[i]) == 1)
@@ -48,14 +42,38 @@ int	ft_export(char **content, t_env_ms **env_ll)
 			ret = 1;
 			set_exit_code(*env_ll, 1);
 		}
-		*env_ll = set_values_export(content[i], *env_ll);
-		if (*env_ll == NULL)
+		else
 		{
-			ft_putstr_fd("Error occured in ft_export.c\n", 2);
-			set_exit_code(*env_ll, 1);
-			return (1);
+			*env_ll = set_values_export(content[i], *env_ll);
+			if (*env_ll == NULL)
+			{
+				ft_putstr_fd("Error occured in ft_export.c\n", 2);
+				set_exit_code(*env_ll, 1);
+				return (1);
+			}
 		}
 		i++;
 	}
+	return (ret);
+}
+
+int	ft_export(char **content, t_env_ms **env_ll)
+{
+	int	ret;
+
+	ret = 0;
+	if (!content[1])
+	{
+		print_all_environment(*env_ll);
+		set_exit_code(*env_ll, 0);
+		return (0);
+	}
+	else if (content[1][0] == '-')
+	{
+		ft_printf_fd(2, "minishell: export: %s: invalid option\n", content[1]);
+		set_exit_code(*env_ll, 2);
+	}
+	else
+		ret = manage_values(content, env_ll);
 	return (ret);
 }

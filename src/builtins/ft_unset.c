@@ -17,24 +17,24 @@ static void	delete_link_if_needed(t_env_ms *env, char *content)
 	}
 }
 
-int	ft_unset(char **content, t_env_ms *env)
+int	ft_unset(char **content, t_env_ms **env)
 {
-	t_env_ms	*tmp_env;
+	t_env_ms	**tmp_env;
 	int	i;
 
 	i = 0;
 	tmp_env = env;
 	while (content[i])
 	{
-		while (env->next)
+		while ((*env)->next)
 		{
-			delete_link_if_needed(env, content[i]);
-			if (env->next)
-				env = env->next;
+			delete_link_if_needed(*env, content[i]);
+			if ((*env)->next)
+				*env = (*env)->next;
 		}
-		env = tmp_env;
+		*env = *tmp_env;
 		i++;
 	}
-	set_exit_code(env, 0);
+	set_exit_code(*env, 0);
 	return (0);
 }

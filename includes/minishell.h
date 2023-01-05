@@ -147,12 +147,12 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content, t_env_ms *env_ll);
-int				ft_cd(char **content, t_env_ms *env_ll);
-int				ft_pwd(t_env_ms *env_ll);
+int				ft_echo(char **content, t_env_ms **env_ll);
+int				ft_cd(char **content, t_env_ms **env_ll);
+int				ft_pwd(t_env_ms **env_ll);
 int				ft_export(char **content, t_env_ms **env_ll);
-t_env_ms		*ft_env(char **content, t_env_ms *env_ll);
-int				ft_unset(char **content, t_env_ms *env_ll);
+t_env_ms		**ft_env(char **content, t_env_ms **env_ll);
+int				ft_unset(char **content, t_env_ms **env_ll);
 t_env_ms		*set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
 t_env_ms		*change_value(char *content, t_env_ms *env_ll);

@@ -33,7 +33,7 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(char **content, t_env_ms *env_ll)
+int	ft_echo(char **content, t_env_ms **env_ll)
 {
 	int	i;
 	int	options;
@@ -49,6 +49,6 @@ int	ft_echo(char **content, t_env_ms *env_ll)
 	}
 	if (!options)
 		write(1, "\n", 1);
-	set_exit_code(env_ll, 0);
+	set_exit_code(*env_ll, 0);
 	return (0);
 }
