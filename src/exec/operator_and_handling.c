@@ -34,11 +34,12 @@ t_node_ms	*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node
 
 	exit_code = 0;
 	wstatus = 0;
-	print_content_pipe(pipes->after, env_ll);//utile? si non, changer commentaire
+	print_content_pipe(pipes, env_ll);
 	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1
 		|| close(pipes->after[0]) == -1 || close(pipes->after[1]))
 		return (NULL);
-	if (node->left->content && is_a_builtin(node->left->content[0]) != 0)
+	if (node->left->content && is_a_builtin(node->left->content[0]) == 0
+		&& node->left->shell == TOK_SUBSHELL)
 	{
 		waitpid(children->pid_arr[children->index - 1], &wstatus, WUNTRACED);
 		if (WIFEXITED(wstatus))

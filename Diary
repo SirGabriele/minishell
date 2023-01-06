@@ -66,3 +66,4 @@ export		OK			OK
 unset					
 env
 exit
+export test=>

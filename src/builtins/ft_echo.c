@@ -33,10 +33,12 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(char **content, t_env_ms **env_ll)
+int	ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode)
 {
 	int	i;
 	int	options;
+	(void)outfile;
+	(void)outfile_mode;
 
 	i = 0;
 	options = get_nb_options(content + 1);

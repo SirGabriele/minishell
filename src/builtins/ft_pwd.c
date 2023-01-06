@@ -1,8 +1,10 @@
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_env_ms **env)
+int	ft_pwd(t_env_ms **env, char *outfile, int outfile_mode)
 {
 	char	*pwd;
+	(void)outfile;
+	(void)outfile_mode;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)

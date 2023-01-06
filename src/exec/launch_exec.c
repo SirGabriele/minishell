@@ -5,15 +5,18 @@ static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
 {
 	if (root->left != NULL)
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->left, i);
-	if (root->content && is_a_builtin(root->content[0]) == 0)
+	if (is_operator(root->operator) == 0 && root->content)
 	{
-		to_wait_or_not_to_wait[*i] = 0;
-		(*i)++;
-	}
-	if (root->content && is_a_builtin(root->content[0]) == 1)
-	{
-		to_wait_or_not_to_wait[*i] = 1;
-		(*i)++;
+		if (root->content && is_a_builtin(root->content[0]) == 0 && root->shell == TOK_SHELL)
+		{
+			to_wait_or_not_to_wait[*i] = 0;
+			(*i)++;
+		}
+		else
+		{
+			to_wait_or_not_to_wait[*i] = 1;
+			(*i)++;
+		}
 	}
 	if (root->right != NULL)
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->right, i);

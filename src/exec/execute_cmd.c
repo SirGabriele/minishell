@@ -69,7 +69,10 @@ static void	go_in_child_process(t_pipes_ms *pipes, t_node_ms *node, t_env_ms *en
 	}
 	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
+	{
+		ft_printf_fd(2, "%s: command not found\n", node->content[0]);
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
+	}
 	execve(correct_path, node->content, env_arr);
 	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);//1 ou 2 a voir. Test où execve fail: .
 }
@@ -107,6 +110,8 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	else
 	{
 		children->pid_arr[children->index] = fork();
+/*		if (children->pid_arr[children->index] != 0)
+			printf("children %d pid is %d\n", children->index, children->pid_arr[children->index]);*/
 		if (children->pid_arr[children->index] == -1)
 		{
 			ft_putstr_fd("Fork() failed\n", 2);

@@ -137,7 +137,7 @@ int				get_index_delimiter(const char *user_input, char *delim[10], int index);
 int				token_content_length(char *user_input, char *delim[10]);
 int				get_exit_code(t_env_ms *env_ll);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
-void			print_content_pipe(int *pipe, t_env_ms *env_ll);
+void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
@@ -147,10 +147,10 @@ t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content, t_env_ms **env_ll);
+int				ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode);
 int				ft_cd(char **content, t_env_ms **env_ll);
-int				ft_pwd(t_env_ms **env_ll);
-int				ft_export(char **content, t_env_ms **env_ll);
+int				ft_pwd(t_env_ms **env_ll, char *outfile, int outfile_mode);
+int				ft_export(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode);
 t_env_ms		**ft_env(char **content, t_env_ms **env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
 t_env_ms		*set_values_export(char *content, t_env_ms *env_ll);

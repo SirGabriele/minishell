@@ -98,9 +98,7 @@ int	cmd_prompt(t_env_ms *env_ll)
 		if (handle_prompt(user_input) == -1)
 			return (0);
 		ret = ft_check_syntax_error(&user_input, env_ll);
-		if (ret == -1)
-			return (-1);
-		else if (ret == -2)
+		if (ret != 0)
 			continue ;
 		if (launch_program(&user_input, env_ll) == -1)
 		{
