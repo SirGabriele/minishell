@@ -110,8 +110,6 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	else
 	{
 		children->pid_arr[children->index] = fork();
-/*		if (children->pid_arr[children->index] != 0)
-			printf("children %d pid is %d\n", children->index, children->pid_arr[children->index]);*/
 		if (children->pid_arr[children->index] == -1)
 		{
 			ft_putstr_fd("Fork() failed\n", 2);
@@ -120,6 +118,7 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		if (children->pid_arr[children->index] == 0)
 			go_in_child_process(pipes, node, *env_ll);
 	}
+	pipes->last_cmd_executed = children->index;
 	children->index++;
 	return (0);
 }

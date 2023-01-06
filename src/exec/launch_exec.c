@@ -8,15 +8,10 @@ static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
 	if (is_operator(root->operator) == 0 && root->content)
 	{
 		if (root->content && is_a_builtin(root->content[0]) == 0 && root->shell == TOK_SHELL)
-		{
 			to_wait_or_not_to_wait[*i] = 0;
-			(*i)++;
-		}
 		else
-		{
 			to_wait_or_not_to_wait[*i] = 1;
-			(*i)++;
-		}
+		(*i)++;
 	}
 	if (root->right != NULL)
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->right, i);
@@ -47,8 +42,8 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll,
 	if (to_wait_or_not_to_wait[i - 1] == 1 && WIFEXITED(wstatus))
 		exit_code = WEXITSTATUS(wstatus);
 	set_exit_code(env_ll, exit_code);
-	free(children->pid_arr);//A VOIR
-	free(children);//A VOIR
+	free(children->pid_arr);
+	free(children);
 	free(to_wait_or_not_to_wait);
 }
 

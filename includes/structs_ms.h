@@ -70,6 +70,7 @@ typedef struct s_pipe_ms
 	t_children_ms	*children;
 	int				before[2];
 	int				after[2];
+	int				last_cmd_executed;
 }	t_pipes_ms;
 
 #endif
