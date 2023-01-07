@@ -22,15 +22,16 @@ int				launch_program(char **user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 char			*get_pwd_prompt(t_env_ms *env_ll);
+int				check_syntax_error(t_token_ms *tokens_parsed);
 
 /************/
 /*	CHECK	*/
 /************/
 
-char			*get_missing_user_input(char **user_input);
-int				are_all_pipes_closed(const char *user_input);
+char			*get_new_user_input(char *user_input);
+int				is_last_pipes_closed(t_token_ms *tokens_unparsed);
 int				are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll);
-int				ft_check_isolated_quotes(const char *user_input);
+int				ft_check_isolated_quotes(const char *user_input, t_env_ms *env_ll);
 int				ft_check_syntax_before_character(const char *user_input, \
 					int i, const char *character);
 int				what_is_index_in(const char *user_input, int i);

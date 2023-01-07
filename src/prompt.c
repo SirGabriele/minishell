@@ -1,9 +1,25 @@
 #include "../includes/minishell.h"
 
-static void	free_user_input_and_set_to_null(char *user_input)
+/*static void	free_user_input_and_set_to_null(char *user_input)
 {
 	free(user_input);
 	user_input = NULL;
+}*/
+
+static int	check_syntax_pipe(t_token_ms *tokens_unparsed, t_env_ms *env_ll)
+{
+	while (tokens_unparsed != NULL)
+	{
+		if (tokens_unparsed->type == TOK_PIPE && tokens_unparsed->next
+			&& tokens_unparsed->next->type == TOK_PIPE)
+		{
+			set_exit_code(env_ll, 2);
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+				return (-1);
+		}
+		tokens_unparsed = tokens_unparsed->next;
+	}
+	return (0);
 }
 
 /************************************************************/
@@ -22,66 +38,118 @@ static void	free_user_input_and_set_to_null(char *user_input)
 /*															*/
 /************************************************************/
 
-static int	ft_check_closed_characters(char **user_input, t_env_ms *env_ll)
-{
-	int	ret_pipes;
-	int	ret_par;
+//static int	ft_check_closed_characters(char **user_input/*, t_env_ms *env_ll*/, t_token_ms *tokens_unparsed)
+//{
+//	char	*new_user_input;
+//	int		ret_pipes;
+//	int		ret_par;
+//	int		ret;
 
-	ret_pipes = -1;
-	ret_par = -1;
-	while (ret_pipes == -1 || ret_par == -1)
+//	ret = 0;
+//	ret_pipes = -1;
+//	ret_par = -1;
+//	while (ret_pipes == -1 || ret_par == -1)
+//	{
+//	if (check_syntax_pipe(tokens_unparsed, env_ll) == -1)
+//		return (-1);
+//	if (is_last_pipes_closed(tokens_unparsed) == -1)
+//	{
+//		new_user_input = get_new_user_input(*user_input);
+//		if (new_user_input == NULL)
+//			return (-1);
+//		else
+//		{
+//			*user_input = ft_strdup(new_user_input);
+//			free(new_user_input);
+//		}
+//	}
+//	if (are_all_parenthesis_paired(*user_input, env_ll) == -1)//A LAISSER
+//		ret = -1;
+//	if (ret == 0)
+//		return (0);
+//		if (ret_pipes != -1 && ret_par != -1)
+//			break ;
+/*	else
 	{
-		ret_pipes = are_all_pipes_closed(*user_input);
-		ret_par = are_all_parenthesis_paired(*user_input, env_ll);
-		if (ret_pipes != -1 && ret_par != -1)
-			break ;
-		*user_input = get_missing_user_input(user_input);
-		if (*user_input == NULL)
+		new_user_input = get_new_user_input(*user_input);
+		if (new_user_input == NULL)
 			return (-1);
 		else
-			continue ;
-	}
-	return (ret_par);
-}
+		{
+			*user_input = ft_strdup(new_user_input);
+			free(new_user_input);
+//				continue ;
+		}
+	}*/
+//	return (ret);
+//}*/
 
 static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 {
-	int	ret;
+	t_token_ms	*tokens_unparsed;
+	char		*new_user_input;
+	int			ret;
+	(void)env_ll;
 
-	ret = ft_check_closed_characters(user_input, env_ll);
-	if (ret != 0)
+	ret = 1;
+	while (ret != 0)
 	{
-		free_user_input_and_set_to_null(*user_input);
-		return (ret);
+		ret = 0;
+		if (ft_check_isolated_quotes(*user_input, env_ll) == -1)
+			return (-1);
+		tokens_unparsed = lexer(*user_input);
+		if (!tokens_unparsed)
+			return (-1);
+		if (check_syntax_error(tokens_unparsed) == -1)
+		{
+			free_tokens(tokens_unparsed);
+			set_exit_code(env_ll, 2);
+			return (-1);
+		}
+		if (check_syntax_pipe(tokens_unparsed, env_ll) == -1)
+			return (-1);
+		if (is_last_pipes_closed(tokens_unparsed) == -1)
+		{
+			new_user_input = get_new_user_input(*user_input);
+			if (new_user_input == NULL)
+			{
+				free_tokens(tokens_unparsed);
+				return (-1);
+			}
+			else
+			{
+				free(*user_input);
+				*user_input = ft_strdup(new_user_input);
+				free(new_user_input);
+				ret = -1;
+			}
+		}
+		//checker les parentheses
+/*		if (ft_check_closed_characters(user_input, env_ll, tokens_unparsed) == -1)
+		{
+			free_tokens(tokens_unparsed);
+			return (-1) ;
+		}*/
+		free_tokens(tokens_unparsed);
 	}
-	if (ft_check_isolated_quotes(*user_input) == -1)
-		return (-1);
-//	if (ft_check_shift_association(*user_input) == -1)
-//		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
-//	if (ft_check_syntax_pipes(*user_input) == -1)
-//		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
-//	if (ft_check_syntax_shifts(*user_input) == -1)
-//		return (-1);// A FAIRE UNE FOIS LE LEXER OPERATIONNEL
 	return (0);
 }
 
-static int	handle_prompt(char *user_input)
+static int	is_exit(char *user_input)
 {
 	if (!user_input)
 	{
 		rl_clear_history();
 		write(1, "exit\n", 5);
-		return (-1);
+		return (0);
 	}
 	if (ft_strncmp(user_input, "exit", 4) == 0)
 	{
 		rl_clear_history();
-		free_user_input_and_set_to_null(user_input);
-		return (-1);
+		free(user_input);
+		return (0);
 	}
-	if (ft_strlen(user_input) > 0)
-		add_history(user_input);
-	return (0);
+	return (1);
 }
 
 int	cmd_prompt(t_env_ms *env_ll)
@@ -95,18 +163,15 @@ int	cmd_prompt(t_env_ms *env_ll)
 		pwd_prompt = get_pwd_prompt(env_ll);
 		user_input = readline(pwd_prompt);
 		free(pwd_prompt);
-		if (handle_prompt(user_input) == -1)
+		if (is_exit(user_input) == 0)
 			return (0);
 		ret = ft_check_syntax_error(&user_input, env_ll);
+		if (ft_strlen(user_input) > 0)
+			add_history(user_input);
 		if (ret != 0)
 			continue ;
 		if (launch_program(&user_input, env_ll) == -1)
-		{
-			free_user_input_and_set_to_null(user_input);
 			return (-1);
-		}
-		else
-			free_user_input_and_set_to_null(user_input);
 	}
 	return (3);
 }

@@ -1,13 +1,12 @@
 #include "../../includes/minishell.h"
 
-static char	*join_strings_add_space(char **user_input, char *missing_input)
+/*static char	*join_strings_add_space(char *user_input, char *missing_input)
 {
 	char	*new_user_input;
 
-	new_user_input = ft_strjoin_free_first(*user_input, " ");
-	new_user_input = ft_strjoin_free_first(new_user_input, missing_input);
+	new_user_input = ft_strjoin_free_both(user_input, missing_input);
 	return (new_user_input);
-}
+}*/
 
 /************************************************************/
 /*															*/
@@ -23,7 +22,7 @@ static char	*join_strings_add_space(char **user_input, char *missing_input)
 /*															*/
 /************************************************************/
 
-char	*get_missing_user_input(char **user_input)//Ajouter la gestion des signaux dans ce mode interactif
+char	*get_new_user_input(char *user_input)//Ajouter la gestion des signaux dans ce mode interactif
 {
 	char	*new_user_input;
 	char	*missing_input;
@@ -41,11 +40,9 @@ char	*get_missing_user_input(char **user_input)//Ajouter la gestion des signaux 
 		}
 		else if (ft_strlen(missing_input) > 0)
 		{
-			new_user_input = join_strings_add_space(user_input, missing_input);
-			add_history(new_user_input);
+			new_user_input = ft_strjoin_free_second(user_input, missing_input);
 			break ;
 		}
 	}
-	free(missing_input);
 	return (new_user_input);
 }

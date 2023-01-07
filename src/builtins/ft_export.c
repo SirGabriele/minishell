@@ -1,34 +1,23 @@
 #include "../../includes/minishell.h"
 
-/*static void	print_all_environment(t_env_ms *env_ll)//ca ne trie qu'avec la premier lettre
+static int	process_variable(char *content, t_env_ms **env_ll)
 {
-	t_env_ms	*tmp_env;
-	char		letter;
+	int	ret;
 
-	letter = 'A';
-	while (letter)
+	ret = check_errors_env_format(content);
+	if (ret != 1)
 	{
-		tmp_env = env_ll;
-		while (tmp_env)
+		*env_ll = set_values_export(content, *env_ll);
+		if (*env_ll == NULL)
 		{
-			if (tmp_env->key[0] == letter)
-			{
-				ft_printf_fd(1, "declare -x %s", tmp_env->key);
-				if (tmp_env->value)
-					ft_printf_fd(1, "=\"%s\"", tmp_env->value);
-				write(1, "\n", 1);
-			}
-			tmp_env = tmp_env->next;
+			ft_putstr_fd("Error occured in ft_export.c\n", 2);
+			return (1);
 		}
-		if (letter == 'Z')
-			letter = '`';
-		else if (letter == 'z')
-			letter = '^';
-		letter++;
 	}
-}*/
+	return (ret);
+}
 
-static void sort_env_ll(t_env_ms *env_ll)
+static void	sort_env_ll(t_env_ms *env_ll)
 {
 	t_env_ms	*current;
 	t_env_ms	*next;
@@ -36,9 +25,9 @@ static void sort_env_ll(t_env_ms *env_ll)
 	char		*temp_value;
 
 	current = env_ll;
-	next = current->next;
 	while (current->next != NULL)
 	{
+		next = current->next;
 		if (ft_strcmp(current->key, next->key) > 0)
 		{
 			temp_key = next->key;
@@ -48,7 +37,6 @@ static void sort_env_ll(t_env_ms *env_ll)
 			current->key = temp_key;
 			current->value = temp_value;
 			current = env_ll;
-			next = current->next;
 		}
 		else
 		{
@@ -58,7 +46,8 @@ static void sort_env_ll(t_env_ms *env_ll)
 	}
 }
 
-static void	print_all_environment(t_env_ms *env_ll, char *outfile, int outfile_mode)
+static void	print_all_environment(t_env_ms *env_ll, char *outfile,
+	int outfile_mode)
 {
 	t_env_ms	*env_cpy;
 	int			fd;
@@ -73,7 +62,7 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile, int outfile_m
 	env_cpy = env_ll;
 	while (env_cpy != NULL)
 	{
-		if (env_cpy->key[0] != '?')
+		if (env_cpy->key[0] != '?' && env_cpy->key[0] != '_')
 		{
 			ft_printf_fd(fd, "declare -x %s", env_cpy->key);
 			if (env_cpy->value)
@@ -86,7 +75,8 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile, int outfile_m
 		close(fd);
 }
 
-int	ft_export(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode)
+int	ft_export(char **content, t_env_ms **env_ll, char *outfile,
+	int outfile_mode)
 {
 	int	i;
 	int	ret;
@@ -99,19 +89,16 @@ int	ft_export(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode
 		set_exit_code(*env_ll, 0);
 		return (0);
 	}
+	if (content[1][0] == '-')
+	{
+		ft_printf_fd(2, "minishell: export: %s: invalid option\nminishell does"
+			" not take any option\n", content[1]);
+		set_exit_code(*env_ll, 2);
+		return (2);
+	}
 	while (content[i] != NULL)
 	{
-		ret = check_errors_env_format(content[i]);
-		set_exit_code(*env_ll, ret);
-		if (ret == 2)
-			return (2);
-		*env_ll = set_values_export(content[i], *env_ll);
-		if (*env_ll == NULL)
-		{
-			ft_putstr_fd("Error occured in ft_export.c\n", 2);
-			set_exit_code(*env_ll, 1);
-			return (1);
-		}
+		ret = process_variable(content[i], env_ll);
 		i++;
 	}
 	return (ret);

@@ -1,14 +1,13 @@
 #include "../includes/minishell.h"
 
-static int	check_syntax_error(t_token_ms *tokens_parsed)//faire tous les check des par echo ((oui)) (non)
+int	check_syntax_error(t_token_ms *tokens_unparsed)
 {
 	t_token_ms	*cursor;
 
-	cursor = tokens_parsed;
+	cursor = tokens_unparsed;
 	while (cursor != NULL)
 	{
-		if (cursor->type == TOK_PIPE
-			|| cursor->type == TOK_AND_OPER || cursor->type == TOK_OR_OPER
+		if (cursor->type == TOK_AND_OPER || cursor->type == TOK_OR_OPER
 			|| cursor->type == TOK_TRUNC || cursor->type == TOK_APPEND
 			|| cursor->type == TOK_INFILE || cursor->type == TOK_HEREDOC
 			|| (cursor->type == TOK_OP_PAR && !cursor->next))
@@ -34,11 +33,16 @@ static int	check_syntax_error(t_token_ms *tokens_parsed)//faire tous les check d
 
 static int	parsing(t_node_ms **root, char *user_input, t_env_ms *env_ll)
 {
-//	t_node_ms	*root;
 	t_token_ms	*tokens_unparsed;
 	t_token_ms	*tokens_parsed;
 
 	tokens_unparsed = lexer(user_input);
+	if (check_syntax_error(tokens_unparsed) == -1)
+	{
+		free_tokens(tokens_unparsed);
+		set_exit_code(env_ll, 2);
+		return (-2);
+	}
 	tokens_parsed = lexer(user_input);
 	if (!tokens_parsed)
 		return (-1);
@@ -49,13 +53,6 @@ static int	parsing(t_node_ms **root, char *user_input, t_env_ms *env_ll)
 		env_ll);
 	if (!tokens_parsed)
 		return (-1);
-	if (check_syntax_error(tokens_parsed) == -1)
-	{
-		free_tokens(tokens_unparsed);
-		free_tokens(tokens_parsed);
-		set_exit_code(env_ll, 2);
-		return (-2);
-	}
 	*root = start_binary_tree(tokens_parsed);
 	free_tokens(tokens_unparsed);
 	return (0);
@@ -72,6 +69,7 @@ int	launch_program(char **user_input, t_env_ms *env_ll)
 	ret = parsing(&root, *user_input, env_ll);
 	if (ret != 0)
 		return (ret);
+	free(*user_input);
 	if (launch_exec(root, env_ll) == -1)
 		ret = -1;
 	free_binary_tree(root);

@@ -25,13 +25,13 @@ static int	is_quote_closed(const char *user_input, int i)
 /*				highlighted									*/
 /*															*/
 /************************************************************/
-int	ft_check_isolated_quotes(const char *user_input)
+int	ft_check_isolated_quotes(const char *user_input, t_env_ms *env_ll)
 {
 	char	*err_msg;
 	int		i;
 	char	save;
 
-	err_msg = "minishell: syntax error\n";
+	err_msg = "minishell: syntax error: isolated quote detected\n";
 	i = 0;
 	while (user_input[i] != '\0')
 	{
@@ -42,6 +42,7 @@ int	ft_check_isolated_quotes(const char *user_input)
 			{
 				write(2, err_msg, ft_strlen(err_msg));
 				highlight_syntax_error(user_input, i, i);
+				set_exit_code(env_ll, 1);
 				return (-1);
 			}
 			i++;

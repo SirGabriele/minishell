@@ -10,7 +10,7 @@ SRC = main.c					\
 
 SIGNALS = signals_one.c
 
-CHECK =	get_missing_user_input.c	\
+CHECK =	get_new_user_input.c		\
 	check_paired_characters.c		\
 	ft_check_quotes.c
 

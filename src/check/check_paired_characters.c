@@ -76,9 +76,9 @@ int	are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll)
 /*		 0	-	all pipes are closed						*/
 /*															*/
 /************************************************************/
-int	are_all_pipes_closed(const char *user_input)
+int	is_last_pipes_closed(t_token_ms *tokens_unparsed)
 {
-	int	i;
+/*	int	i;
 
 	i = 0;
 	while (user_input[i])
@@ -92,6 +92,13 @@ int	are_all_pipes_closed(const char *user_input)
 				return (-1);
 		}
 		i++;
+	}
+	return (0);*/
+	while (tokens_unparsed != NULL)
+	{
+		if (tokens_unparsed->type == TOK_PIPE && !tokens_unparsed->next)
+			return (-1);
+		tokens_unparsed = tokens_unparsed->next;
 	}
 	return (0);
 }

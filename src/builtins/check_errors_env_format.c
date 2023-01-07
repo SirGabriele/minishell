@@ -99,16 +99,9 @@ int	check_errors_env_format(char *content)
 
 	ret = 0;
 	error = 0;
-	if (content[0] == '-')
-	{
-		ft_printf_fd(2, "minishell: export: -%c: invalid option\n", content[1]);
-		return (2);
-	}
 	if (check_key_format(content) == 1)
 		error = 1;
 	if (content[0] != '=' && check_spaces_after_key(content) == 1)
 		error = 1;
-//	if (error == 1)
-//		return (1);
 	return (error);
 }
