@@ -10,7 +10,7 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("This program does not take any parameter\n", 2);
 		return (1);
 	}
-	env_ll = convert_env_arr_into_ll((const char **)env);//?=0 ajouté
+	env_ll = convert_env_arr_into_ll((const char **)env);
 	signal(SIGINT, handler_first_readline);
 	signal(SIGQUIT, SIG_IGN);
 	cmd_prompt(env_ll);

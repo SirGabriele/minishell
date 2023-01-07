@@ -46,3 +46,5 @@ export		OK			OK
 unset					
 env									afficher _ mais pas ?
 exit
+
+prompt.c l132

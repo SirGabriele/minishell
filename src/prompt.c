@@ -106,13 +106,8 @@ static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 		tokens_unparsed = lexer(*user_input);
 		if (!tokens_unparsed)
 			return (-1);
-		if (check_syntax_error(tokens_unparsed) == -1)
-		{
-			free_tokens(tokens_unparsed);
-			set_exit_code(env_ll, 2);
-			return (-1);
-		}
-		if (check_syntax_pipe(tokens_unparsed) == -1)
+		if (check_syntax_error(tokens_unparsed) == -1
+			|| check_syntax_pipe(tokens_unparsed) == -1)
 		{
 			free_tokens(tokens_unparsed);
 			set_exit_code(env_ll, 2);
@@ -134,7 +129,10 @@ static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 				ret = -1;
 			}
 		}
-		//checker les parentheses
+/*		checker les parentheses. faire une fonction qui verifie si besoin de heredoc (if | non ferme ou par non ferme)
+		 ret = besoin de heredoc?
+		 if (ret == oui)
+			heredoc*/
 /*		if (ft_check_closed_characters(user_input, env_ll, tokens_unparsed) == -1)
 		{
 			free_tokens(tokens_unparsed);
