@@ -35,19 +35,32 @@ static int	get_nb_options(char **content)
 
 int	ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode)
 {
+	char	*final_string;
 	int	i;
 	int	options;
 	(void)outfile;
 	(void)outfile_mode;
 
+	final_string = NULL;
 	i = 0;
 	options = get_nb_options(content + 1);
 	while (content[1 + i + options])
 	{
-		ft_printf("%s", content[1 + i + options]);
+/*		while (content[1 + i + options] &&
+			(ft_strcmp("(", content[1 + i + options]) == 0
+			|| ft_strcmp(")", content[1 + i + options]) == 0))
+			i++;*/
+		if (!content[1 + i + options])
+			break ;
+		final_string = ft_strjoin_free_first(final_string, content[1 + i + options]);
 		if (content[1 + i + options + 1])
-			write(1, " ", 1);
+			final_string = ft_strjoin_free_first(final_string, " ");
 		i++;
+	}
+	if (final_string)
+	{
+		ft_printf_fd(1, "%s", final_string);
+		free(final_string);
 	}
 	if (!options)
 		write(1, "\n", 1);

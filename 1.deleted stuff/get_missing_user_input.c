@@ -43,9 +43,8 @@ char	*get_missing_user_input(char **user_input)//Ajouter la gestion des signaux 
 		{
 			new_user_input = join_strings_add_space(user_input, missing_input);
 			add_history(new_user_input);
-			break ;
+			return (new_user_input);
 		}
 	}
-	free(missing_input);
 	return (new_user_input);
 }

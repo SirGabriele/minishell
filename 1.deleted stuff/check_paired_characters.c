@@ -86,7 +86,7 @@ int	are_all_pipes_closed(const char *user_input)
 		if (user_input[i] == '|')
 		{
 			i++;
-			while (ft_isspace(user_input[i]) == 1 && user_input[i] != '\0')
+			while (ft_isprint(user_input[i]) == 0 && user_input[i] != '\0')
 				i++;
 			if (user_input[i] == '\0')
 				return (-1);

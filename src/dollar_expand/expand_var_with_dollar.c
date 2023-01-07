@@ -126,7 +126,7 @@ t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 			free_tokens(tokens_unparsed);
 			return (NULL);
 		}
-		if (tokens_parsed->type == TOK_HEREDOC)//ajouté pour ne pas expand echo << $USER
+		if (tokens_parsed->type == TOK_HEREDOC && tokens_parsed->next)//ajouté pour ne pas expand echo << $USER
 		{
 			tokens_parsed = tokens_parsed->next;
 			tokens_unparsed = tokens_unparsed->next;

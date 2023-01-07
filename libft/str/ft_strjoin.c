@@ -24,7 +24,7 @@ static int	makeshift_strlen(const char *str)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*tab;
+	char	*arr;
 	size_t	i;
 	size_t	j;
 	size_t	lens1s2;
@@ -32,19 +32,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	lens1s2 = makeshift_strlen(s1) + makeshift_strlen(s2);
-	tab = malloc(sizeof(char) * (lens1s2 + 1));
-	if (tab == NULL)
+	arr = malloc(sizeof(char) * (lens1s2 + 1));
+	if (arr == NULL)
 		return (NULL);
 	while (s1 && s1[i] != '\0')
 	{
-		tab[i] = s1[i];
+		arr[i] = s1[i];
 		i++;
 	}
 	while (s2 && s2[j] != '\0')
 	{
-		tab[i + j] = s2[j];
+		arr[i + j] = s2[j];
 		j++;
 	}
-	tab[i + j] = '\0';
-	return (tab);
+	arr[i + j] = '\0';
+	return (arr);
 }
