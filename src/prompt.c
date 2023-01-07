@@ -6,14 +6,20 @@
 	user_input = NULL;
 }*/
 
-static int	check_syntax_pipe(t_token_ms *tokens_unparsed, t_env_ms *env_ll)
+static int	check_syntax_pipe(t_token_ms *tokens_unparsed)
 {
+	if (tokens_unparsed->type == TOK_PIPE)
+	{
+//		set_exit_code(env_ll, 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			return (-1);
+	}
 	while (tokens_unparsed != NULL)
 	{
 		if (tokens_unparsed->type == TOK_PIPE && tokens_unparsed->next
 			&& tokens_unparsed->next->type == TOK_PIPE)
 		{
-			set_exit_code(env_ll, 2);
+//			set_exit_code(env_ll, 2);
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 				return (-1);
 		}
@@ -106,8 +112,12 @@ static int	ft_check_syntax_error(char **user_input, t_env_ms *env_ll)
 			set_exit_code(env_ll, 2);
 			return (-1);
 		}
-		if (check_syntax_pipe(tokens_unparsed, env_ll) == -1)
+		if (check_syntax_pipe(tokens_unparsed) == -1)
+		{
+			free_tokens(tokens_unparsed);
+			set_exit_code(env_ll, 2);
 			return (-1);
+		}
 		if (is_last_pipes_closed(tokens_unparsed) == -1)
 		{
 			new_user_input = get_new_user_input(*user_input);
