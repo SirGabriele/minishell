@@ -1,9 +1,35 @@
 #include "../../includes/minishell.h"
 
+static int	is_invalid_identifier(char *content)
+{
+	int	i;
+
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '~' || content[i] == '#'
+			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
+			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
+			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
+			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
+			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static int	process_variable(char *content, t_env_ms **env_ll)
 {
 	int	ret;
 
+	if (is_invalid_identifier(content))
+	{
+		ft_printf_fd(2, "minishell: export: %s: not a valid indetifier\n", 
+			content);
+		set_exit_code(*env_ll, 1);
+		return (1);
+	}
 	ret = check_errors_env_format(content);
 	if (ret != 1)
 	{

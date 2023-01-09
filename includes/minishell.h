@@ -152,7 +152,7 @@ int				ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mod
 int				ft_cd(char **content, t_env_ms **env_ll);
 int				ft_pwd(t_env_ms **env_ll, char *outfile, int outfile_mode);
 int				ft_export(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode);
-t_env_ms		**ft_env(char **content, t_env_ms **env_ll);
+int				ft_env(char **content, t_env_ms **env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
 t_env_ms		*set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);

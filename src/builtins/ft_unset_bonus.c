@@ -24,6 +24,12 @@ int	ft_unset(char **content, t_env_ms **env)
 
 	i = 0;
 	tmp_env = env;
+	if (content[0][0] == '-')
+	{
+		ft_printf_fd(2, "minishell: unset: invalid option\n");
+		set_exit_code(*env, 2);
+		return (2);
+	}
 	while (content[i])
 	{
 		while ((*env)->next)

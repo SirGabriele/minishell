@@ -1,0 +1,12 @@
+-Redirections avec echo commandes simples non fonctionnels
+
+-Redirection <> : echo oui <>out (seulement avec <>, pas >>< / <<> / <<>> / >><<)
+				  
+				  bash 		-> print oui et créer out sans faire de redirections 
+				  minishell -> erreur syntaxique
+
+-$_ non géré
+
+-$? ne change pas dans cd
+
+-Signaux dans heredoc non gérés

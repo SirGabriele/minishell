@@ -23,7 +23,7 @@ static void	print_initialized_environment(t_env_ms *tmp_env)
 	}
 }
 
-t_env_ms	**ft_env(char **content, t_env_ms **env_ll)
+int	ft_env(char **content, t_env_ms **env_ll)
 {
 	t_env_ms	**tmp_env;
 
@@ -33,10 +33,17 @@ t_env_ms	**ft_env(char **content, t_env_ms **env_ll)
 		print_initialized_environment(*tmp_env);
 		set_exit_code(*env_ll, 0);
 	}
-	else
+	else if (content[0][0] != '-') 
 	{
 		ft_putstr_fd("minishell: env: too many arguments\n", 2);
 		set_exit_code(*env_ll, 1);
+		return (1);
 	}
-	return (env_ll);
+	else if (content[0][0] == '-') 
+	{
+		ft_putstr_fd("minishell: env: invalid option\n", 2);
+		set_exit_code(*env_ll, 2);
+		return (2);
+	}
+	return (0);
 }

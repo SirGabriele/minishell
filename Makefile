@@ -2,81 +2,81 @@ NAME = minishell
 
 LIBFT = libft/libft.a
 
-SRC = main.c					\
-	prompt.c					\
-	launch_program.c			\
-	highlight_syntax_error.c	\
-	get_pwd_prompt.c
+SRC = main_bonus.c					\
+	prompt_bonus.c					\
+	launch_program_bonus.c			\
+	highlight_syntax_error_bonus.c	\
+	get_pwd_prompt_bonus.c
 
-SIGNALS = signals_one.c
+SIGNALS = signals_one_bonus.c
 
-CHECK =	get_new_user_input.c		\
-	check_paired_characters.c		\
-	ft_check_quotes.c
+CHECK =	get_new_user_input_bonus.c	\
+	check_paired_characters_bonus.c	\
+	ft_check_quotes_bonus.c
 
-PARSING =   start_binary_tree.c		\
-	build_binary_tree.c				\
-	del_parenthesis_if_needed.c	\
-	fill_token.c					\
-	get_list_infos.c				\
-	get_pipeline_infos.c			\
-	lexer.c							\
-	parse_quotes.c					\
-	get_redirections_list.c			\
-	get_redirections_infos.c		\
-	manage_modes_and_files.c		\
-	get_mode_and_file.c				\
-	split_list.c					\
-	get_first_half.c				\
-	get_second_half.c				\
-	left_branch.c					\
-	right_branch.c
+PARSING =   start_binary_tree_bonus.c	\
+	build_binary_tree_bonus.c			\
+	del_parenthesis_if_needed_bonus.c	\
+	fill_token_bonus.c					\
+	get_list_infos_bonus.c				\
+	get_pipeline_infos_bonus.c			\
+	lexer_bonus.c						\
+	parse_quotes_bonus.c				\
+	get_redirections_list_bonus.c		\
+	get_redirections_infos_bonus.c		\
+	manage_modes_and_files_bonus.c		\
+	get_mode_and_file_bonus.c			\
+	split_list_bonus.c					\
+	get_first_half_bonus.c				\
+	get_second_half_bonus.c				\
+	left_branch_bonus.c					\
+	right_branch_bonus.c
 
-DOLLAR_EXPAND = expand_var_with_dollar.c	\
-			get_new_content.c				\
-			join_and_manage_dollar.c
+DOLLAR_EXPAND = expand_var_with_dollar_bonus.c	\
+			get_new_content_bonus.c				\
+			join_and_manage_dollar_bonus.c
 
-EXEC = initialize_children.c	\
-	start_recursive.c		\
-	launch_exec.c			\
-	handle_all_redirs.c		\
-	heredoc_requested.c		\
-	execute_cmd.c			\
-	verify_cmd_path.c		\
-	operator_and_handling.c	\
-	launch_builtin.c		\
-	operator_or_handling.c	\
-	expand_dollar_heredoc.c
+EXEC = initialize_children_bonus.c	\
+	start_recursive_bonus.c			\
+	launch_exec_bonus.c				\
+	handle_all_redirs_bonus.c		\
+	heredoc_requested_bonus.c		\
+	execute_cmd_bonus.c				\
+	verify_cmd_path_bonus.c			\
+	operator_and_handling_bonus.c	\
+	launch_builtin_bonus.c			\
+	operator_or_handling_bonus.c	\
+	expand_dollar_heredoc_bonus.c
 
-LINKED_LIST = ft_lstnew_env_entry.c	\
-	initialize_node.c				\
-	ft_lstnew_token.c				\
-	ft_lstnew_node.c
+LINKED_LIST = ft_lstnew_env_entry_bonus.c	\
+	initialize_node_bonus.c					\
+	ft_lstnew_token_bonus.c					\
+	ft_lstnew_node_bonus.c
 
-UTILS =	what_is_index_in.c		\
-	convert_env_arr_into_ll.c	\
-	convert_env_ll_into_arr.c	\
-	binary_tree_utils.c			\
-	dollar_utils.c				\
-	dollar_utils_2.c			\
-	utils_token.c				\
-	utils_exit_code.c			\
-	print_content_pipe.c
+UTILS =	what_is_index_in_bonus.c	\
+	convert_env_arr_into_ll_bonus.c	\
+	convert_env_ll_into_arr_bonus.c	\
+	binary_tree_utils_bonus.c		\
+	dollar_utils_bonus.c			\
+	dollar_utils_2_bonus.c			\
+	utils_token_bonus.c				\
+	utils_exit_code_bonus.c			\
+	print_content_pipe_bonus.c
 
-BUILTINS = ft_echo.c					\
-		ft_cd.c							\
-		ft_pwd.c						\
-		ft_export.c						\
-		ft_unset.c						\
-		ft_env.c						\
-		change_value_if_key_exists.c	\
-		check_errors_env_format.c		\
-		extend_env_list.c				\
-		get_env.c						\
-		set_values_export.c
+BUILTINS = ft_echo_bonus.c					\
+		ft_cd_bonus.c						\
+		ft_pwd_bonus.c						\
+		ft_export_bonus.c					\
+		ft_unset_bonus.c					\
+		ft_env_bonus.c						\
+		change_value_if_key_exists_bonus.c	\
+		check_errors_env_format_bonus.c		\
+		extend_env_list_bonus.c				\
+		get_env_bonus.c						\
+		set_values_export_bonus.c
 
-FREE = free.c	\
-	free_2.c
+FREE = free_bonus.c	\
+	free_2_bonus.c
 
 SRCS = $(addprefix src/, $(SRC))						\
 	$(addprefix src/signals/, $(SIGNALS))				\
