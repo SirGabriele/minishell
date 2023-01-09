@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	count_nb_charac(const char *user_input, const char charac)
+/*int	count_nb_charac(const char *user_input, const char charac)
 {
 	int	i;
 	int	count;
@@ -14,14 +14,14 @@ static int	count_nb_charac(const char *user_input, const char charac)
 		i++;
 	}
 	return (count);
-}
+}*/
 
-static void	display_error(const char *user_input, int i, t_env_ms *env_ll)
+/*static void	display_error(const char *user_input, int i, t_env_ms *env_ll)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `)'\n", 2);
 	highlight_syntax_error(user_input, i, i);
 	set_exit_code(env_ll, 2);
-}
+}*/
 
 /************************************************************/
 /*															*/
@@ -36,7 +36,7 @@ static void	display_error(const char *user_input, int i, t_env_ms *env_ll)
 /*															*/
 /************************************************************/
 
-int	are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll)
+/*int	are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll)
 {
 	int	i;
 	int	last_closing_par;
@@ -62,7 +62,7 @@ int	are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll)
 		return (-2);
 	}
 	return (0);
-}
+}*/
 
 /************************************************************/
 /*															*/

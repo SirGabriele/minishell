@@ -5,7 +5,7 @@ static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
 {
 	if (root->left != NULL)
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->left, i);
-	if (is_operator(root->operator) == 0 && root->content)
+	if (is_operator(root->operator) == 0)
 	{
 		if (root->content && is_a_builtin(root->content[0]) == 0 && root->shell == TOK_SHELL)
 			to_wait_or_not_to_wait[*i] = 0;

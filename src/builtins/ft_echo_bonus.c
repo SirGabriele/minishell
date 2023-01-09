@@ -33,7 +33,7 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode)
+int	ft_echo(char **content, t_env_ms **env_ll, char *outfile, t_enum_token outfile_mode)
 {
 	char	*final_string;
 	int	i;

@@ -30,7 +30,8 @@ static t_enum_token	check_parenthesis(t_token_ms *tokens)
 	int			op_parenthesis;
 	int			cl_parenthesis;
 
-	while (is_token_type_a_redir(tokens->type) && tokens)
+	while (tokens && is_token_type_a_redir(tokens->type) && tokens->next
+		&& tokens->next->next)
 		tokens = tokens->next->next;
 	if (tokens->type == TOK_OP_PAR)
 	{
@@ -105,7 +106,7 @@ t_token_ms	*del_parenthesis_if_needed(t_token_ms *tokens)
 		{
 			if (tmp_tokens->type == TOK_OP_PAR)
 				op_parenthesis++;
-			else if (tmp_tokens->next->type == TOK_CL_PAR)
+			else if (tmp_tokens->next && tmp_tokens->next->type == TOK_CL_PAR)
 				cl_parenthesis++;
 			if (op_parenthesis == cl_parenthesis)
 				tmp_tokens = get_new_tokens_adress(tmp_tokens, 2);

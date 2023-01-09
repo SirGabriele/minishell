@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_env_ms **env, char *outfile, int outfile_mode)
+int	ft_pwd(t_env_ms **env, char *outfile, t_enum_token outfile_mode)
 {
 	char	*pwd;
 	(void)outfile;

@@ -25,7 +25,7 @@ static int	process_variable(char *content, t_env_ms **env_ll)
 
 	if (is_invalid_identifier(content))
 	{
-		ft_printf_fd(2, "minishell: export: %s: not a valid indetifier\n", 
+		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", 
 			content);
 		set_exit_code(*env_ll, 1);
 		return (1);
@@ -102,7 +102,7 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 }
 
 int	ft_export(char **content, t_env_ms **env_ll, char *outfile,
-	int outfile_mode)
+	t_enum_token outfile_mode)
 {
 	int	i;
 	int	ret;

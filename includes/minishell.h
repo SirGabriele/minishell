@@ -22,13 +22,14 @@ int				launch_program(char **user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 char			*get_pwd_prompt(t_env_ms *env_ll);
-int				check_syntax_error(t_token_ms *tokens_parsed);
+int				casual_syntax_error(char **user_input, t_env_ms *env_ll);
 
 /************/
 /*	CHECK	*/
 /************/
 
-char			*get_new_user_input(char *user_input);
+char			*get_missing_pipe_input(char *user_input);
+char			*get_missing_par_input(char *user_input, int nb_op_par, int nb_cl_par);
 int				is_last_pipes_closed(t_token_ms *tokens_unparsed);
 int				are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll);
 int				ft_check_isolated_quotes(const char *user_input, t_env_ms *env_ll);
@@ -36,6 +37,9 @@ int				ft_check_syntax_before_character(const char *user_input, \
 					int i, const char *character);
 int				what_is_index_in(const char *user_input, int i);
 int				is_previous_syntax_valid(const char *user_input, int i);
+int				ft_check_all_syntax_error(char **user_input, t_env_ms *env_ll);
+//int				count_nb_charac(const char *user_input, const char charac);//a mettre dans utils
+
 
 /************/
 /*	SIGNALS	*/
@@ -137,21 +141,29 @@ int				get_nb_dollars(char *unparsed, int i);
 int				get_index_delimiter(const char *user_input, char *delim[10], int index);
 int				token_content_length(char *user_input, char *delim[10]);
 int				get_exit_code(t_env_ms *env_ll);
+int				is_last_token_and_or(t_token_ms *tokens);
+int				count_nb_tokens(t_token_ms *tokens_unparsed, t_enum_token tokens);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
-
+int				syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
+int				syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
+int				syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
+int				syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
+void			print_error_msg(char *msg);
 /**************/
 /*  BUILTINS  */
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode);
+int				ft_echo(char **content, t_env_ms **env_ll, char *outfile, \
+					t_enum_token outfile_mode);
 int				ft_cd(char **content, t_env_ms **env_ll);
-int				ft_pwd(t_env_ms **env_ll, char *outfile, int outfile_mode);
-int				ft_export(char **content, t_env_ms **env_ll, char *outfile, int outfile_mode);
+int				ft_pwd(t_env_ms **env_ll, char *outfile, t_enum_token outfile_mode);
+int				ft_export(char **content, t_env_ms **env_ll, char *outfile, \
+					t_enum_token outfile_mode);
 int				ft_env(char **content, t_env_ms **env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
 t_env_ms		*set_values_export(char *content, t_env_ms *env_ll);

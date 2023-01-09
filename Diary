@@ -47,4 +47,4 @@ unset
 env									afficher _ mais pas ?
 exit
 
-prompt.c l132
+export popo ne doit pas mettre les guillements après le =

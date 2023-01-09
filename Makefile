@@ -10,8 +10,9 @@ SRC = main_bonus.c					\
 
 SIGNALS = signals_one_bonus.c
 
-CHECK =	get_new_user_input_bonus.c	\
-	check_paired_characters_bonus.c	\
+CHECK =	get_missing_user_input_bonus.c	\
+	check_paired_characters_bonus.c		\
+	ft_check_syntax_error.c				\
 	ft_check_quotes_bonus.c
 
 PARSING =   start_binary_tree_bonus.c	\
@@ -56,12 +57,14 @@ LINKED_LIST = ft_lstnew_env_entry_bonus.c	\
 UTILS =	what_is_index_in_bonus.c	\
 	convert_env_arr_into_ll_bonus.c	\
 	convert_env_ll_into_arr_bonus.c	\
-	binary_tree_utils_bonus.c		\
-	dollar_utils_bonus.c			\
-	dollar_utils_2_bonus.c			\
-	utils_token_bonus.c				\
+	utils_binary_tree_bonus.c		\
+	utils_dollar_1_bonus.c			\
+	utils_dollar_2_bonus.c			\
+	utils_tokens_1_bonus.c			\
+	utils_tokens_2_bonus.c			\
 	utils_exit_code_bonus.c			\
-	print_content_pipe_bonus.c
+	print_content_pipe_bonus.c		\
+	utils_check_syntax.c
 
 BUILTINS = ft_echo_bonus.c					\
 		ft_cd_bonus.c						\
