@@ -20,31 +20,15 @@ ajouter les codes d'erreurs des signaux
 
 -------------------------------------------------------------
 
-Voir dans
-
-	parse_quotes.c
-		l62
-	
-	get_pipeline_infos.c
-		l9
-	
-	diff get_first_half et get_second_half
-	
-	commentaires à finir dans binary_tree_utils.c
-	
-------------------------------------------------------------
-
 leak avec 
 user_input = "pwd";
 user_input = *n'importe quoi*
 
 BUILTIN		IN FORK		OUT FORK	notes
 echo								echo $_
-cd						OK			doit mettre à jour la variable PWD
+cd			OK			OK
 pwd
 export		OK			OK
 unset					
 env									afficher _ mais pas ?
 exit
-
-export popo ne doit pas mettre les guillements après le =

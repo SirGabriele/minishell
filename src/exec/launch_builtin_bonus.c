@@ -18,7 +18,7 @@ int	exec_builtin(t_node_ms *node, t_env_ms **env_ll)//ajouter verif redirection.
 	int	ret;
 
 	ret = 0;
-	if (!ft_strcmp(node->content[0], "echo"))
+	if (!ft_strcmp(node->content[0], "echo"))// a faire
 		ret = ft_echo(node->content, *env_ll, node->outfile, node->outfile_mode);
 	else if (!ft_strcmp(node->content[0], "cd"))
 		ret = ft_cd(node->content + 1, *env_ll);
