@@ -119,13 +119,6 @@ int	ft_export(char **content, t_env_ms *env_ll, char *outfile,
 		set_exit_code(env_ll, 0);
 		return (0);
 	}
-	if (content[1][0] == '-')
-	{
-		ft_printf_fd(2, "minishell: export: %s: invalid option\nminishell does"
-			" not take any option\n", content[1]);
-		set_exit_code(env_ll, 2);
-		return (2);
-	}
 	while (content[i] != NULL)
 	{
 		ret = process_variable(content[i], env_ll);

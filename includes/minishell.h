@@ -169,7 +169,6 @@ int				ft_unset(char **content, t_env_ms **env_ll);
 int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
 int				change_value(char *content, t_env_ms *env_ll);
-//int				extend_env_list(char *content, t_env_ms *env_ll);
 
 /************/
 /*	FREE	*/
