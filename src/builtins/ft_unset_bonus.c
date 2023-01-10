@@ -26,15 +26,17 @@ static int    is_invalid_identifier(char *content)
 static int	delete_next_link(t_env_ms *env, char *content)
 {
 	t_env_ms	*tmp;
-	int			len_content;
 
-	len_content = ft_strlen(content);
-	tmp = env->next->next;
-	free(env->next->key);
-	free(env->next->value);
-	free(env->next);
-	env->next = tmp;
-	return (0);
+	if (ft_strcmp(content, env->next->key) == 0)
+	{
+		tmp = env->next->next;
+		free(env->next->key);
+		free(env->next->value);
+		free(env->next);
+		env->next = tmp;
+		return (0);
+	}
+	return (1);
 }
 
 int	ft_unset(char **content, t_env_ms **env)
@@ -56,11 +58,9 @@ int	ft_unset(char **content, t_env_ms **env)
 		}
 		while ((*env)->next)
 		{
-			if (ft_strcmp(content[i], (*env)->next->key) == 0)
-			{
-				ret = delete_next_link(*env, content[i]);
+			ret = delete_next_link(*env, content[i]);
+			if (ret == 0)
 				break ;
-			}
 			if ((*env)->next)
 				*env = (*env)->next;
 		}
