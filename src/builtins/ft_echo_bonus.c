@@ -33,37 +33,47 @@ static int	get_nb_options(char **content)
 	return (i);
 }
 
-int	ft_echo(char **content, t_env_ms *env_ll, char *outfile, t_enum_token outfile_mode)
+static void	print_string(char *final_string, char *outfile,
+	t_enum_token outfile_mode, int options)
+{
+	int	fd;
+
+	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+		fd = 1;
+	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
+		fd = open(outfile, O_WRONLY | O_TRUNC);
+	else if (outfile != NULL && outfile_mode == TOK_APPEND)
+		fd = open(outfile, O_WRONLY | O_APPEND);
+	if (final_string)
+		ft_printf_fd(fd, "%s", final_string);
+	if (!options)
+		write(fd, "\n", 1);
+	if (outfile != NULL)
+		close(fd);
+}
+
+int	ft_echo(char **content, t_env_ms *env_ll, char *outfile,
+	t_enum_token outfile_mode)
 {
 	char	*final_string;
-	int	i;
-	int	options;
-	(void)outfile;
-	(void)outfile_mode;
+	int		i;
+	int		options;
 
 	final_string = NULL;
 	i = 0;
 	options = get_nb_options(content + 1);
 	while (content[1 + i + options])
 	{
-/*		while (content[1 + i + options] &&
-			(ft_strcmp("(", content[1 + i + options]) == 0
-			|| ft_strcmp(")", content[1 + i + options]) == 0))
-			i++;*/
 		if (!content[1 + i + options])
 			break ;
-		final_string = ft_strjoin_free_first(final_string, content[1 + i + options]);
+		final_string = ft_strjoin_free_first(final_string,
+				content[1 + i + options]);
 		if (content[1 + i + options + 1])
 			final_string = ft_strjoin_free_first(final_string, " ");
 		i++;
 	}
-	if (final_string)
-	{
-		ft_printf_fd(1, "%s", final_string);
-		free(final_string);
-	}
-	if (!options)
-		write(1, "\n", 1);
+	print_string(final_string, outfile, outfile_mode, options);
+	free(final_string);
 	set_exit_code(env_ll, 0);
 	return (0);
 }

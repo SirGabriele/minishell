@@ -46,7 +46,8 @@ t_env_ms	*get_env(char *content)
 			perror(NULL);
 			return (NULL);
 		}
-		env->value = malloc(sizeof(char) * 1);
+		env->value = NULL;
+/*		env->value = malloc(sizeof(char) * 1);
 		if (!env->value)
 		{
 			free(env->key);
@@ -54,7 +55,7 @@ t_env_ms	*get_env(char *content)
 			perror(NULL);
 			return (NULL);
 		}
-		env->value[0] = '\0';
+		env->value[0] = '\0';*/
 	}
 	else
 	{

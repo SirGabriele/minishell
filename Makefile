@@ -64,7 +64,8 @@ UTILS =	what_is_index_in_bonus.c	\
 	utils_tokens_2_bonus.c			\
 	utils_exit_code_bonus.c			\
 	print_content_pipe_bonus.c		\
-	utils_check_syntax.c
+	utils_check_syntax_bonus.c		\
+	utils_export_bonus.c
 
 BUILTINS = ft_echo_bonus.c					\
 		ft_cd_bonus.c						\

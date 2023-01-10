@@ -153,6 +153,8 @@ int				syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
 int				syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
 int				syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
 void			print_error_msg(char *msg);
+void			sort_env_ll(t_env_ms *env_ll);
+
 /**************/
 /*  BUILTINS  */
 /**************/

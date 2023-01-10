@@ -22,7 +22,7 @@ static int	does_pwd_var_exist(t_env_ms *env_ll)
 	return (1);
 }
 
-char	*get_pwd_prompt(t_env_ms *env_ll)
+char	*get_pwd_prompt(t_env_ms *env_ll)//checker l'existence de la valeur, pas de la clé
 {
 	char	*pwd_prompt;
 

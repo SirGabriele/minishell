@@ -5,18 +5,36 @@ static int	is_invalid_identifier(char *content)
 	int	i;
 
 	i = 0;
-	while (content[i])
+	while (content[i] && content[i] != '=')
 	{
-		if (content[i] == '~' || content[i] == '#'
+/*		if (content[i] == '~' || content[i] == '#'
 			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
 			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
 			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
 			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
-			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
+			|| content[i] == '.' || content[i] == '?' || content[i] == ',')*/
+		if (!ft_isalnum(content[i]))//test export toto+=tata
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+static void	print_line(t_env_ms *env_cpy, int fd)
+{
+	if (env_cpy->key[0] != '?' && env_cpy->key[0] != '_')
+	{
+		ft_printf_fd(fd, "declare -x %s", env_cpy->key);
+		if (env_cpy->value != NULL)
+			ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
+		write(fd, "\n", 1);
+//		else if (env_cpy->value == NULL)
+//			ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
+/*	if (env_cpy->value[0] != '\0')
+		ft_printf_fd(fd, "=\"%s\"\n", env_cpy->value);
+	else
+		write(fd, "\n", 1);*/
+	}
 }
 
 static int	process_variable(char *content, t_env_ms *env_ll)
@@ -43,35 +61,6 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	return (ret);
 }
 
-static void	sort_env_ll(t_env_ms *env_ll)
-{
-	t_env_ms	*current;
-	t_env_ms	*next;
-	char		*temp_key;
-	char		*temp_value;
-
-	current = env_ll;
-	while (current->next != NULL)
-	{
-		next = current->next;
-		if (ft_strcmp(current->key, next->key) > 0)
-		{
-			temp_key = next->key;
-			temp_value = next->value;
-			next->key = current->key;
-			next->value = current->value;
-			current->key = temp_key;
-			current->value = temp_value;
-			current = env_ll;
-		}
-		else
-		{
-			current = current->next;
-			next = current->next;
-		}
-	}
-}
-
 static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 	t_enum_token outfile_mode)
 {
@@ -88,17 +77,7 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 	env_cpy = env_ll;
 	while (env_cpy != NULL)
 	{
-		if (env_cpy->key[0] != '?' && env_cpy->key[0] != '_')
-		{
-			ft_printf_fd(fd, "declare -x %s", env_cpy->key);
-//			if (env_cpy->value)
-//				ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
-//			write(fd, "\n", 1);
-			if (env_cpy->value[0] != '\0')
-				ft_printf_fd(fd, "=\"%s\"\n", env_cpy->value);
-			else
-				write(fd, "\n", 1);
-		}
+		print_line(env_cpy, fd);
 		env_cpy = env_cpy->next;
 	}
 	if (outfile != NULL)
