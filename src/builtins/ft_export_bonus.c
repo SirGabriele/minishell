@@ -1,23 +1,22 @@
 #include "../../includes/minishell.h"
 
-static int	is_invalid_identifier(char *content)
+static int    is_invalid_identifier(char *content)
 {
-	int	i;
+    int    i;
 
-	i = 0;
-	while (content[i] && content[i] != '=')
-	{
-/*		if (content[i] == '~' || content[i] == '#'
-			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
-			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
-			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
-			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
-			|| content[i] == '.' || content[i] == '?' || content[i] == ',')*/
-		if (!ft_isalnum(content[i]))//test export toto+=tata
-			return (1);
-		i++;
-	}
-	return (0);
+    i = 0;
+    while (content[i])
+    {
+        if (content[i] == '~' || content[i] == '#'
+            || content[i] == '{' || content[i] == '[' || content[i] == '-'
+            || content[i] == '^' || content[i] == '@' || content[i] == ']'
+            || content[i] == '}' || content[i] == '*' || content[i] == '%'
+            || content[i] == '!' || content[i] == ':' || content[i] == '/'
+            || content[i] == '.' || content[i] == '?' || content[i] == ',')
+            return (1);
+        i++;
+    }
+    return (0);
 }
 
 static void	print_line(t_env_ms *env_cpy, int fd)
@@ -45,7 +44,7 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	{
 		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 			content);
-		set_exit_code(env_ll, 1);
+//		set_exit_code(env_ll, 1);
 		return (1);
 	}
 	ret = check_errors_env_format(content);
@@ -95,7 +94,7 @@ int	ft_export(char **content, t_env_ms *env_ll, char *outfile,
 	if (!content[1])
 	{
 		print_all_environment(env_ll, outfile, outfile_mode);
-		set_exit_code(env_ll, 0);
+//		set_exit_code(env_ll, 0);
 		return (0);
 	}
 	while (content[i] != NULL)

@@ -46,7 +46,7 @@ static void	change_pwd_and_oldpwd(t_env_ms *env_ll)
 	return (1);
 }*/
 
-static int	execute_cd(char *content, t_env_ms *env_ll)
+static int	change_directory(char *content, t_env_ms *env_ll)
 {
 	char	*error;
 	int		exit_status;
@@ -58,12 +58,12 @@ static int	execute_cd(char *content, t_env_ms *env_ll)
 	if (exit_status)
 	{
 		perror(error);
-		set_exit_code(env_ll, 1);
+//		set_exit_code(env_ll, 1);
 		free(error);
 		return (1);
 	}
 	change_pwd_and_oldpwd(env_ll);
-	set_exit_code(env_ll, 0);
+//	set_exit_code(env_ll, 0);
 	free(error);
 	return (0);
 }
@@ -76,14 +76,14 @@ int	ft_cd(char **content, t_env_ms *env_ll)
 	ret = 0;
 	nb_args = count_args(content);
 	if (nb_args == 1)
-		ret = execute_cd(content[0], env_ll);
+		ret = change_directory(content[0], env_ll);
 	else
 	{
 		if (!nb_args)
 			ft_putstr_fd("minishell: cd: missing relative/absolute path\n", 2);
 		else
 			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		set_exit_code(env_ll, 1);
+//		set_exit_code(env_ll, 1);
 		return (1);
 	}
 	return (ret);

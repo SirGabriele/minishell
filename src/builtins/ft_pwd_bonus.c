@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_env_ms **env, char *outfile, t_enum_token outfile_mode)
+int	ft_pwd(/*t_env_ms **env_ll, */char *outfile, t_enum_token outfile_mode)
 {
 	char	*pwd;
 	(void)outfile;
@@ -10,14 +10,14 @@ int	ft_pwd(t_env_ms **env, char *outfile, t_enum_token outfile_mode)
 	if (!pwd)
 	{
 		perror(NULL);
-		set_exit_code(*env, 0);
+//		set_exit_code(*env, 1);
 		return (1);
 	}
 	else
 	{
 		ft_printf_fd(1, "%s\n", pwd);
 		free(pwd);
-		set_exit_code(*env, 0);
+//		set_exit_code(*env, 0);
 	}
 	return (0);
 }
