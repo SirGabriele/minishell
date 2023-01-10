@@ -1,25 +1,61 @@
 #include "../../includes/minishell.h"
 
-static int	check_par_only(t_token_ms *tokens, t_env_ms *env_ll)
+/*static int	check_par_only(t_token_ms *tokens, t_env_ms *env_ll)
 {
 	t_token_ms	*cursor;
 
 	cursor = tokens;
 	while (cursor != NULL)
 	{
-		if (cursor->type == TOK_OP_PAR && cursor->next
-			&& (cursor->next->type == TOK_CL_PAR))
+		if (cursor->next && cursor->next->type == TOK_OP_PAR
+			&& (cursor->type == TOK_STRING || cursor->type == TOK_CL_PAR))
 		{
 			print_error_msg("(");
 			free_tokens(tokens);
 			set_exit_code(env_ll, 2);
 			return (-1);
 		}
-/*		if (cursor->next && cursor->next->type == TOK_OP_PAR
-			&& (cursor->type == TOK_STRING || cursor->type == TOK_CL_PAR))*/
 		cursor = cursor->next;
 	}
 	return (0);
+}*/
+
+static int    check_par_only(t_token_ms *tokens, t_env_ms *env_ll)
+{
+    t_token_ms    *cursor;
+
+    cursor = tokens;
+    while (cursor != NULL)
+    {
+        if (cursor->type == TOK_OP_PAR && cursor->next
+            && (cursor->next->type == TOK_CL_PAR))
+        {
+            print_error_msg("(");
+            free_tokens(tokens);
+            set_exit_code(env_ll, 2);
+            return (-1);
+        }
+        if ((cursor->type == TOK_STRING || cursor->type == TOK_CL_PAR)
+                        && cursor->next && cursor->next->type == TOK_OP_PAR)
+                {
+                        print_error_msg(cursor->next->content);
+                        free_tokens(tokens);
+                        set_exit_code(env_ll, 2);
+                        return (-1);
+                }
+                if (cursor->type == TOK_CL_PAR && cursor->next
+					&& cursor->next->type != TOK_PIPE
+					&& cursor->next->type != TOK_AND_OPER
+					&& cursor->next->type != TOK_OR_OPER)
+                {
+                        print_error_msg(cursor->next->content);
+                        free_tokens(tokens);
+                        set_exit_code(env_ll, 2);
+                        return (-1);
+                }
+        cursor = cursor->next;
+    }
+    return (0);
 }
 
 int	casual_syntax_error(char **user_input, t_env_ms *env_ll)
