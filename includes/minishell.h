@@ -158,18 +158,18 @@ void			print_error_msg(char *msg);
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content, t_env_ms **env_ll, char *outfile, \
+int				ft_echo(char **content, t_env_ms *env_ll, char *outfile, \
 					t_enum_token outfile_mode);
-int				ft_cd(char **content, t_env_ms **env_ll);
+int				ft_cd(char **content, t_env_ms *env_ll);
 int				ft_pwd(t_env_ms **env_ll, char *outfile, t_enum_token outfile_mode);
-int				ft_export(char **content, t_env_ms **env_ll, char *outfile, \
+int				ft_export(char **content, t_env_ms *env_ll, char *outfile, \
 					t_enum_token outfile_mode);
 int				ft_env(char **content, t_env_ms **env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
-t_env_ms		*set_values_export(char *content, t_env_ms *env_ll);
+int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
-t_env_ms		*change_value(char *content, t_env_ms *env_ll);
-t_env_ms		*extend_env_list(char *content, t_env_ms *env_ll);
+int				change_value(char *content, t_env_ms *env_ll);
+//int				extend_env_list(char *content, t_env_ms *env_ll);
 
 /************/
 /*	FREE	*/

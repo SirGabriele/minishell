@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_env_ms	*extend_env_list(char *content, t_env_ms *env_ll)
+static int	extend_env_list(char *content, t_env_ms *env_ll)
 {
 	t_env_ms	*tmp_env;
 
@@ -9,8 +9,8 @@ t_env_ms	*extend_env_list(char *content, t_env_ms *env_ll)
 		env_ll = env_ll->next;
 	env_ll->next = get_env(content);
 	if (env_ll->next == NULL)
-		return (NULL);
-	return (tmp_env);
+		return (1);
+	return (0);
 }
 
 static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)
@@ -29,21 +29,20 @@ static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)
 	return (NULL);
 }
 
-t_env_ms	*set_values_export(char *content, t_env_ms *env_ll)
+int	set_values_export(char *content, t_env_ms *env_ll)
 {
 	t_env_ms	*link_to_modify;
-	
+	int			ret;
+
+	ret = 0;
 	link_to_modify = does_key_exist(content, env_ll);
 	if (link_to_modify != NULL)
-		env_ll = change_value(content, link_to_modify);
+		ret = change_value(content, link_to_modify);
 	else
-		env_ll = extend_env_list(content, env_ll);
-	if (!env_ll)
-	{
+		ret = extend_env_list(content, env_ll);
+	if (ret != 0)
 		perror(NULL);
-		return (NULL);
-	}
 	else
 		set_exit_code(env_ll, 0);
-	return (env_ll);
+	return (ret);
 }

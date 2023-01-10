@@ -19,22 +19,22 @@ static int	is_invalid_identifier(char *content)
 	return (0);
 }
 
-static int	process_variable(char *content, t_env_ms **env_ll)
+static int	process_variable(char *content, t_env_ms *env_ll)
 {
 	int	ret;
 
 	if (is_invalid_identifier(content))
 	{
-		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n", 
+		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 			content);
-		set_exit_code(*env_ll, 1);
+		set_exit_code(env_ll, 1);
 		return (1);
 	}
 	ret = check_errors_env_format(content);
 	if (ret != 1)
 	{
-		*env_ll = set_values_export(content, *env_ll);
-		if (*env_ll == NULL)
+		set_values_export(content, env_ll);
+		if (env_ll == NULL)
 		{
 			ft_putstr_fd("Error occured in ft_export.c\n", 2);
 			return (1);
@@ -73,12 +73,12 @@ static void	sort_env_ll(t_env_ms *env_ll)
 }
 
 static void	print_all_environment(t_env_ms *env_ll, char *outfile,
-	int outfile_mode)
+	t_enum_token outfile_mode)
 {
 	t_env_ms	*env_cpy;
 	int			fd;
 
-	if (outfile == NULL && outfile_mode == TOK_NULL)
+	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);
@@ -91,9 +91,13 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 		if (env_cpy->key[0] != '?' && env_cpy->key[0] != '_')
 		{
 			ft_printf_fd(fd, "declare -x %s", env_cpy->key);
-			if (env_cpy->value)
-				ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
-			write(fd, "\n", 1);
+//			if (env_cpy->value)
+//				ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
+//			write(fd, "\n", 1);
+			if (env_cpy->value[0] != '\0')
+				ft_printf_fd(fd, "=\"%s\"\n", env_cpy->value);
+			else
+				write(fd, "\n", 1);
 		}
 		env_cpy = env_cpy->next;
 	}
@@ -101,7 +105,7 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 		close(fd);
 }
 
-int	ft_export(char **content, t_env_ms **env_ll, char *outfile,
+int	ft_export(char **content, t_env_ms *env_ll, char *outfile,
 	t_enum_token outfile_mode)
 {
 	int	i;
@@ -111,15 +115,15 @@ int	ft_export(char **content, t_env_ms **env_ll, char *outfile,
 	i = 1;
 	if (!content[1])
 	{
-		print_all_environment(*env_ll, outfile, outfile_mode);
-		set_exit_code(*env_ll, 0);
+		print_all_environment(env_ll, outfile, outfile_mode);
+		set_exit_code(env_ll, 0);
 		return (0);
 	}
 	if (content[1][0] == '-')
 	{
 		ft_printf_fd(2, "minishell: export: %s: invalid option\nminishell does"
 			" not take any option\n", content[1]);
-		set_exit_code(*env_ll, 2);
+		set_exit_code(env_ll, 2);
 		return (2);
 	}
 	while (content[i] != NULL)

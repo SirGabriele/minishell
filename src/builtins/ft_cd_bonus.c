@@ -4,37 +4,36 @@ static int	count_args(char **content)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (content[i])
 		i++;
 	return (i);
 }
 
-static int	identify_error(char *content, t_env_ms **env_ll)//EFAULT EIO ELOOP
+static int	identify_error(char *content, t_env_ms *env_ll)//EFAULT EIO ELOOP
 {
 	char	*error;
 
 	error = ft_strjoin("minishell: cd: ", content);
 	if (!error)
 		perror(NULL);
-	error = ft_strjoin(error, ":");
 	if (!error)
 		perror(NULL);
 	if (content[0] != '-')
 	{
 		perror(error);
-		set_exit_code(*env_ll, 1);
+		set_exit_code(env_ll, 1);
 	}
 	else
 	{
 		ft_printf_fd(2, "minishell: cd: %s: invalid option\n", content);
-		set_exit_code(*env_ll, 2);
+		set_exit_code(env_ll, 2);
 	}
 	free(error);
 	return (1);
 }
 
-int	ft_cd(char **content, t_env_ms **env_ll)
+int	ft_cd(char **content, t_env_ms *env_ll)
 {
 	int	exit_status;
 	int	nb_args;
@@ -49,7 +48,7 @@ int	ft_cd(char **content, t_env_ms **env_ll)
 			return (1);
 		}
 		else
-			set_exit_code(*env_ll, 0);
+			set_exit_code(env_ll, 0);
 		return (0);
 	}
 	else
@@ -58,7 +57,7 @@ int	ft_cd(char **content, t_env_ms **env_ll)
 			ft_putstr_fd("minishell: cd: missing relative/absolute path\n", 2);
 		else
 			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		set_exit_code(*env_ll, 1);
+		set_exit_code(env_ll, 1);
 		return (1);
 	}
 	return (0);
