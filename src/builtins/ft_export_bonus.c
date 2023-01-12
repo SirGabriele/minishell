@@ -1,22 +1,22 @@
 #include "../../includes/minishell.h"
 
-static int    is_invalid_identifier(char *content)
+static int	is_invalid_identifier(char *content)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    while (content[i])
-    {
-        if (content[i] == '~' || content[i] == '#'
-            || content[i] == '{' || content[i] == '[' || content[i] == '-'
-            || content[i] == '^' || content[i] == '@' || content[i] == ']'
-            || content[i] == '}' || content[i] == '*' || content[i] == '%'
-            || content[i] == '!' || content[i] == ':' || content[i] == '/'
-            || content[i] == '.' || content[i] == '?' || content[i] == ',')
-            return (1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '~' || content[i] == '#'
+			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
+			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
+			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
+			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
+			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 static void	print_line(t_env_ms *env_cpy, int fd)
@@ -27,12 +27,6 @@ static void	print_line(t_env_ms *env_cpy, int fd)
 		if (env_cpy->value != NULL)
 			ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
 		write(fd, "\n", 1);
-//		else if (env_cpy->value == NULL)
-//			ft_printf_fd(fd, "=\"%s\"", env_cpy->value);
-/*	if (env_cpy->value[0] != '\0')
-		ft_printf_fd(fd, "=\"%s\"\n", env_cpy->value);
-	else
-		write(fd, "\n", 1);*/
 	}
 }
 
@@ -44,14 +38,12 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	{
 		ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 			content);
-//		set_exit_code(env_ll, 1);
 		return (1);
 	}
 	ret = check_errors_env_format(content);
 	if (ret != 1)
 	{
-		set_values_export(content, env_ll);
-		if (env_ll == NULL)
+		if (set_values_export(content, env_ll) != 0 || env_ll == NULL)
 		{
 			ft_putstr_fd("Error occured in ft_export.c\n", 2);
 			return (1);
@@ -94,7 +86,6 @@ int	ft_export(char **content, t_env_ms *env_ll, char *outfile,
 	if (!content[1])
 	{
 		print_all_environment(env_ll, outfile, outfile_mode);
-//		set_exit_code(env_ll, 0);
 		return (0);
 	}
 	while (content[i] != NULL)

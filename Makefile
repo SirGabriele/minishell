@@ -75,7 +75,6 @@ BUILTINS = ft_echo_bonus.c					\
 		ft_env_bonus.c						\
 		change_value_if_key_exists_bonus.c	\
 		check_errors_env_format_bonus.c		\
-		extend_env_list_bonus.c				\
 		get_env_bonus.c						\
 		set_values_export_bonus.c
 

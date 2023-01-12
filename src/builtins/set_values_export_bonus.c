@@ -13,7 +13,7 @@ static int	extend_env_list(char *content, t_env_ms *env_ll)
 	return (0);
 }
 
-static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)
+static t_env_ms	*does_key_exist(char *content, t_env_ms *env_ll)
 {
 	int	len;
 
@@ -21,8 +21,7 @@ static t_env_ms *does_key_exist(char *content, t_env_ms *env_ll)
 	{
 		len = ft_strlen(env_ll->key);
 		if (!ft_strncmp(content, env_ll->key, len)
-			&& (content[len] == '=' || content[len] == '+'
-			|| !content[len]))
+			&& (content[len] == '=' || content[len] == '+' || !content[len]))
 			return (env_ll);
 		env_ll = env_ll->next;
 	}
@@ -40,9 +39,5 @@ int	set_values_export(char *content, t_env_ms *env_ll)
 		ret = change_value(content, link_to_modify);
 	else
 		ret = extend_env_list(content, env_ll);
-	if (ret != 0)
-		perror(NULL);
-	else
-		set_exit_code(env_ll, 0);
 	return (ret);
 }

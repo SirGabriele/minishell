@@ -160,13 +160,13 @@ void			sort_env_ll(t_env_ms *env_ll);
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content/*, t_env_ms *env_ll*/, char *outfile, \
-					t_enum_token outfile_mode);
+int				ft_echo(char **content, char *outfile, t_enum_token outfile_mode);
 int				ft_cd(char **content, t_env_ms *env_ll);
-int				ft_pwd(/*t_env_ms **env_ll, */char *outfile, t_enum_token outfile_mode);
+int				ft_pwd(char *outfile, t_enum_token outfile_mode);
 int				ft_export(char **content, t_env_ms *env_ll, char *outfile, \
 					t_enum_token outfile_mode);
-int				ft_env(char **content, t_env_ms **env_ll);
+int				ft_env(char **content, t_env_ms *env_ll, char *outfile, \
+					t_enum_token outfile_mode);
 int				ft_unset(char **content, t_env_ms **env_ll);
 int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);

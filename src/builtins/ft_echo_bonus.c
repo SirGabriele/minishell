@@ -52,8 +52,7 @@ static void	print_string(char *final_string, char *outfile,
 		close(fd);
 }
 
-int	ft_echo(char **content/*, t_env_ms *env_ll*/, char *outfile,
-	t_enum_token outfile_mode)
+int	ft_echo(char **content, char *outfile, t_enum_token outfile_mode)
 {
 	char	*final_string;
 	int		i;
@@ -74,6 +73,5 @@ int	ft_echo(char **content/*, t_env_ms *env_ll*/, char *outfile,
 	}
 	print_string(final_string, outfile, outfile_mode, options);
 	free(final_string);
-//	set_exit_code(env_ll, 0);
 	return (0);
 }

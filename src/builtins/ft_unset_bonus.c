@@ -1,22 +1,22 @@
 #include "../../includes/minishell.h"
 
-static int    is_invalid_identifier(char *content)
+static int	is_invalid_identifier(char *content)
 {
 	int	i;
 
 	i = 0;
 	while (content[i])
-    {
-        if (content[i] == '~' || content[i] == '#' || content[i] == ' '
-            || content[i] == '{' || content[i] == '[' || content[i] == '-'
-            || content[i] == '^' || content[i] == '@' || content[i] == ']'
-            || content[i] == '}' || content[i] == '*' || content[i] == '%'
-            || content[i] == '!' || content[i] == ':' || content[i] == '/'
-            || content[i] == '.' || content[i] == '?' || content[i] == ',')
+	{
+		if (content[i] == '~' || content[i] == '#' || content[i] == ' '
+			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
+			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
+			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
+			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
+			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
 		{
 			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
 				content[i]);
-            return (1);
+			return (1);
 		}
 		i++;
 	}
@@ -39,32 +39,47 @@ static int	delete_next_link(t_env_ms *env, char *content)
 	return (1);
 }
 
+static void	deletion_process(t_env_ms **env, char *content)
+{
+	int	ret;
+
+	while ((*env)->next)
+	{
+		ret = delete_next_link(*env, content);
+		if (ret == 0)
+			break ;
+		if ((*env)->next)
+			*env = (*env)->next;
+	}
+}
+
 int	ft_unset(char **content, t_env_ms **env)
 {
-	t_env_ms	*tmp_env;
+	t_env_ms	*env_head;
 	int			i;
 	int			ret;
 
 	ret = 0;
 	i = 0;
-	tmp_env = *env;
+	env_head = *env;
 	while (content[i])
 	{
-		ret = is_invalid_identifier(content[i]);
-		if (ret == 1)
+		if (is_invalid_identifier(content[i]) == 1)
 		{
+			ret = 1;
 			i++;
 			continue ;
 		}
-		while ((*env)->next)
+/*		while ((*env)->next)
 		{
 			ret = delete_next_link(*env, content[i]);
 			if (ret == 0)
 				break ;
 			if ((*env)->next)
 				*env = (*env)->next;
-		}
-		*env = tmp_env;
+		}*/
+		deletion_process(env, content[i]);
+		*env = env_head;
 		i++;
 	}
 	return (ret);

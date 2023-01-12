@@ -10,40 +10,42 @@ static int	get_nb_args(char **content)
 	return (i);
 }
 
-static void	print_initialized_environment(t_env_ms *tmp_env)
+static void	print_environment_variables(t_env_ms *env_ll, char *outfile,
+	t_enum_token outfile_mode)
 {
-	while (tmp_env)
+	int	fd;
+
+	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+		fd = 1;
+	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
+		fd = open(outfile, O_WRONLY | O_TRUNC);
+	else if (outfile != NULL && outfile_mode == TOK_APPEND)
+		fd = open(outfile, O_WRONLY | O_APPEND);
+	while (env_ll != NULL)
 	{
-		if (tmp_env->value && ft_strcmp(tmp_env->key, "?"))
+		if (env_ll->key[0] != '?' && env_ll->value != NULL)
 		{
-			ft_printf_fd(0, "%s=", tmp_env->key);
-			ft_printf_fd(0, "%s\n", tmp_env->value);
+			ft_printf_fd(fd, "%s=%s", env_ll->key, env_ll->value);
+			write(fd, "\n", 1);
 		}
-		tmp_env = tmp_env->next;
+		env_ll = env_ll->next;
 	}
+	if (outfile != NULL)
+		close(fd);
 }
 
-int	ft_env(char **content, t_env_ms **env_ll)
+int	ft_env(char **content, t_env_ms *env_ll, char *outfile,
+	t_enum_token outfile_mode)
 {
-	t_env_ms	**tmp_env;
+	int			ret;
 
-	tmp_env = env_ll;
+	ret = 0;
 	if (get_nb_args(content) == 0)
-	{
-		print_initialized_environment(*tmp_env);
-		set_exit_code(*env_ll, 0);
-	}
-	else if (content[0][0] != '-') 
+		print_environment_variables(env_ll, outfile, outfile_mode);
+	else
 	{
 		ft_putstr_fd("minishell: env: too many arguments\n", 2);
-		set_exit_code(*env_ll, 1);
-		return (1);
+		ret = 1;
 	}
-	else if (content[0][0] == '-') 
-	{
-		ft_putstr_fd("minishell: env: invalid option\n", 2);
-		set_exit_code(*env_ll, 2);
-		return (2);
-	}
-	return (0);
+	return (ret);
 }

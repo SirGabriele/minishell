@@ -1,17 +1,47 @@
 #include "../../includes/minishell.h"
 
-static t_env_ms	*lstnew_env(void)
+static int	create_key_and_value(t_env_ms *env_link, char *content,
+	int index_delim)
 {
-	t_env_ms	*env;
+	env_link->key = ft_strndup(content, index_delim);
+	if (!env_link->key)
+	{
+		free(env_link);
+		return (-1);
+	}
+	env_link->value = ft_strdup(content + index_delim + 1);
+	if (!env_link->value)
+	{
+		free(env_link->key);
+		env_link->key = NULL;
+		return (-1);
+	}
+	return (0);
+}
 
-	env = malloc(sizeof(t_env_ms));
-	if (!env)
+static int	create_key(t_env_ms *env_link, char *content)
+{
+	env_link->key = ft_strndup(content, ft_strlen(content));
+	if (!env_link->key)
+		return (-1);
+	env_link->value = NULL;
+	return (0);
+}
+
+static t_env_ms	*lstnew_env_link(void)
+{
+	t_env_ms	*env_link;
+
+	env_link = malloc(sizeof(t_env_ms));
+	if (!env_link)
 	{
 		perror(NULL);
 		return (NULL);
 	}
-	env->next = NULL;
-	return (env);
+	env_link->key = NULL;
+	env_link->value = NULL;
+	env_link->next = NULL;
+	return (env_link);
 }
 
 static int	get_delim_sign_index(char *content)
@@ -30,49 +60,28 @@ static int	get_delim_sign_index(char *content)
 
 t_env_ms	*get_env(char *content)
 {
-	t_env_ms	*env;
+	t_env_ms	*env_link;
 	int			index_delim;
 
-	env = lstnew_env();
-	if (!env)
+	env_link = lstnew_env_link();
+	if (!env_link)
 		return (NULL);
 	index_delim = get_delim_sign_index(content);
 	if (index_delim == 0)
 	{
-		env->key = ft_strndup(content, ft_strlen(content));
-		if (!env->key)
+		if (create_key(env_link, content) == -1)
 		{
-			free(env);
-			perror(NULL);
-			return (NULL);
+			free(env_link);
+			env_link = NULL;
 		}
-		env->value = NULL;
-/*		env->value = malloc(sizeof(char) * 1);
-		if (!env->value)
-		{
-			free(env->key);
-			free(env);
-			perror(NULL);
-			return (NULL);
-		}
-		env->value[0] = '\0';*/
 	}
 	else
 	{
-		env->key = ft_strndup(content, index_delim);
-		env->value = ft_strdup(content + index_delim + 1);
-		if (!env->value)
+		if (create_key_and_value(env_link, content, index_delim) == -1)
 		{
-			free(env->key);
-			free(env);
-			perror(NULL);
-			return (NULL);
+			free(env_link);
+			env_link = NULL;
 		}
 	}
-//	env->value = NULL;
-//	if (content[index_delim] == '+' || content[index_delim] == '=')
-//	{
-//		if (content[index_delim] == '+')
-//			index_delim++;
-	return (env);
+	return (env_link);
 }

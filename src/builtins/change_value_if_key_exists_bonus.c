@@ -28,7 +28,8 @@ static int	modify_value(char *content, t_env_ms *link_to_modify)
 
 static int	append_value(char *content, t_env_ms *link_to_modify)
 {
-	link_to_modify->value = ft_strjoin_free_first(link_to_modify->value, content);
+	link_to_modify->value = ft_strjoin_free_first(link_to_modify->value,
+			content);
 	if (!link_to_modify->value)
 	{
 		perror(NULL);
@@ -47,9 +48,11 @@ int	change_value(char *content, t_env_ms *link_to_modify)
 	if (!ft_strncmp(link_to_modify->key, content, index_equals_or_plus))
 	{
 		if (content[index_equals_or_plus] == '+')
-			ret = append_value(content + index_equals_or_plus + 2, link_to_modify);
+			ret = append_value(content + index_equals_or_plus + 2,
+					link_to_modify);
 		else if (content[index_equals_or_plus] == '=')
-			ret = modify_value(content + index_equals_or_plus + 1, link_to_modify);
+			ret = modify_value(content + index_equals_or_plus + 1,
+					link_to_modify);
 	}
 	return (ret);
 }

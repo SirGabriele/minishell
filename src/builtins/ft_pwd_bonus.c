@@ -1,23 +1,28 @@
 #include "../../includes/minishell.h"
 
-int	ft_pwd(/*t_env_ms **env_ll, */char *outfile, t_enum_token outfile_mode)
+int	ft_pwd(char *outfile, t_enum_token outfile_mode)
 {
 	char	*pwd;
-	(void)outfile;
-	(void)outfile_mode;
+	int		fd;
 
+	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+		fd = 1;
+	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
+		fd = open(outfile, O_WRONLY | O_TRUNC);
+	else if (outfile != NULL && outfile_mode == TOK_APPEND)
+		fd = open(outfile, O_WRONLY | O_APPEND);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
 		perror(NULL);
-//		set_exit_code(*env, 1);
 		return (1);
 	}
 	else
 	{
-		ft_printf_fd(1, "%s\n", pwd);
+		ft_printf_fd(fd, "%s\n", pwd);
 		free(pwd);
-//		set_exit_code(*env, 0);
 	}
+	if (outfile != NULL)
+		close(fd);
 	return (0);
 }
