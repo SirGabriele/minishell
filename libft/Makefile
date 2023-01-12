@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2022/12/19 15:02:38 by jsauvain         ###   ########.fr        #
+#    Updated: 2023/01/12 20:04:01 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -37,9 +37,13 @@ STR   =		ft_strlen.c					\
 			ft_strncmp.c				\
 			ft_strnstr.c				\
 			ft_strjoin.c				\
+			ft_strnjoin.c				\
 			ft_strjoin_free_first.c		\
+			ft_strnjoin_free_first.c	\
 			ft_strjoin_free_second.c	\
+			ft_strnjoin_free_second.c	\
 			ft_strjoin_free_both.c		\
+			ft_strnjoin_free_both.c		\
 			ft_substr.c					\
 			ft_strmapi.c				\
 			ft_strtrim.c				\

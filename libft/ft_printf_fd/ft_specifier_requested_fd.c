@@ -12,57 +12,56 @@
 
 #include "../libft.h"
 
-void	ft_specifier_requested_fd(const char **fmt, int *i, \
-			va_list param, int fd)
+static char	*ft_putcharprintf_fd(unsigned char c)
 {
-	if (**fmt == 'c')
-		ft_putcharprintf_fd((unsigned char)va_arg(param, int), i, fd);
-	else if (**fmt == 's')
-		ft_putstrprintf_fd(va_arg(param, char *), i, fd);
-	else if (**fmt == 'p')
-		ft_print_memory_fd(va_arg(param, unsigned long long int), i, fd);
-	else if (**fmt == 'd')
-		ft_putnbrprintf_fd(va_arg(param, int), i, fd);
-	else if (**fmt == 'i')
-		ft_putnbrprintf_fd(va_arg(param, int), i, fd);
-	else if (**fmt == 'u')
-		ft_putnbrprintf_fd(va_arg(param, unsigned int), i, fd);
-	else if (**fmt == 'x')
-		ft_putnbrbaseprintf_fd(va_arg(param, unsigned int), \
-			"0123456789abcdef", i, fd);
-	else if (**fmt == 'X')
-		ft_putnbrbaseprintf_fd(va_arg(param, unsigned int), \
-			"0123456789ABCDEF", i, fd);
-	else if (**fmt == '%')
-		ft_putcharprintf_fd('%', i, fd);
+	char	*to_add;
+
+	to_add = malloc(sizeof(char) * 2);
+	to_add[0] = c;
+	to_add[1] = '\0';
+	return (to_add);
 }
 
-void	ft_putnbrprintf_fd(long long int nbr, int *i, int fd)
+static char	*ft_print_memory_fd(unsigned long long int arg)
 {
-	if (nbr < 0)
+	char	*to_add;
+
+	if (!arg)
 	{
-		write(fd, "-", 1);
-		(*i)++;
-		ft_putnbrprintf_fd(-nbr, i, fd);
+		to_add = ft_strdup("(nil)");
+		return (to_add);
 	}
-	else if (nbr >= 0 && nbr < 10)
+	else
 	{
-		ft_putcharprintf_fd(nbr % 10 + 48, i, fd);
+		to_add = ft_strdup("0x");
+		to_add = ft_strjoin_free_both(to_add, ft_putnbrbaseprintf_fd(arg,
+					"0123456789abcdef"));
 	}
-	else if (nbr >= 10)
-	{
-		ft_putnbrprintf_fd(nbr / 10, i, fd);
-		ft_putnbrprintf_fd(nbr % 10, i, fd);
-	}
+	return (to_add);
 }
 
-void	ft_putmemory_fd(unsigned long long int nbr, char *base, int *i, int fd)
+char	*replace_percentage(char specifier, va_list param)
 {
-	if (nbr >= ft_strlen(base))
-	{
-		ft_putmemory_fd(nbr / ft_strlen(base), base, i, fd);
-		ft_putmemory_fd(nbr % ft_strlen(base), base, i, fd);
-	}
-	else if (nbr < ft_strlen(base))
-		ft_putcharprintf_fd(base[nbr], i, fd);
+	char	*to_add;
+
+	if (specifier == 'c')
+		to_add = ft_putcharprintf_fd((unsigned char)va_arg(param, int));
+	else if (specifier == 's')
+		to_add = ft_putstrprintf_fd(va_arg(param, char *));
+	else if (specifier == 'p')
+		to_add = ft_print_memory_fd(va_arg(param, unsigned long long int));
+	else if (specifier == 'd' || specifier == 'i')
+		to_add = ft_itoa(va_arg(param, int));
+	else if (specifier == 'u')
+		to_add = ft_putnbrbaseprintf_fd(va_arg(param, unsigned int),
+				"0123456789");
+	else if (specifier == 'x')
+		to_add = ft_putnbrbaseprintf_fd(va_arg(param, unsigned int),
+				"0123456789abcdef");
+	else if (specifier == 'X')
+		to_add = ft_putnbrbaseprintf_fd(va_arg(param, unsigned int),
+				"0123456789ABCDEF");
+	else
+		to_add = ft_strdup("%");
+	return (to_add);
 }

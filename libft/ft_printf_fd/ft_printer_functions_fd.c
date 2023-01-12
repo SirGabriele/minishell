@@ -12,53 +12,43 @@
 
 #include "../libft.h"
 
-void	ft_putcharprintf_fd(unsigned const char c, int *i, int fd)
+char	*ft_putstrprintf_fd(char *str)
 {
-	write(fd, &c, 1);
-	*i = *i + 1;
-}
+	char	*to_add;
 
-void	ft_putstrprintf_fd(char *str, int *i, int fd)
-{
 	if (!str)
 	{
-		write(fd, "(null)", 6);
-		*i = *i + 6;
-		return ;
+		to_add = ft_strdup("(null)");
+		return (to_add);
 	}
-	while (*str != '\0')
-	{
-		ft_putcharprintf_fd(*str, i, fd);
-		str++;
-	}
+	else
+		to_add = ft_strdup(str);
+	return (to_add);
 }
 
-void	ft_putnbrbaseprintf_fd(unsigned int nbr, char *base, int *i, int fd)
+char	*ft_putnbrbaseprintf_fd(unsigned int nbr, char *base)
 {
+	static char			number[500];
+	char				*to_add;
+	static int			i = 0;
+	static unsigned int	true_nbr = 0;
+
+	to_add = NULL;
+	if (true_nbr == 0)
+		true_nbr = nbr;
 	if ((size_t)nbr >= ft_strlen(base))
 	{
-		ft_putnbrbaseprintf_fd(nbr / ft_strlen(base), base, i, fd);
-		ft_putnbrbaseprintf_fd(nbr % ft_strlen(base), base, i, fd);
+		ft_putnbrbaseprintf_fd(nbr / ft_strlen(base), base);
+		ft_putnbrbaseprintf_fd(nbr % ft_strlen(base), base);
 	}
 	else if ((size_t)nbr < ft_strlen(base))
-		ft_putcharprintf_fd(base[nbr], i, fd);
-}
-
-void	ft_print_memory_fd(unsigned long long int arg, int *i, int fd)
-{
-	unsigned long long int	*argp;
-
-	argp = &arg;
-	if (!arg)
+		number[i++] = base[nbr];
+	if (nbr == true_nbr)
 	{
-		write(fd, "(nil)", 5);
-		*i = *i + 5;
-		return ;
+		to_add = ft_strdup(number);
+		true_nbr = 0;
+		ft_bzero(number, 500);
+		i = 0;
 	}
-	else if (arg > 0)
-	{
-		ft_putstrprintf_fd("0x", i, fd);
-		ft_putmemory_fd(*argp, "0123456789abcdef", i, fd);
-	}
-	return ;
+	return (to_add);
 }

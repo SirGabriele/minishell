@@ -68,9 +68,13 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strnjoin(char const *s1, char const *s2, size_t n);
 char		*ft_strjoin_free_first(char *s1, char const *s2);
+char		*ft_strnjoin_free_first(char *s1, char const *s2, size_t n);
 char		*ft_strjoin_free_second(char const *s1, char *s2);
+char		*ft_strnjoin_free_second(char const *s1, char *s2, size_t n);
 char		*ft_strjoin_free_both(char *s1, char *s2);
+char		*ft_strnjoin_free_both(char *s1, char *s2, size_t n);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strtrim(char const *s1, char const *set);
@@ -115,19 +119,10 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 //FT_PRINTF_FD
-int			ft_printf_fd(int fd, const char *format, ...);
-void		ft_specifier_requested_fd(const char **fmt, int *i, \
-				va_list param, int fd);
-void		ft_putcharprintf_fd(unsigned const char c, int *i, \
-				int fd);
-void		ft_putstrprintf_fd(char *str, int *i, int fd);
-void		ft_putnbrbaseprintf_fd(unsigned int nbr, \
-				char *base, int *i, int fd);
-void		ft_putnbrprintf_fd(long long int nbr, int *i, int fd);
-void		ft_print_memory_fd(unsigned long long int arg, int *i, int fd);
-void		ft_putmemory_fd(unsigned long long int nbr, \
-				char *base, int *i, int fd);
-int			ft_is_a_specifier_fd(const char c);
+int			ft_printf_fd(int fd, const char *fmt, ...);
+char		*replace_percentage(char specifier, va_list param);
+char		*ft_putnbrbaseprintf_fd(unsigned int nbr, char *base);
+char		*ft_putstrprintf_fd(char *str);
 
 //FT_PRINTF
 int			ft_printf(const char *format, ...);
