@@ -12,6 +12,66 @@
 
 #include "../libft.h"
 
+static void	ft_putnbrbaseprintf(unsigned int nbr, char *base, int *i)
+{
+	if ((size_t)nbr >= ft_strlen(base))
+	{
+		ft_putnbrbaseprintf(nbr / ft_strlen(base), base, i);
+		ft_putnbrbaseprintf(nbr % ft_strlen(base), base, i);
+	}
+	else if ((size_t)nbr < ft_strlen(base))
+		ft_putcharprintf(base[nbr], i);
+}
+
+static void	ft_putmemory(unsigned long long int nbr, char *base, int *i)
+{
+	if (nbr >= ft_strlen(base))
+	{
+		ft_putmemory(nbr / ft_strlen(base), base, i);
+		ft_putmemory(nbr % ft_strlen(base), base, i);
+	}
+	else if (nbr < ft_strlen(base))
+		ft_putcharprintf(base[nbr], i);
+}
+
+static void	ft_print_memory(unsigned long long int arg, int *i)
+{
+	unsigned long long int	*argp;
+
+	argp = &arg;
+	if (!arg)
+	{
+		write(1, "(nil)", 5);
+		*i = *i + 5;
+		return ;
+	}
+	else if (arg > 0)
+	{
+		ft_putstrprintf("0x", i);
+		ft_putmemory(*argp, "0123456789abcdef", i);
+	}
+	return ;
+}
+
+static void	ft_putnbrprintf(long long int nbr, int *i)
+{
+	if (nbr < 0)
+	{
+		write(1, "-", 1);
+		(*i)++;
+		ft_putnbrprintf(-nbr, i);
+	}
+	else if (nbr >= 0 && nbr < 10)
+	{
+		ft_putcharprintf(nbr % 10 + 48, i);
+	}
+	else if (nbr >= 10)
+	{
+		ft_putnbrprintf(nbr / 10, i);
+		ft_putnbrprintf(nbr % 10, i);
+	}
+}
+
 void	ft_specifier_requested(const char **fmt, int *i, va_list param)
 {
 	if (**fmt == 'c')
@@ -32,34 +92,4 @@ void	ft_specifier_requested(const char **fmt, int *i, va_list param)
 		ft_putnbrbaseprintf(va_arg(param, unsigned int), "0123456789ABCDEF", i);
 	else if (**fmt == '%')
 		ft_putcharprintf('%', i);
-}
-
-void	ft_putnbrprintf(long long int nbr, int *i)
-{
-	if (nbr < 0)
-	{
-		write(1, "-", 1);
-		(*i)++;
-		ft_putnbrprintf(-nbr, i);
-	}
-	else if (nbr >= 0 && nbr < 10)
-	{
-		ft_putcharprintf(nbr % 10 + 48, i);
-	}
-	else if (nbr >= 10)
-	{
-		ft_putnbrprintf(nbr / 10, i);
-		ft_putnbrprintf(nbr % 10, i);
-	}
-}
-
-void	ft_putmemory(unsigned long long int nbr, char *base, int *i)
-{
-	if (nbr >= ft_strlen(base))
-	{
-		ft_putmemory(nbr / ft_strlen(base), base, i);
-		ft_putmemory(nbr % ft_strlen(base), base, i);
-	}
-	else if (nbr < ft_strlen(base))
-		ft_putcharprintf(base[nbr], i);
 }

@@ -4,6 +4,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_env_ms	*env_ll;
 	int			g_signal_status = 0;
+	(void)g_signal_status;
 
 	if (argc != 1 || argv[1] != NULL)
 	{
@@ -15,6 +16,5 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	cmd_prompt(env_ll);
 	free_env_list(env_ll);
-	ft_printf("%d\n", g_signal_status);//A VIRER
 	return (3);
 }

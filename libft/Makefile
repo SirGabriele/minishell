@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2023/01/12 20:04:01 by kbrousse         ###   ########.fr        #
+#    Updated: 2023/01/13 15:44:54 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -70,8 +70,11 @@ OUTPUT =	ft_putchar.c	\
 			ft_putnbr_fd.c	\
 			ft_putnbr.c
 
-OTHER  =	ft_itoa.c	\
-			ft_atoi.c
+ATOI_ITOA =	ft_itoa.c	\
+			ft_atoi.c	\
+			ft_atol.c	\
+			ft_atoll.c	\
+			ft_atod.c
 
 LL     =	ft_lstnew.c			\
 			ft_lstadd_front.c	\
@@ -102,7 +105,7 @@ SRCS   =	$(addprefix char/, $(CHAR))							\
 			$(addprefix str/, $(STR))							\
 			$(addprefix memory/, $(MEMORY))						\
 			$(addprefix put/, $(OUTPUT))						\
-			$(addprefix atoi-itoa/, $(OTHER))					\
+			$(addprefix atoi-itoa/, $(ATOI_ITOA))				\
 			$(addprefix ll/, $(LL))								\
 			$(addprefix gnl_tdl/, $(GNL_TDL))					\
 			$(addprefix ft_printf_fd/, $(FT_PRINTF_FD))			\

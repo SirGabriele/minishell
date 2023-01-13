@@ -67,12 +67,14 @@ int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, 
 					t_env_ms **env);
 void			initialize_node(t_node_ms *node);
 int				is_a_builtin(char *content);
-int				exec_builtin(t_node_ms *node, t_env_ms **env_ll);
-int				launch_builtin(char **content, t_env_ms *env_ll);
+int				exec_builtin(t_node_ms *node, t_env_ms **env_ll,
+					t_pipes_ms *pipes, int exit_code_redirs);
+//int			launch_builtin(char **content, t_env_ms *env_ll,
+//					t_pipes_ms *pipes, int exit_code_redirs);
 void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll);
 int				is_non_forkable_builtin(char *content);//a deplacer dans utils
 void			out_of_fork_builtin(char **content, t_env_ms **env_ll);//a deplacer dans utils
-
+int				is_a_directory(char *content);
 /****************/
 /*	LINKED LIST	*/
 /****************/
@@ -154,6 +156,10 @@ int				syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
 int				syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
 void			print_error_msg(char *msg);
 void			sort_env_ll(t_env_ms *env_ll);
+int				count_args(char **content);
+int				is_value_out_of_range(char *content);
+int				is_permission_denied(char *content);
+t_token_ms		*remove_empty_tokens(t_token_ms *tokens);
 
 /**************/
 /*  BUILTINS  */
@@ -171,6 +177,7 @@ int				ft_unset(char **content, t_env_ms **env_ll);
 int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
 int				change_value(char *content, t_env_ms *env_ll);
+int				ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes);
 
 /************/
 /*	FREE	*/

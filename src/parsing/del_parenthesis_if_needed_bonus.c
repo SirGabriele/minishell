@@ -33,7 +33,7 @@ static t_enum_token	check_parenthesis(t_token_ms *tokens)
 	while (tokens && is_token_type_a_redir(tokens->type) && tokens->next
 		&& tokens->next->next)
 		tokens = tokens->next->next;
-	if (tokens->type == TOK_OP_PAR)
+	if (tokens && tokens->type == TOK_OP_PAR)
 	{
 		op_parenthesis = 0;
 		cl_parenthesis = 0;

@@ -2,17 +2,27 @@
 
 static int	is_exit(char *user_input)
 {
+	int	i;
+
 	if (!user_input)
 	{
 		rl_clear_history();
 		write(1, "exit\n", 5);
 		return (0);
 	}
-	if (ft_strncmp(user_input, "exit", 4) == 0)
+	i = 0;
+	while (ft_isspace(user_input[i]) == 1)
+		i++;
+	if (ft_strncmp(user_input + i, "exit", 4) == 0)
 	{
-		rl_clear_history();
-		free(user_input);
-		return (0);
+		while (ft_isspace(user_input[i + 4]) == 1)
+			i++;
+		if (user_input[i + 4] == '\0')
+		{
+			rl_clear_history();
+			free(user_input);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -20,14 +30,14 @@ static int	is_exit(char *user_input)
 int	cmd_prompt(t_env_ms *env_ll)
 {
 	char	*user_input;
-	char	*pwd_prompt;
+//	char	*pwd_prompt;
 	int		ret;
 
 	while (1)
 	{
-		pwd_prompt = get_pwd_prompt(env_ll);
-		user_input = readline(pwd_prompt);
-		free(pwd_prompt);
+//		pwd_prompt = get_pwd_prompt(env_ll);
+		user_input = readline("minishell> ");
+//		free(pwd_prompt);
 		if (is_exit(user_input) == 0)
 			return (0);
 		ret = ft_check_all_syntax_error(&user_input, env_ll);

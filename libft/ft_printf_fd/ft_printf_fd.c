@@ -38,56 +38,45 @@ static int	ft_is_a_specifier_fd(const char c)
 	return (0);
 }
 
-static char	*fill_final_string(const char *fmt, va_list param)
+static int	scan_after_percentage_fd(const char *fmt, int *i, \
+		va_list param, int fd)
 {
-	static char	*final_string = NULL;
-	char		*to_add;
-	static int	i = 0;
-	int			j;
+	int	booly;
 
-	to_add = NULL;
-	if (fmt[i] && fmt[i] == '%' && ft_is_a_specifier_fd(fmt[i + 1]) == 1)
+	booly = 0;
+	if (ft_is_a_specifier_fd(*fmt) == 1)
 	{
-		to_add = replace_percentage(fmt[i + 1], param);
-		final_string = ft_strjoin_free_both(final_string, to_add);
-		i += 2;
-		fill_final_string(fmt, param);
+		booly++;
+		ft_specifier_requested_fd(&fmt, i, param, fd);
 	}
-	j = 0;
-	while (fmt[i] && fmt[i + j]
-		&& !(fmt[i + j] == '%' && ft_is_a_specifier_fd(fmt[i + j]) == 1))
-		j++;
-	{
-		final_string = ft_strnjoin_free_first(final_string, fmt + i, j);
-		i = i + j;
-	}
-	if (fmt[i])
-		fill_final_string(fmt, param);
-	return (final_string);
+	return (booly);
 }
 
 int	ft_printf_fd(int fd, const char *fmt, ...)
 {
-	char	*final_string;
-	int		len;
-	va_list	param;
+	int			i;
+	va_list		param;
 
-	len = 1;
-	if (!fmt)
-		return (1);
+	i = 0;
 	va_start(param, fmt);
-	final_string = fill_final_string(fmt, param);
-	if (final_string == NULL)
+	if (!fmt)
+		return (0);
+	while (*fmt != '\0')
 	{
-		ft_printf_fd(2, "Error occured while filling ft_printf_fd's buffer\n");
-		return (1);
+		if (*fmt == '%')
+		{
+			fmt++;
+			if (scan_after_percentage_fd(fmt, &i, param, fd) == 0)
+				return (0);
+			fmt++;
+		}
+		else
+		{
+			write(fd, fmt, 1);
+			fmt++;
+			i++;
+		}
 	}
-	else
-	{
-		len = ft_strlen(final_string);
-		write(fd, final_string, len);
-		free(final_string);
-	}		
 	va_end(param);
-	return (len);
+	return (i);
 }

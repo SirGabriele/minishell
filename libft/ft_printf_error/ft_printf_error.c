@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-int	ft_is_a_specifier_error(const char c)
+static int	ft_is_a_specifier_error(const char c)
 {
 	char	s[10];
 	int		i;

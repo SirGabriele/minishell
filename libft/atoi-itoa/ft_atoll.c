@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printer_functions_error.c                       :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 13:53:40 by kbrousse          #+#    #+#             */
-/*   Updated: 2022/04/18 16:25:10 by kbrousse         ###   ########.fr       */
+/*   Created: 2023/01/13 15:45:43 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/13 15:45:44 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_putcharprintf_error(unsigned const char c, int *i)
+long long int	ft_atoll(const char *nbr)
 {
-	write(2, &c, 1);
-	*i = *i + 1;
-}
+	long long int	number;
+	int				i;
+	int				sign;
 
-void	ft_putstrprintf_error(char *str, int *i)
-{
-	if (!str)
+	i = 0;
+	sign = 1;
+	number = 0;
+	while ((nbr[i] >= 9 && nbr[i] <= 13) || nbr[i] == 32)
+		i++;
+	if (nbr[i] == 43 || nbr[i] == 45)
 	{
-		write(2, "(null)", 6);
-		*i = *i + 6;
-		return ;
+		if (nbr[i] == 45)
+			sign = -sign;
+		i++;
 	}
-	while (*str != '\0')
+	while (nbr[i] >= 48 && nbr[i] <= 57)
 	{
-		ft_putcharprintf_error(*str, i);
-		str++;
+		number = number * 10 + (nbr[i] - 48);
+		i++;
 	}
+	return (sign * number);
 }

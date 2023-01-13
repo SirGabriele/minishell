@@ -32,33 +32,3 @@ void	ft_putstrprintf(char *str, int *i)
 		str++;
 	}
 }
-
-void	ft_putnbrbaseprintf(unsigned int nbr, char *base, int *i)
-{
-	if ((size_t)nbr >= ft_strlen(base))
-	{
-		ft_putnbrbaseprintf(nbr / ft_strlen(base), base, i);
-		ft_putnbrbaseprintf(nbr % ft_strlen(base), base, i);
-	}
-	else if ((size_t)nbr < ft_strlen(base))
-		ft_putcharprintf(base[nbr], i);
-}
-
-void	ft_print_memory(unsigned long long int arg, int *i)
-{
-	unsigned long long int	*argp;
-
-	argp = &arg;
-	if (!arg)
-	{
-		write(1, "(nil)", 5);
-		*i = *i + 5;
-		return ;
-	}
-	else if (arg > 0)
-	{
-		ft_putstrprintf("0x", i);
-		ft_putmemory(*argp, "0123456789abcdef", i);
-	}
-	return ;
-}

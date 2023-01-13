@@ -62,10 +62,11 @@ UTILS =	what_is_index_in_bonus.c	\
 	utils_dollar_2_bonus.c			\
 	utils_tokens_1_bonus.c			\
 	utils_tokens_2_bonus.c			\
+	utils_tokens_3_bonus.c			\
 	utils_exit_code_bonus.c			\
 	print_content_pipe_bonus.c		\
 	utils_check_syntax_bonus.c		\
-	utils_export_bonus.c
+	utils_builtin_bonus.c
 
 BUILTINS = ft_echo_bonus.c					\
 		ft_cd_bonus.c						\
@@ -73,6 +74,7 @@ BUILTINS = ft_echo_bonus.c					\
 		ft_export_bonus.c					\
 		ft_unset_bonus.c					\
 		ft_env_bonus.c						\
+		ft_exit.c							\
 		change_value_if_key_exists_bonus.c	\
 		check_errors_env_format_bonus.c		\
 		get_env_bonus.c						\

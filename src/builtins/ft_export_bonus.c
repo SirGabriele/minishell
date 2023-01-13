@@ -5,7 +5,7 @@ static int	is_invalid_identifier(char *content)
 	int	i;
 
 	i = 0;
-	while (content[i])
+	while (content[i] && content[i] != '=')
 	{
 		if (content[i] == '~' || content[i] == '#'
 			|| content[i] == '{' || content[i] == '[' || content[i] == '-'

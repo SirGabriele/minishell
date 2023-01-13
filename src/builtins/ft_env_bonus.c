@@ -1,15 +1,5 @@
 #include "../../includes/minishell.h"
 
-static int	get_nb_args(char **content)
-{
-	int	i;
-
-	i = 0;
-	while (content[i])
-		i++;
-	return (i);
-}
-
 static void	print_environment_variables(t_env_ms *env_ll, char *outfile,
 	t_enum_token outfile_mode)
 {
@@ -40,7 +30,7 @@ int	ft_env(char **content, t_env_ms *env_ll, char *outfile,
 	int			ret;
 
 	ret = 0;
-	if (get_nb_args(content) == 0)
+	if (count_args(content) == 0)
 		print_environment_variables(env_ll, outfile, outfile_mode);
 	else
 	{

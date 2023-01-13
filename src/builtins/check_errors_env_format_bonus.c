@@ -58,7 +58,7 @@ static int	check_key_format(char *content)
 	{
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(content, 2);
-		ft_putstr_fd("': not a valid indentifier\n", 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
 	return (0);
@@ -73,7 +73,7 @@ static int	check_spaces_after_key(char *content)
 	{
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(content + i, 2);
-		ft_putstr_fd("': not a valid indentifier\n", 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
 	while (content[i])
@@ -82,7 +82,7 @@ static int	check_spaces_after_key(char *content)
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(content + i, 2);
-			ft_putstr_fd("': not a valid indentifier\n", 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			return (1);
 		}
 		else if (content[i] == '=' && !ft_isspace(content[i - 1]))
