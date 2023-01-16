@@ -77,6 +77,7 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 	if (correct_path == NULL)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
 	execve(correct_path, node->content, env_arr);
+	free(correct_path);
 	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);//1 ou 2 a voir. Test où execve fail: .
 }
 

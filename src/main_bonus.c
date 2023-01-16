@@ -16,5 +16,5 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	cmd_prompt(env_ll);
 	free_env_list(env_ll);
-	return (3);
+	return (0);
 }

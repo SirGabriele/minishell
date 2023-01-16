@@ -3,24 +3,35 @@
 
 int	is_permission_denied(char *content)
 {
-	if (access(content, F_OK) == 0 && access(content, X_OK) != 0)
+	if (ft_strncmp (content, "./", 2) == 0)
 	{
-		ft_printf_fd(2, "minishell: %s: Permission denied\n", content);
-		return (0);
+		if (access(content, F_OK) == 0
+			&& (access(content, R_OK) != 0
+				|| access(content, X_OK) != 0))
+		{
+			ft_printf_fd(2, "minishell: %s: Permission denied\n", content);
+			return (0);
+		}
 	}
 	return (1);
 }
 
 int	is_a_directory(char *content)
 {
-	DIR		*dir;
+	DIR	*dir;
+	int	len;
 
-	dir = opendir(content);
-	if (dir != NULL)
+	len = ft_strlen(content);
+	if (content[0] == '/' || ft_strncmp (content, "./", 2) == 0
+		|| content[len - 1] == '/')
 	{
-		ft_printf_fd(2, "minishell: %s: Is a directory\n", content);
-		closedir(dir);
-		return (0);
+		dir = opendir(content);
+		if (dir != NULL)
+		{
+			ft_printf_fd(2, "minishell: %s: Is a directory\n", content);
+			closedir(dir);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -82,25 +93,24 @@ char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 	char	*env_path_var;
 	char	*cmd_path;
 
-	if (access(user_input_cmd, X_OK) == 0)
+	if (user_input_cmd[0] == '/'
+		&& access(user_input_cmd, F_OK) == 0 && access(user_input_cmd, X_OK) == 0)
 		return (user_input_cmd);
 	env_path_var = get_env_path_var(env_arr);
-/*	if (env_path_var == NULL)//si PATH est unset
+	if (env_path_var == NULL ||
+		((user_input_cmd[0] == '/' || ft_strncmp (user_input_cmd, "./", 2) == 0)
+			&& access(user_input_cmd, F_OK) != 0))
 	{
+		free(env_path_var);
 		ft_printf_fd(2, "minishell: %s: No such file or directory\n", user_input_cmd);
 		return (NULL);
-	}*/
+	}
 	env_paths_arr = ft_split(env_path_var + 5, ':');
 	if (env_paths_arr == NULL)
 		return (NULL);
 	cmd_path = get_cmd_path(user_input_cmd, env_paths_arr);
 	free_double_arr(env_paths_arr);
 	free(env_path_var);
-/*	if (cmd_path == NULL)
-	{
-		ft_printf_fd(2, "minishell: %s: Permission denied\n", user_input_cmd);
-		return (NULL);
-	}*/
 	return (cmd_path);
 }
 
