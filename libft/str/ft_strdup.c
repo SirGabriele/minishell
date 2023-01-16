@@ -17,7 +17,7 @@ static int	makeshift_strlen(const char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str && str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -40,6 +40,8 @@ char	*ft_strdup(const char *s)
 {
 	char	*dup;
 
+	if (!s)
+		return (NULL);
 	dup = malloc(sizeof(char) * makeshift_strlen(s) + 1);
 	if (dup == NULL)
 		return (NULL);

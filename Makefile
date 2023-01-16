@@ -41,8 +41,9 @@ PARSING = build_binary_tree_bonus.c		\
 
 
 DOLLAR_EXPAND = expand_var_with_dollar_bonus.c	\
-			get_new_content_bonus.c				\
-			join_and_manage_dollar_bonus.c
+	get_new_content_bonus.c						\
+	join_and_manage_dollar_bonus.c				\
+	new_expand_var_with_dollar_bonus.c
 
 EXEC = execute_cmd_bonus.c			\
 	expand_dollar_heredoc_bonus.c	\
@@ -72,6 +73,7 @@ UTILS =	convert_env_arr_into_ll_bonus.c		\
 	get_key_to_expand_bonus.c				\
 	get_key_value_bonus.c					\
 	get_nb_dollars_bonus.c					\
+	is_all_digit_bonus.c					\
 	identify_splitting_operator_bonus.c		\
 	is_dollar_inside_quotes_bonus.c			\
 	is_exit_value_out_of_range_bonus.c		\

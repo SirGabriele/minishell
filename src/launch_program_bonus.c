@@ -14,11 +14,11 @@ static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
 	tokens_parsed = parse_quotes(tokens_parsed);
 	if (!tokens_parsed)
 		return (NULL);
-//	tokens_parsed = old_expand_var_with_dollar(tokens_unparsed, tokens_parsed, \
-//		env_ll);
-//	if (!tokens_parsed)
-//		return (NULL);
-//	tokens_parsed = remove_empty_tokens(tokens_parsed);
+/*	tokens_parsed = expand_var_with_dollar(tokens_unparsed, tokens_parsed, \
+		env_ll);
+	if (!tokens_parsed)
+		return (NULL);
+	tokens_parsed = remove_empty_tokens(tokens_parsed);*/
 	root = start_binary_tree(tokens_parsed);
 	if (!root)
 		return (NULL);

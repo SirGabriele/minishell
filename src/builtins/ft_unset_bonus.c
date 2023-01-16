@@ -70,14 +70,6 @@ int	ft_unset(char **content, t_env_ms **env)
 			i++;
 			continue ;
 		}
-/*		while ((*env)->next)
-		{
-			ret = delete_next_link(*env, content[i]);
-			if (ret == 0)
-				break ;
-			if ((*env)->next)
-				*env = (*env)->next;
-		}*/
 		deletion_process(env, content[i]);
 		*env = env_head;
 		i++;
