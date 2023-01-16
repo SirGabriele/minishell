@@ -60,6 +60,7 @@ int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root,
 	}
 	else
 	{
+		expand_var_with_dollar(root->content, env_ll);
 		if (execute_cmd(pipes, children, root, &env_ll) == -1)
 			return (-2);
 	}

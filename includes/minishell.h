@@ -22,7 +22,7 @@ int				launch_program(char **user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 char			*get_pwd_prompt(t_env_ms *env_ll);
-int				casual_syntax_error(char **user_input, t_env_ms *env_ll);
+int				check_casual_syntax_error(char **user_input, t_env_ms *env_ll);
 
 /************/
 /*	CHECK	*/
@@ -38,7 +38,6 @@ int				ft_check_syntax_before_character(const char *user_input, \
 int				what_is_index_in(const char *user_input, int i);
 int				is_previous_syntax_valid(const char *user_input, int i);
 int				ft_check_all_syntax_error(char **user_input, t_env_ms *env_ll);
-//int				count_nb_charac(const char *user_input, const char charac);//a mettre dans utils
 
 
 /************/
@@ -72,9 +71,8 @@ int				exec_builtin(t_node_ms *node, t_env_ms **env_ll,
 //int			launch_builtin(char **content, t_env_ms *env_ll,
 //					t_pipes_ms *pipes, int exit_code_redirs);
 void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll);
-int				is_non_forkable_builtin(char *content);//a deplacer dans utils
-void			out_of_fork_builtin(char **content, t_env_ms **env_ll);//a deplacer dans utils
 int				is_a_directory(char *content);
+
 /****************/
 /*	LINKED LIST	*/
 /****************/
@@ -114,12 +112,13 @@ t_redir_ms		*get_redirections_list(t_token_ms *tokens);
 /*	DOLLAR_EXPAND	*/
 /********************/
 
-t_token_ms		*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
-					t_token_ms *tokens_parsed, t_env_ms *env_ll);
-char			*get_new_content(char *parsed, char *key, char *value, \
-					int nb_dollars);
-char			*join_and_manage_dollar(char *new_parsed, char *parsed, \
-					char *value, int key_len, int i);
+/*t_token_ms		*old_expand_var_with_dollar(t_token_ms *tokens_unparsed, \
+					t_token_ms *tokens_parsed, t_env_ms *env_ll);*/
+void			expand_var_with_dollar(char **content, t_env_ms *env_ll);
+/*char			*old_get_new_content(char *parsed, char *key, char *value, \
+					int nb_dollars);*/
+/*char			*old_join_and_manage_dollar(char *new_parsed, char *parsed, \
+					char *value, int key_len, int i);*/
 
 /************/
 /*	UTILS	*/
@@ -136,7 +135,7 @@ int				is_token_type_a_redir(t_enum_token token_type);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
 char    		*get_key_to_expand(char *content);
 char    		*get_key_value(t_env_ms *env_ll, char *key);
-int 			is_it_a_closed_quotes(char *content, char quote);
+int 			is_it_a_closed_quote(char *content, char quote);
 int				is_dollar_inside_quotes(char *content, int i);
 int 			examine_dollar_conditions(char *content, int i);
 int				get_nb_dollars(char *unparsed, int i);
@@ -150,16 +149,17 @@ void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
-int				syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
-int				syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
-int				syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
-int				syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
-void			print_error_msg(char *msg);
+int				check_syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
+void			print_checking_error_msg(char *msg);
 void			sort_env_ll(t_env_ms *env_ll);
 int				count_args(char **content);
-int				is_value_out_of_range(char *content);
+int				is_exit_value_out_of_range(char *content);
 int				is_permission_denied(char *content);
 t_token_ms		*remove_empty_tokens(t_token_ms *tokens);
+void			set_dollar_underscore(t_env_ms *env_ll, char **content);
 
 /**************/
 /*  BUILTINS  */

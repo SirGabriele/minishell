@@ -39,7 +39,7 @@ char	*associate_key_value(t_env_ms *env)
 /*		env	-	the linked list containing all env variables	*/
 /*																*/
 /*	Return:														*/
-/*		arr		-	the first link of the list					*/
+/*		arr		-	the double array							*/
 /*		NULL	-	malloc failed								*/
 /*																*/
 /****************************************************************/

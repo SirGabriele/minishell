@@ -5,9 +5,9 @@ static int	check_syntax(char **user_input, t_env_ms *env_ll)
 	t_token_ms	*tokens;
 
 	tokens = lexer(*user_input);
-	if (syntax_first_token(tokens, env_ll) == -1
-		|| syntax_par(tokens, env_ll) == -1
-		|| casual_syntax_error(user_input, env_ll) == -1)
+	if (check_syntax_first_token(tokens, env_ll) == -1
+		|| check_syntax_par(tokens, env_ll) == -1
+		|| check_casual_syntax_error(user_input, env_ll) == -1)
 	{
 		free_tokens(tokens);
 		return (-1);
@@ -26,8 +26,8 @@ static int	complete_user_input(char **user_input, t_env_ms *env_ll)
 	tokens = lexer(*user_input);
 	if (!tokens)
 		ret = -1;
-	if (syntax_pipe(tokens, env_ll) == -1 || syntax_par(tokens, env_ll) == -1
-		|| syntax_and_or(tokens, env_ll) == -1)
+	if (check_syntax_pipe(tokens, env_ll) == -1 || check_syntax_par(tokens, env_ll) == -1
+		|| check_syntax_and_or(tokens, env_ll) == -1)
 		return (-1);
 	if (is_last_pipes_closed(tokens) == -1 || is_last_token_and_or(tokens) == 0)
 	{

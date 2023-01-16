@@ -3,10 +3,10 @@
 /****************************************************************/
 /*																*/
 /*	Converts the double array containing all the environment	*/
-/*		variables into a linked list							*/
+/*		variables into linked list								*/
 /*																*/
 /*	Parameters:													*/
-/*		env	-	the double array containing all env variables	*/
+/*		env	-	the doubl earray containing all env variables	*/
 /*																*/
 /*	Return:														*/
 /*		first_link	-	the first link of the list				*/

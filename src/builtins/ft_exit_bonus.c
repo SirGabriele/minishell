@@ -55,24 +55,24 @@ int	ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes)
 
 	nb_args = count_args(content);
 	if (nb_args == 1 && is_all_digit(content[0]) == 0
-		&& is_value_out_of_range(content[0]) == 0)
+		&& is_exit_value_out_of_range(content[0]) == 0)
 		exit_program_success(content[0], env_ll, pipes);
 	else if (nb_args == 1 && (is_all_digit(content[0]) == 1
-			|| is_value_out_of_range(content[0]) == 1))
+			|| is_exit_value_out_of_range(content[0]) == 1))
 	{
 		ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n",
 			content[0]);
 		exit_program_failure(env_ll, pipes);
 	}
 	else if (nb_args > 1 && (is_all_digit(content[0]) == 1
-			|| is_value_out_of_range(content[0]) == 1))
+			|| is_exit_value_out_of_range(content[0]) == 1))
 	{
 		ft_printf_fd(2, "minishell: exit: %s: numeric argument required\n",
 			content[0]);
 		exit_program_failure(env_ll, pipes);
 	}
 	else if (nb_args > 1 && is_all_digit(content[0]) == 0
-		&& is_value_out_of_range(content[0]) == 0)
+		&& is_exit_value_out_of_range(content[0]) == 0)
 	{
 		ft_printf_fd(1, "exit\n");
 		ft_printf_fd(2, "minishell: exit: too many arguments\n");

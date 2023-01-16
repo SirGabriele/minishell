@@ -76,6 +76,7 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
+	set_dollar_underscore(env_ll, node->content);
 	execve(correct_path, node->content, env_arr);
 	free(correct_path);
 	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);//1 ou 2 a voir. Test où execve fail: .
@@ -117,6 +118,7 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		if (children->pid_arr[children->index] == 0)
 			go_in_child_process(pipes, node, *env_ll, exit_code_redirs);
 	}
+	set_dollar_underscore(*env_ll, node->content);
 	pipes->last_cmd_executed = children->index;
 	children->index++;
 	return (0);

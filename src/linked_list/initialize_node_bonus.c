@@ -1,4 +1,3 @@
-#include "../../includes/structs_ms.h"
 #include "../../includes/minishell.h"
 
 void	initialize_node(t_node_ms *node)

@@ -110,7 +110,7 @@ static char	*get_content_with_env_values(char *parsed, char *unparsed, \
 /*																*/
 /****************************************************************/
 
-t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
+t_token_ms	*old_expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 	t_token_ms *tokens_parsed, t_env_ms *env_ll)
 {
 	t_token_ms	*tmp_tokens;
