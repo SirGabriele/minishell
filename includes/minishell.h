@@ -118,7 +118,6 @@ char			*get_new_content(char *parsed, char *key, char *value, \
 					int nb_dollars);
 char			*join_and_manage_dollar(char *new_parsed, char *parsed, \
 					char *value, int key_len, int i);
-void			re_expand_var_with_dollar(char **content, t_env_ms *env_ll);
 
 /************/
 /*	UTILS	*/
