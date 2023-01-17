@@ -43,7 +43,7 @@ PARSING = build_binary_tree_bonus.c		\
 DOLLAR_EXPAND = expand_var_with_dollar_bonus.c	\
 	get_new_content_bonus.c						\
 	join_and_manage_dollar_bonus.c				\
-	new_expand_var_with_dollar_bonus.c
+	re_expand_var_with_dollar_bonus.c
 
 EXEC = execute_cmd_bonus.c			\
 	expand_dollar_heredoc_bonus.c	\

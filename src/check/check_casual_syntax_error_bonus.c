@@ -23,7 +23,7 @@ static int    check_par_only(t_token_ms *tokens, t_env_ms *env_ll)
                         set_exit_code(env_ll, 2);
                         return (-1);
                 }
-                if (cursor->type == TOK_CL_PAR && cursor->next
+/*                if (cursor->type == TOK_CL_PAR && cursor->next
 					&& cursor->next->type != TOK_PIPE
 					&& cursor->next->type != TOK_AND_OPER
 					&& cursor->next->type != TOK_OR_OPER)
@@ -32,7 +32,7 @@ static int    check_par_only(t_token_ms *tokens, t_env_ms *env_ll)
                         free_tokens(tokens);
                         set_exit_code(env_ll, 2);
                         return (-1);
-                }
+                }*/
         cursor = cursor->next;
     }
     return (0);

@@ -18,7 +18,7 @@
 /********/
 
 int				cmd_prompt(t_env_ms *env_ll);
-int				launch_program(char **user_input, t_env_ms *env);
+int				launch_program(char *user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 char			*get_pwd_prompt(t_env_ms *env_ll);
@@ -118,7 +118,7 @@ char			*get_new_content(char *parsed, char *key, char *value, \
 					int nb_dollars);
 char			*join_and_manage_dollar(char *new_parsed, char *parsed, \
 					char *value, int key_len, int i);
-void			new_expand_var_with_dollar(char **content, t_env_ms *env_ll);
+void			re_expand_var_with_dollar(char **content, t_env_ms *env_ll);
 
 /************/
 /*	UTILS	*/
@@ -160,7 +160,9 @@ int				is_exit_value_out_of_range(char *content);
 int				is_permission_denied(char *content);
 t_token_ms		*remove_empty_tokens(t_token_ms *tokens);
 void			set_dollar_underscore(t_env_ms *env_ll, char **content);
+char			*get_dollar_underscore(t_env_ms *env_ll);
 int				is_all_digit(char *content);
+
 /**************/
 /*  BUILTINS  */
 /**************/

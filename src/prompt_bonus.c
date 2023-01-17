@@ -50,7 +50,7 @@ int	cmd_prompt(t_env_ms *env_ll)
 			free(user_input);
 			continue ;
 		}
-		if (user_input && launch_program(&user_input, env_ll) == -1)
+		if (user_input && launch_program(user_input, env_ll) == -1)
 			return (-1);
 	}
 	return (3);
