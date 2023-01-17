@@ -48,6 +48,9 @@ static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, 
 
 int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
 {
+	int	ret;
+
+	ret = 0;
 	if (root && root->left != NULL)
 		start_recursive(pipes, children, root->left, env_ll);
 	if (root->operator == TOK_PIPE
@@ -60,8 +63,9 @@ int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root,
 	}
 	else
 	{
-		if (execute_cmd(pipes, children, root, &env_ll) == -1)
-			return (-2);
+		ret = execute_cmd(pipes, children, root, &env_ll);
+		if (ret == -1 || ret == 130)
+			return (ret);
 	}
 	if (root && root->right != NULL)
 		start_recursive(pipes, children, root->right, env_ll);

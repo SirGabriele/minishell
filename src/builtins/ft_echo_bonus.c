@@ -34,11 +34,11 @@ static int	get_nb_options(char **content)
 }
 
 static void	print_string(char *final_string, char *outfile,
-	t_enum_token outfile_mode, int options)
+	t_enum_token outfile_mode)
 {
 	int	fd;
 
-	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+	if (outfile == NULL || outfile_mode == TOK_NULL || outfile_mode == TOK_PIPE)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);
@@ -46,13 +46,11 @@ static void	print_string(char *final_string, char *outfile,
 		fd = open(outfile, O_WRONLY | O_APPEND);
 	if (final_string)
 		ft_printf_fd(fd, "%s", final_string);
-	if (!options)
-		write(fd, "\n", 1);
 	if (outfile != NULL)
 		close(fd);
 }
 
-int	ft_echo(char **content, char *outfile, t_enum_token outfile_mode)
+int	ft_echo(t_node_ms *node)
 {
 	char	*final_string;
 	int		i;
@@ -60,18 +58,20 @@ int	ft_echo(char **content, char *outfile, t_enum_token outfile_mode)
 
 	final_string = NULL;
 	i = 0;
-	options = get_nb_options(content + 1);
-	while (content[1 + i + options])
+	options = get_nb_options(node->content + 1);
+	while (node->content[1 + i + options])
 	{
-		if (!content[1 + i + options])
+		if (!node->content[1 + i + options])
 			break ;
 		final_string = ft_strjoin_free_first(final_string,
-				content[1 + i + options]);
-		if (content[1 + i + options + 1])
+				node->content[1 + i + options]);
+		if (node->content[1 + i + options + 1])
 			final_string = ft_strjoin_free_first(final_string, " ");
 		i++;
 	}
-	print_string(final_string, outfile, outfile_mode, options);
+	if (!options)
+		final_string = ft_strjoin_free_first(final_string, "\n");
+	print_string(final_string, node->outfile, node->outfile_mode);
 	free(final_string);
 	return (0);
 }

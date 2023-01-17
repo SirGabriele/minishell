@@ -52,13 +52,12 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	return (ret);
 }
 
-static void	print_all_environment(t_env_ms *env_ll, char *outfile,
-	t_enum_token outfile_mode)
+static void	print_all_environment(t_env_ms *env_ll, char *outfile, t_enum_token outfile_mode)
 {
 	t_env_ms	*env_cpy;
 	int			fd;
 
-	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+	if (outfile == NULL || outfile_mode == TOK_NULL || outfile_mode == TOK_PIPE)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);
@@ -75,22 +74,21 @@ static void	print_all_environment(t_env_ms *env_ll, char *outfile,
 		close(fd);
 }
 
-int	ft_export(char **content, t_env_ms *env_ll, char *outfile,
-	t_enum_token outfile_mode)
+int	ft_export(t_node_ms *node, t_env_ms *env_ll)
 {
 	int	i;
 	int	ret;
 
 	ret = 0;
 	i = 1;
-	if (!content[1])
+	if (!node->content[1])
 	{
-		print_all_environment(env_ll, outfile, outfile_mode);
+		print_all_environment(env_ll, node->outfile, node->outfile_mode);
 		return (0);
 	}
-	while (content[i] != NULL)
+	while (node->content[i] != NULL)
 	{
-		ret = process_variable(content[i], env_ll);
+		ret = process_variable(node->content[i], env_ll);
 		i++;
 	}
 	return (ret);

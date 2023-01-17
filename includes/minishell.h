@@ -43,7 +43,11 @@ int				ft_check_all_syntax_error(char **user_input, t_env_ms *env_ll);
 /************/
 /*	SIGNALS	*/
 /************/
+
 void			handler_first_readline(int sig);
+void			ignore_sigint_sigquit();
+void			reset_sigint_sigquit();
+void			handler_heredoc(int sig);
 
 /************/
 /*	EXEC	*/
@@ -81,6 +85,7 @@ t_node_ms		*ft_lstnew_node(t_enum_token *operators);
 t_token_ms		*ft_lstnew_token(void);
 t_env_ms		*ft_lstnew_env_entry(const char *env);
 void			initialize_node(t_node_ms *node);
+t_env_ms		*lstnew_env_link(void);
 
 /************/
 /*	PARSING	*/
@@ -167,13 +172,11 @@ int				is_all_digit(char *content);
 /**************/
 
 int				check_errors_env_format(char *content);
-int				ft_echo(char **content, char *outfile, t_enum_token outfile_mode);
+int				ft_echo(t_node_ms *node);
 int				ft_cd(char **content, t_env_ms *env_ll);
 int				ft_pwd(char *outfile, t_enum_token outfile_mode);
-int				ft_export(char **content, t_env_ms *env_ll, char *outfile, \
-					t_enum_token outfile_mode);
-int				ft_env(char **content, t_env_ms *env_ll, char *outfile, \
-					t_enum_token outfile_mode);
+int				ft_export(t_node_ms *node, t_env_ms *env_ll);
+int				ft_env(t_node_ms *node, t_env_ms *env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
 int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);

@@ -18,7 +18,7 @@ static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
 		env_ll);
 	if (!tokens_parsed)
 		return (NULL);
-	tokens_parsed = remove_empty_tokens(tokens_parsed);
+//	tokens_parsed = remove_empty_tokens(tokens_parsed);
 	root = start_binary_tree(tokens_parsed);
 	if (!root)
 		return (NULL);
@@ -38,8 +38,7 @@ int	launch_program(char *user_input, t_env_ms *env_ll)
 	if (!root)
 		return (-1);
 	free(user_input);
-	if (launch_exec(root, env_ll) == -1)
-		ret = -1;
+	ret = launch_exec(root, env_ll);
 	free_binary_tree(root);
 	return (ret);
 }

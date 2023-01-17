@@ -59,19 +59,21 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 	char	*correct_path;
 	int		exit_code;
 
+	reset_sigint_sigquit();
 	env_arr = convert_env_ll_into_arr(env_ll);
 	redirect_infile(pipes->before, node);
 	redirect_outfile(pipes->after, node);
 	if (exit_code_redirs != 0)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code_redirs);
-	if (env_arr == NULL || node->content == NULL || node->content[0][0] == '\0')
+	if (env_arr == NULL || node->content == NULL)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 0);
 	if (is_a_builtin(node->content[0]) == 0)
 	{
 		exit_code = exec_builtin(node, &env_ll, pipes, exit_code_redirs);
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code);
 	}
-	if (is_a_directory(node->content[0]) == 0 || is_permission_denied(node->content[0]) == 0)
+	if (node->content[0][0] != '\0' && (is_a_directory(node->content[0]) == 0
+		|| is_permission_denied(node->content[0]) == 0))
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 126);
 	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
@@ -79,7 +81,7 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 	set_dollar_underscore(env_ll, node->content);
 	execve(correct_path, node->content, env_arr);
 	free(correct_path);
-	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);//1 ou 2 a voir. Test où execve fail: .
+	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);
 }
 
 /****************************************************************/
@@ -105,8 +107,14 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 	int	exit_code_redirs;
 
 	exit_code_redirs = handle_all_redirs(node, pipes, *env_ll);
+	if (exit_code_redirs == 130)
+		return (130);
 	if (node->content && is_a_builtin(node->content[0]) == 0 && node->shell == TOK_SHELL)
+	{
 		children->pid_arr[children->index] = exec_builtin(node, env_ll, pipes, exit_code_redirs);
+		if (node->content)
+			set_dollar_underscore(*env_ll, node->content);
+	}
 	else
 	{
 		children->pid_arr[children->index] = fork();
@@ -117,8 +125,9 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		}
 		if (children->pid_arr[children->index] == 0)
 			go_in_child_process(pipes, node, *env_ll, exit_code_redirs);
+		else if (children->pid_arr[children->index] != 0)
+			ignore_sigint_sigquit();
 	}
-	set_dollar_underscore(*env_ll, node->content);
 	pipes->last_cmd_executed = children->index;
 	children->index++;
 	return (0);

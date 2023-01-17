@@ -30,14 +30,15 @@ static int	is_exit(char *user_input)
 int	cmd_prompt(t_env_ms *env_ll)
 {
 	char	*user_input;
-//	char	*pwd_prompt;
 	int		ret;
 
 	while (1)
 	{
-//		pwd_prompt = get_pwd_prompt(env_ll);
-		user_input = readline("minishell> ");
-//		free(pwd_prompt);
+		g_signal_status = 0;
+		signal(SIGINT, handler_first_readline);
+		user_input = readline("minishell$ ");
+		if (g_signal_status == 130)
+			set_exit_code(env_ll, 130);
 		if (is_exit(user_input) == 0)
 			return (0);
 		ret = ft_check_all_syntax_error(&user_input, env_ll);

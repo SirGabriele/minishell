@@ -5,7 +5,7 @@ static void	print_environment_variables(t_env_ms *env_ll, char *outfile,
 {
 	int	fd;
 
-	if (outfile == NULL || outfile_mode == TOK_PIPE || outfile_mode == TOK_NULL)
+	if (outfile == NULL || outfile_mode == TOK_NULL || outfile_mode == TOK_PIPE)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);
@@ -24,14 +24,13 @@ static void	print_environment_variables(t_env_ms *env_ll, char *outfile,
 		close(fd);
 }
 
-int	ft_env(char **content, t_env_ms *env_ll, char *outfile,
-	t_enum_token outfile_mode)
+int	ft_env(t_node_ms *node, t_env_ms *env_ll)
 {
 	int			ret;
 
 	ret = 0;
-	if (count_args(content) == 0)
-		print_environment_variables(env_ll, outfile, outfile_mode);
+	if (count_args(node->content + 1) == 0)
+		print_environment_variables(env_ll, node->outfile, node->outfile_mode);
 	else
 	{
 		ft_putstr_fd("minishell: env: too many arguments\n", 2);

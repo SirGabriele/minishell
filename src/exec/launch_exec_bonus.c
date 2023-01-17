@@ -41,9 +41,9 @@ static void	wait_for_all_the_forks(t_children_ms *children, t_env_ms *env_ll,
 	}
 	if (to_wait_or_not_to_wait[i - 1] == 1 && WIFEXITED(wstatus))
 		exit_code = WEXITSTATUS(wstatus);
+	else if (to_wait_or_not_to_wait[i - 1] == 1 && WIFSIGNALED(wstatus))
+		exit_code = WTERMSIG(wstatus) + 128;
 	set_exit_code(env_ll, exit_code);
-	free(children->pid_arr);
-	free(children);
 	free(to_wait_or_not_to_wait);
 }
 
@@ -78,7 +78,9 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 	t_children_ms	*children;
 	t_pipes_ms		*pipes;
 	int				nb_nodes;
+	int				ret;
 
+	ret = 0;
 	pipes = malloc(sizeof(t_pipes_ms));
 	if (pipes == NULL)
 		return (-1);
@@ -89,16 +91,25 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 	children = NULL;
 	children = initialize_children(children, nb_nodes);
 	if (children == NULL)
+	{
+		free(children->pid_arr);
+		free(children);
+		free(pipes);
 		return (-1);
+	}
 	pipes->tree_root = root;
 	pipes->children = children;
-	if (start_recursive(pipes, children, root, env_ll) == -1)
-		return (-1);
+	ret = start_recursive(pipes, children, root, env_ll);
+	if (ret == 130)
+		set_exit_code(env_ll, 130);
 	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1)
 		return (-1);
 	if (close(pipes->after[0]) == -1 || close(pipes->after[1]) == -1)
 		return (-1);
-	wait_for_all_the_forks(children, env_ll, nb_nodes, root);
+	if (ret != -1 && ret != 130)
+		wait_for_all_the_forks(children, env_ll, nb_nodes, root);
+	free(children->pid_arr);
+	free(children);
 	free(pipes);
 	return (0);
 }

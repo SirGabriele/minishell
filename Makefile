@@ -6,9 +6,9 @@ SRC = get_pwd_prompt_bonus.c		\
 	highlight_syntax_error_bonus.c	\
 	launch_program_bonus.c			\
 	main_bonus.c					\
-	prompt_bonus.c					\
+	prompt_bonus.c
 
-SIGNALS = signals_one_bonus.c
+SIGNALS = signals_bonus.c
 
 CHECK = check_casual_syntax_error_bonus.c	\
 	check_paired_characters_bonus.c			\
@@ -60,6 +60,7 @@ LINKED_LIST = ft_lstnew_env_entry_bonus.c	\
 	ft_lstnew_node_bonus.c					\
 	ft_lstnew_token_bonus.c					\
 	initialize_node_bonus.c					\
+	lstnew_env_link_bonus.c
 
 UTILS =	convert_env_arr_into_ll_bonus.c		\
 	convert_env_ll_into_arr_bonus.c			\

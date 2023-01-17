@@ -42,6 +42,11 @@ static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)
 	int		i;
 
 	i = 0;
+	if (user_input_cmd[0] == '\0')
+	{
+		ft_printf_fd(2, "%s: command not found\n", user_input_cmd);
+		return (NULL);
+	}
 	while (env_paths_arr[i] != NULL)
 	{
 		cmd_path = ft_strjoin(env_paths_arr[i], "/");

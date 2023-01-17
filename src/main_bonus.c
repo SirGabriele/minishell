@@ -1,10 +1,10 @@
 #include "../includes/minishell.h"
 
+int	g_signal_status = 0;
+
 int	main(int argc, char **argv, char **env)
 {
 	t_env_ms	*env_ll;
-	int			g_signal_status = 0;
-	(void)g_signal_status;
 
 	if (argc != 1 || argv[1] != NULL)
 	{
