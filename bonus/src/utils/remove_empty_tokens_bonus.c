@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_empty_tokens_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:09:34 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:09:40 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static t_token_ms	*remove_firsts_empty_tokens(t_token_ms *tokens_parsed, \

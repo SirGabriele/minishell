@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:05:49 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:05:57 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 void	handler_first_readline(int sig)
 {
 	(void)sig;
-
 	g_signal_status = 130;
 	ft_printf("\n");
 	rl_on_new_line();
@@ -11,22 +22,9 @@ void	handler_first_readline(int sig)
 	rl_redisplay();
 }
 
-void	ignore_sigint_sigquit(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	reset_sigint_sigquit(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
-
 void	handler_heredoc(int sig)
 {
 	(void)sig;
-
 	g_signal_status = 130;
 	ft_printf("\n");
 	rl_on_new_line();

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 15:47:33 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 15:48:17 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static int	is_invalid_identifier(char *content)
@@ -12,7 +24,8 @@ static int	is_invalid_identifier(char *content)
 			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
 			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
 			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
-			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
+			|| content[i] == '.' || content[i] == '?' || content[i] == ','
+			|| (content[i] == '+' && content[i + 1] != '='))
 			return (1);
 		i++;
 	}
@@ -52,7 +65,8 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	return (ret);
 }
 
-static void	print_all_environment(t_env_ms *env_ll, char *outfile, t_enum_token outfile_mode)
+static void	print_all_environment(t_env_ms *env_ll, char *outfile,
+	t_enum_token outfile_mode)
 {
 	t_env_ms	*env_cpy;
 	int			fd;

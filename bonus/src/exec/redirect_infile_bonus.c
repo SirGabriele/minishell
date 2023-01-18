@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_operator_bonus.c                                :+:      :+:    :+:   */
+/*   redirect_infile_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:09:45 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 16:09:46 by kbrousse         ###   ########.fr       */
+/*   Created: 2023/01/18 16:56:09 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:57:53 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell_bonus.h"
 
-int	is_operator(t_enum_token type)
+void	redirect_infile(int *pipe_before, t_node_ms *node)
 {
-	if (type == TOK_AND_OPER || type == TOK_OR_OPER || type == TOK_PIPE)
-		return (1);
-	return (0);
+	int	fd;
+
+	if (node->infile != NULL && node->infile_mode == TOK_INFILE)
+	{
+		fd = open(node->infile, O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
+	}
+	if ((node->infile == NULL && node->infile_mode == TOK_PIPE)
+		|| (node->infile != NULL && node->infile_mode == TOK_HEREDOC))
+		dup2(pipe_before[0], 0);
+	close(pipe_before[0]);
+	close(pipe_before[1]);
 }

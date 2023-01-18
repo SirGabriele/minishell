@@ -1,10 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 15:47:05 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 15:53:24 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
+
+static void	update_data(t_env_ms *old_pwd, t_env_ms *pwd,
+	t_env_ms *last_link)
+{
+	char	*post_cd_pwd;
+
+	post_cd_pwd = getcwd(NULL, 0);
+	if (old_pwd)
+		free(old_pwd->value);
+	if (pwd != NULL)
+		old_pwd->value = pwd->value;
+	else
+		old_pwd->value = NULL;
+	if (pwd == NULL)
+	{
+		last_link->next = lstnew_env_link();
+		last_link->next->key = ft_strdup("PWD");
+		last_link->next->value = ft_strdup(post_cd_pwd);
+		last_link->next->next = NULL;
+		pwd = last_link->next;
+	}
+	else
+		pwd->value = ft_strdup(post_cd_pwd);
+	free(post_cd_pwd);
+}
 
 static void	change_pwd_and_oldpwd(t_env_ms *env_ll)
 {
 	t_env_ms	*old_pwd;
 	t_env_ms	*pwd;
-	char		*post_cd_pwd;
 
 	old_pwd = NULL;
 	pwd = NULL;
@@ -19,24 +55,7 @@ static void	change_pwd_and_oldpwd(t_env_ms *env_ll)
 		else
 			break ;
 	}
-	post_cd_pwd = getcwd(NULL, 0);
-	if (old_pwd)
-		free(old_pwd->value);
-	if (pwd != NULL)
-		old_pwd->value = pwd->value;
-	else
-		old_pwd->value = NULL;
-	if (pwd == NULL)
-	{
-		env_ll->next = lstnew_env_link();
-		env_ll->next->key = ft_strdup("PWD");
-		env_ll->next->value = ft_strdup(post_cd_pwd);
-		env_ll->next->next = NULL;
-		pwd = env_ll->next;
-	}
-	else
-		pwd->value = ft_strdup(post_cd_pwd);
-	free(post_cd_pwd);
+	update_data(old_pwd, pwd, env_ll);
 }
 
 static int	change_directory(char *content, t_env_ms *env_ll)

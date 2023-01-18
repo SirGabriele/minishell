@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_requested_bonus.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:15:42 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:15:43 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
-static void	free_memory_fork_and_exit(t_pipes_ms *pipes, t_env_ms *env_ll, int exit_code)
+static void	free_memory_fork_and_exit(t_pipes_ms *pipes,
+	t_env_ms *env_ll, int exit_code)
 {
 	free_binary_tree(pipes->tree_root);
 	free_env_list(env_ll);
@@ -19,9 +32,8 @@ static void	free_memory_fork_and_exit(t_pipes_ms *pipes, t_env_ms *env_ll, int e
 
 static void	sent_eof_in_heredoc(int line, const char *delimiter)
 {
-	if (g_signal_status != 130)
-		ft_printf_fd(2, "minishell: warning: here-document at line %d delimited "\
-			"by end-of-file (wanted `%s')\n", line, delimiter);
+	ft_printf_fd(2, "minishell: warning: here-document at line %d delimited "\
+		"by end-of-file (wanted `%s')\n", line, delimiter);
 }
 /****************************************************************/
 /*																*/
@@ -37,7 +49,8 @@ static void	sent_eof_in_heredoc(int line, const char *delimiter)
 /*																*/
 /****************************************************************/
 
-static void	trigger_heredoc(const char *delimiter, t_pipes_ms *pipes, t_env_ms *env_ll)
+static void	trigger_heredoc(const char *delimiter, t_pipes_ms *pipes,
+	t_env_ms *env_ll)
 {
 	char	*user_input;
 	int		length_delimiter;
@@ -51,20 +64,14 @@ static void	trigger_heredoc(const char *delimiter, t_pipes_ms *pipes, t_env_ms *
 		if (!user_input)
 		{
 			sent_eof_in_heredoc(line, delimiter);
-			if (g_signal_status == 130)
-			{
-				free_memory_fork_and_exit(pipes, env_ll, 130);
-			}
-			else
-				free_memory_fork_and_exit(pipes, env_ll, 0);
+			free_memory_fork_and_exit(pipes, env_ll, g_signal_status);
 		}
-		if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
+		else if (ft_strncmp(user_input, delimiter, length_delimiter) == 0
 			&& user_input[length_delimiter] == '\0')
 			break ;
 		expand_dollar_heredoc(user_input, pipes, env_ll);
 		free(user_input);
 		line++;
-		user_input = NULL;
 	}
 	free(user_input);
 	free_memory_fork_and_exit(pipes, env_ll, 0);
@@ -92,7 +99,5 @@ int	heredoc_requested(t_redir_ms *redir, t_pipes_ms *pipes, t_env_ms *env_ll)
 	waitpid(child, &wstatus, WUNTRACED);
 	if (WIFEXITED(wstatus))
 		ret = WEXITSTATUS(wstatus);
-/*	else if (WIFSIGNALED(wstatus))
-		ret = WTERMSIG(wstatus) + 128;*/
 	return (ret);
 }

@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_operator_bonus.c                                :+:      :+:    :+:   */
+/*   signals_fork_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:09:45 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 16:09:46 by kbrousse         ###   ########.fr       */
+/*   Created: 2023/01/18 18:35:35 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 18:36:25 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell_bonus.h"
 
-int	is_operator(t_enum_token type)
+static void	back_slash_n(int sig)
 {
-	if (type == TOK_AND_OPER || type == TOK_OR_OPER || type == TOK_PIPE)
-		return (1);
-	return (0);
+	(void)sig;
+	ft_putstr_fd("\n", 2);
+}
+
+static void	core_dump(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit (core dumped)\n", 2);
+}
+
+void	set_sigint_sigquit_to_default(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	handler_before_fork(void)
+{
+	signal(SIGINT, back_slash_n);
+	signal(SIGQUIT, core_dump);
 }

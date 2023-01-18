@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_recursive_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:43:20 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:43:21 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
@@ -16,7 +28,8 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 	return (0);
 }
 
-static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
+static t_node_ms	*operator_detected(t_pipes_ms *pipes,
+	t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
 {
 	if (root->operator == TOK_PIPE)
 		transfer_pipe_content(pipes->before, pipes->after);
@@ -46,7 +59,8 @@ static t_node_ms	*operator_detected(t_pipes_ms *pipes, t_children_ms *children, 
 /*																*/
 /****************************************************************/
 
-int	start_recursive(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
+int	start_recursive(t_pipes_ms *pipes, t_children_ms *children,
+	t_node_ms *root, t_env_ms *env_ll)
 {
 	int	ret;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialize_node_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:13:34 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:13:35 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 void	initialize_node(t_node_ms *node)
@@ -10,6 +22,6 @@ void	initialize_node(t_node_ms *node)
 	node->outfile = NULL;
 	node->infile_mode = TOK_NULL;
 	node->infile_mode = TOK_NULL;
-	node->shell	= TOK_NULL;
+	node->shell = TOK_NULL;
 	node->operator = TOK_NULL;
 }

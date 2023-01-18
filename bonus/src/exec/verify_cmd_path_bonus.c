@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   verify_cmd_path_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:47:12 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:47:13 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 #include <dirent.h>
 
@@ -42,7 +54,7 @@ static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)
 	int		i;
 
 	i = 0;
-	if (user_input_cmd[0] == '\0')
+	if (user_input_cmd[0] == '\0' || ft_strcmp(user_input_cmd, ".") == 0)
 	{
 		ft_printf_fd(2, "%s: command not found\n", user_input_cmd);
 		return (NULL);
@@ -64,7 +76,7 @@ static char	*get_cmd_path(char *user_input_cmd, char **env_paths_arr)
 static char	*get_env_path_var(char **env_arr)
 {
 	char	*path;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (env_arr[i] != NULL && ft_strncmp(env_arr[i], "PATH=", 5) != 0)
@@ -98,16 +110,17 @@ char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 	char	*env_path_var;
 	char	*cmd_path;
 
-	if (user_input_cmd[0] == '/'
-		&& access(user_input_cmd, F_OK) == 0 && access(user_input_cmd, X_OK) == 0)
+	if (access(user_input_cmd, F_OK) == 0
+		&& access(user_input_cmd, X_OK) == 0)
 		return (user_input_cmd);
 	env_path_var = get_env_path_var(env_arr);
-	if (env_path_var == NULL ||
-		((user_input_cmd[0] == '/' || ft_strncmp (user_input_cmd, "./", 2) == 0)
+	if (env_path_var == NULL || ((user_input_cmd[0] == '/'
+				|| ft_strncmp (user_input_cmd, "./", 2) == 0)
 			&& access(user_input_cmd, F_OK) != 0))
 	{
 		free(env_path_var);
-		ft_printf_fd(2, "minishell: %s: No such file or directory\n", user_input_cmd);
+		ft_printf_fd(2, "minishell: %s: No such file or directory\n",
+			user_input_cmd);
 		return (NULL);
 	}
 	env_paths_arr = ft_split(env_path_var + 5, ':');
@@ -118,4 +131,3 @@ char	*verify_cmd_path(char *user_input_cmd, char **env_arr)
 	free(env_path_var);
 	return (cmd_path);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   highlight_syntax_error_bonus.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:11:52 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:11:53 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell_bonus.h"
 
 static void	print_after_end(const char *str, int end, int line)
@@ -32,9 +44,9 @@ static void	print_syntax_error(const char *str, int start, int end, int line)
 	while (i <= end)
 	{
 		if (line == 0)
-			ft_printf("\e[1;91m%c\e[0m", str[i]); // changer en printf_fd
+			ft_printf_fd(2, "\e[1;91m%c\e[0m", str[i]);
 		else if (line == 1)
-			ft_printf("\e[1;91m^\e[0m");
+			ft_printf_fd(2, "\e[1;91m^\e[0m");
 		i++;
 	}
 }

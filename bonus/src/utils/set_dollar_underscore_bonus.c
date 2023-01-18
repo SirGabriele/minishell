@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_dollar_underscore_bonus.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:09:50 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:09:50 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 void	set_dollar_underscore(t_env_ms *env_ll, char **content)
@@ -6,6 +18,8 @@ void	set_dollar_underscore(t_env_ms *env_ll, char **content)
 	int			i;
 
 	i = 0;
+	if (!content || !content[i])
+		return ;
 	while (content && content[i] != NULL)
 		i++;
 	cursor = env_ll;

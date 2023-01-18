@@ -22,38 +22,36 @@ int				launch_program(char *user_input, t_env_ms *env);
 void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 char			*get_pwd_prompt(t_env_ms *env_ll);
-int				check_casual_syntax_error(char **user_input, t_env_ms *env_ll);
 
 /************/
 /*	CHECK	*/
 /************/
 
-char			*get_missing_pipe_input(char *user_input);
-char			*get_missing_par_input(char *user_input, int nb_op_par, int nb_cl_par);
-int				is_last_pipes_closed(t_token_ms *tokens_unparsed);
+/*char			*get_missing_pipe_input(char *user_input);
+char			*get_missing_par_input(char *user_input, int nb_op_par, int nb_cl_par);*/
 int				are_all_parenthesis_paired(const char *user_input, t_env_ms *env_ll);
 int				ft_check_isolated_quotes(const char *user_input, t_env_ms *env_ll);
 int				ft_check_syntax_before_character(const char *user_input, \
 					int i, const char *character);
 int				what_is_index_in(const char *user_input, int i);
 int				is_previous_syntax_valid(const char *user_input, int i);
-int				ft_check_all_syntax_error(char **user_input, t_env_ms *env_ll);
-
+int				check_redirs_error(t_token_ms *tokens, t_env_ms *env_ll);
 
 /************/
 /*	SIGNALS	*/
 /************/
 
 void			handler_first_readline(int sig);
-void			ignore_sigint_sigquit();
-void			reset_sigint_sigquit();
+void			handler_before_fork(void);
 void			handler_heredoc(int sig);
+void			set_sigint_sigquit_to_default(void);
 
 /************/
 /*	EXEC	*/
 /************/
 
-t_children_ms	*initialize_children(t_children_ms *children, int nb_nodes);
+t_children_ms	*initialize_children(int nb_nodes);
+t_pipes_ms		*initialize_pipes(t_node_ms *root, t_children_ms *children);
 t_node_ms		*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
 					t_env_ms *env_ll);
 t_node_ms		*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, \
@@ -76,6 +74,8 @@ int				exec_builtin(t_node_ms *node, t_env_ms **env_ll,
 //					t_pipes_ms *pipes, int exit_code_redirs);
 void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, t_env_ms *env_ll);
 int				is_a_directory(char *content);
+void			redirect_infile(int *pipe_before, t_node_ms *node);
+void			redirect_outfile(int *pipe_before, t_node_ms *node);
 
 /****************/
 /*	LINKED LIST	*/
@@ -146,7 +146,6 @@ int				get_nb_dollars(char *unparsed, int i);
 int				get_index_delimiter(const char *user_input, char *delim[10], int index);
 int				token_content_length(char *user_input, char *delim[10]);
 void			get_exit_code(t_env_ms *env_ll);//A SUPPRIMER
-int				is_last_token_and_or(t_token_ms *tokens);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
@@ -166,6 +165,7 @@ t_token_ms		*remove_empty_tokens(t_token_ms *tokens_parsed, \
 void			set_dollar_underscore(t_env_ms *env_ll, char **content);
 char			*get_dollar_underscore(t_env_ms *env_ll);
 int				is_all_digit(char *content);
+int				should_expand_this_dollar(char *content, int index);
 
 /**************/
 /*  BUILTINS  */

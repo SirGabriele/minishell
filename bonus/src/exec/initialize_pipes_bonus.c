@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_nb_of_tokens_left_bonus.c                    :+:      :+:    :+:   */
+/*   initialize_pipes_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:10:16 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 16:10:17 by kbrousse         ###   ########.fr       */
+/*   Created: 2023/01/18 16:22:30 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:39:59 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,34 @@
 
 /****************************************************************/
 /*																*/
-/*	Counts the number of tokens left in tokens's linked list	*/
+/*	Initializes the children structure aswell as its content	*/
 /*																*/
 /*	Parameters:													*/
-/*		content	-	a linked list containing all the tokens		*/
+/*		children	-	the children structure					*/
+/*		nb_nodes	-	the amout of nodes						*/
 /*																*/
 /*	Return:														*/
-/*		nb_toknes	-	the count								*/
+/*		children	-	the initialized structure				*/
+/*		NULL		-	a malloc failed							*/
 /*																*/
 /****************************************************************/
 
-int	count_nb_of_tokens_left(t_token_ms *tokens)
+t_pipes_ms	*initialize_pipes(t_node_ms *root, t_children_ms *children)
 {
-	int	nb_tokens;
+	t_pipes_ms	*pipes;
 
-	nb_tokens = 0;
-	while (tokens)
+	pipes = malloc(sizeof(t_pipes_ms));
+	if (pipes == NULL)
 	{
-		if (!tokens->content)
-			return (nb_tokens);
-		nb_tokens++;
-		tokens = tokens->next;
+		perror(NULL);
+		return (NULL);
 	}
-	return (nb_tokens);
+	if (pipe(pipes->before) == -1 || pipe(pipes->after) == -1)
+	{
+		free(pipes);
+		return (NULL);
+	}
+	pipes->tree_root = root;
+	pipes->children = children;
+	return (pipes);
 }

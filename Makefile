@@ -2,41 +2,35 @@ NAME = minishell
 
 LIBFT = libft/libft.a
 
-SRC = get_pwd_prompt.c			\
-	highlight_syntax_error.c	\
+SRC = highlight_syntax_error.c	\
 	launch_program.c			\
 	main.c						\
 	prompt.c
 
-SRC_B = get_pwd_prompt_bonus.c		\
-	highlight_syntax_error_bonus.c	\
-	launch_program_bonus.c			\
-	main_bonus.c					\
-	prompt_bonus.c					\
+SRC_B =	highlight_syntax_error_bonus.c	\
+	launch_program_bonus.c				\
+	main_bonus.c						\
+	prompt_bonus.c						\
 
-SIGNALS = signals.c
+SIGNALS = signals.c	\
+	signals_fork.c
 
-SIGNALS_B = signals_bonus.c
+SIGNALS_B = signals_bonus.c	\
+	signals_fork_bonus.c
 
-CHECK = check_casual_syntax_error.c	\
-	check_syntax_first_token.c		\
+CHECK =	check_syntax_first_token.c	\
 	ft_check_quotes.c				\
-	check_paired_characters.c		\
+	ft_check_redir.c				\
 	check_syntax_par.c				\
-	ft_check_syntax_error.c			\
 	check_syntax_and_or.c			\
-	check_syntax_pipe.c				\
-	get_missing_user_input.c		\
+	check_syntax_pipe.c
 
-CHECK_B = check_casual_syntax_error_bonus.c	\
-	check_paired_characters_bonus.c			\
-	check_syntax_and_or_bonus.c				\
+CHECK_B = check_syntax_and_or_bonus.c		\
 	check_syntax_first_token_bonus.c		\
 	check_syntax_par_bonus.c				\
 	check_syntax_pipe_bonus.c				\
 	ft_check_quotes_bonus.c					\
-	ft_check_syntax_error_bonus.c			\
-	get_missing_user_input_bonus.c			\
+	ft_check_redir_bonus.c
 
 PARSING = build_binary_tree.c		\
 		get_mode_and_file.c			\
@@ -84,23 +78,30 @@ EXEC = execute_cmd.c				\
 	start_recursive.c				\
 	expand_dollar_heredoc.c			\
 	initialize_children.c			\
+	initialize_pipes.c				\
 	operator_and_handling.c			\
 	verify_cmd_path.c				\
 	handle_all_redirs.c				\
 	launch_builtin.c				\
 	operator_or_handling.c			\
+	redirect_infile.c				\
+	redirect_outfile.c
+
 
 EXEC_B = execute_cmd_bonus.c		\
 	expand_dollar_heredoc_bonus.c	\
 	handle_all_redirs_bonus.c		\
 	heredoc_requested_bonus.c		\
 	initialize_children_bonus.c		\
+	initialize_pipes_bonus.c		\
 	launch_builtin_bonus.c			\
 	launch_exec_bonus.c				\
 	operator_and_handling_bonus.c	\
 	operator_or_handling_bonus.c	\
 	start_recursive_bonus.c			\
 	verify_cmd_path_bonus.c			\
+	redirect_infile_bonus.c			\
+	redirect_outfile_bonus.c
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
 		ft_lstnew_node.c			\
@@ -127,7 +128,6 @@ UTILS = convert_env_arr_into_ll.c	\
 	is_exit_value_out_of_range.c	\
 	sort_env_ll.c					\
 	count_nb_of_tokens_left.c		\
-	is_last_token_and_or.c			\
 	what_is_dollar_in.c				\
 	is_it_a_closed_quote.c			\
 	examine_dollar_conditions.c		\
@@ -142,6 +142,7 @@ UTILS = convert_env_arr_into_ll.c	\
 	print_checking_error_msg.c		\
 	get_key_value.c					\
 	print_content_pipe.c			\
+	should_expand_this_dollar.c		\
 
 UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	convert_env_ll_into_arr_bonus.c			\
@@ -158,7 +159,6 @@ UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	is_dollar_inside_quotes_bonus.c			\
 	is_exit_value_out_of_range_bonus.c		\
 	is_it_a_closed_quote_bonus.c			\
-	is_last_token_and_or_bonus.c			\
 	is_operator_bonus.c						\
 	is_token_in_parenthesis_bonus.c			\
 	is_token_type_a_redir_bonus.c			\
@@ -167,6 +167,7 @@ UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	remove_empty_tokens_bonus.c				\
 	set_dollar_underscore_bonus.c			\
 	set_exit_code_bonus.c					\
+	should_expand_this_dollar_bonus.c		\
 	sort_env_ll_bonus.c						\
 	token_content_length_bonus.c			\
 	what_is_dollar_in_bonus.c				\
@@ -227,13 +228,17 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -gdwarf-4
+FLAGS = -Wall -Wextra -Werror
 
 READLINE = -lreadline
 
 OBJS = $(SRCS:.c=.o)
 
 OBJS_B = $(SRCS_B:.c=.o)
+
+ifdef BONUS
+	SRCS = $(SRCS_B)
+endif
 
 all: $(NAME)
 
@@ -262,15 +267,10 @@ $(NAME): $(LIBFT) $(OBJS)
 	@echo "*         minishell         *"
 	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
 
-bonus: $(LIBFT) $(OBJS_B)
-	@$(CC) $(FLAGS) $(OBJS_B) -Llibft -lft -Ilibft $(READLINE) -o $(NAME)
-	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
-	@echo "*                           *"
-	@echo "~  Compilation terminated!  ~"
-	@echo "*         minishell         *"
-	@echo "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\033[0m"
+bonus:
+	@make BONUS=1 --no-print-directory
 
 $(LIBFT):
 	@make -C libft --no-print-directory
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

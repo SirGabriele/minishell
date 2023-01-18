@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch_program_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:12:13 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 16:12:14 by kbrousse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell_bonus.h"
 
 static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
@@ -5,7 +17,6 @@ static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
 	t_token_ms	*tokens_unparsed;
 	t_token_ms	*tokens_parsed;
 	t_node_ms	*root;
-	(void)env_ll;
 
 	tokens_unparsed = lexer(user_input);
 	tokens_parsed = lexer(user_input);
