@@ -19,6 +19,8 @@ int	count_nb_of_tokens_left(t_token_ms *tokens)
 	nb_tokens = 0;
 	while (tokens)
 	{
+		if (!tokens->content)
+			return (nb_tokens);
 		nb_tokens++;
 		tokens = tokens->next;
 	}

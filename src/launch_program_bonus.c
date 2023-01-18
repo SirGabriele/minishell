@@ -18,7 +18,6 @@ static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
 		env_ll);
 	if (!tokens_parsed)
 		return (NULL);
-//	tokens_parsed = remove_empty_tokens(tokens_parsed);
 	root = start_binary_tree(tokens_parsed);
 	if (!root)
 		return (NULL);

@@ -2,9 +2,6 @@
 
 static int	extend_env_list(char *content, t_env_ms *env_ll)
 {
-	t_env_ms	*tmp_env;
-
-	tmp_env = env_ll;
 	while (env_ll->next)
 		env_ll = env_ll->next;
 	env_ll->next = get_env(content);

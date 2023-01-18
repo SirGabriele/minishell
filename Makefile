@@ -91,7 +91,7 @@ UTILS =	convert_env_arr_into_ll_bonus.c		\
 	token_content_length_bonus.c			\
 	what_is_dollar_in_bonus.c				\
 	what_is_index_in_bonus.c				\
-	what_is_oper_in_bonus.c					\
+	what_is_oper_in_bonus.c
 
 BUILTINS = change_value_if_key_exists_bonus.c	\
 		check_errors_env_format_bonus.c			\

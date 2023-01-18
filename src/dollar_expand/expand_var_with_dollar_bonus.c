@@ -113,17 +113,19 @@ static char	*get_content_with_env_values(char *parsed, char *unparsed, \
 t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 	t_token_ms *tokens_parsed, t_env_ms *env_ll)
 {
-	t_token_ms	*tmp_tokens;
+	t_token_ms	*tmp_parsed;
+	t_token_ms	*tmp_unparsed;
 
-	tmp_tokens = tokens_parsed;
+	tmp_parsed = tokens_parsed;
+	tmp_unparsed = tokens_unparsed;
 	while (tokens_unparsed)
 	{
 		tokens_parsed->content = get_content_with_env_values
 			(tokens_parsed->content, tokens_unparsed->content, env_ll);
 		if (!tokens_parsed->content)
 		{
-			free_tokens(tmp_tokens);
-			free_tokens(tokens_unparsed);
+			free_tokens(tmp_parsed);
+			free_tokens(tmp_unparsed);
 			return (NULL);
 		}
 		if (tokens_parsed->type == TOK_HEREDOC && tokens_parsed->next)//ajouté pour ne pas expand echo << $USER
@@ -134,5 +136,6 @@ t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 		tokens_parsed = tokens_parsed->next;
 		tokens_unparsed = tokens_unparsed->next;
 	}
-	return (tmp_tokens);
+	tmp_parsed = remove_empty_tokens(tmp_parsed, tmp_unparsed);
+	return (tmp_parsed);
 }

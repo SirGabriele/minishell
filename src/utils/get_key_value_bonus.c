@@ -2,10 +2,8 @@
 
 char	*get_key_value(t_env_ms *env_ll, char *key)
 {
-	char	*value;
 	int		len;
 
-	value = NULL;
 	len = ft_strlen(key);
 	while (env_ll)
 	{

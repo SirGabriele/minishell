@@ -162,7 +162,8 @@ void			sort_env_ll(t_env_ms *env_ll);
 int				count_args(char **content);
 int				is_exit_value_out_of_range(char *content);
 int				is_permission_denied(char *content);
-t_token_ms		*remove_empty_tokens(t_token_ms *tokens);
+t_token_ms		*remove_empty_tokens(t_token_ms *tokens_parsed, \
+					t_token_ms *tokens_unparsed);
 void			set_dollar_underscore(t_env_ms *env_ll, char **content);
 char			*get_dollar_underscore(t_env_ms *env_ll);
 int				is_all_digit(char *content);
