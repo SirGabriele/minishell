@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs_ms_bonus.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 23:02:31 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 23:02:33 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTS_MS_BONUS_H
 # define STRUCTS_MS_BONUS_H
 
@@ -9,16 +21,16 @@ extern int	g_signal_status;
 typedef enum e_tokens
 {
 	TOK_NULL,
-	TOK_STRING,//		(error 		)ok			|ok
-	TOK_OP_PAR,//		(ok 		)error		|error
-	TOK_CL_PAR,//		(error 		)ok			|ok
+	TOK_STRING,
+	TOK_OP_PAR,
+	TOK_CL_PAR,
 	TOK_INFILE,
 	TOK_TRUNC,
 	TOK_HEREDOC,
 	TOK_APPEND,
 	TOK_PIPE,
-	TOK_AND_OPER,//	(ok 		)error		|error
-	TOK_OR_OPER,//	(ok 		)error		|error
+	TOK_AND_OPER,
+	TOK_OR_OPER,
 	TOK_SHELL,
 	TOK_SUBSHELL,
 }	t_enum_token;

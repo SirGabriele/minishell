@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialize_node.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:41:01 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 23:11:27 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	initialize_node(t_node_ms *node)
@@ -10,6 +22,6 @@ void	initialize_node(t_node_ms *node)
 	node->outfile = NULL;
 	node->infile_mode = TOK_NULL;
 	node->infile_mode = TOK_NULL;
-	node->shell	= TOK_NULL;
+	node->shell = TOK_NULL;
 	node->operator = TOK_NULL;
 }

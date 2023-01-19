@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_token_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:50:58 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:50:58 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
-static t_enum_token	check_second_half(int index_delimiter, t_enum_token token_type)
+static t_enum_token	check_second_half(int index_delimiter, \
+	t_enum_token token_type)
 {
 	if (index_delimiter == 5)
 		token_type = TOK_TRUNC;

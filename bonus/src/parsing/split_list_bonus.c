@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_list_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:51:37 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:51:38 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static t_token_ms	*get_right_list(t_token_ms *tokens, int index_token)
@@ -72,7 +84,8 @@ t_token_ms	**split_list(t_token_ms *tokens)
 	while (cpy_tokens)
 	{
 		if ((cpy_tokens->next && is_operator(cpy_tokens->next->type)
-			&& is_token_in_parenthesis(tokens, index_token + 1) == TOK_SHELL)
+				&& is_token_in_parenthesis(tokens, index_token + 1) \
+				== TOK_SHELL)
 			|| (is_operator(cpy_tokens->type) && index_token == 1))
 		{
 			splitted_tokens = get_both_halves(tokens, index_token);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_modes_and_files_bonus.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:51:28 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:51:28 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static int	check_redir(t_redir_ms *first_redir)

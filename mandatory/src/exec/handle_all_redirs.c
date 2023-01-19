@@ -1,9 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_all_redirs.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:42:56 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 23:44:46 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	outfile_mode(t_redir_ms *redir)
 {
 	int	fd;
 
+	if (ft_strcmp(redir->file_name, "minishell") == 0)
+	{
+		ft_printf_fd(2, "minishell: minishell: Text file busy\n");
+		return (1);
+	}
 	fd = open(redir->file_name, O_CREAT, 0644);
 	if (access(redir->file_name, W_OK) == -1)
 	{
@@ -33,12 +50,12 @@ static int	verify_simple_infile(t_redir_ms *redir)
 		if (access(redir->file_name, F_OK) == -1)
 		{
 			ft_printf_fd(2, "minishell: %s: No such file or directory\n",
-			redir->file_name);
+				redir->file_name);
 		}
 		else
 		{
 			ft_printf_fd(2, "minishell: %s: Permission denied\n",
-			redir->file_name);
+				redir->file_name);
 		}
 		return (1);
 	}

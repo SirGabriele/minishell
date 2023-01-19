@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:38:42 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 23:11:10 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	is_invalid_identifier(char *content)
@@ -52,7 +64,8 @@ static int	process_variable(char *content, t_env_ms *env_ll)
 	return (ret);
 }
 
-static void	print_all_environment(t_env_ms *env_ll, char *outfile, t_enum_token outfile_mode)
+static void	print_all_environment(t_env_ms *env_ll, char *outfile, \
+	t_enum_token outfile_mode)
 {
 	t_env_ms	*env_cpy;
 	int			fd;

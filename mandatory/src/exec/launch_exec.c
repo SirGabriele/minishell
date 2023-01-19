@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch_exec.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 16:16:14 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 23:45:08 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
@@ -7,7 +19,8 @@ static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->left, i);
 	if (is_operator(root->operator) == 0)
 	{
-		if (root->content && is_a_builtin(root->content[0]) == 0 && root->shell == TOK_SHELL)
+		if (root->content && is_a_builtin(root->content[0]) == 0
+			&& root->shell == TOK_SHELL)
 			to_wait_or_not_to_wait[*i] = 0;
 		else
 			to_wait_or_not_to_wait[*i] = 1;
@@ -81,30 +94,17 @@ int	launch_exec(t_node_ms *root, t_env_ms *env_ll)
 	int				ret;
 
 	ret = 0;
-	pipes = malloc(sizeof(t_pipes_ms));
-	if (pipes == NULL)
-		return (-1);
-	if (pipe(pipes->before) == -1 || pipe(pipes->after) == -1)
-		return (-1);
 	nb_nodes = 0;
 	nb_nodes = get_nb_nodes(root, &nb_nodes);
-	children = NULL;
-	children = initialize_children(children, nb_nodes);
+	children = initialize_children(nb_nodes);
 	if (children == NULL)
-	{
-		free(children->pid_arr);
-		free(children);
-		free(pipes);
 		return (-1);
-	}
-	pipes->tree_root = root;
-	pipes->children = children;
+	pipes = initialize_pipes(root, children);
 	ret = start_recursive(pipes, children, root, env_ll);
 	if (ret == 130)
 		set_exit_code(env_ll, 130);
-	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1)
-		return (-1);
-	if (close(pipes->after[0]) == -1 || close(pipes->after[1]) == -1)
+	if (close(pipes->before[0]) == -1 || close(pipes->before[1]) == -1
+		|| close(pipes->after[0]) == -1 || close(pipes->after[1]) == -1)
 		return (-1);
 	if (ret != -1 && ret != 130)
 		wait_for_all_the_forks(children, env_ll, nb_nodes, root);

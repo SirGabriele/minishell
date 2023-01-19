@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_pipeline_infos.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:41:37 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:41:37 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-static int  is_there_a_command(t_token_ms *tokens)
+static int	is_there_a_command(t_token_ms *tokens)
 {
 	while (tokens)
 	{

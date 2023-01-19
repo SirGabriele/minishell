@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_children.c                              :+:      :+:    :+:   */
+/*   initialize_pipes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:22:33 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 23:44:54 by jsauvain         ###   ########.fr       */
+/*   Created: 2023/01/18 16:22:30 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 23:44:58 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static pid_t	*initialize_pid_arr(pid_t *pid_arr, int nb_cmd)
-{
-	pid_arr = ft_calloc(sizeof(pid_t), nb_cmd);
-	if (pid_arr == NULL)
-	{
-		perror(NULL);
-		return (NULL);
-	}
-	return (pid_arr);
-}
 
 /****************************************************************/
 /*																*/
@@ -37,23 +26,22 @@ static pid_t	*initialize_pid_arr(pid_t *pid_arr, int nb_cmd)
 /*																*/
 /****************************************************************/
 
-t_children_ms	*initialize_children(int nb_nodes)
+t_pipes_ms	*initialize_pipes(t_node_ms *root, t_children_ms *children)
 {
-	t_children_ms	*children;
+	t_pipes_ms	*pipes;
 
-	children = malloc(sizeof(t_children_ms));
-	if (children == NULL)
+	pipes = malloc(sizeof(t_pipes_ms));
+	if (pipes == NULL)
 	{
 		perror(NULL);
 		return (NULL);
 	}
-	children->pid_arr = initialize_pid_arr(children->pid_arr, nb_nodes);
-	if (children->pid_arr == NULL)
+	if (pipe(pipes->before) == -1 || pipe(pipes->after) == -1)
 	{
-		perror(NULL);
-		free(children);
+		free(pipes);
 		return (NULL);
 	}
-	children->index = 0;
-	return (children);
+	pipes->tree_root = root;
+	pipes->children = children;
+	return (pipes);
 }

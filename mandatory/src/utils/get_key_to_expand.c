@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_key_to_expand.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:43:13 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:46:16 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	*get_key_to_expand(char *content)
@@ -13,7 +25,7 @@ char	*get_key_to_expand(char *content)
 		&& content[j] != '-' && content[j] != '?'
 		&& content[j] != '_')
 		j++;
-	if (content[j] == '?' || content[j] == '_' || content[j] == '0')//_ et 0 rajoutés
+	if (content[j] == '?' || content[j] == '_' || content[j] == '0')
 		j++;
 	key_to_expand = ft_strndup(content, j);
 	if (key_to_expand == NULL)

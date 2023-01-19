@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 17:27:55 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 23:44:37 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	free_memory_fork_and_exit(t_pipes_ms *pipes, char **env_arr,
@@ -16,40 +28,12 @@ static void	free_memory_fork_and_exit(t_pipes_ms *pipes, char **env_arr,
 	exit(exit_code);
 }
 
-static void	redirect_outfile(int *pipe_after, t_node_ms *node)
+static void	test_permission_and_directory(t_pipes_ms *pipes, t_node_ms *node,
+	char **env_arr, t_env_ms *env_ll)
 {
-	int	fd;
-
-	if (node->outfile != NULL)
-	{
-		if (node->outfile_mode == TOK_TRUNC)
-			fd = open(node->outfile, O_WRONLY | O_TRUNC);
-		if (node->outfile_mode == TOK_APPEND)
-			fd = open(node->outfile, O_WRONLY | O_APPEND);
-		dup2(fd, 1);
-		close(fd);
-	}
-	if (node->outfile == NULL && node->outfile_mode == TOK_PIPE)
-		dup2(pipe_after[1], 1);
-	close(pipe_after[1]);
-	close(pipe_after[0]);
-}
-
-static void	redirect_infile(int *pipe_before, t_node_ms *node)
-{
-	int	fd;
-
-	if (node->infile != NULL && node->infile_mode == TOK_INFILE)
-	{
-		fd = open(node->infile, O_RDONLY);
-		dup2(fd, 0);
-		close(fd);
-	}
-	if ((node->infile == NULL && node->infile_mode == TOK_PIPE)
-			|| (node->infile != NULL && node->infile_mode == TOK_HEREDOC))
-		dup2(pipe_before[0], 0);
-	close(pipe_before[0]);
-	close(pipe_before[1]);
+	if (node->content[0][0] != '\0' && (is_a_directory(node->content[0]) == 0
+		|| is_permission_denied(node->content[0]) == 0))
+		free_memory_fork_and_exit(pipes, env_arr, env_ll, 126);
 }
 
 static void	go_in_child_process(t_pipes_ms *pipes,
@@ -59,7 +43,7 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 	char	*correct_path;
 	int		exit_code;
 
-	reset_sigint_sigquit();
+	set_sigint_sigquit_to_default();
 	env_arr = convert_env_ll_into_arr(env_ll);
 	redirect_infile(pipes->before, node);
 	redirect_outfile(pipes->after, node);
@@ -72,15 +56,13 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 		exit_code = exec_builtin(node, &env_ll, pipes, exit_code_redirs);
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code);
 	}
-	if (node->content[0][0] != '\0' && (is_a_directory(node->content[0]) == 0
-		|| is_permission_denied(node->content[0]) == 0))
-		free_memory_fork_and_exit(pipes, env_arr, env_ll, 126);
+	test_permission_and_directory(pipes, node, env_arr, env_ll);
 	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
 	set_dollar_underscore(env_ll, node->content);
 	execve(correct_path, node->content, env_arr);
-	free(correct_path);
+	ft_printf_fd(2, "%s: command not found\n", correct_path);
 	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);
 }
 
@@ -96,27 +78,27 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 /*		node		-	node to process							*/
 /*		env_ll		-	linked list of the env_variables		*/
 /*																*/
-/*	Return:														*/
+/*	Return:				*										*/
 /*		 0	-	accomplished its duty							*/
 /*		-1	-	something failed								*/
 /*																*/
 /****************************************************************/
 
-int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_env_ms **env_ll)
+int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children,
+	t_node_ms *node, t_env_ms **env_ll)
 {
 	int	exit_code_redirs;
 
 	exit_code_redirs = handle_all_redirs(node, pipes, *env_ll);
 	if (exit_code_redirs == 130)
 		return (130);
-	if (node->content && is_a_builtin(node->content[0]) == 0 && node->shell == TOK_SHELL)
-	{
-		children->pid_arr[children->index] = exec_builtin(node, env_ll, pipes, exit_code_redirs);
-		if (node->content)
-			set_dollar_underscore(*env_ll, node->content);
-	}
+	if (node->content && is_a_builtin(node->content[0]) == 0
+		&& node->shell == TOK_SHELL)
+		children->pid_arr[children->index] = exec_builtin(node,
+				env_ll, pipes, exit_code_redirs);
 	else
 	{
+		handler_before_fork();
 		children->pid_arr[children->index] = fork();
 		if (children->pid_arr[children->index] == -1)
 		{
@@ -125,10 +107,8 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children, t_node_ms *node, t_e
 		}
 		if (children->pid_arr[children->index] == 0)
 			go_in_child_process(pipes, node, *env_ll, exit_code_redirs);
-		else if (children->pid_arr[children->index] != 0)
-			ignore_sigint_sigquit();
 	}
-	pipes->last_cmd_executed = children->index;
+	set_dollar_underscore(*env_ll, node->content);
 	children->index++;
 	return (0);
 }

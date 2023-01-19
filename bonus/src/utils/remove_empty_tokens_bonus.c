@@ -6,7 +6,7 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:09:34 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 16:09:40 by kbrousse         ###   ########.fr       */
+/*   Updated: 2023/01/19 00:29:19 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_token_ms	*remove_firsts_empty_tokens(t_token_ms *tokens_parsed, \
 	return (tokens_parsed);
 }
 
-t_token_ms	*delete_token(t_token_ms *tokens_parsed)
+static t_token_ms	*delete_token(t_token_ms *tokens_parsed)
 {
 	t_token_ms	*cursor;
 

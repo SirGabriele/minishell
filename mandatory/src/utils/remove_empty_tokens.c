@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_empty_tokens.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:44:21 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/19 00:34:10 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static t_token_ms	*remove_firsts_empty_tokens(t_token_ms *tokens_parsed, \
@@ -23,7 +35,7 @@ static t_token_ms	*remove_firsts_empty_tokens(t_token_ms *tokens_parsed, \
 	return (tokens_parsed);
 }
 
-t_token_ms	*delete_token(t_token_ms *tokens_parsed)
+static t_token_ms	*delete_token(t_token_ms *tokens_parsed)
 {
 	t_token_ms	*cursor;
 

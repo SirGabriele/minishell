@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_var_with_dollar_bonus.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:50:11 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/19 00:28:07 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static char	*expand_dollar(char *parsed, char *unparsed, int i, \
@@ -128,7 +140,7 @@ t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 			free_tokens(tmp_unparsed);
 			return (NULL);
 		}
-		if (tokens_parsed->type == TOK_HEREDOC && tokens_parsed->next)//ajouté pour ne pas expand echo << $USER
+		if (tokens_parsed->type == TOK_HEREDOC && tokens_parsed->next)
 		{
 			tokens_parsed = tokens_parsed->next;
 			tokens_unparsed = tokens_unparsed->next;
@@ -136,6 +148,5 @@ t_token_ms	*expand_var_with_dollar(t_token_ms *tokens_unparsed, \
 		tokens_parsed = tokens_parsed->next;
 		tokens_unparsed = tokens_unparsed->next;
 	}
-	tmp_parsed = remove_empty_tokens(tmp_parsed, tmp_unparsed);
 	return (tmp_parsed);
 }

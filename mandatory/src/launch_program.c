@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch_program.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:37:45 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/19 00:43:50 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-static t_token_ms	*get_tokens_parsed(char *user_input, t_env_ms *env_ll)
+static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
 {
-	t_token_ms	*tokens_parsed;
-	t_token_ms	*tokens_unparsed;
+	t_token_ms		*tokens_parsed;
+	t_token_ms		*tokens_unparsed;
+	t_node_ms		*root;
 
 	tokens_unparsed = lexer(user_input);
 	if (!tokens_unparsed)
@@ -12,27 +25,16 @@ static t_token_ms	*get_tokens_parsed(char *user_input, t_env_ms *env_ll)
 	if (tokens_parsed)
 		tokens_parsed = parse_quotes(tokens_parsed);
 	if (tokens_parsed)
-		tokens_parsed = expand_var_with_dollar(tokens_unparsed, tokens_parsed, \
-			env_ll);
-	free_tokens(tokens_unparsed);
-	return (tokens_parsed);
-}
-
-static t_node_ms	*parsing(char *user_input, t_env_ms *env_ll)
-{
-	t_token_ms		*tokens_parsed;
-	t_enum_token	shell;
-	t_node_ms		*root;
-
-	tokens_parsed = get_tokens_parsed(user_input, env_ll);
+		tokens_parsed = expand_var_with_dollar(tokens_unparsed, \
+			tokens_parsed, env_ll);
 	if (!tokens_parsed)
+	{
+		free_tokens(tokens_unparsed);
 		return (NULL);
-	shell = TOK_NULL;
-	if (is_there_pipes(tokens_parsed))
-		shell = TOK_SHELL;
-	root = build_binary_tree(tokens_parsed, shell);
-	if (!root)
-		return (NULL);
+	}
+	tokens_parsed = remove_empty_tokens(tokens_parsed, tokens_unparsed);
+	root = start_binary_tree(tokens_parsed);
+	free_tokens(tokens_unparsed);
 	return (root);
 }
 

@@ -228,7 +228,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 READLINE = -lreadline
 

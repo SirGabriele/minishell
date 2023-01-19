@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   del_parenthesis_if_needed_bonus.c                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:50:55 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:50:55 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell_bonus.h"
 
 static int	check_if_only_redirs_left(t_token_ms *tokens)
@@ -46,7 +58,7 @@ static t_enum_token	check_parenthesis(t_token_ms *tokens)
 			if (op_parenthesis == cl_parenthesis
 				&& (!tokens->next || check_if_only_redirs_left(tokens->next)))
 				return (TOK_SUBSHELL);
-			else if (op_parenthesis == cl_parenthesis && tokens->next)//pareil
+			else if (op_parenthesis == cl_parenthesis && tokens->next)
 				return (TOK_SHELL);
 			tokens = tokens->next;
 		}
@@ -57,7 +69,7 @@ static t_enum_token	check_parenthesis(t_token_ms *tokens)
 static t_token_ms	*get_new_tokens_adress(t_token_ms *tokens, int increment)
 {
 	t_token_ms	*tokens_cpy;
-	
+
 	tokens_cpy = NULL;
 	if (increment == 1)
 	{	

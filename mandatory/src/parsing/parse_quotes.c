@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/18 22:41:59 by jsauvain          #+#    #+#             */
+/*   Updated: 2023/01/18 22:41:59 by jsauvain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static int	length_parsed_string(char *content)
@@ -28,8 +40,6 @@ static int	length_parsed_string(char *content)
 	return (length);
 }
 
-//utiliser ft_strncpy?
-//essayer de faire j++ et i++ leur propre ligne
 static char	*parse_content(char *parsed, char *content)
 {
 	int	i;
@@ -40,7 +50,7 @@ static char	*parse_content(char *parsed, char *content)
 	j = 0;
 	if (!content)
 		return (NULL);
-	while (content[i])//a modifier incrementer quand on est sur une quote (utiliser what_is_index_in)
+	while (content[i])
 	{
 		if (content[i] == '\'' || content[i] == '\"')
 		{

@@ -6,7 +6,7 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:12:22 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 16:12:23 by kbrousse         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:03:41 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,20 @@ static int	is_exit(char *user_input)
 	return (1);
 }
 
+static int	check_if_only_spaces(char *user_input)
+{
+	int	i;
+
+	i = 0;
+	while (user_input[i])
+	{
+		if (!ft_isspace(user_input[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	cmd_prompt(t_env_ms *env_ll)
 {
 	char	*user_input;
@@ -82,14 +96,13 @@ int	cmd_prompt(t_env_ms *env_ll)
 		if (is_exit(user_input) == 0)
 			return (0);
 		ret = ft_check_all_syntax_error(&user_input, env_ll);
-		if (user_input && ft_strlen(user_input) > 0)
+		if (user_input && !check_if_only_spaces(user_input)
+			&& ft_strlen(user_input) > 0)
 			add_history(user_input);
 		if (ret != 0)
-		{
 			free(user_input);
-			continue ;
-		}
-		if (user_input && launch_program(user_input, env_ll) == -1)
+		if (user_input && !check_if_only_spaces(user_input)
+			&& launch_program(user_input, env_ll) == -1 && !ret)
 			return (-1);
 	}
 	return (3);
