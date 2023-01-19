@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax_first_token.c                         :+:      :+:    :+:   */
+/*   identify_splitting_operator.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 12:53:37 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 23:28:21 by jsauvain         ###   ########.fr       */
+/*   Created: 2023/01/18 16:10:12 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/19 16:39:43 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll)
+t_enum_token	identify_splitting_operator(t_token_ms *tokens)
 {
-	t_token_ms	*cursor;
+	t_token_ms	*cpy_tokens;
+	int			index_token;
 
-	cursor = tokens;
-	if (cursor->type == TOK_PIPE)
+	cpy_tokens = tokens;
+	index_token = 1;
+	while (cpy_tokens)
 	{
-		print_checking_error_msg(cursor->content);
-		set_exit_code(env_ll, 2);
-		return (-1);
+		if (cpy_tokens->type == TOK_PIPE)
+			&& is_token_in_parenthesis(tokens, index_token) == TOK_SHELL)
+			return (cpy_tokens->type);
+		index_token++;
+		cpy_tokens = cpy_tokens->next;
 	}
-	return (0);
+	return (TOK_NULL);
 }

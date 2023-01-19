@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_redir.c                                   :+:      :+:    :+:   */
+/*   ft_check_redir_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:53:45 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 23:29:05 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:56:12 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/minishell_bonus.h"
 
 static int	does_key_exist(char *key, t_env_ms *env_ll)
 {
@@ -71,7 +71,7 @@ static int	check_ambiguous_redir(t_token_ms *tokens, t_env_ms *env_ll)
 	return (0);
 }
 
-int	check_redirs_error(t_token_ms *tokens, t_env_ms *env_ll)
+int	check_syntax_redir(t_token_ms *tokens, t_env_ms *env_ll)
 {
 	if (check_ambiguous_redir(tokens, env_ll) == -1)
 		return (-1);

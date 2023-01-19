@@ -28,18 +28,6 @@ static int	transfer_pipe_content(int *pipe_before, int *pipe_after)
 	return (0);
 }
 
-static t_node_ms	*operator_detected(t_pipes_ms *pipes,
-	t_children_ms *children, t_node_ms *root, t_env_ms *env_ll)
-{
-	if (root->operator == TOK_PIPE)
-		transfer_pipe_content(pipes->before, pipes->after);
-	else if (root->operator == TOK_AND_OPER)
-		root = apply_and_operator(pipes, children, root, env_ll);
-	else if (root->operator == TOK_OR_OPER)
-		root = apply_or_operator(pipes, children, root, env_ll);
-	return (root);
-}
-
 /****************************************************************/
 /*																*/
 /*	Travels through the binary tree and do different things		*/
@@ -67,14 +55,8 @@ int	start_recursive(t_pipes_ms *pipes, t_children_ms *children,
 	ret = 0;
 	if (root && root->left != NULL)
 		start_recursive(pipes, children, root->left, env_ll);
-	if (root->operator == TOK_PIPE
-		|| root->operator == TOK_AND_OPER
-		|| root->operator == TOK_OR_OPER)
-	{
-		root = operator_detected(pipes, children, root, env_ll);
-		if (root == NULL)
-			return (-2);
-	}
+	if (root->operator == TOK_PIPE)
+		transfer_pipe_content(pipes->before, pipes->after);
 	else
 	{
 		ret = execute_cmd(pipes, children, root, &env_ll);

@@ -108,7 +108,8 @@ int	execute_cmd(t_pipes_ms *pipes, t_children_ms *children,
 		if (children->pid_arr[children->index] == 0)
 			go_in_child_process(pipes, node, *env_ll, exit_code_redirs);
 	}
-	set_dollar_underscore(*env_ll, node->content);
+	if (node->shell == TOK_SHELL)
+		set_dollar_underscore(*env_ll, node->content);
 	children->index++;
 	return (0);
 }

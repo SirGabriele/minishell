@@ -68,23 +68,3 @@ int	change_value(char *content, t_env_ms *link_to_modify)
 	}
 	return (ret);
 }
-
-//t_env_ms	*change_value(char *content, t_env_ms *link_to_modify)
-//{
-/*	t_env_ms	*tmp_env;
-
-	tmp_env = env_ll;
-	while (env_ll)
-	{
-		env_ll = get_new_value_if_needed(content, env_ll);
-		if (!env_ll)
-		{
-			free_env_list(tmp_env);
-			perror(NULL);
-			return (NULL);
-		}
-		env_ll = env_ll->next;
-	}*/
-//	link_to_modify = get_new_value_if_needed(content, link_to_modify);
-//	return (link_to_modify);
-//}

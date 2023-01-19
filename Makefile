@@ -20,9 +20,7 @@ SIGNALS_B = signals_bonus.c	\
 
 CHECK =	check_syntax_first_token.c	\
 	ft_check_quotes.c				\
-	ft_check_redir.c				\
-	check_syntax_par.c				\
-	check_syntax_and_or.c			\
+	check_syntax_redir.c			\
 	check_syntax_pipe.c
 
 CHECK_B = check_syntax_and_or_bonus.c		\
@@ -30,7 +28,7 @@ CHECK_B = check_syntax_and_or_bonus.c		\
 	check_syntax_par_bonus.c				\
 	check_syntax_pipe_bonus.c				\
 	ft_check_quotes_bonus.c					\
-	ft_check_redir_bonus.c
+	check_syntax_redir_bonus.c
 
 PARSING = build_binary_tree.c		\
 		get_mode_and_file.c			\
@@ -226,7 +224,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -gdwarf-4
+FLAGS = -Wall -Wextra -Werror
 
 READLINE = -lreadline
 

@@ -24,8 +24,6 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	}
 	env_ll = convert_env_arr_into_ll((const char **)env);
-	signal(SIGINT, handler_first_readline);
-	signal(SIGQUIT, SIG_IGN);
 	cmd_prompt(env_ll);
 	free_env_list(env_ll);
 	return (0);

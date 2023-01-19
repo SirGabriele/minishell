@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   is_operator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 09:43:32 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/10/03 09:47:00 by jsauvain         ###   ########.fr       */
+/*   Created: 2023/01/18 16:09:45 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/19 16:40:29 by kbrousse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	echo(char **str, char *options)
+int	is_operator(t_enum_token type)
 {
-	int	i;
-
-	i = 0;
-	while (str[i + 1])
-		ft_printf("%s", str[i++]);
-	if (ft_strncmp(options, "-n", ft_strlen(options)))
-		ft_printf("\n");
+	if (type == TOK_PIPE)
+		return (1);
 	return (0);
 }

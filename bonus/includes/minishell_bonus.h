@@ -31,48 +31,42 @@
 
 int				cmd_prompt(t_env_ms *env_ll);
 int				launch_program(char *user_input, t_env_ms *env);
-void			ft_signal(int sig);
 void			highlight_syntax_error(const char *str, int start, int end);
 
 /************/
 /*	CHECK	*/
 /************/
 
-int				are_all_parenthesis_paired(const char *user_input, \
-					t_env_ms *env_ll);
+int				check_syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_redir(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
+int				check_syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
 int				ft_check_isolated_quotes(const char *user_input, \
 					t_env_ms *env_ll);
-int				ft_check_syntax_before_character(const char *user_input, \
-					int i, const char *character);
-int				what_is_index_in(const char *user_input, int i);
-int				is_previous_syntax_valid(const char *user_input, int i);
-int				check_redirs_error(t_token_ms *tokens, t_env_ms *env_ll);
 
 /************/
 /*	SIGNALS	*/
 /************/
 
-void			handler_first_readline(int sig);
-void			handler_before_fork(void);
+void			set_signals_first_readline(void);
 void			handler_heredoc(int sig);
+void			handler_before_fork(void);
 void			set_sigint_sigquit_to_default(void);
 
 /************/
 /*	EXEC	*/
 /************/
 
+int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
 t_children_ms	*initialize_children(int nb_nodes);
 t_pipes_ms		*initialize_pipes(t_node_ms *root, t_children_ms *children);
-t_node_ms		*apply_and_operator(t_pipes_ms *pipes, \
-					t_children_ms *children, t_node_ms *node, \
-					t_env_ms *env_ll);
-t_node_ms		*apply_or_operator(t_pipes_ms *pipes, \
-					t_children_ms *children, t_node_ms *node, \
-					t_env_ms *env_ll);
+t_node_ms		*apply_and_operator(t_pipes_ms *pipes, t_children_ms *children, \
+					t_node_ms *node, t_env_ms *env_ll);
+t_node_ms		*apply_or_operator(t_pipes_ms *pipes, t_children_ms *children, \
+					t_node_ms *node, t_env_ms *env_ll);
 char			*verify_cmd_path(char *user_input_cmd, char **env);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *root, t_env_ms *env_ll);
-int				launch_exec(t_node_ms *root, t_env_ms *env_ll);
 int				handle_all_redirs(t_node_ms *node, t_pipes_ms *pipes, \
 					t_env_ms *env_ll);
 int				start_recursive(t_pipes_ms *pipes, t_children_ms *children, \
@@ -82,13 +76,13 @@ int				heredoc_requested(t_redir_ms *redir, t_pipes_ms *pipes, \
 int				execute_cmd(t_pipes_ms *pipes, t_children_ms *children, \
 					t_node_ms *node, \
 					t_env_ms **env);
-void			initialize_node(t_node_ms *node);
 int				is_a_builtin(char *content);
 int				exec_builtin(t_node_ms *node, t_env_ms **env_ll,
 					t_pipes_ms *pipes, int exit_code_redirs);
 void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, \
 					t_env_ms *env_ll);
 int				is_a_directory(char *content);
+int				is_permission_denied(char *content);
 void			redirect_infile(int *pipe_before, t_node_ms *node);
 void			redirect_outfile(int *pipe_before, t_node_ms *node);
 
@@ -129,7 +123,6 @@ t_token_ms		**split_list(t_token_ms *tokens);
 t_token_ms		*get_first_half(t_token_ms *tokens, int index_token);
 t_token_ms		*get_second_half(t_token_ms *tokens);
 t_token_ms		*lexer(char *user_input);
-
 t_redir_ms		*get_redirections_list(t_token_ms *tokens);
 
 /********************/
@@ -165,21 +158,16 @@ int				get_nb_dollars(char *unparsed, int i);
 int				get_index_delimiter(const char *user_input, char *delim[10], \
 					int index);
 int				token_content_length(char *user_input, char *delim[10]);
-void			get_exit_code(t_env_ms *env_ll);//A SUPPRIMER
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
 t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
-int				check_syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
-int				check_syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
 int				check_syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
-int				check_syntax_pipe(t_token_ms *tokens, t_env_ms *env_ll);
 void			print_checking_error_msg(char *msg);
 void			sort_env_ll(t_env_ms *env_ll);
 int				count_args(char **content);
 int				is_exit_value_out_of_range(char *content);
-int				is_permission_denied(char *content);
 t_token_ms		*remove_empty_tokens(t_token_ms *tokens_parsed, \
 					t_token_ms *tokens_unparsed);
 void			set_dollar_underscore(t_env_ms *env_ll, char **content);
@@ -191,17 +179,18 @@ int				should_expand_this_dollar(char *content, int index);
 /*  BUILTINS  */
 /**************/
 
+int				ft_export(t_node_ms *node, t_env_ms *env_ll);
 int				check_errors_env_format(char *content);
+int				set_values_export(char *content, t_env_ms *env_ll);
+t_env_ms		*get_env(char *content);
 int				ft_echo(t_node_ms *node);
 int				ft_cd(char **content, t_env_ms *env_ll);
 int				ft_pwd(char *outfile, t_enum_token outfile_mode);
-int				ft_export(t_node_ms *node, t_env_ms *env_ll);
 int				ft_env(t_node_ms *node, t_env_ms *env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
-int				set_values_export(char *content, t_env_ms *env_ll);
-t_env_ms		*get_env(char *content);
 int				change_value(char *content, t_env_ms *env_ll);
 int				ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes);
+
 
 /************/
 /*	FREE	*/

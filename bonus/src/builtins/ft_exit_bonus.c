@@ -58,7 +58,7 @@ static void	more_than_one_argument(char **content, t_env_ms *env_ll,
 	else if (is_all_digit(content[0]) == 0
 		&& is_exit_value_out_of_range(content[0]) == 0)
 	{
-		ft_printf_fd(1, "exit\n");
+		ft_printf_fd(2, "exit\n");
 		ft_printf_fd(2, "minishell: exit: too many arguments\n");
 	}
 }

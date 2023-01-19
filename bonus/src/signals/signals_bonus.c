@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell_bonus.h"
 
-void	handler_first_readline(int sig)
+static void	handler_first_readline(int sig)
 {
 	(void)sig;
 	g_signal_status = 130;
@@ -31,4 +31,10 @@ void	handler_heredoc(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	close(0);
+}
+
+void	set_signals_first_readline(void)
+{
+	signal(SIGINT, handler_first_readline);
+	signal(SIGQUIT, SIG_IGN);
 }
