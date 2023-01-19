@@ -131,11 +131,9 @@ UTILS = convert_env_arr_into_ll.c	\
 	what_is_dollar_in.c				\
 	is_it_a_closed_quote.c			\
 	examine_dollar_conditions.c		\
-	is_token_in_parenthesis.c		\
 	what_is_index_in.c				\
 	get_index_delimiter.c			\
 	is_token_type_a_redir.c			\
-	is_operator.c					\
 	is_there_pipes.c				\
 	token_content_length.c			\
 	get_key_to_expand.c				\

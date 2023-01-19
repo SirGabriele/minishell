@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:06:03 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 00:46:55 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:59:28 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ char			**convert_env_ll_into_arr(t_env_ms *env);
 int				what_is_index_in(const char *user_input, int i);
 int				what_is_dollar_in(const char *parsed, int i);
 int				count_dollars_to_replace(char *content);
-int				is_operator(t_enum_token type);
 int				is_token_type_a_redir(t_enum_token token_type);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
 char			*get_key_to_expand(char *content);
@@ -165,7 +164,6 @@ int				is_last_token_and_or(t_token_ms *tokens);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);
-t_enum_token	is_token_in_parenthesis(t_token_ms *tokens, int token_pos);
 int				check_syntax_first_token(t_token_ms *tokens, t_env_ms *env_ll);
 int				check_syntax_and_or(t_token_ms *tokens, t_env_ms *env_ll);
 int				check_syntax_par(t_token_ms *tokens, t_env_ms *env_ll);
