@@ -18,7 +18,6 @@ static int	check_syntax(char **user_input, t_env_ms *env_ll)
 
 	tokens = lexer(*user_input);
 	if (check_syntax_first_token(tokens, env_ll) == -1
-		|| check_syntax_par(tokens, env_ll) == -1
 		|| check_redir(tokens, env_ll) == -1
 		|| check_syntax_pipe(tokens, env_ll) == -1)
 	{

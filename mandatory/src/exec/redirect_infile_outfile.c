@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_outfile.c                                 :+:      :+:    :+:   */
+/*   redirect_infile.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 16:57:05 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 23:45:25 by jsauvain         ###   ########.fr       */
+/*   Created: 2023/01/18 16:56:09 by kbrousse          #+#    #+#             */
+/*   Updated: 2023/01/18 23:45:20 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	redirect_outfile(int *pipe_after, t_node_ms *node)
+static void	redirect_infile(int *pipe_before, t_node_ms *node)
+{
+	int	fd;
+
+	if (node->infile != NULL && node->infile_mode == TOK_INFILE)
+	{
+		fd = open(node->infile, O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
+	}
+	if ((node->infile == NULL && node->infile_mode == TOK_PIPE)
+		|| (node->infile != NULL && node->infile_mode == TOK_HEREDOC))
+		dup2(pipe_before[0], 0);
+	close(pipe_before[0]);
+	close(pipe_before[1]);
+}
+
+static void	redirect_outfile(int *pipe_after, t_node_ms *node)
 {
 	int	fd;
 
@@ -29,4 +46,10 @@ void	redirect_outfile(int *pipe_after, t_node_ms *node)
 		dup2(pipe_after[1], 1);
 	close(pipe_after[1]);
 	close(pipe_after[0]);
+}
+
+void	redirect_infile_outfile(t_pipes_ms *pipes, t_node_ms *node)
+{
+	redirect_infile(pipes->before, node);
+	redirect_outfile(pipes->after, node);
 }

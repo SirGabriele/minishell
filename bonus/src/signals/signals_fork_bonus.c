@@ -28,7 +28,6 @@ void	set_sigint_sigquit_to_default(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGPIPE, SIG_IGN);
 }
 
 void	handler_before_fork(void)

@@ -82,8 +82,7 @@ void			expand_dollar_heredoc(char *user_input, t_pipes_ms *pipes, \
 					t_env_ms *env_ll);
 int				is_a_directory(char *content);
 int				is_permission_denied(char *content);
-void			redirect_infile(int *pipe_before, t_node_ms *node);
-void			redirect_outfile(int *pipe_before, t_node_ms *node);
+void			redirect_infile_outfile(t_pipes_ms *pipes, t_node_ms *node);
 
 /****************/
 /*	LINKED LIST	*/
@@ -175,18 +174,18 @@ int				should_expand_this_dollar(char *content, int index);
 /*  BUILTINS  */
 /**************/
 
-int				ft_export(t_node_ms *node, t_env_ms *env_ll);
+int				ft_export(t_node_ms *node, t_env_ms *env_ll, t_pipes_ms *pipes);
 int				check_errors_env_format(char *content);
 int				set_values_export(char *content, t_env_ms *env_ll);
 t_env_ms		*get_env(char *content);
-int				ft_echo(t_node_ms *node);
+int				ft_echo(t_node_ms *node, t_pipes_ms *pipes);
 int				ft_cd(char **content, t_env_ms *env_ll);
-int				ft_pwd(char *outfile, t_enum_token outfile_mode);
-int				ft_env(t_node_ms *node, t_env_ms *env_ll);
+int				ft_pwd(char *outfile, t_enum_token outfile_mode, \
+					t_pipes_ms *pipes);
+int				ft_env(t_node_ms *node, t_env_ms *env_ll, t_pipes_ms *pipes);
 int				ft_unset(char **content, t_env_ms **env_ll);
 int				change_value(char *content, t_env_ms *env_ll);
 int				ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes);
-
 
 /************/
 /*	FREE	*/

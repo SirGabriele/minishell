@@ -12,12 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(char *outfile, t_enum_token outfile_mode)
+int	ft_pwd(char *outfile, t_enum_token outfile_mode, t_pipes_ms *pipes)
 {
 	char	*pwd;
 	int		fd;
 
-	if (outfile == NULL || outfile_mode == TOK_NULL || outfile_mode == TOK_PIPE)
+	if (outfile_mode == TOK_PIPE)
+		fd = pipes->after[1];
+	else if (outfile == NULL || outfile_mode == TOK_NULL)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);

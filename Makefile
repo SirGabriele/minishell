@@ -82,8 +82,7 @@ EXEC = execute_cmd.c				\
 	handle_all_redirs.c				\
 	launch_builtin.c				\
 	operator_or_handling.c			\
-	redirect_infile.c				\
-	redirect_outfile.c
+	redirect_infile_outfile.c		\
 
 
 EXEC_B = execute_cmd_bonus.c		\
@@ -98,8 +97,7 @@ EXEC_B = execute_cmd_bonus.c		\
 	operator_or_handling_bonus.c	\
 	start_recursive_bonus.c			\
 	verify_cmd_path_bonus.c			\
-	redirect_infile_bonus.c			\
-	redirect_outfile_bonus.c
+	redirect_infile_outfile_bonus.c	\
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
 		ft_lstnew_node.c			\

@@ -46,11 +46,13 @@ static int	get_nb_options(char **content)
 }
 
 static void	print_string(char *final_string, char *outfile,
-	t_enum_token outfile_mode)
+	t_enum_token outfile_mode, t_pipes_ms *pipes)
 {
 	int	fd;
 
-	if (outfile == NULL || outfile_mode == TOK_NULL || outfile_mode == TOK_PIPE)
+	if (outfile_mode == TOK_PIPE)
+		fd = pipes->after[1];
+	else if (outfile == NULL || outfile_mode == TOK_NULL)
 		fd = 1;
 	else if (outfile != NULL && outfile_mode == TOK_TRUNC)
 		fd = open(outfile, O_WRONLY | O_TRUNC);
@@ -62,7 +64,7 @@ static void	print_string(char *final_string, char *outfile,
 		close(fd);
 }
 
-int	ft_echo(t_node_ms *node)
+int	ft_echo(t_node_ms *node, t_pipes_ms *pipes)
 {
 	char	*final_string;
 	int		i;
@@ -83,7 +85,7 @@ int	ft_echo(t_node_ms *node)
 	}
 	if (!options)
 		final_string = ft_strjoin_free_first(final_string, "\n");
-	print_string(final_string, node->outfile, node->outfile_mode);
+	print_string(final_string, node->outfile, node->outfile_mode, pipes);
 	free(final_string);
 	return (0);
 }

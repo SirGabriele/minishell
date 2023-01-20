@@ -12,6 +12,14 @@
 
 #include "../../includes/minishell_bonus.h"
 
+static void	close_all_pipes(t_pipes_ms *pipes)
+{
+	close(pipes->before[0]);
+	close(pipes->before[1]);
+	close(pipes->after[0]);
+	close(pipes->after[1]);
+}
+
 static void	free_memory_fork_and_exit(t_pipes_ms *pipes, char **env_arr,
 	t_env_ms *env_ll, int exit_code)
 {
@@ -21,6 +29,7 @@ static void	free_memory_fork_and_exit(t_pipes_ms *pipes, char **env_arr,
 	free(pipes->children);
 	if (env_arr != NULL)
 		free_double_arr(env_arr);
+	close_all_pipes(pipes);
 	free(pipes);
 	close(0);
 	close(1);
@@ -45,8 +54,7 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 
 	set_sigint_sigquit_to_default();
 	env_arr = convert_env_ll_into_arr(env_ll);
-	redirect_infile(pipes->before, node);
-	redirect_outfile(pipes->after, node);
+	redirect_infile_outfile(pipes, node);
 	if (exit_code_redirs != 0)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code_redirs);
 	if (env_arr == NULL || node->content == NULL)
@@ -56,11 +64,11 @@ static void	go_in_child_process(t_pipes_ms *pipes,
 		exit_code = exec_builtin(node, &env_ll, pipes, exit_code_redirs);
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, exit_code);
 	}
+	close_all_pipes(pipes);
 	test_permission_and_directory(pipes, node, env_arr, env_ll);
 	correct_path = verify_cmd_path(node->content[0], env_arr);
 	if (correct_path == NULL)
 		free_memory_fork_and_exit(pipes, env_arr, env_ll, 127);
-	set_dollar_underscore(env_ll, node->content);
 	execve(correct_path, node->content, env_arr);
 	ft_printf_fd(2, "%s: command not found\n", correct_path);
 	free_memory_fork_and_exit(pipes, env_arr, env_ll, 2);
