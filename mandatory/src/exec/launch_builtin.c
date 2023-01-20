@@ -60,17 +60,17 @@ static int	select_builtin_to_go_in(t_node_ms *node,
 
 	ret = 0;
 	if (!ft_strcmp(node->content[0], "echo"))
-		ret = ft_echo(node);
+		ret = ft_echo(node, pipes);
 	else if (!ft_strcmp(node->content[0], "cd"))
 		ret = ft_cd(node->content + 1, *env_ll);
 	else if (!ft_strcmp(node->content[0], "pwd"))
-		ret = ft_pwd(node->outfile, node->outfile_mode);
+		ret = ft_pwd(node->outfile, node->outfile_mode, pipes);
 	else if (!ft_strcmp(node->content[0], "export"))
-		ret = ft_export(node, *env_ll);
+		ret = ft_export(node, *env_ll, pipes);
 	else if (!ft_strcmp(node->content[0], "unset"))
 		ret = ft_unset(node->content + 1, env_ll);
 	else if (!ft_strcmp(node->content[0], "env"))
-		ret = ft_env(node, *env_ll);
+		ret = ft_env(node, *env_ll, pipes);
 	else if (!ft_strcmp(node->content[0], "exit"))
 		ret = ft_exit(node->content + 1, *env_ll, pipes);
 	return (ret);

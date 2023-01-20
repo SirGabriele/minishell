@@ -25,8 +25,6 @@ static void	redirect_infile(int *pipe_before, t_node_ms *node)
 	if ((node->infile == NULL && node->infile_mode == TOK_PIPE)
 		|| (node->infile != NULL && node->infile_mode == TOK_HEREDOC))
 		dup2(pipe_before[0], 0);
-	close(pipe_before[0]);
-	close(pipe_before[1]);
 }
 
 static void	redirect_outfile(int *pipe_after, t_node_ms *node)
@@ -44,8 +42,6 @@ static void	redirect_outfile(int *pipe_after, t_node_ms *node)
 	}
 	if (node->outfile == NULL && node->outfile_mode == TOK_PIPE)
 		dup2(pipe_after[1], 1);
-	close(pipe_after[1]);
-	close(pipe_after[0]);
 }
 
 void	redirect_infile_outfile(t_pipes_ms *pipes, t_node_ms *node)

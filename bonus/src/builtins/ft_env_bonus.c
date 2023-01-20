@@ -40,6 +40,7 @@ static void	print_environment_variables(t_env_ms *env_ll, char *outfile,
 
 int	ft_env(t_node_ms *node, t_env_ms *env_ll, t_pipes_ms *pipes)
 {
-	print_environment_variables(env_ll, node->outfile, node->outfile_mode, pipes);
+	print_environment_variables(env_ll, node->outfile,
+		node->outfile_mode, pipes);
 	return (0);
 }

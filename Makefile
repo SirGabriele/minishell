@@ -110,31 +110,31 @@ LINKED_LIST_B = ft_lstnew_env_entry_bonus.c	\
 	lstnew_env_link_bonus.c
 
 UTILS = convert_env_arr_into_ll.c	\
-	get_nb_dollars.c				\
-	remove_empty_tokens.c			\
 	convert_env_ll_into_arr.c		\
-	is_all_digit.c					\
-	set_dollar_underscore.c			\
 	count_args.c					\
-	is_dollar_inside_quotes.c		\
-	set_exit_code.c					\
 	count_dollars_to_replace.c		\
-	is_exit_value_out_of_range.c	\
-	sort_env_ll.c					\
 	count_nb_of_tokens_left.c		\
-	what_is_dollar_in.c				\
-	is_it_a_closed_quote.c			\
 	examine_dollar_conditions.c		\
-	what_is_index_in.c				\
 	get_index_delimiter.c			\
-	is_token_type_a_redir.c			\
-	is_there_pipes.c				\
-	token_content_length.c			\
 	get_key_to_expand.c				\
-	print_checking_error_msg.c		\
 	get_key_value.c					\
+	get_nb_dollars.c				\
+	is_all_digit.c					\
+	is_dollar_inside_quotes.c		\
+	is_exit_value_out_of_range.c	\
+	is_it_a_closed_quote.c			\
+	is_there_pipes.c				\
+	is_token_type_a_redir.c			\
+	print_checking_error_msg.c		\
 	print_content_pipe.c			\
-	should_expand_this_dollar.c
+	remove_empty_tokens.c			\
+	set_dollar_underscore.c			\
+	set_exit_code.c					\
+	should_expand_this_dollar.c		\
+	sort_env_ll.c					\
+	token_content_length.c			\
+	what_is_dollar_in.c				\
+	what_is_index_in.c
 
 UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	convert_env_ll_into_arr_bonus.c			\
@@ -220,7 +220,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 READLINE = -lreadline
 
