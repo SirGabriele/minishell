@@ -6,13 +6,13 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:41:20 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 00:45:49 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:47:09 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_node_ms	*set_node_infos(t_enum_token shell)
+static t_node_ms	*set_node_infos(void)
 {
 	t_node_ms	*node;
 
@@ -25,7 +25,8 @@ static t_node_ms	*set_node_infos(t_enum_token shell)
 		node->outfile = NULL;
 		node->infile_mode = TOK_NULL;
 		node->outfile_mode = TOK_NULL;
-		node->shell = shell;
+		node->operator = TOK_PIPE;
+		node->shell = TOK_NULL;
 	}
 	return (node);
 }
@@ -33,7 +34,7 @@ static t_node_ms	*set_node_infos(t_enum_token shell)
 static t_node_ms	*node_related(t_token_ms *tokens, t_node_ms *root, \
 	t_enum_token shell)
 {
-	root = set_node_infos(shell);
+	root = set_node_infos();
 	if (!root)
 	{
 		free_tokens(tokens);
@@ -61,11 +62,9 @@ static t_node_ms	*pipeline_related(t_token_ms *tokens, t_node_ms *root, \
 t_node_ms	*build_binary_tree(t_token_ms *tokens, t_enum_token shell)
 {
 	t_node_ms		*root;
-	int				nb_pipes;
 
 	root = NULL;
-	nb_pipes = is_there_pipes(tokens);
-	if (nb_pipes)
+	if (is_there_pipes(tokens))
 		root = node_related(tokens, root, shell);
 	else
 		root = pipeline_related(tokens, root, shell);
@@ -77,9 +76,9 @@ t_node_ms	*start_binary_tree(t_token_ms *tokens)
 	t_node_ms		*root;
 	t_enum_token	shell;
 
-	shell = TOK_NULL;
+	shell = TOK_SHELL;
 	if (is_there_pipes(tokens))
-		shell = TOK_SHELL;
+		shell = TOK_SUBSHELL;
 	root = build_binary_tree(tokens, shell);
 	return (root);
 }

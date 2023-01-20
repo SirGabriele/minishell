@@ -6,13 +6,13 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:41:55 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/18 22:41:56 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:33:38 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	check_redir(t_redir_ms *first_redir)
+static int	check_redirection(t_redir_ms *first_redir)
 {
 	if (first_redir->mode == TOK_TRUNC)
 		return (1);
@@ -78,9 +78,10 @@ t_node_ms	*manage_modes_and_files(t_node_ms *root)
 	first_redir = root->first_redir;
 	while (first_redir)
 	{
-		if (is_last_outfile(first_redir) && check_redir(first_redir) == 1)
+		if (is_last_outfile(first_redir) && check_redirection(first_redir) == 1)
 				root = get_mode_and_file(root, first_redir);
-		else if (is_last_infile(first_redir) && check_redir(first_redir) == 2)
+		else if (is_last_infile(first_redir)
+			&& check_redirection(first_redir) == 2)
 				root = get_mode_and_file(root, first_redir);
 		if (!root)
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:37:49 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 01:03:22 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:45:56 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	check_syntax(char **user_input, t_env_ms *env_ll)
 
 	tokens = lexer(*user_input);
 	if (check_syntax_first_token(tokens, env_ll) == -1
-		|| check_syntax_par(tokens, env_ll) == -1
 		|| check_redir(tokens, env_ll) == -1
 		|| check_syntax_pipe(tokens, env_ll) == -1)
 	{

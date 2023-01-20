@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:52:12 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 00:03:00 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:29:51 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ int				ft_env(t_node_ms *node, t_env_ms *env_ll);
 int				ft_unset(char **content, t_env_ms **env_ll);
 int				change_value(char *content, t_env_ms *env_ll);
 int				ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes);
-
 
 /************/
 /*	FREE	*/

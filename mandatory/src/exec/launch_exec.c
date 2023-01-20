@@ -6,7 +6,7 @@
 /*   By: kbrousse <kbrousse@student.42angoulem      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 16:16:14 by kbrousse          #+#    #+#             */
-/*   Updated: 2023/01/18 23:45:08 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:24:59 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	fill_to_wait_or_not_to_wait(int *to_wait_or_not_to_wait,
 {
 	if (root->left != NULL)
 		fill_to_wait_or_not_to_wait(to_wait_or_not_to_wait, root->left, i);
-	if (is_operator(root->operator) == 0)
+	if (root->operator != TOK_PIPE)
 	{
 		if (root->content && is_a_builtin(root->content[0]) == 0
 			&& root->shell == TOK_SHELL)
