@@ -10,7 +10,7 @@ SRC = highlight_syntax_error.c	\
 SRC_B =	highlight_syntax_error_bonus.c	\
 	launch_program_bonus.c				\
 	main_bonus.c						\
-	prompt_bonus.c						\
+	prompt_bonus.c
 
 SIGNALS = signals.c	\
 	signals_fork.c
@@ -42,7 +42,7 @@ PARSING = build_binary_tree.c		\
 		split_list.c				\
 		get_list_infos.c			\
 		get_redirections_list.c		\
-		manage_modes_and_files.c	\
+		manage_modes_and_files.c
 
 PARSING_B = build_binary_tree_bonus.c	\
 	del_parenthesis_if_needed_bonus.c	\
@@ -60,15 +60,15 @@ PARSING_B = build_binary_tree_bonus.c	\
 	parse_quotes_bonus.c				\
 	right_branch_bonus.c				\
 	start_binary_tree_bonus.c			\
-	split_list_bonus.c					\
+	split_list_bonus.c
 
 DOLLAR_EXPAND = expand_var_with_dollar.c	\
 			join_and_manage_dollar.c		\
-			get_new_content.c				\
+			get_new_content.c
 
 DOLLAR_EXPAND_B = expand_var_with_dollar_bonus.c	\
 	get_new_content_bonus.c							\
-	join_and_manage_dollar_bonus.c					\
+	join_and_manage_dollar_bonus.c
 
 EXEC = execute_cmd.c				\
 	heredoc_requested.c				\
@@ -95,19 +95,19 @@ EXEC_B = execute_cmd_bonus.c		\
 	operator_or_handling_bonus.c	\
 	start_recursive_bonus.c			\
 	verify_cmd_path_bonus.c			\
-	redirect_infile_outfile_bonus.c	\
+	redirect_infile_outfile_bonus.c
 
 LINKED_LIST = ft_lstnew_env_entry.c	\
 		ft_lstnew_node.c			\
 		ft_lstnew_token.c			\
 		initialize_node.c			\
-		lstnew_env_link.c			\
+		lstnew_env_link.c
 
 LINKED_LIST_B = ft_lstnew_env_entry_bonus.c	\
 	ft_lstnew_node_bonus.c					\
 	ft_lstnew_token_bonus.c					\
 	initialize_node_bonus.c					\
-	lstnew_env_link_bonus.c					\
+	lstnew_env_link_bonus.c
 
 UTILS = convert_env_arr_into_ll.c	\
 	get_nb_dollars.c				\
@@ -134,7 +134,7 @@ UTILS = convert_env_arr_into_ll.c	\
 	print_checking_error_msg.c		\
 	get_key_value.c					\
 	print_content_pipe.c			\
-	should_expand_this_dollar.c		\
+	should_expand_this_dollar.c
 
 UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	convert_env_ll_into_arr_bonus.c			\
@@ -164,7 +164,7 @@ UTILS_B =	convert_env_arr_into_ll_bonus.c	\
 	token_content_length_bonus.c			\
 	what_is_dollar_in_bonus.c				\
 	what_is_index_in_bonus.c				\
-	what_is_oper_in_bonus.c					\
+	what_is_oper_in_bonus.c
 
 BUILTINS = change_value_if_key_exists.c	\
 	check_errors_env_format.c			\
@@ -176,7 +176,7 @@ BUILTINS = change_value_if_key_exists.c	\
 	ft_env.c							\
 	ft_pwd.c							\
 	set_values_export.c					\
-	ft_cd.c								\
+	ft_cd.c
 
 BUILTINS_B = change_value_if_key_exists_bonus.c	\
 		check_errors_env_format_bonus.c			\
@@ -188,10 +188,10 @@ BUILTINS_B = change_value_if_key_exists_bonus.c	\
 		ft_pwd_bonus.c							\
 		ft_unset_bonus.c						\
 		get_env_bonus.c							\
-		set_values_export_bonus.c				\
+		set_values_export_bonus.c
 
 FREE = free_1.c	\
-	free_2.c	\
+	free_2.c
 
 FREE_B = free_1_bonus.c	\
 	free_2_bonus.c
@@ -205,7 +205,7 @@ SRCS = $(addprefix mandatory/src/, $(SRC))						\
 	$(addprefix mandatory/src/utils/, $(UTILS))					\
 	$(addprefix mandatory/src/dollar_expand/, $(DOLLAR_EXPAND))	\
 	$(addprefix mandatory/src/builtins/, $(BUILTINS))			\
-	$(addprefix mandatory/src/free/, $(FREE))					\
+	$(addprefix mandatory/src/free/, $(FREE))
 
 SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 	$(addprefix bonus/src/signals/, $(SIGNALS_B))				\
@@ -216,11 +216,11 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 	$(addprefix bonus/src/utils/, $(UTILS_B))					\
 	$(addprefix bonus/src/dollar_expand/, $(DOLLAR_EXPAND_B))	\
 	$(addprefix bonus/src/builtins/, $(BUILTINS_B))				\
-	$(addprefix bonus/src/free/, $(FREE_B))						\
+	$(addprefix bonus/src/free/, $(FREE_B))
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -gdwarf-4
+FLAGS = -Wall -Wextra -Werror
 
 READLINE = -lreadline
 
