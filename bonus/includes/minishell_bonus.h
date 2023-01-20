@@ -158,6 +158,7 @@ int				get_index_delimiter(const char *user_input, char *delim[10], \
 					int index);
 int				token_content_length(char *user_input, char *delim[10]);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
+int				get_exit_code(t_env_ms *env_ll);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
 t_enum_token	identify_splitting_operator(t_token_ms *tokens);
 t_enum_token	what_is_oper_in(t_token_ms *tokens);

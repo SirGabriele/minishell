@@ -20,7 +20,8 @@ static void	redirect_infile(int *pipe_before, t_node_ms *node)
 	{
 		fd = open(node->infile, O_RDONLY);
 		dup2(fd, 0);
-		close(fd);
+		if (fd != -1)
+			close(fd);
 	}
 	if ((node->infile == NULL && node->infile_mode == TOK_PIPE)
 		|| (node->infile != NULL && node->infile_mode == TOK_HEREDOC))
@@ -38,7 +39,8 @@ static void	redirect_outfile(int *pipe_after, t_node_ms *node)
 		if (node->outfile_mode == TOK_APPEND)
 			fd = open(node->outfile, O_WRONLY | O_APPEND);
 		dup2(fd, 1);
-		close(fd);
+		if (fd != -1)
+			close(fd);
 	}
 	if (node->outfile == NULL && node->outfile_mode == TOK_PIPE)
 		dup2(pipe_after[1], 1);

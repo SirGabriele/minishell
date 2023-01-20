@@ -15,7 +15,7 @@
 static void	handler_first_readline(int sig)
 {
 	(void)sig;
-	g_signal_status = 130;
+	g_signal = 130;
 	ft_printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -25,7 +25,7 @@ static void	handler_first_readline(int sig)
 void	handler_heredoc(int sig)
 {
 	(void)sig;
-	g_signal_status = 130;
+	g_signal = 130;
 	ft_printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -87,10 +87,10 @@ int	cmd_prompt(t_env_ms *env_ll)
 
 	while (1)
 	{
-		g_signal_status = 0;
+		g_signal = 0;
 		set_signals_first_readline();
 		input = readline("minishell$ ");
-		if (g_signal_status == 130)
+		if (g_signal == 130)
 			set_exit_code(env_ll, 130);
 		if (is_exit(input) == 0)
 			return (0);

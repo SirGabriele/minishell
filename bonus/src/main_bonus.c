@@ -12,11 +12,12 @@
 
 #include "../includes/minishell_bonus.h"
 
-int	g_signal_status = 0;
+int	g_signal = 0;
 
 int	main(int argc, char **argv, char **env)
 {
 	t_env_ms	*env_ll;
+	int			ret;
 
 	if (argc != 1 || argv[1] != NULL)
 	{
@@ -25,6 +26,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	env_ll = convert_env_arr_into_ll((const char **)env);
 	cmd_prompt(env_ll);
+	ret = get_exit_code(env_ll);
 	free_env_list(env_ll);
-	return (0);
+	return (ret);
 }

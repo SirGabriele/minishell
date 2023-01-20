@@ -1,0 +1,5 @@
+unset -
+<< EOF | << EOF + double ctrl c
+<< EOF + ctrl c ne doit pas afficher le message ctrl d
+exit doit exit (get_exit_code)
+

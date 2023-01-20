@@ -16,7 +16,7 @@
 /*	waitpid()	*/
 # include <sys/wait.h>
 
-extern int	g_signal_status;
+extern int	g_signal;
 
 typedef enum e_tokens
 {

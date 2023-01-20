@@ -24,12 +24,9 @@ static int	is_invalid_identifier(char *content)
 			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
 			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
 			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
-			|| content[i] == '.' || content[i] == '?' || content[i] == ',')
-		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
-				content[i]);
+			|| content[i] == '.' || content[i] == '?' || content[i] == ','
+			|| content[i] == '=' || content[i] == '+')
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -78,6 +75,8 @@ int	ft_unset(char **content, t_env_ms **env)
 	{
 		if (is_invalid_identifier(content[i]) == 1)
 		{
+			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
+				content[i]);
 			ret = 1;
 			i++;
 			continue ;
