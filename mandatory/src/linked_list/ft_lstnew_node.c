@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:40:56 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/18 22:40:57 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:45:57 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_node_ms	*ft_lstnew_node(t_enum_token shell)
 	node->outfile = NULL;
 	node->infile_mode = TOK_NULL;
 	node->outfile_mode = TOK_NULL;
+	node->operator = TOK_NULL;
 	node->shell = shell;
 	return (node);
 }

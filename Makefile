@@ -77,12 +77,10 @@ EXEC = execute_cmd.c				\
 	expand_dollar_heredoc.c			\
 	initialize_children.c			\
 	initialize_pipes.c				\
-	operator_and_handling.c			\
 	verify_cmd_path.c				\
 	handle_all_redirs.c				\
 	launch_builtin.c				\
-	operator_or_handling.c			\
-	redirect_infile_outfile.c		\
+	redirect_infile_outfile.c
 
 
 EXEC_B = execute_cmd_bonus.c		\
@@ -222,7 +220,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 READLINE = -lreadline
 

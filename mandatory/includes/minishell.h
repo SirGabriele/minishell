@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:06:03 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 04:59:28 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:46:16 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void			redirect_infile_outfile(t_pipes_ms *pipes, t_node_ms *node);
 /*	LINKED LIST	*/
 /****************/
 
-t_node_ms		*ft_lstnew_node(t_enum_token *operators);
+t_node_ms		*ft_lstnew_node(t_enum_token shell);
 t_token_ms		*ft_lstnew_token(void);
 t_env_ms		*ft_lstnew_env_entry(const char *env);
 void			initialize_node(t_node_ms *node);
@@ -99,21 +99,14 @@ t_env_ms		*lstnew_env_link(void);
 /************/
 
 t_node_ms		*get_list_infos(t_node_ms *root, t_token_ms *tokens, \
-					t_enum_token *operators);
+					t_enum_token shell);
 t_node_ms		*get_mode_and_file(t_node_ms *binary_tree, \
 					t_redir_ms *first_redir);
-t_node_ms		*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \
-					t_enum_token *operators);
-t_node_ms		*get_redirections_infos(t_node_ms *root, t_token_ms *tokens, \
-					t_enum_token *operators);
-
-t_node_ms		*left_branch(t_token_ms *tokens, t_enum_token oper, \
-					t_enum_token *operators);
-t_node_ms		*right_branch(t_token_ms *tokens, t_enum_token oper, \
-					t_enum_token *operators);
+t_node_ms		*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens);
+t_node_ms		*get_redirections_infos(t_node_ms *root, t_token_ms *tokens);
 t_node_ms		*manage_modes_and_files(t_node_ms *root);
 t_node_ms		*start_binary_tree(t_token_ms *tokens);
-t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token *operators);
+t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token shell);
 t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, \
 					char *delim[10]);
 t_token_ms		*parse_quotes(t_token_ms *tokens);
@@ -143,7 +136,6 @@ char			**convert_env_ll_into_arr(t_env_ms *env);
 int				what_is_index_in(const char *user_input, int i);
 int				what_is_dollar_in(const char *parsed, int i);
 int				count_dollars_to_replace(char *content);
-int				is_operator(t_enum_token type);
 int				is_token_type_a_redir(t_enum_token token_type);
 int				count_nb_of_tokens_left(t_token_ms *tokens);
 char			*get_key_to_expand(char *content);
@@ -157,8 +149,6 @@ int				get_index_delimiter(const char *user_input, char *delim[10], \
 int				token_content_length(char *user_input, char *delim[10]);
 void			set_exit_code(t_env_ms *env_ll, int exit_code);
 void			print_content_pipe(t_pipes_ms *pipes, t_env_ms *env_ll);
-t_enum_token	identify_splitting_operator(t_token_ms *tokens);
-t_enum_token	what_is_oper_in(t_token_ms *tokens);
 void			print_checking_error_msg(char *msg);
 void			sort_env_ll(t_env_ms *env_ll);
 int				count_args(char **content);
@@ -168,6 +158,7 @@ t_token_ms		*remove_empty_tokens(t_token_ms *tokens_parsed, \
 void			set_dollar_underscore(t_env_ms *env_ll, char **content);
 char			*get_dollar_underscore(t_env_ms *env_ll);
 int				is_all_digit(char *content);
+int				is_there_pipes(t_token_ms	*tokens);
 int				should_expand_this_dollar(char *content, int index);
 
 /**************/

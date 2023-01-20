@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:09:17 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/19 04:53:53 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/20 01:14:28 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_tokens
 	TOK_HEREDOC,
 	TOK_APPEND,
 	TOK_PIPE,
+	TOK_SHELL,
 	TOK_SUBSHELL,
 }	t_enum_token;
 
@@ -41,6 +42,7 @@ typedef struct s_node_ms
 	t_enum_token		infile_mode;
 	t_enum_token		outfile_mode;
 	t_enum_token		shell;
+	t_enum_token		operator;
 }	t_node_ms;
 
 typedef struct s_token_ms
