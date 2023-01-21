@@ -26,9 +26,9 @@ static int	get_last_cmd_exit_code(t_node_ms *node, t_children_ms *children)
 
 	wstatus = 0;
 	exit_code = 0;
-	if (node->left->content && ((is_a_builtin(node->left->content[0]) == 0
-				&& node->left->shell == TOK_SUBSHELL)
-			|| is_a_builtin(node->left->content[0]) == 1))
+	if (!node->left->content || (is_a_builtin(node->left->content[0]) == 0
+			&& node->left->shell == TOK_SUBSHELL)
+		|| is_a_builtin(node->left->content[0]) == 1)
 	{
 		waitpid(children->pid_arr[children->index - 1], &wstatus, WUNTRACED);
 		if (WIFEXITED(wstatus))
