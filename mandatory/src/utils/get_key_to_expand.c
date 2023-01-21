@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:43:13 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/21 01:09:38 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 04:55:36 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ char	*get_key_to_expand(char *content)
 	int		j;
 
 	j = 0;
-	while (ft_isdigit(content[j]) != 1
-		&& content[j] != ' ' && content[j] != '\"'
+	while (content[j] != ' ' && content[j] != '\"'
 		&& content[j] != '$' && content[j] != '\0'
 		&& content[j] != '\'' && content[j] != '='
 		&& content[j] != '?')
 		j++;
-	if (content[j] == '?' || content[j] == '0')
+	if (!j && (content[j] == '?' || content[j] == '0'))
 		j++;
-	key_to_expand = ft_strndup(content, j);
+	if (ft_isdigit(content[0]) && content[0] != '0')
+		key_to_expand = ft_strndup(content + 1, j);
+	else
+		key_to_expand = ft_strndup(content, j);
 	if (key_to_expand == NULL)
 	{
 		free(content);
