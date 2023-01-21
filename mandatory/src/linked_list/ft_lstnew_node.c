@@ -6,13 +6,13 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:40:56 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/20 01:45:57 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:26:42 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_node_ms	*ft_lstnew_node(t_enum_token shell)
+t_node_ms	*ft_lstnew_node(t_enum_token *operators)
 {
 	t_node_ms	*node;
 
@@ -28,6 +28,9 @@ t_node_ms	*ft_lstnew_node(t_enum_token shell)
 	node->infile_mode = TOK_NULL;
 	node->outfile_mode = TOK_NULL;
 	node->operator = TOK_NULL;
-	node->shell = shell;
+	if (operators[0] == TOK_PIPE || operators[1] == TOK_PIPE)
+		node->shell = TOK_SUBSHELL;
+	else
+		node->shell = TOK_SHELL;
 	return (node);
 }

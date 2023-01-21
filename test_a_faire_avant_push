@@ -1,0 +1,16 @@
+mandatory :
+
+unset -
+<< EOF | << EOF + double ctrl c
+<< EOF + ctrl c ne doit pas afficher le message ctrl d
+exit doit exit (get_exit_code)
+echo oui | << EOF
+
+bonus :
+
+>file || echo non	->	bash 		: créer file
+						minshell	: créer file et exécute echo non
+
+
+
+SUPPRIMER LE FLAG GDWARF-4

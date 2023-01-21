@@ -6,22 +6,28 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:41:31 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/20 01:46:46 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:25:40 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 static t_node_ms	*recursive(t_token_ms **splitted_tokens, \
-	t_node_ms *root, t_enum_token shell)
+	t_node_ms *root, t_enum_token *operators)
 {
-	root->left = build_binary_tree(splitted_tokens[0], shell);
+	t_enum_token	cpy_operators;
+
+	cpy_operators = operators[1];
+	operators[1] = TOK_PIPE;
+	root->left = build_binary_tree(splitted_tokens[0], operators);
 	if (!root->left)
 	{
 		free_binary_tree(root);
 		return (NULL);
 	}
-	root->right = build_binary_tree(splitted_tokens[1], shell);
+	operators[0] = TOK_PIPE;
+	operators[1] = cpy_operators;
+	root->right = build_binary_tree(splitted_tokens[1], operators);
 	if (!root->right)
 	{
 		free_binary_tree(root);
@@ -47,7 +53,7 @@ static t_node_ms	*recursive(t_token_ms **splitted_tokens, \
 /****************************************************************/
 
 t_node_ms	*get_list_infos(t_node_ms *root, t_token_ms *tokens, \
-	t_enum_token shell)
+	t_enum_token *operators)
 {
 	t_token_ms	**splitted_tokens;
 
@@ -57,7 +63,7 @@ t_node_ms	*get_list_infos(t_node_ms *root, t_token_ms *tokens, \
 		free(root);
 		return (NULL);
 	}
-	root = recursive(splitted_tokens, root, shell);
+	root = recursive(splitted_tokens, root, operators);
 	if (!root)
 	{
 		free_splitted_tokens(splitted_tokens);

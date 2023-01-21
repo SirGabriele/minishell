@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:06:03 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/20 01:46:16 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:39:23 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void			redirect_infile_outfile(t_pipes_ms *pipes, t_node_ms *node);
 /*	LINKED LIST	*/
 /****************/
 
-t_node_ms		*ft_lstnew_node(t_enum_token shell);
+t_node_ms		*ft_lstnew_node(t_enum_token *operators);
 t_token_ms		*ft_lstnew_token(void);
 t_env_ms		*ft_lstnew_env_entry(const char *env);
 void			initialize_node(t_node_ms *node);
@@ -99,14 +99,17 @@ t_env_ms		*lstnew_env_link(void);
 /************/
 
 t_node_ms		*get_list_infos(t_node_ms *root, t_token_ms *tokens, \
-					t_enum_token shell);
+					t_enum_token *operators);
 t_node_ms		*get_mode_and_file(t_node_ms *binary_tree, \
 					t_redir_ms *first_redir);
-t_node_ms		*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens);
-t_node_ms		*get_redirections_infos(t_node_ms *root, t_token_ms *tokens);
+t_node_ms		*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \
+					t_enum_token *operators);
+t_node_ms		*get_redirections_infos(t_node_ms *root, t_token_ms *tokens, \
+					t_enum_token *operators);
 t_node_ms		*manage_modes_and_files(t_node_ms *root);
 t_node_ms		*start_binary_tree(t_token_ms *tokens);
-t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token shell);
+t_node_ms		*build_binary_tree(t_token_ms *tokens, t_enum_token *operators);
+t_node_ms		*start_binary_tree(t_token_ms *tokens);
 t_token_ms		*fill_token(t_token_ms *tokens, char *user_input, \
 					char *delim[10]);
 t_token_ms		*parse_quotes(t_token_ms *tokens);

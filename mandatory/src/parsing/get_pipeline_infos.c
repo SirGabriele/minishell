@@ -6,7 +6,7 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:41:37 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/18 22:41:37 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:27:32 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ static char	**get_pipeline(t_token_ms *tokens)
 /*															*/
 /************************************************************/
 
-t_node_ms	*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens)
+t_node_ms	*get_pipeline_infos(t_node_ms *root, t_token_ms *tokens, \
+	t_enum_token *operators)
 {
-	root = get_redirections_infos(root, tokens);
+	root = get_redirections_infos(root, tokens, operators);
 	if (!root)
 		return (NULL);
 	if (is_there_a_command(tokens))

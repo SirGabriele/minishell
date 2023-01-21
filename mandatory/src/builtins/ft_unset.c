@@ -6,31 +6,11 @@
 /*   By: jsauvain <jsauvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 22:38:50 by jsauvain          #+#    #+#             */
-/*   Updated: 2023/01/18 22:38:51 by jsauvain         ###   ########.fr       */
+/*   Updated: 2023/01/21 01:02:22 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	is_invalid_identifier(char *content)
-{
-	int	i;
-
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '~' || content[i] == '#' || content[i] == ' '
-			|| content[i] == '{' || content[i] == '[' || content[i] == '-'
-			|| content[i] == '^' || content[i] == '@' || content[i] == ']'
-			|| content[i] == '}' || content[i] == '*' || content[i] == '%'
-			|| content[i] == '!' || content[i] == ':' || content[i] == '/'
-			|| content[i] == '.' || content[i] == '?' || content[i] == ','
-			|| content[i] == '=' || content[i] == '+')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 static int	delete_next_link(t_env_ms *env, char *content)
 {
@@ -73,14 +53,6 @@ int	ft_unset(char **content, t_env_ms **env)
 	env_head = *env;
 	while (content[i])
 	{
-		if (is_invalid_identifier(content[i]) == 1)
-		{
-			ft_printf_fd(2, "minishell: export: `%s': not a valid identifier\n",
-				content[i]);
-			ret = 1;
-			i++;
-			continue ;
-		}
 		deletion_process(env, content[i]);
 		*env = env_head;
 		i++;

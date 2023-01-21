@@ -31,6 +31,7 @@ CHECK_B = check_syntax_and_or_bonus.c		\
 	check_syntax_redir_bonus.c
 
 PARSING = build_binary_tree.c		\
+		start_binary_tree.c			\
 		get_mode_and_file.c			\
 		get_second_half.c			\
 		parse_quotes.c				\
@@ -220,7 +221,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -gdwarf-4
 
 READLINE = -lreadline
 
