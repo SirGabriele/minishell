@@ -87,5 +87,5 @@ int	ft_exit(char **content, t_env_ms *env_ll, t_pipes_ms *pipes)
 		only_one_argument(content, env_ll, pipes);
 	else if (nb_args > 1)
 		more_than_one_argument(content, env_ll, pipes);
-	return (1);
+	return (0);
 }

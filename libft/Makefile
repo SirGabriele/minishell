@@ -6,7 +6,7 @@
 #    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/28 12:29:47 by kbrousse          #+#    #+#              #
-#    Updated: 2023/01/13 15:44:54 by kbrousse         ###   ########.fr        #
+#    Updated: 2023/01/31 17:27:13 by kbrousse         ###   ########.fr        #
 #    Updated: 2022/10/04 10:48:06 by jsauvain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -113,7 +113,7 @@ SRCS   =	$(addprefix char/, $(CHAR))							\
 			$(addprefix ft_printf_error/, $(FT_PRINTF_ERROR))
 	
 
-FLAGS =	-Wall -Wextra -Werror -gdwarf-4
+FLAGS =	-Wall -Wextra -Werror
 
 OBJS =	$(SRCS:.c=.o)
 

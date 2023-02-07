@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kbrousse <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/31 13:41:05 by kbrousse          #+#    #+#              #
+#    Updated: 2023/02/07 17:05:34 by kbrousse         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell 
 
 LIBFT = libft/libft.a
@@ -221,7 +233,7 @@ SRCS_B = $(addprefix bonus/src/, $(SRC_B))						\
 
 CC = clang
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 READLINE = -lreadline
 
@@ -249,11 +261,11 @@ fclean: clean
 
 re: fclean all
 
-.c.o:
+%.o: %.c
 	@$(CC) $(FLAGS) -c -o $@ $<
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -Llibft -lft -Ilibft $(READLINE) -o $(NAME)
+	@$(CC) $(OBJS) -Llibft -lft $(READLINE) -o $(NAME)
 	@echo "\033[0;32m~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
 	@echo "*                           *"
 	@echo "~  Compilation terminated!  ~"
